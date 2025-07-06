@@ -7702,7 +7702,7 @@ static void Cmd_switchindataupdate(void)
     gBattleMons[battler].types[0] = gSpeciesInfo[gBattleMons[battler].species].types[0];
     gBattleMons[battler].types[1] = gSpeciesInfo[gBattleMons[battler].species].types[1];
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
-    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, TRUE);
     #if TESTING
     if (gTestRunnerEnabled)
     {
@@ -14024,7 +14024,7 @@ static void Cmd_healpartystatus(void)
                 ability = GetBattlerAbility(partner);
             else
             {
-                ability = GetAbilityBySpecies(species, abilityNum);
+                ability = GetAbilityBySpecies(species, abilityNum, TRUE);
                 #if TESTING
                 if (gTestRunnerEnabled)
                 {
@@ -18248,7 +18248,7 @@ static void UpdatePokeFlutePartyStatus(struct Pokemon* party, u8 position)
         if (species != SPECIES_NONE
             && species != SPECIES_EGG
             && status & AILMENT_FNT
-            && GetAbilityBySpecies(species, abilityNum) != ABILITY_SOUNDPROOF)
+            && GetAbilityBySpecies(species, abilityNum, TRUE) != ABILITY_SOUNDPROOF)
             monToCheck |= (1 << i);
     }
     if (monToCheck)
