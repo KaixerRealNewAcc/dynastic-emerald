@@ -5734,7 +5734,9 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc task)
 
             DisplayPartyMenuMessage(gStringVar4, TRUE);
             ScheduleBgCopyTilemapToVram(2);
-            gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
+
+            sInitialLevel += 1; // so the Pokemon doesn't learn a move meant for its previous level
+            gTasks[taskId].func = Task_TryLearnNewMoves;
         }
         else
         {
@@ -5808,7 +5810,8 @@ static void Task_TryLearnNewMoves(u8 taskId)
 
     if (WaitFanfare(FALSE) && ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON))))
     {
-        RemoveLevelUpStatsWindow();
+        PlaySE(SE_SELECT);
+        
         for (; sInitialLevel <= sFinalLevel; sInitialLevel++)
         {
             SetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_LEVEL, &sInitialLevel);
