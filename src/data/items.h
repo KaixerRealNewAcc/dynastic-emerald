@@ -14141,4 +14141,20 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    [ITEM_TIME_CHANGER] =
+    {
+        .name = _("Time Changer"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "This device can change\n"
+            "the time of day...\n"
+            "thank god."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_TimeChanger,
+        .iconPic = gItemIcon_PokemonBoxLink,
+        .iconPalette = gItemIconPalette_PokemonBoxLink,
+    },
 };

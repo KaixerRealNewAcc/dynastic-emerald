@@ -239,6 +239,7 @@ struct BattleMsgData
     u16 originallyUsedMove;
     u16 lastItem;
     u16 lastAbility;
+    u16 lastInnateAbility;
     u8 scrActive;
     u8 bakScriptPartyIdx;
     u8 hpScale;

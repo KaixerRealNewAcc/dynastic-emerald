@@ -514,7 +514,7 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
         if (searchLevel > 2)
         {
             // ability name
-            StringCopy(gStringVar1, gAbilitiesInfo[GetAbilityBySpecies(species, sDexNavSearchDataPtr->abilityNum, FALSE)].name);
+            StringCopy(gStringVar1, gAbilitiesInfo[GetAbilityBySpecies(species, sDexNavSearchDataPtr->abilityNum)].name);
             AddTextPrinterParameterized3(windowId, 0, WINDOW_COL_1 + 16, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar1);
 
             // item name
