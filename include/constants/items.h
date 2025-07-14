@@ -995,11 +995,12 @@
 #define ITEM_STRANGE_BALL 828
 
 #define ITEM_TIME_CHANGER (ITEM_STRANGE_BALL + 1)
+#define ITEM_COALOSSITE   (ITEM_TIME_CHANGER + 1)
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT (ITEM_TIME_CHANGER + 1)
+#define ITEMS_COUNT (ITEM_COALOSSITE + 1)
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

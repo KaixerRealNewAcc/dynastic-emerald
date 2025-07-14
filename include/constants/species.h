@@ -1638,7 +1638,9 @@
 #define SPECIES_MIMIKYU_BUSTED_TOTEM                    1523
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 1)
+#define SPECIES_COALOSSAL_MEGA                          (SPECIES_MIMIKYU_TOTEM_BUSTED + 1)
+
+#define SPECIES_EGG                                     (SPECIES_COALOSSAL_MEGA + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 

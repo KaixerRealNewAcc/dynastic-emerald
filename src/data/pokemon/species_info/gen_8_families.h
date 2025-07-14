@@ -2399,6 +2399,65 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formChangeTable = sCoalossalFormChangeTable,
     },
 #endif //P_GIGANTAMAX_FORMS
+#if P_MEGA_EVOLUTIONS
+    [SPECIES_COALOSSAL_MEGA] =
+    {
+        .baseHP        = 110,
+        .baseAttack    = 60,
+        .baseDefense   = 125,
+        .baseSpeed     = 45,
+        .baseSpAttack  = 135,
+        .baseSpDefense = 115,
+        .types = MON_TYPES(TYPE_STEEL, TYPE_FIRE),
+        .catchRate = 45,
+        .expYield = 255,
+        .evYield_Defense = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 15,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        .abilities = { ABILITY_STEAM_ENGINE, ABILITY_STEAM_ENGINE, ABILITY_STEAM_ENGINE },
+        .innateAbility = ABILITY_NONE, // KAIDO: Replaces once Mountaineer is implemented.
+        .bodyColor = BODY_COLOR_BLACK,
+        .speciesName = _("Coalossal"),
+        .cryId = CRY_COALOSSAL,
+        .natDexNum = NATIONAL_DEX_COALOSSAL,
+        .categoryName = _("Coal"),
+        .height = 420,
+        .weight = 0,
+        .description = COMPOUND_STRING(
+            "Its body is a colossal stove. With\n"
+            "Gigantamax energy stoking the fire,\n"
+            "this Pokémon's flame burns hotter\n"
+            "than 3,600 degrees Fahrenheit."),
+        .pokemonScale = 275,
+        .pokemonOffset = 7,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_CoalossalGmax,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CoalossalGmax,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 8,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CoalossalGmax,
+        .shinyPalette = gMonShinyPalette_CoalossalGmax,
+        .iconSprite = gMonIcon_CoalossalGmax,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(1, 12, SHADOW_SIZE_XL_BATTLE_ONLY)
+        FOOTPRINT(Coalossal)
+        .isGigantamax = TRUE,
+        .levelUpLearnset = sCoalossalLevelUpLearnset,
+        .teachableLearnset = sCoalossalTeachableLearnset,
+        .formSpeciesIdTable = sCoalossalFormSpeciesIdTable,
+        .formChangeTable = sCoalossalFormChangeTable,
+    },
+#endif //P_MEGA_EVOLUTIONS
 #endif //P_FAMILY_ROLYCOLY
 
 #if P_FAMILY_APPLIN

@@ -14157,4 +14157,19 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_PokemonBoxLink,
         .iconPalette = gItemIconPalette_PokemonBoxLink,
     },
+
+    [ITEM_COALOSSITE] =
+    {
+        .name = _("Coalossite"),
+        .pluralName = _("Coalossite's"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MEGA_STONE,
+        .description = sCharizarditeDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 80,
+        .iconPic = gItemIcon_CharizarditeY,
+        .iconPalette = gItemIconPalette_CharizarditeY,
+    },
 };

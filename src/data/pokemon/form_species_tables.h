@@ -1828,6 +1828,9 @@ static const u16 sCoalossalFormSpeciesIdTable[] = {
 #if P_GIGANTAMAX_FORMS
     SPECIES_COALOSSAL_GMAX,
 #endif
+#if P_MEGA_EVOLUTIONS
+    SPECIES_COALOSSAL_MEGA,
+#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_ROLYCOLY
