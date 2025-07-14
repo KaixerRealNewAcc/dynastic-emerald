@@ -4794,33 +4794,47 @@ Class: Leader
 Pic: Leader Roxanne
 Gender: Female
 Music: Female
-Items: Potion / Potion
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Geodude
-Level: 12
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Tackle
-- Defense Curl
-- Rock Throw
-- Rock Tomb
+Geodude-Alola @ Custap Berry  
+Ability: Sturdy  
+Level: 14  
+Tera Type: Rock  
+- Stealth Rock  
+- Rock Blast  
+- Spark  
+- Self-Destruct  
 
-Geodude
-Level: 12
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Tackle
-- Defense Curl
-- Rock Throw
-- Rock Tomb
+Amaura @ Wise Glasses  
+Ability: Refrigerate  
+Level: 13  
+Tera Type: Rock  
+Quiet Nature  
+- Echoed Voice  
+- Rock Tomb  
+- Shock Wave  
+- Sleep Talk  
 
-Nosepass @ Oran Berry
-Level: 15
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Block
-- Harden
-- Tackle
-- Rock Tomb
+Bonsly @ Oran Berry  
+Ability: Rattled  
+Level: 14  
+Tera Type: Rock  
+Careful Nature  
+- Rock Tomb  
+- Razor Leaf  
+- Bulldoze  
+- Sleep Talk  
+
+Aron @ Muscle Band  
+Ability: Sturdy  
+Level: 15  
+Tera Type: Steel  
+Jolly Nature  
+- Bulldoze  
+- Rock Tomb  
+- Metal Claw  
+- Rock Polish  
 
 === TRAINER_BRAWLY_1 ===
 Name: BRAWLY
@@ -4828,33 +4842,47 @@ Class: Leader
 Pic: Leader Brawly
 Gender: Male
 Music: Male
-Items: Super Potion / Super Potion
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Machop
-Level: 16
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Karate Chop
-- Low Kick
-- Seismic Toss
-- Bulk Up
+Meditite @ Eviolite  
+Ability: Pure Power  
+Level: 24  
+Tera Type: Fighting  
+Jolly Nature  
+- Brick Break  
+- Fake Out  
+- Bullet Punch  
+- Rock Slide  
 
-Meditite
-Level: 16
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Focus Punch
-- Light Screen
-- Reflect
-- Bulk Up
+Lopunny @ Lum Berry  
+Ability: Scrappy  
+Level: 23  
+Tera Type: Normal  
+Jolly Nature  
+- Low Kick  
+- Dizzy Punch  
+- Rock Tomb  
+- Thief  
 
-Makuhita @ Sitrus Berry
-Level: 19
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Arm Thrust
-- Vital Throw
-- Reversal
-- Bulk Up
+Flamigo @ Muscle Band  
+Ability: Scrappy  
+Level: 23  
+Tera Type: Flying  
+Jolly Nature  
+- Low Kick  
+- Wing Attack  
+- Thief  
+- Roost  
+
+Hariyama @ Lum Berry  
+Ability: Stalwart  
+Level: 25  
+Tera Type: Fighting  
+- Force Palm  
+- Thief  
+- Bullet Punch  
+- Rock Tomb  
 
 === TRAINER_WATTSON_1 ===
 Name: WATTSON
@@ -4862,41 +4890,63 @@ Class: Leader
 Pic: Leader Wattson
 Gender: Male
 Music: Male
-Items: Super Potion / Super Potion
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Voltorb
-Level: 20
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Rollout
-- Spark
-- Self Destruct
-- Shock Wave
+Pachirisu @ Terrain Extender  
+Ability: Electric Surge  
+Level: 33  
+Tera Type: Electric  
+EVs: 100 HP / 100 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Grass Knot  
+- Alluring Voice  
+- Volt Switch  
+- Charm  
 
-Electrike
-Level: 20
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Shock Wave
-- Leer
-- Quick Attack
-- Howl
+Vikavolt @ Occa Berry  
+Ability: Levitate  
+Level: 32  
+Tera Type: Bug  
+Calm Nature  
+IVs: 0 Atk  
+- Mud Shot  
+- Signal Beam  
+- Volt Switch  
+- Roost  
 
-Magneton
-Level: 22
-IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
-- Supersonic
-- Shock Wave
-- Thunder Wave
-- Sonic Boom
+Toxtricity @ Shuca Berry  
+Ability: Technician  
+Level: 33  
+Hidden Power: Grass  
+Tera Type: Electric  
+Hasty Nature  
+- Acid Spray  
+- Hidden Power [Grass]  
+- Volt Switch  
+- Fire Punch  
 
-Manectric @ Sitrus Berry
-Level: 24
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Quick Attack
-- Thunder Wave
-- Shock Wave
-- Howl
+Bellibolt @ Leftovers  
+Ability: Static  
+Level: 32  
+Tera Type: Electric  
+Bold Nature  
+IVs: 0 Atk  
+- Muddy Water  
+- Volt Switch  
+- Thunder Wave  
+- Slack Off  
+
+Manectric @ Manectite  
+Ability: Intimidate  
+Level: 34  
+Tera Type: Electric  
+IVs: 0 Atk / 30 SpA  
+- Flame Burst  
+- Hidden Power [Grass]  
+- Volt Switch  
+- Charge Beam  
 
 === TRAINER_FLANNERY_1 ===
 Name: FLANNERY
@@ -4904,41 +4954,66 @@ Class: Leader
 Pic: Leader Flannery
 Gender: Female
 Music: Female
-Items: Hyper Potion / Hyper Potion
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Numel
-Level: 24
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Overheat
-- Take Down
-- Magnitude
-- Sunny Day
+Ninetales @ Heat Rock  
+Ability: Drought  
+Level: 46  
+Tera Type: Fire  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Flamethrower  
+- Psyshock  
+- Energy Ball  
+- Healing Wish  
 
-Slugma
-Level: 24
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Overheat
-- Smog
-- Light Screen
-- Sunny Day
+Tauros-Paldea-Blaze @ Muscle Band  
+Ability: Intimidate  
+Level: 45  
+Tera Type: Fighting  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Raging Bull  
+- Submission  
+- Wild Charge  
+- Zen Headbutt  
 
-Camerupt
-Level: 26
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Overheat
-- Tackle
-- Sunny Day
-- Attract
+Salazzle @ Shuca Berry  
+Ability: Corrosion  
+Level: 45  
+Tera Type: Poison  
+EVs: 248 HP / 8 SpA / 248 Spe  
+Timid Nature  
+IVs: 0 Atk / 30 SpA  
+- Sludge Bomb  
+- Toxic  
+- Protect  
+- Hidden Power [Grass]  
 
-Torkoal @ White Herb
-Level: 29
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Overheat
-- Sunny Day
-- Body Slam
-- Attract
+Oricorio @ Heavy-Duty Boots  
+Ability: Dancer  
+Level: 46  
+Tera Type: Fire  
+EVs: 252 HP / 240 Def / 16 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Revelation Dance  
+- Air Slash  
+- Roost  
+- Quiver Dance  
+
+Coalossal @ Coalossite
+Ability: Steam Engine  
+Level: 47  
+Tera Type: Rock  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+- Flamethrower  
+- Hydro Steam  
+- Earth Power  
+- Rapid Spin  
 
 === TRAINER_NORMAN_1 ===
 Name: NORMAN
