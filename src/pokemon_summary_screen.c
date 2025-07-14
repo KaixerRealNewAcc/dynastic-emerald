@@ -1749,9 +1749,9 @@ static bool8 DecompressGraphics(void)
         break;
     case 12:
     #if P_SUMMARY_SCREEN_NEW_TYPE_ICONS == TRUE
-        LoadPalette(gMoveTypes_Pal_New, OBJ_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
+        LoadPalette(gMoveTypes_Pal_New, 0x1D0, 0x60);
     #else
-        LoadPalette(gMoveTypes_Pal, OBJ_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
+        LoadPalette(gMoveTypes_Pal, 0x1D0, 0x60);
     #endif
         if (P_SUMMARY_SCREEN_NEW_TERA_TYPE_ICONS == TRUE)
             LoadCompressedSpriteSheet(&gSpriteSheet_TeraType);
