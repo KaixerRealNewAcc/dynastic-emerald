@@ -14167,7 +14167,7 @@ const struct Item gItemsInfo[] =
         .description = COMPOUND_STRING(
             "This stone enables\n"
             "Coalossol to Mega\n"
-            "Evolve in battle.");
+            "Evolve in battle."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,

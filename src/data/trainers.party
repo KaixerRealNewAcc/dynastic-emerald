@@ -4918,12 +4918,12 @@ IVs: 0 Atk
 
 Toxtricity @ Shuca Berry  
 Ability: Technician  
-Level: 33  
-Hidden Power: Grass  
+Level: 33    
 Tera Type: Electric  
+IVs: 30 Atk / 30 SpA
 Hasty Nature  
 - Acid Spray  
-- Hidden Power [Grass]  
+- Hidden Power 
 - Volt Switch  
 - Fire Punch  
 
@@ -4944,7 +4944,7 @@ Level: 34
 Tera Type: Electric  
 IVs: 0 Atk / 30 SpA  
 - Flame Burst  
-- Hidden Power [Grass]  
+- Hidden Power 
 - Volt Switch  
 - Charge Beam  
 
@@ -4990,7 +4990,7 @@ IVs: 0 Atk / 30 SpA
 - Sludge Bomb  
 - Toxic  
 - Protect  
-- Hidden Power [Grass]  
+- Hidden Power 
 
 Oricorio @ Heavy-Duty Boots  
 Ability: Dancer  
