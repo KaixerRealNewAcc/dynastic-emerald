@@ -14164,7 +14164,10 @@ const struct Item gItemsInfo[] =
         .pluralName = _("Coalossite's"),
         .price = 0,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
-        .description = sCharizarditeDesc,
+        .description = COMPOUND_STRING(
+            "This stone enables\n"
+            "Coalossol to Mega\n"
+            "Evolve in battle.");
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
