@@ -878,7 +878,7 @@ static const s16 sBattlerHealthboxCoords[BATTLE_COORDS_COUNT][MAX_BATTLERS_COUNT
     [BATTLE_COORDS_DOUBLES] =
     {
         [B_POSITION_PLAYER_LEFT]    = { 159, 76 },
-        [B_POSITION_PLAYER_RIGHT]   = { 171, 101 },
+        [B_POSITION_PLAYER_RIGHT]   = { 166, 98 },
         [B_POSITION_OPPONENT_LEFT]  = { 44,  19 },
         [B_POSITION_OPPONENT_RIGHT] = { 32,  44 },
     },

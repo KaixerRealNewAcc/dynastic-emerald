@@ -231,9 +231,19 @@ Music: Aqua
 Double Battle: No
 AI: Check Bad Move
 
-Poochyena
+Carvanha @ Oran Berry
+Ability: Rough Skin
+Nature: Jolly
 Level: 9
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Aqua Jet 
+- Bite
+
+Murkrow @ Oran Berry
+Ability: Prankster
+Nature: Jolly
+Level: 10
+- Pursuit 
+- Peck
 
 === TRAINER_MARCEL ===
 Name: MARCEL

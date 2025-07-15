@@ -4410,6 +4410,16 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_PETALBURG_WOODS_NOIBAT_CAVE",
+      "name": "PetalburgWoodsNoibatCave_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/PetalburgWoodsNoibatCave/border.bin",
+      "blockdata_filepath": "data/layouts/PetalburgWoodsNoibatCave/map.bin"
     }
   ]
 }
