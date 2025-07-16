@@ -354,10 +354,9 @@ enum EvoSpinDirections {
 
 #define SKIP_FRONT_ANIM (1 << 7)
 
-#define NUM_ABILITY_SLOTS (NUM_NORMAL_ABILITY_SLOTS + NUM_HIDDEN_ABILITY_SLOTS + NUM_INNATE_ABILITY_SLOTS) //For now innate is the last ability slot, but this may change in the future.
+#define NUM_ABILITY_SLOTS (NUM_NORMAL_ABILITY_SLOTS + NUM_HIDDEN_ABILITY_SLOTS) //For now innate is the last ability slot, but this may change in the future.
 #define NUM_NORMAL_ABILITY_SLOTS 2
 #define NUM_HIDDEN_ABILITY_SLOTS 1
-#define NUM_INNATE_ABILITY_SLOTS 1
 
 // Used as a signal for givemon to generate a default ability by personality.
 #define NUM_ABILITY_PERSONALITY 0xFF

@@ -3509,6 +3509,33 @@ u16 GetMonAbility(struct Pokemon *mon)
     return GetAbilityBySpecies(species, abilityNum);
 }
 
+bool32 GetInnateBySpecies(u32 species, u32 ability)
+{
+    u16 innate = gSpeciesInfo[species].innateAbility;
+    
+    if(innate == ability)
+        return TRUE;
+	else
+	    return FALSE;
+}
+
+u16 GetInnateBySpeciesUnused(u16 species, u16 ability)
+{
+    if (gSpeciesInfo[species].innateAbility == ability)
+        gLastUsedAbility = gSpeciesInfo[species].innateAbility;
+    else
+        gLastUsedAbility = ABILITY_NONE;
+
+    return gLastUsedAbility;
+}
+
+u16 GetInnateBySpeciesSummaryScreen(u16 species, u16 innateAbility)
+{
+    u16 speciesAndInnate = species + innateAbility;
+    
+    return gSpeciesInfo[speciesAndInnate].innateAbility;
+}
+
 void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord)
 {
     s32 i, j;

@@ -3219,6 +3219,16 @@ static inline u32 SetStartingSideStatus(u32 flag, u32 side, u32 message, u32 ani
     return 0;
 }
 
+static u32 BattlerHasInnateOrAbility(u32 battler, u32 ability){
+    if(BattlerHasInnate(battler, ability))
+        return BATTLER_INNATE;
+    else if(GetBattlerAbility(battler) == ability)
+        return BATTLER_ABILITY;
+    else
+        return BATTLER_NONE;
+}
+
+
 u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg)
 {
     u32 effect = 0;
@@ -3227,6 +3237,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     u32 i = 0, j = 0;
     u32 partner = 0;
     struct Pokemon *mon;
+    bool8 abilityEffect = FALSE;
 
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
         return 0;
@@ -3239,7 +3250,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     else if (ability)
         gLastUsedAbility = ability;
     else
+    {
         gLastUsedAbility = GetBattlerAbility(battler);
+        abilityEffect = TRUE;
+    }
 
     if (moveArg)
         move = moveArg;
@@ -3458,6 +3472,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         break;
     case ABILITYEFFECT_ON_SWITCHIN:
         gBattleScripting.battler = battler;
+
         switch (gLastUsedAbility)
         {
         case ABILITY_TRACE:
@@ -3741,7 +3756,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
-        case ABILITY_DRIZZLE:
+        /*case ABILITY_DRIZZLE:
             if (TryChangeBattleWeather(battler, BATTLE_WEATHER_RAIN, TRUE))
             {
                 BattleScriptPushCursorAndCallback(BattleScript_DrizzleActivates);
@@ -3770,6 +3785,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         case ABILITY_DROUGHT:
             if (TryChangeBattleWeather(battler, BATTLE_WEATHER_SUN, TRUE))
             {
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_DROUGHT;
                 BattleScriptPushCursorAndCallback(BattleScript_DroughtActivates);
                 effect++;
             }
@@ -3797,7 +3813,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 BattleScriptPushCursorAndCallback(BattleScript_BlockedByPrimalWeatherEnd3);
                 effect++;
             }
-            break;
+            break;*/
         case ABILITY_ELECTRIC_SURGE:
         case ABILITY_HADRON_ENGINE:
             if (TryChangeBattleTerrain(battler, STATUS_FIELD_ELECTRIC_TERRAIN, &gFieldTimers.terrainTimer))
@@ -4116,6 +4132,123 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
+        }
+
+        if(abilityEffect && caseID == ABILITYEFFECT_ON_SWITCHIN)
+        {
+            //Weathers.
+            if(BATTLER_HAS_ABILITY(battler, ABILITY_DRIZZLE))
+            {
+                if (TryChangeBattleWeather(battler, BATTLE_WEATHER_RAIN, TRUE))
+                {
+                    BattleScriptPushCursorAndCallback(BattleScript_DrizzleActivates);
+                    effect++;
+                }
+                else if (gBattleWeather & B_WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_BlockedByPrimalWeatherEnd3);
+                    effect++;
+                }
+            }
+            if(BATTLER_HAS_ABILITY(battler, ABILITY_SAND_STREAM))
+            {
+                if (TryChangeBattleWeather(battler, BATTLE_WEATHER_SANDSTORM, TRUE))
+                {
+                    BattleScriptPushCursorAndCallback(BattleScript_SandstreamActivates);
+                    effect++;
+                }
+                else if (gBattleWeather & B_WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_BlockedByPrimalWeatherEnd3);
+                    effect++;
+                }
+            }
+            if(BATTLER_HAS_ABILITY(battler, ABILITY_DROUGHT))
+            {
+                if (TryChangeBattleWeather(battler, BATTLE_WEATHER_SUN, TRUE))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_DROUGHT;
+                    BattleScriptPushCursorAndCallback(BattleScript_DroughtActivates);
+                    effect++;
+                }
+                else if (gBattleWeather & B_WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_BlockedByPrimalWeatherEnd3);
+                    effect++;
+                }
+            }
+            if(BATTLER_HAS_ABILITY(battler, ABILITY_SNOW_WARNING))
+            {
+                if (B_SNOW_WARNING >= GEN_9 && TryChangeBattleWeather(battler, BATTLE_WEATHER_SNOW, TRUE))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SNOW_WARNING;
+                    BattleScriptPushCursorAndCallback(BattleScript_SnowWarningActivatesSnow);
+                    effect++;
+                }
+                else if (B_SNOW_WARNING < GEN_9 && TryChangeBattleWeather(battler, BATTLE_WEATHER_HAIL, TRUE))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SNOW_WARNING;
+                    BattleScriptPushCursorAndCallback(BattleScript_SnowWarningActivatesHail);
+                    effect++;
+                }
+                else if (gBattleWeather & B_WEATHER_PRIMAL_ANY && HasWeatherEffect() && !gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_BlockedByPrimalWeatherEnd3);
+                    effect++;
+                }
+            }
+
+            //Normal Abilities.
+            if(INNATE_ABILITY(battler, ABILITY_INTIMIDATE))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattlerAttacker = battler;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_INTIMIDATE;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    SET_STATCHANGER(STAT_ATK, 1, TRUE);
+                    BattleScriptPushCursorAndCallback(BattleScript_IntimidateActivates);
+                    effect++;
+                }
+            }
+
+            if(INNATE_ABILITY(battler, ABILITY_MOLD_BREAKER))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_MOLDBREAKER;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_MOLD_BREAKER;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    effect++;
+                }
+            }
+            if(INNATE_ABILITY(battler, ABILITY_TERAVOLT))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_TERAVOLT;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TERAVOLT;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    effect++;
+                }
+            }
+            if(INNATE_ABILITY(battler, ABILITY_TURBOBLAZE))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_TURBOBLAZE;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TURBOBLAZE;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    effect++;
+                }
+            }
         }
         break;
     case ABILITYEFFECT_ENDTURN:
@@ -5375,8 +5508,11 @@ bool32 IsMoldBreakerTypeAbility(u32 battler, u32 ability)
     if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
         return FALSE;
 
-    return (ability == ABILITY_MOLD_BREAKER || ability == ABILITY_TERAVOLT || ability == ABILITY_TURBOBLAZE
-        || (ability == ABILITY_MYCELIUM_MIGHT && IsBattleMoveStatus(gCurrentMove)));
+    return (ability == ABILITY_MOLD_BREAKER || 
+            ability == ABILITY_TERAVOLT     || 
+            ability == ABILITY_TURBOBLAZE   || 
+           (ability == ABILITY_MYCELIUM_MIGHT && IsBattleMoveStatus(gCurrentMove)) ||
+           (INNATE_ABILITY(battler, ABILITY_MOLD_BREAKER)));
 }
 
 static inline bool32 CanBreakThroughAbility(u32 battlerAtk, u32 battlerDef, u32 ability, u32 hasAbilityShield)
@@ -5423,6 +5559,39 @@ u32 GetBattlerAbility(u32 battler)
         return ABILITY_NONE;
 
     return gBattleMons[battler].ability;
+}
+
+bool32 BattlerHasInnate(u32 battler, u32 ability)
+{
+    bool32 hasAbilityShield = GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
+    bool32 innateCantBeSuppressed = gAbilitiesInfo[ability].cantBeSuppressed;
+
+    if (innateCantBeSuppressed)
+    {
+        // Edge case: pokemon under the effect of gastro acid transforms into a pokemon with Comatose (Todo: verify how other unsuppressable abilities behave)
+        if (gBattleMons[battler].status2 & STATUS2_TRANSFORMED
+            && gStatuses3[battler] & STATUS3_GASTRO_ACID
+            && ability == ABILITY_COMATOSE)
+                return FALSE;
+
+        if (CanBreakThroughAbility(gBattlerAttacker, battler, ability, hasAbilityShield))
+            return FALSE;
+
+        return GetInnateBySpecies(gBattleMons[battler].species, ability);
+    }
+
+    if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
+        return FALSE;
+
+    if (!hasAbilityShield
+     && IsNeutralizingGasOnField()
+     && ability != ABILITY_NEUTRALIZING_GAS)
+        return FALSE;
+    
+    if (CanBreakThroughAbility(gBattlerAttacker, battler, ability, hasAbilityShield))
+        return FALSE;
+
+    return GetInnateBySpecies(gBattleMons[battler].species, ability);
 }
 
 u32 IsAbilityOnSide(u32 battler, u32 ability)

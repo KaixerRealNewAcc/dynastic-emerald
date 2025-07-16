@@ -6121,7 +6121,6 @@ static s32 AI_FirstBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     return score;
 }
 
-
 // Dynamic AI Functions
 // For specific battle scenarios
 

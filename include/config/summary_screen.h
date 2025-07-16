@@ -79,6 +79,7 @@ Info taken from https://bulbapedia.bulbagarden.net/wiki/Stats_judge.
  
 //Type Icons Settings
 #define P_SUMMARY_SCREEN_NEW_TYPE_ICONS FALSE //If TRUE, the new type icons will be used in the summary screen, TRUE by default.
-#define P_SUMMARY_SCREEN_NEW_TERA_TYPE_ICONS TRUE //If TRUE, the new tera type icons will be used in the summary screen.
+#define P_SUMMARY_SCREEN_NEW_TERA_TYPE_ICONS FALSE //If TRUE, the new tera type icons will be used in the summary screen.
+#define P_SHOW_TERA_TYPE                FALSE       // Since Gen 9, the Tera Type is shown on the summary screen.
 
 #endif // GUARD_CONFIG_SUMMARY_SCREEN_H

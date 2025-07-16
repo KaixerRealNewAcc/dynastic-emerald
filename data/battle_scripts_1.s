@@ -7741,6 +7741,7 @@ BattleScript_SupersweetSyrupContrary_WontIncrease:
 	goto BattleScript_SupersweetSyrupEffect_WaitString
 
 BattleScript_DroughtActivates::
+	sethword sABILITY_OVERWRITE, ABILITY_DROUGHT
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUp
 	printstring STRINGID_PKMNSXINTENSIFIEDSUN
@@ -7750,6 +7751,7 @@ BattleScript_DroughtActivates::
 	end3
 
 BattleScript_DesolateLandActivates::
+	sethword sABILITY_OVERWRITE, ABILITY_DESOLATE_LAND
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUp
 	printstring STRINGID_EXTREMELYHARSHSUNLIGHT

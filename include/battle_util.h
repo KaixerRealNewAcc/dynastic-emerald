@@ -94,6 +94,14 @@ enum ItemEffect
     ITEM_STATS_CHANGE,
 };
 
+enum {
+    BATTLER_NONE,       
+    BATTLER_ABILITY,    
+    BATTLER_INNATE,   
+}; 
+
+#define BATTLER_HAS_ABILITY(battler, ability) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
+#define INNATE_ABILITY(battler, ability)      (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 
@@ -243,8 +251,7 @@ bool32 TryPrimalReversion(u32 battler);
 bool32 IsNeutralizingGasOnField(void);
 bool32 IsMoldBreakerTypeAbility(u32 battler, u32 ability);
 u32 GetBattlerAbility(u32 battler);
-u32 GetBattlerInnateAbility(u32 battler);
-bool32 BattlerHasInnateAbility(u32 battler, u32 ability);
+bool32 BattlerHasInnate(u32 battler, u32 ability);
 u32 IsAbilityOnSide(u32 battler, u32 ability);
 u32 IsAbilityOnOpposingSide(u32 battler, u32 ability);
 u32 IsAbilityOnField(u32 ability);

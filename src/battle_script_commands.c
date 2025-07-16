@@ -18693,6 +18693,17 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
         if (B_UPDATED_INTIMIDATE >= GEN_8)
         {
             hasAbility = TRUE;
+            switch(ability)
+            {
+                case ABILITY_INNER_FOCUS:
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_INNER_FOCUS;
+                case ABILITY_SCRAPPY:
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SCRAPPY;
+                case ABILITY_OWN_TEMPO:
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_OWN_TEMPO;
+                case ABILITY_OBLIVIOUS:
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_OBLIVIOUS;
+            }
             gBattlescriptCurrInstr = BattleScript_IntimidatePrevented;
         }
         else
@@ -18702,6 +18713,7 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
         break;
     case ABILITY_GUARD_DOG:
         hasAbility = TRUE;
+        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GUARD_DOG;
         gBattlescriptCurrInstr = BattleScript_IntimidateInReverse;
         break;
     default:

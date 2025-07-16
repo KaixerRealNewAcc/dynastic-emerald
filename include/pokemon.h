@@ -389,6 +389,7 @@ struct SpeciesInfo /*0xC4*/
     u8 growthRate;
     u8 eggGroups[2];
     u16 abilities[NUM_ABILITY_SLOTS]; // 3 abilities, no longer u8 because we have over 255 abilities now.
+    u16 innateAbility; // The ability that is always active, even if the Pokémon has a different ability.
     u8 safariZoneFleeRate;
 
     // Pokédex data
@@ -711,6 +712,9 @@ u8 CalculateEnemyPartyCountInSide(u32 battler);
 u8 GetMonsStateToDoubles(void);
 u8 GetMonsStateToDoubles_2(void);
 u16 GetAbilityBySpecies(u16 species, u8 abilityNum);
+bool32 GetInnateBySpecies(u32 species, u32 ability);
+u16 GetInnateBySpeciesUnused(u16 species, u16 ability);
+u16 GetInnateBySpeciesSummaryScreen(u16 species, u16 innateAbility);
 u16 GetMonAbility(struct Pokemon *mon);
 void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord);
 u8 GetSecretBaseTrainerPicIndex(void);

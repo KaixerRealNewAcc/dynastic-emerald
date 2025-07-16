@@ -57,7 +57,8 @@ static const u8 sWringOutDescription[] = _(
 
 static const u8 sUTurnDescription[] = _(
     "Does damage then switches\n"
-    "out the user.");
+    "out the user.\n"
+    "Not Boosted by Technician.");
 
 static const u8 sStormThrowDescription[] = _(
     "This attack always results\n"
@@ -9696,7 +9697,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .name = COMPOUND_STRING("U-turn"),
         .description = sUTurnDescription,
         .effect = EFFECT_HIT_ESCAPE,
-        .power = 70,
+        .power = 60,
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 20,

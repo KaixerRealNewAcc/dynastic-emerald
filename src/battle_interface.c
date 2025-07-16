@@ -2805,8 +2805,7 @@ void UpdateAbilityPopup(u8 battler)
 {
     u8 spriteId1 = gBattleStruct->abilityPopUpSpriteIds[battler][0];
     u8 spriteId2 = gBattleStruct->abilityPopUpSpriteIds[battler][1];
-    u16 ability = ((gBattleScripting.abilityPopupOverwrite != 0) ? gBattleScripting.abilityPopupOverwrite : gBattleMons[battler].ability)
-                || ((gBattleScripting.abilityPopupOverwrite != 0) ? gBattleScripting.abilityPopupOverwrite : gBattleMons[battler].innateAbility);
+    u16 ability = ((gBattleScripting.abilityPopupOverwrite != 0) ? gBattleScripting.abilityPopupOverwrite : gBattleMons[battler].ability);
 
     PrintAbilityOnAbilityPopUp(ability, spriteId1, spriteId2);
     RestoreOverwrittenPixels((void*)(OBJ_VRAM0) + (gSprites[spriteId1].oam.tileNum * 32));
