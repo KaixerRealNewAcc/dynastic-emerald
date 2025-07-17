@@ -14175,4 +14175,22 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_CharizarditeY,
         .iconPalette = gItemIconPalette_CharizarditeY,
     },
+
+    [ITEM_VARIABLE_ROD] =
+    {
+        .name = _("Fishing Rod"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Use by any body of\n"
+            "water to fish for\n"
+            "wild Pokémon."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_VariableRod,
+        //.secondaryId = OLD_ROD,
+        .iconPic = gItemIcon_SuperRod,
+        .iconPalette = gItemIcon_SuperRod,
+    },
+
 };
