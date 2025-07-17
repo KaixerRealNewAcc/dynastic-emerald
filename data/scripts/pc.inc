@@ -80,15 +80,13 @@ EventScript_AccessTimeChanger::
 	waitmessage
 	dynmultipush EventScript_AccessTimeChanger_Text_1, 1
 	dynmultipush EventScript_AccessTimeChanger_Text_2, 2
-	dynmultipush EventScript_AccessTimeChanger_Text_3, 3
-	dynmultipush EventScript_AccessTimeChanger_Text_4, 4
+	dynmultipush EventScript_AccessTimeChanger_Text_4, 3
 	dynmultipush EventScript_AccessTimeChanger_Text_5, 127
 	dynmultistack 0, 0, FALSE, 5, FALSE, 0xFF, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case 1, EventScript_AccessTimeChanger_2
 	case 2, EventScript_AccessTimeChanger_3
-	case 3, EventScript_AccessTimeChanger_4
-	case 4, EventScript_AccessTimeChanger_5
+	case 3, EventScript_AccessTimeChanger_5
 	case 127, EventScript_AccessTimeChanger_6
 	return
 
@@ -100,12 +98,6 @@ EventScript_AccessTimeChanger_2:
 
 EventScript_AccessTimeChanger_3:
 	callnative FakeRtc_ManuallySetTimeNight
-	closemessage
-	release
-	end
-
-EventScript_AccessTimeChanger_4:
-	callnative FakeRtc_ManuallySetTimeDusk
 	closemessage
 	release
 	end

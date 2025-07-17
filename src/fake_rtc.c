@@ -110,32 +110,12 @@ void FakeRtc_ManuallySetTime(u32 day, u32 hour, u32 minute, u32 second)
 
 void FakeRtc_ManuallySetTimeDay(u32 hour, u32 minute, u32 second)
 {
-    struct Time diff, target;
-    RtcCalcLocalTime();
-
-    target.hours = 12;
-    target.minutes = 0;
-    target.seconds = 0;
-    target.days = gLocalTime.days;
-
-    CalcTimeDifference(&diff, &gLocalTime, &target);
-    FakeRtc_Reset();
-    FakeRtc_AdvanceTimeBy(diff.days, diff.hours, diff.minutes, diff.seconds);
+    FakeRtc_ForwardTimeTo(NIGHT_HOUR_BEGIN, 0, 0);
 }
 
 void FakeRtc_ManuallySetTimeNight(u32 hour, u32 minute, u32 second)
 {
-    struct Time diff, target;
-    RtcCalcLocalTime();
-
-    target.hours = 0;
-    target.minutes = 0;
-    target.seconds = 0;
-    target.days = gLocalTime.days;
-
-    CalcTimeDifference(&diff, &gLocalTime, &target);
-    FakeRtc_Reset();
-    FakeRtc_AdvanceTimeBy(diff.days, diff.hours, diff.minutes, diff.seconds);
+    FakeRtc_ForwardTimeTo(DAY_HOUR_BEGIN, 0, 0);
 }
 
 void FakeRtc_ManuallySetTimeDusk(u32 hour, u32 minute, u32 second)
