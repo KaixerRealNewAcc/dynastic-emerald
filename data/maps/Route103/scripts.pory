@@ -1,4 +1,4 @@
-
+raw`
 Route103_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route103_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, Route103_OnLoad
@@ -351,68 +351,50 @@ Route103_Text_ShortcutToOldale:
 Route103_Text_RouteSign:
 	.string "ROUTE 103\n"
 	.string "{DOWN_ARROW} OLDALE TOWN$"
+`
 
-Route103_EventScript_OldRodFisherman::
+script Route103_EventScript_OldRodFisherman{
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_OLD_ROD, DewfordTown_EventScript_HowsFishing
-	msgbox DewfordTown_Text_GettingItchToFish, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, DewfordTown_EventScript_GiveOldRod
-	goto_if_eq VAR_RESULT, NO, DewfordTown_EventScript_NotGettingItchToFish
+	//if(flag(FLAG_RECEIVED_FISHING_ROD))
+	//{
+	//}
+	goto_if_set (FLAG_RECEIVED_OLD_ROD, DewfordTown_EventScript_HowsFishing)
+	msgbox (DewfordTown_Text_GettingItchToFish, MSGBOX_YESNO)
+	goto_if_eq (VAR_RESULT, YES, DewfordTown_EventScript_GiveOldRod)
+	goto_if_eq (VAR_RESULT, NO, DewfordTown_EventScript_NotGettingItchToFish)
 	end
+}
 
-
-Route103_EventScript_GiveFishingRod::
-	msgbox DewfordTown_Text_GiveYouOneOfMyRods, MSGBOX_DEFAULT
-	giveitem ITEM_OLD_ROD
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_OLD_ROD
-	msgbox DewfordTown_Text_ThrowInFishingAdvice, MSGBOX_DEFAULT
+script Route103_EventScript_GiveFishingRod{
+	msgbox  (DewfordTown_Text_GiveYouOneOfMyRods, MSGBOX_DEFAULT)
+	giveitem (ITEM_OLD_ROD)
+	goto_if_eq  (VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull)
+	setflag (FLAG_RECEIVED_OLD_ROD)
+	msgbox  (DewfordTown_Text_ThrowInFishingAdvice, MSGBOX_DEFAULT)
 	release
 	end
+}
 
-
-Route103_EventScript_HowsFishing::
-	message DewfordTown_Text_HowsYourFishing
+script Route103_EventScript_HowsFishing{
+	message (DewfordTown_Text_HowsYourFishing)
 	waitmessage
-	dynmultipush Route103_EventScript_HowsFishing_Text_0, 0
-	dynmultipush Route103_EventScript_HowsFishing_Text_1, 1
-	dynmultistack 0, 0, FALSE, 5, FALSE, 0xFF, DYN_MULTICHOICE_CB_NONE
-	compare VAR_RESULT, 0
-	goto_if_eq Route103_EventScript_HowsFishing_2
-	compare VAR_RESULT, 1
-	goto_if_eq Route103_EventScript_HowsFishing_5
-Route103_EventScript_HowsFishing_4:
+	dynmultipush ("Very Good!", 0)
+	dynmultipush ("Not so Good...", 1)
+
+	dynmultistack (0, 0, FALSE, 5, FALSE, 0xFF, DYN_MULTICHOICE_CB_NONE)
+
+	if(var(VAR_RESULT) == 0)
+	{
+		msgbox("Is that right!\nThat's great!\pHaul in some big ones!")
+		release
+		end
+	}
+
+	if(var(VAR_RESULT) == 1)
+	{
+		msgbox(format("Oh, hey, don't get down on yourself!\nI'll give you a little fishing advice.\pFirst, you want to face the water,\nthen use the ROD.\pFocus your mind…\nIf you get a bite, pull the ROD.\pSometimes you can snag something\nimmediately, but with bigger catches, you need to time the pulls on your ROD to haul them in."))
+	}
 	release
 	end
-
-Route103_EventScript_HowsFishing_2:
-	msgbox Route103_EventScript_HowsFishing_Text_2
-	release
-	end
-
-Route103_EventScript_HowsFishing_5:
-	msgbox Route103_EventScript_HowsFishing_Text_3
-	goto Route103_EventScript_HowsFishing_4
-
-
-Route103_EventScript_HowsFishing_Text_0:
-	.string "Very Good!$"
-
-Route103_EventScript_HowsFishing_Text_1:
-	.string "Not so Good...$"
-
-Route103_EventScript_HowsFishing_Text_2:
-	.string "Is that right!\nThat's great!\pHaul in some big ones!$"
-
-Route103_EventScript_HowsFishing_Text_3:
-	.string "Oh, hey, don't get down on yourself!\n"
-	.string "I'll give you a little fishing advice.\p"
-	.string "First, you want to face the water,\n"
-	.string "then use the ROD.\p"
-	.string "Focus your mind…\n"
-	.string "If you get a bite, pull the ROD.\p"
-	.string "Sometimes you can snag something\n"
-	.string "immediately, but with bigger catches,\l"
-	.string "you need to time the pulls on your ROD\l"
-	.string "to haul them in.$"
+}

@@ -14189,8 +14189,8 @@ const struct Item gItemsInfo[] =
         .type = ITEM_USE_FIELD,
         .fieldUseFunc = ItemUseOutOfBattle_VariableRod,
         //.secondaryId = OLD_ROD,
-        .iconPic = gItemIcon_SuperRod,
-        .iconPalette = gItemIcon_SuperRod,
+        .iconPic = gItemIcon_OldRod,
+        .iconPalette = gItemIconPalette_OldRod,
     },
 
 };

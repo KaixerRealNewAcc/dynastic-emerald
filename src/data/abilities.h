@@ -2408,4 +2408,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .cantBeSwapped = TRUE,
             .cantBeTraced = TRUE,
         },
+
+        [ABILITY_WEAK_JAW] =
+        {
+            .name = _("Weak Jaw"),
+            .description = COMPOUND_STRING("Increases the damage of the user's Biting moves by 20%."),
+            .aiRating = 6,
+        },
 };
