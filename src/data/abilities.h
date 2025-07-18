@@ -390,7 +390,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_KEEN_EYE] =
         {
             .name = _("Keen Eye"),
-            .description = COMPOUND_STRING("Prevents the loss of accuracy."),
+            .description = COMPOUND_STRING("Prevents the loss of accuracy.\nBoosts accuracy by 20%"),
             .aiRating = 1,
             .breakable = TRUE,
         },
