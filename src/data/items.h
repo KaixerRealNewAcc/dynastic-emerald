@@ -14193,4 +14193,23 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_OldRod,
     },
 
+    [ITEM_ECHO_PLATE] =
+    {
+        .name = _("Echo Plate"),
+        .price = 1000,
+        .holdEffect = HOLD_EFFECT_PLATE,
+        .holdEffectParam = 20,
+        .description = COMPOUND_STRING(
+            "A tablet that ups\n"
+            "the power of\n"
+            "Sound-type moves."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .secondaryId = TYPE_SOUND,
+        .flingPower = 90,
+        .iconPic = gItemIcon_SkyPlate,
+        .iconPalette = gItemIconPalette_SkyPlate,
+    },
+
 };

@@ -972,6 +972,10 @@ static const union AnimCmd sSpriteAnim_TypeStellar[] = {
     ANIMCMD_FRAME(TYPE_STELLAR * 8, 0, FALSE, FALSE),
     ANIMCMD_END
 };
+static const union AnimCmd sSpriteAnim_TypeSound[] = {
+    ANIMCMD_FRAME(TYPE_SOUND * 8, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
 static const union AnimCmd sSpriteAnim_CategoryCool[] = {
     ANIMCMD_FRAME((CONTEST_CATEGORY_COOL + NUMBER_OF_MON_TYPES) * 8, 0, FALSE, FALSE),
     ANIMCMD_END
@@ -1014,6 +1018,7 @@ static const union AnimCmd *const sSpriteAnimTable_MoveTypes[NUMBER_OF_MON_TYPES
     [TYPE_DARK] = sSpriteAnim_TypeDark,
     [TYPE_FAIRY] = sSpriteAnim_TypeFairy,
     [TYPE_STELLAR] = sSpriteAnim_TypeStellar,
+    [TYPE_SOUND] = sSpriteAnim_TypeSound,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_COOL] = sSpriteAnim_CategoryCool,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_BEAUTY] = sSpriteAnim_CategoryBeauty,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_CUTE] = sSpriteAnim_CategoryCute,
@@ -1181,7 +1186,8 @@ static const union AnimCmd *const sSpriteAnimTable_TeraType[NUMBER_OF_MON_TYPES]
     [TYPE_DRAGON] = sSpriteAnim_TeraTypeDragon,
     [TYPE_DARK] = sSpriteAnim_TeraTypeDark,
     [TYPE_FAIRY] = sSpriteAnim_TeraTypeFairy,
-    [TYPE_STELLAR] = sSpriteAnim_TeraTypeStellar
+    [TYPE_STELLAR] = sSpriteAnim_TeraTypeStellar,
+    [TYPE_SOUND]   = sSpriteAnim_TeraTypeStellar,
 };
 
 static const struct OamData sOamData_TeraType =
@@ -5075,6 +5081,8 @@ static void PlayMonCry(void)
     }
 }
 
+#include "util.h"
+
 static u8 CreateMonSprite(struct Pokemon *unused, bool32 isShadow)
 {
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
@@ -5096,6 +5104,9 @@ static u8 CreateMonSprite(struct Pokemon *unused, bool32 isShadow)
         shadowPalette = LoadSpritePalette(&sSpritePal_MonShadow);
         gSprites[spriteId].oam.paletteNum = shadowPalette;
         gSprites[spriteId].oam.objMode = ST_OAM_OBJ_BLEND;
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL);
+        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(16, 0));
+        BlendPalette(BG_PLTT_ID(shadowPalette), 16, 11, RGB_WHITEALPHA);
         gSprites[spriteId].x -= MON_SHADOWS_X;
         gSprites[spriteId].y -= MON_SHADOWS_Y;
         gSprites[spriteId].oam.priority = 1;
