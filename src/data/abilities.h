@@ -1088,7 +1088,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_BIG_PECKS] =
         {
             .name = _("Big Pecks"),
-            .description = COMPOUND_STRING("Protects the user from Defense lowering effects."),
+            .description = COMPOUND_STRING("Protects the user from Defense lowering effects.\nBoosts flying-type moves by 10%"),
             .aiRating = 1,
             .breakable = TRUE,
         },
@@ -2414,5 +2414,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .name = _("Weak Jaw"),
             .description = COMPOUND_STRING("Increases the damage of the user's Biting moves by 20%."),
             .aiRating = 6,
+        },
+
+        [ABILITY_SHORT_CIRCUIT] =
+        {
+            .name = _("Short Circuit"),
+            .description = COMPOUND_STRING("Increases Electric moves by 50% when the user's HP is under 1/3 HP. 20% Otherwise"),
+            .aiRating = 5,
         },
 };

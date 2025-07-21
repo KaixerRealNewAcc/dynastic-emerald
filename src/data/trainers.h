@@ -12202,9 +12202,9 @@ F_TRAINER_FEMALE |
 #line 4933
             .iv = TRAINER_PARTY_IVS(31, 30, 31, 31, 30, 31),
 #line 4930
-            .ability = ABILITY_TECHNICIAN,
+            .ability = ABILITY_PUNK_ROCK,
 #line 4931
-            .lvl = 33,
+            .lvl = 32,
 #line 4934
             .nature = NATURE_HASTY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
@@ -12212,9 +12212,9 @@ F_TRAINER_FEMALE |
             .teraType = TYPE_ELECTRIC,
             .moves = {
 #line 4935
-                MOVE_ACID_SPRAY,
+                MOVE_OVERDRIVE,
                 MOVE_HIDDEN_POWER,
-                MOVE_VOLT_SWITCH,
+                MOVE_HYPER_VOICE,
                 MOVE_FIRE_PUNCH,
             },
             },
