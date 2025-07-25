@@ -67,6 +67,8 @@
 #include "constants/weather.h"
 #include "wild_encounter.h"
 
+#include "data/dynastic_shortcuts.h"
+
 #define FRIENDSHIP_EVO_THRESHOLD ((P_FRIENDSHIP_EVO_THRESHOLD >= GEN_8) ? 160 : 220)
 
 struct SpeciesItem
@@ -678,6 +680,287 @@ const struct NatureInfo gNaturesInfo[NUM_NATURES] =
         .battlePalacePercents = PALACE_STYLE(56, 22, 56, 22), //22%, 22%
         .battlePalaceFlavorText = B_MSG_EAGER_FOR_MORE,
         .battlePalaceSmokescreen = PALACE_TARGET_STRONGER,
+    },
+};
+
+const struct HiddenPowerTypeInfo gHiddenPowerTypeInfo[NUMBER_OF_MON_TYPES] = 
+{
+    [TYPE_NONE] = 
+    {
+        // not a real HP type
+        .typeName = COMPOUND_STRING("None"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_NORMAL] = 
+    {
+        // not a real HP type
+        .typeName = COMPOUND_STRING("Normal"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_FIGHTING] = 
+    {
+        .typeName = COMPOUND_STRING("Fighting"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     30     30         30         30"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 30,
+        .ivSpatk = 30,
+        .ivSpdef = 30,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_FLYING] = 
+    {
+        .typeName = COMPOUND_STRING("Flying"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     30         30         30"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 30,
+        .ivSpdef = 30,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_POISON] = 
+    {
+        .typeName = COMPOUND_STRING("Poison"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     30     30         30         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 30,
+        .ivSpatk = 30,
+        .ivSpdef = 30,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_GROUND] = 
+    {
+        .typeName = COMPOUND_STRING("Ground"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     30         30         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 30,
+        .ivSpdef = 30,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_ROCK] = 
+    {
+        .typeName = COMPOUND_STRING("Rock"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     30     31         30         30"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 30,
+        .ivSpatk = 31,
+        .ivSpdef = 30,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_BUG] = 
+    {
+        .typeName = COMPOUND_STRING("Bug"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         30         30"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 30,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_GHOST] = 
+    {
+        .typeName = COMPOUND_STRING("Ghost"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     30     31         30         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 30,
+        .ivSpatk = 31,
+        .ivSpdef = 30,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_STEEL] = 
+    {
+        .typeName = COMPOUND_STRING("Steel"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         30         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 30,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_MYSTERY] =
+    {
+        // not a real HP type
+        .typeName = COMPOUND_STRING("Mystery"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_FIRE] = 
+    {
+        .typeName = COMPOUND_STRING("Fire"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   30     31     30         31         30"),
+        .ivHp = 31,
+        .ivAtk = 30,
+        .ivDef = 31,
+        .ivSpatk = 30,
+        .ivSpdef = 31,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_WATER] = 
+    {
+        .typeName = COMPOUND_STRING("Water"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     30         31         30"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 30,
+        .ivSpdef = 31,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_GRASS] = 
+    {
+        .typeName = COMPOUND_STRING("Grass"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   30     31     30         31         31"),
+        .ivHp = 31,
+        .ivAtk = 30,
+        .ivDef = 31,
+        .ivSpatk = 30,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_ELECTRIC] = 
+    {
+        .typeName = COMPOUND_STRING("Electric"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     30         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 30,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_PSYCHIC] = 
+    {
+        .typeName = COMPOUND_STRING("Psychic"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   30     31     31         31         30"),
+        .ivHp = 31,
+        .ivAtk = 30,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 30,
+    },
+
+    [TYPE_ICE] = 
+    {
+        .typeName = COMPOUND_STRING("Ice"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   30     30     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 30,
+        .ivDef = 30,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_DRAGON] = 
+    {
+        .typeName = COMPOUND_STRING("Dragon"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   30     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 30,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_DARK] =
+    {
+        .typeName = COMPOUND_STRING("Dark"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_FAIRY] = 
+    {
+        // not a real HP type
+        .typeName = COMPOUND_STRING("Fairy"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
+    },
+
+    [TYPE_STELLAR] = 
+    {
+        // not a real HP type
+        .typeName = COMPOUND_STRING("Stellar"),
+        //                            HP    Atk    Def    SpAtk      SpDef     Speed
+        .ivsListed = COMPOUND_STRING("31   31     31     31         31         31"),
+        .ivHp = 31,
+        .ivAtk = 31,
+        .ivDef = 31,
+        .ivSpatk = 31,
+        .ivSpdef = 31,
+        .ivSpeed = 31,
     },
 };
 
@@ -1781,6 +2064,18 @@ void CalculateMonStats(struct Pokemon *mon)
     u8 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
     s32 level = GetLevelFromMonExp(mon);
     s32 newMaxHP;
+
+    if(IsMinimalGrindingMode())
+    {
+        //Evs are Disabled, this is mostly used for Trainers.
+        hpEV 		= 0;
+		attackEV 	= 0;
+		defenseEV 	= 0;
+		spAttackEV 	= 0;
+		spDefenseEV = 0;
+		speedEV 	= 0;
+    }
+
 
     u8 nature = GetMonData(mon, MON_DATA_HIDDEN_NATURE, NULL);
 
@@ -4482,6 +4777,12 @@ u8 GetNature(struct Pokemon *mon)
 {
     return GetMonData(mon, MON_DATA_PERSONALITY, 0) % NUM_NATURES;
 }
+
+u8 GetWildMonHeldItem(struct Pokemon *mon)
+{
+    return GetMonData(mon, MON_DATA_HELD_ITEM, 0);
+}
+
 
 u8 GetNatureFromPersonality(u32 personality)
 {

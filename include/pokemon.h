@@ -567,6 +567,18 @@ struct NatureInfo
     const u8 *natureGirlMessage;
 };
 
+struct HiddenPowerTypeInfo
+{
+    const u8 *typeName;
+    const u8 *ivsListed;
+    u8 ivHp;
+    u8 ivAtk;
+    u8 ivDef;
+    u8 ivSpatk;
+    u8 ivSpdef;
+    u8 ivSpeed;
+};
+
 #define SPINDA_SPOT_WIDTH 16
 #define SPINDA_SPOT_HEIGHT 16
 
@@ -638,6 +650,7 @@ extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const u32 sExpCandyExperienceTable[];
 extern const struct Ability gAbilitiesInfo[];
 extern const struct NatureInfo gNaturesInfo[];
+extern const struct HiddenPowerTypeInfo gHiddenPowerTypeInfo[];
 #if P_TUTOR_MOVES_ARRAY
 extern const u16 gTutorMoves[];
 #endif // P_TUTOR_MOVES_ARRAY
@@ -743,6 +756,7 @@ bool8 HealStatusConditions(struct Pokemon *mon, u32 healMask, u8 battler);
 u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
+u8 GetWildMonHeldItem(struct Pokemon *mon);
 u8 GetNatureFromPersonality(u32 personality);
 u32 GetGMaxTargetSpecies(u32 species);
 bool32 DoesMonMeetAdditionalConditions(struct Pokemon *mon, const struct EvolutionParam *params, struct Pokemon *tradePartner, u32 partyId, bool32 *canStopEvo, enum EvoState evoState);

@@ -75,7 +75,7 @@
 #define B_TXT_DEF_TEAM1 0x3A // Your/The opposing
 #define B_TXT_DEF_TEAM2 0x3B // your/the opposing
 #define B_TXT_DEF_PARTNER_NAME 0x3C
-// #define B_UNUSED_0x3D 0x3D
+#define B_TXT_DEF_NATURE_NAME 0x3D
 #define B_TXT_ATK_NAME_WITH_PREFIX2 0x3E //lowercase
 #define B_TXT_DEF_NAME_WITH_PREFIX2 0x3F //lowercase
 #define B_TXT_EFF_NAME_WITH_PREFIX2 0x40 //lowercase
@@ -86,6 +86,7 @@
 #define B_TXT_ATK_TRAINER_NAME_WITH_CLASS 0x45
 #define B_TXT_SCR_TEAM1 0x46
 #define B_TXT_SCR_TEAM2 0x47
+#define B_TXT_DEF_ITEM_NAME 0x48
 
 #define B_BUFF_STRING                       0
 #define B_BUFF_NUMBER                       1
