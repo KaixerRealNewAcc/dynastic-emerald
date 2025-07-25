@@ -36,6 +36,8 @@
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
 
+#include "pokemon.h"
+
 struct BattleWindowText
 {
     u8 fillValue;
@@ -79,9 +81,9 @@ static const u8 sText_WildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} f
 static const u8 sText_TwoWildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} and {B_LINK_OPPONENT2_NAME} fled!"); //not in gen 5+, replaced with match was forfeited text
 static const u8 sText_PlayerDefeatedLinkTrainerTrainer1[] = _("You defeated {B_TRAINER1_NAME_WITH_CLASS}!\p");
 static const u8 sText_OpponentMon1Appeared[] = _("{B_OPPONENT_MON1_NAME} appeared!\p");
-static const u8 sText_WildPkmnAppeared[] = _("You encountered a wild {B_OPPONENT_MON1_NAME}!\p");
-static const u8 sText_LegendaryPkmnAppeared[] = _("You encountered a wild {B_OPPONENT_MON1_NAME}!\p");
-static const u8 sText_WildPkmnAppearedPause[] = _("You encountered a wild {B_OPPONENT_MON1_NAME}!{PAUSE 127}");
+static const u8 sText_WildPkmnAppeared[] = _("You encountered a {B_DEF_NATURE_NAME} {B_OPPONENT_MON1_NAME} with {B_DEF_ABILITY_NAME}, holding {B_DEF_ITEM_NAME}!\p");
+static const u8 sText_LegendaryPkmnAppeared[] = _("You encountered a {B_DEF_NATURE_NAME} {B_OPPONENT_MON1_NAME} with {B_DEF_ABILITY_NAME}, holding {B_DEF_ITEM_NAME}!\p");
+static const u8 sText_WildPkmnAppearedPause[] = _("You encountered a {B_DEF_NATURE_NAME} {B_OPPONENT_MON1_NAME} with {B_DEF_ABILITY_NAME}, holding {B_DEF_ITEM_NAME}!{PAUSE 127}");
 static const u8 sText_TwoWildPkmnAppeared[] = _("Oh! A wild {B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME} appeared!\p");
 static const u8 sText_Trainer1WantsToBattle[] = _("You are challenged by {B_TRAINER1_NAME_WITH_CLASS}!\p");
 static const u8 sText_LinkTrainerWantsToBattle[] = _("You are challenged by {B_LINK_OPPONENT1_NAME}!");
@@ -2597,6 +2599,10 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
     u8 multiplayerId;
     u8 fontId = FONT_NORMAL;
 
+    u32 ability = GetMonAbility(&gEnemyParty[0]);
+    u32 heldItem = GetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, 0);
+    u32 nature = GetNature(&gEnemyParty[0]);
+
     if (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK)
         multiplayerId = gRecordedBattleMultiplayerId;
     else
@@ -3134,6 +3140,15 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                 break;
             case B_TXT_SCR_ACTIVE_NAME_WITH_PREFIX2:
                 HANDLE_NICKNAME_STRING_LOWERCASE(gBattleScripting.battler)
+                break;
+            case B_TXT_DEF_NATURE_NAME:
+                toCpy = gNaturesInfo[nature].name;
+                break;
+            case B_TXT_DEF_ITEM_NAME:
+                toCpy = gItemsInfo[heldItem].name;
+                break;
+            case B_TXT_DEF_ABILITY_NAME:
+                toCpy = gAbilitiesInfo[ability].name;
                 break;
             }
 
