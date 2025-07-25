@@ -9154,7 +9154,7 @@ static inline u32 CalcAttackStat(struct DamageCalculationData *damageCalcData, u
     modifier = UQ_4_12(1.0);
 
     // attacker's abilities
-    /*switch (atkAbility)
+    switch (atkAbility)
     {
     case ABILITY_HUGE_POWER:
     case ABILITY_PURE_POWER:
@@ -9339,7 +9339,7 @@ static inline u32 CalcAttackStat(struct DamageCalculationData *damageCalcData, u
             else
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
-    }*/
+    }
 
     // target's abilities
     switch (defAbility)
