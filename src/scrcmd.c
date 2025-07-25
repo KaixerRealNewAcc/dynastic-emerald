@@ -1898,6 +1898,17 @@ bool8 ScrCmd_multichoice(struct ScriptContext *ctx)
     }
 }
 
+bool8 ScrCmd_bufferhptypeinfo(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex1 = ScriptReadByte(ctx);
+    u8 stringVarIndex2 = ScriptReadByte(ctx);
+    u16 type = VarGet(ScriptReadHalfword(ctx));
+
+    StringCopy(sScriptStringVars[stringVarIndex1], gHiddenPowerTypeInfo[type].typeName);
+    StringCopy(sScriptStringVars[stringVarIndex2], gHiddenPowerTypeInfo[type].ivsListed);
+    return FALSE;
+}
+
 bool8 ScrCmd_multichoicedefault(struct ScriptContext *ctx)
 {
     u8 left = ScriptReadByte(ctx);

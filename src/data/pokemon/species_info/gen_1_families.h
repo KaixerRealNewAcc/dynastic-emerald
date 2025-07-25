@@ -4571,6 +4571,75 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .levelUpLearnset = sNidoqueenLevelUpLearnset,
         .teachableLearnset = sNidoqueenTeachableLearnset,
+        .formSpeciesIdTable = sNidoqueenFormSpeciesIdTable,
+        .formChangeTable = sNidoqueenFormChangeTable,
+    },
+
+    [SPECIES_NIDOQUEEN_MEGA] = // 66 // 86
+    {
+        .baseHP        = 90,
+        .baseAttack    = 116, // + 14
+        .baseDefense   = 101, // + 14
+        .baseSpeed     = 96,  // + 20
+        .baseSpAttack  = 111, // + 26
+        .baseSpDefense = 101, // + 16
+        .types = MON_TYPES(TYPE_POISON, TYPE_GROUND),
+        .catchRate = 45,
+        .expYield = 253,
+        .evYield_HP = 3,
+        .genderRatio = MON_FEMALE,
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_SHEER_FORCE, ABILITY_SHEER_FORCE, ABILITY_SHEER_FORCE },
+        .innateAbility = ABILITY_QUEENLY_MAJESTY,
+        .bodyColor = BODY_COLOR_BLUE,
+        .speciesName = _("Nidoqueen"),
+        .cryId = CRY_NIDOQUEEN,
+        .natDexNum = NATIONAL_DEX_NIDOQUEEN,
+        .categoryName = _("Drill"),
+        .height = 13,
+        .weight = 600,
+        .description = COMPOUND_STRING(
+            "It is adept at sending foes flying with\n"
+            "harsh tackles using its tough, scaly body.\n"
+            "This Pokémon is at its strongest when\n"
+            "it is defending its young."),
+        .pokemonScale = 293,
+        .pokemonOffset = 4,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Nidoqueen_Mega,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 2,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_H_SHAKE,
+        .backPic = gMonBackPic_Nidoqueen_Mega,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        .backAnimId = BACK_ANIM_V_SHAKE,
+        .palette = gMonPalette_Nidoqueen_Mega,
+        .shinyPalette = gMonShinyPalette_Nidoqueen_Mega,
+        .iconSprite = gMonIcon_Nidoqueen_Mega,
+        .iconPalIndex = 2,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(1, 9, SHADOW_SIZE_XL_BATTLE_ONLY)
+        FOOTPRINT(Nidoqueen)
+        /*OVERWORLD(
+            sPicTable_Nidoqueen,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Nidoqueen,
+            gShinyOverworldPalette_Nidoqueen
+        )*/
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sNidoqueenLevelUpLearnset,
+        .teachableLearnset = sNidoqueenTeachableLearnset,
+        .formSpeciesIdTable = sNidoqueenFormSpeciesIdTable,
+        .formChangeTable = sNidoqueenFormChangeTable,
     },
 
     [SPECIES_NIDORAN_M] =
@@ -4797,7 +4866,78 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .levelUpLearnset = sNidokingLevelUpLearnset,
         .teachableLearnset = sNidokingTeachableLearnset,
+        .formSpeciesIdTable = sNidokingFormSpeciesIdTable,
+        .formChangeTable = sNidokingFormChangeTable,
     },
+#if P_MEGA_EVOLUTIONS
+    [SPECIES_NIDOKING_MEGA] = // + 100 bst.
+        {
+            .baseHP        = 81,
+            .baseAttack    = 111, //+ 36
+            .baseDefense   = 87, //+ 9
+            .baseSpeed     = 101, //+ 17
+            .baseSpAttack  = 142, //+ 40
+            .baseSpDefense = 87, //+ 9
+            .types = MON_TYPES(TYPE_POISON, TYPE_GROUND),
+            .catchRate = 45,
+            .expYield = 253,
+            .evYield_Attack = 3,
+            .genderRatio = MON_MALE,
+            .eggCycles = 20,
+            .friendship = STANDARD_FRIENDSHIP,
+            .growthRate = GROWTH_MEDIUM_SLOW,
+            .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_FIELD),
+            .abilities = { ABILITY_SHEER_FORCE, ABILITY_SHEER_FORCE, ABILITY_SHEER_FORCE },
+            .innateAbility = ABILITY_MOLD_BREAKER,
+            .bodyColor = BODY_COLOR_PURPLE,
+            .speciesName = _("Nidoking"),
+            .cryId = CRY_NIDOKING,
+            .natDexNum = NATIONAL_DEX_NIDOKING,
+            .categoryName = _("Drill"),
+            .height = 14,
+            .weight = 620,
+            .description = COMPOUND_STRING(
+                "A Nidoking's thick tail packs enormously\n"
+                "destructive power capable of toppling\n"
+                "a metal transmission tower. Once it goes\n"
+                "on a rampage, there is no stopping it."),
+            .pokemonScale = 256,
+            .pokemonOffset = 0,
+            .trainerScale = 256,
+            .trainerOffset = 0,
+            .frontPic = gMonFrontPic_Nidoking_Mega,
+            .frontPicSize = MON_COORDS_SIZE(64, 64),
+            .frontPicYOffset = 0,
+            .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+            .frontAnimId = ANIM_H_SHAKE,
+            .frontAnimDelay = 25,
+            .backPic = gMonBackPic_Nidoking_Mega,
+            .backPicSize = MON_COORDS_SIZE(64, 64),
+            .backPicYOffset = 0,
+            .backAnimId = BACK_ANIM_V_SHAKE,
+            .palette = gMonPalette_Nidoking_Mega,
+            .shinyPalette = gMonShinyPalette_Nidoking_Mega,
+            .iconSprite = gMonIcon_Nidoking_Mega,
+            .iconPalIndex = 2,
+            .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+            SHADOW(0, 8, SHADOW_SIZE_XL_BATTLE_ONLY)
+            FOOTPRINT(Nidoking)
+            /*OVERWORLD(
+                sPicTable_Nidoking,
+                SIZE_32x32,
+                SHADOW_SIZE_M,
+                TRACKS_FOOT,
+                sAnimTable_Following,
+                gOverworldPalette_Nidoking,
+                gShinyOverworldPalette_Nidoking
+            )*/
+            .isMegaEvolution = TRUE,
+            .levelUpLearnset = sNidokingLevelUpLearnset,
+            .teachableLearnset = sNidokingTeachableLearnset,
+            .formSpeciesIdTable = sNidokingFormSpeciesIdTable,
+            .formChangeTable = sNidokingFormChangeTable,
+        },
+#endif //P_MEGA_EVOLUTIONS
 #endif //P_FAMILY_NIDORAN
 
 #if P_FAMILY_CLEFAIRY
@@ -9828,6 +9968,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_RUN_AWAY, ABILITY_FLASH_FIRE, ABILITY_FLAME_BODY },
+        .innateAbility = ABILITY_TURBOBLAZE,
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Rapidash"),
         .cryId = CRY_RAPIDASH,
@@ -15798,6 +15939,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
     #else
         .abilities = { ABILITY_SWARM, ABILITY_NONE, ABILITY_STEADFAST },
     #endif
+        .innateAbility = ABILITY_SHARPNESS,
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Scyther"),
         .cryId = CRY_SCYTHER,
@@ -15887,11 +16029,11 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
     #if P_UPDATED_ABILITIES >= GEN_4
-        .abilities = { ABILITY_SWARM, ABILITY_TECHNICIAN, ABILITY_LIGHT_METAL },
+        .abilities = { ABILITY_SWARM, ABILITY_SNIPER, ABILITY_LIGHT_METAL },
     #else
         .abilities = { ABILITY_SWARM, ABILITY_NONE, ABILITY_LIGHT_METAL },
     #endif
-        .innateAbility = ABILITY_SWARM,
+        .innateAbility = ABILITY_TECHNICIAN,
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Scizor"),
         .cryId = CRY_SCIZOR,
@@ -15972,7 +16114,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
-        .abilities = { ABILITY_TECHNICIAN, ABILITY_TECHNICIAN, ABILITY_TECHNICIAN },
+        .abilities = { ABILITY_SNIPER, ABILITY_SNIPER, ABILITY_SNIPER },
+        .innateAbility = ABILITY_TECHNICIAN,
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Scizor"),
         .cryId = CRY_SCIZOR_MEGA,
@@ -16044,6 +16187,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_SWARM, ABILITY_SHEER_FORCE, ABILITY_SHARPNESS },
+        .innateAbility = ABILITY_STURDY,
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Kleavor"),
         .cryId = CRY_KLEAVOR,
@@ -16115,6 +16259,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
     #else
         .abilities = { ABILITY_OBLIVIOUS, ABILITY_NONE, ABILITY_HYDRATION },
     #endif
+        .innateAbility = ABILITY_DRY_SKIN,
         .bodyColor = BODY_COLOR_PINK,
         .speciesName = _("Smoochum"),
         .cryId = CRY_SMOOCHUM,
@@ -16185,10 +16330,11 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
     #if P_UPDATED_ABILITIES >= GEN_4
-        .abilities = { ABILITY_OBLIVIOUS, ABILITY_FOREWARN, ABILITY_DRY_SKIN },
+        .abilities = { ABILITY_DANCER, ABILITY_FOREWARN, ABILITY_DRY_SKIN },
     #else
         .abilities = { ABILITY_OBLIVIOUS, ABILITY_NONE, ABILITY_DRY_SKIN },
     #endif
+        .innateAbility = ABILITY_FREEZING_MELODY,
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Jynx"),
         .cryId = CRY_JYNX,
@@ -16262,6 +16408,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_STATIC, ABILITY_NONE, ABILITY_VITAL_SPIRIT },
+        .innateAbility = ABILITY_MOTOR_DRIVE,
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = TRUE,
         .speciesName = _("Elekid"),
@@ -16334,6 +16481,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
         .abilities = { ABILITY_STATIC, ABILITY_NONE, ABILITY_VITAL_SPIRIT },
+        .innateAbility = ABILITY_MOTOR_DRIVE,
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = TRUE,
         .speciesName = _("Electabuzz"),
@@ -16413,7 +16561,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
-        .abilities = { ABILITY_MOTOR_DRIVE, ABILITY_NONE, ABILITY_VITAL_SPIRIT },
+        .abilities = { ABILITY_VITAL_SPIRIT, ABILITY_NONE, ABILITY_IRON_FIST },
+        .innateAbility = ABILITY_MOTOR_DRIVE,
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Electivire"),
         .cryId = CRY_ELECTIVIRE,
@@ -16486,6 +16635,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_FLAME_BODY, ABILITY_NONE, ABILITY_VITAL_SPIRIT },
+        .innateAbility = ABILITY_FLASH_FIRE,
         .bodyColor = BODY_COLOR_RED,
         .noFlip = TRUE,
         .speciesName = _("Magby"),
@@ -16559,6 +16709,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
         .abilities = { ABILITY_FLAME_BODY, ABILITY_NONE, ABILITY_VITAL_SPIRIT },
+        .innateAbility = ABILITY_FLASH_FIRE,
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Magmar"),
         .cryId = CRY_MAGMAR,
@@ -16634,7 +16785,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
-        .abilities = { ABILITY_FLAME_BODY, ABILITY_NONE, ABILITY_VITAL_SPIRIT },
+        .abilities = { ABILITY_FLAME_BODY, ABILITY_QUICK_DRAW, ABILITY_MEGA_LAUNCHER },
+        .innateAbility = ABILITY_FLASH_FIRE,
         .bodyColor = BODY_COLOR_RED,
         .noFlip = TRUE,
         .speciesName = _("Magmortar"),
@@ -16705,10 +16857,11 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
     #if P_UPDATED_ABILITIES >= GEN_4
-        .abilities = { ABILITY_HYPER_CUTTER, ABILITY_MOLD_BREAKER, ABILITY_MOXIE },
+        .abilities = { ABILITY_HYPER_CUTTER, ABILITY_NONE, ABILITY_MOXIE },
     #else
         .abilities = { ABILITY_HYPER_CUTTER, ABILITY_NONE, ABILITY_MOXIE },
     #endif
+        .innateAbility = ABILITY_MOLD_BREAKER, 
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Pinsir"),
         .cryId = CRY_PINSIR,

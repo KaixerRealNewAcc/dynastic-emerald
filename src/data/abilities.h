@@ -1528,7 +1528,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_LIQUID_VOICE] =
         {
             .name = _("Liquid Voice"),
-            .description = COMPOUND_STRING("Makes sound moves Water."),
+            .description = COMPOUND_STRING("Turns Sound moves into Water-Type.\nBoosts Sound moves by 20%."),
             .aiRating = 5,
         },
 
@@ -2420,6 +2420,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         {
             .name = _("Short Circuit"),
             .description = COMPOUND_STRING("Increases Electric moves by 50% when the user's HP is under 1/3 HP. 20% Otherwise"),
+            .aiRating = 5,
+        },
+
+        [ABILITY_FREEZING_MELODY] =
+        {
+            .name = _("Freezing Melody"),
+            .description = COMPOUND_STRING("Turns Sound moves into Ice-Type.\nBoosts Sound moves by 20%."),
             .aiRating = 5,
         },
 };

@@ -4348,6 +4348,81 @@ void UseBlankMessageToCancelPokemonPic(void)
     ScriptMenu_HidePokemonPic();
 }
 
+void ChangeMonIVsForHPAndSP(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u8 newHiddenPowerType = gSpecialVar_0x8005;
+    
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivHp);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivAtk);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivDef);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivSpatk);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivSpdef);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivSpeed);
+    CalculateMonStats(&gPlayerParty[gSpecialVar_0x8004]);
+}
+
+
+void RemoveAllEVs(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    s32 zeroEvs = 0;
+    
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_EV, &zeroEvs);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_EV, &zeroEvs);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_EV, &zeroEvs);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_EV, &zeroEvs);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_EV, &zeroEvs);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_EV, &zeroEvs);
+    CalculateMonStats(&gPlayerParty[gSpecialVar_0x8004]);
+}
+
+void ChangeMonNature(void) 
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 gender = GetMonGender(mon);
+    bool8 isShiny = IsMonShiny(mon);
+    //todo maybe worry about spinda spots, unown letter, wurmple evo
+
+    u8 newNature = gSpecialVar_0x8005;
+    u32 newPersonality;
+    do
+    {
+        newPersonality = Random32();
+    }
+    while ((GetNatureFromPersonality(newPersonality) != newNature) ||
+           (GetGenderFromSpeciesAndPersonality(species, newPersonality) != gender));
+
+    UpdateMonPersonality(&mon->box, newPersonality);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_IS_SHINY, &isShiny);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HIDDEN_NATURE, &newNature);
+    CalculateMonStats(&gPlayerParty[gSpecialVar_0x8004]);
+}
+
+
+void ChangeMonGender(void) 
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 gender = GetMonGender(mon);
+    bool8 isShiny = IsMonShiny(mon);
+    u8 nature = GetNature(mon);
+
+    u8 newGender = gender == MON_FEMALE ? MON_MALE : MON_FEMALE;
+    u32 newPersonality;
+    do
+    {
+        newPersonality = Random32();
+    }
+    while ((GetNatureFromPersonality(newPersonality) != nature) ||
+           (GetGenderFromSpeciesAndPersonality(species, newPersonality) != newGender));
+
+    UpdateMonPersonality(&mon->box, newPersonality);
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_IS_SHINY, &isShiny);
+    CalculateMonStats(&gPlayerParty[gSpecialVar_0x8004]);
+}
+
 void EnterCode(void)
 {
     DoNamingScreen(NAMING_SCREEN_CODE, gStringVar2, 0, 0, 0, CB2_ReturnToFieldContinueScript);

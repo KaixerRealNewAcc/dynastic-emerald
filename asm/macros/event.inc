@@ -2387,6 +2387,14 @@
 	callnative ScriptHideItemDescription, requests_effects=1
 	.endm
 
+	@ Writes the name of the given type to the specified buffer
+	.macro bufferhptypeinfo stringVarId1:req, stringVarId2:req, type:req
+	.byte SCR_OP_BUFFERHPTYPEINFO
+	stringvar \stringVarId1
+	stringvar \stringVarId2
+	.2byte \type
+	.endm
+
 	@ Remove all of specified item from the player's bag and return the number of removed items to VAR_RESULT
 	.macro removeallitem itemId:req
 	callnative ScrCmd_removeallitem, requests_effects=1

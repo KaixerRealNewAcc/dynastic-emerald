@@ -5561,8 +5561,8 @@ bool32 IsMoldBreakerTypeAbility(u32 battler, u32 ability)
     return ((ability == ABILITY_MOLD_BREAKER                    || 
             ability == ABILITY_TERAVOLT                         || 
             ability == ABILITY_TURBOBLAZE)                      || 
-            (HAS_INNATE(battler, ABILITY_MOLD_BREAKER)) ||
-            (HAS_INNATE(battler, ABILITY_TERAVOLT))     ||
+            (HAS_INNATE(battler, ABILITY_MOLD_BREAKER))         ||
+            (HAS_INNATE(battler, ABILITY_TERAVOLT))             ||
             (HAS_INNATE(battler, ABILITY_TURBOBLAZE))); 
            //(ability == ABILITY_MYCELIUM_MIGHT && IsBattleMoveStatus(gCurrentMove)))
 }
@@ -8925,6 +8925,24 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *damageCalcData
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        }
+    }
+
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_LIQUID_VOICE))
+    {
+        if(moveType == TYPE_WATER)
+        {
+            if(IsSoundMove(move))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        }
+    }
+
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FREEZING_MELODY))
+    {
+        if(moveType == TYPE_ICE)
+        {
+            if(IsSoundMove(move))
+             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
 

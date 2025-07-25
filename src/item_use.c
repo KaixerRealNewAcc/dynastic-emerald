@@ -979,6 +979,39 @@ static void RemoveUsedItem(void)
     }
 }
 
+static const u8 gOtherText_InfiniteRepelOn[] = _("The Infinite Repel was {COLOR GREEN}{SHADOW LIGHT_GREEN}enabled!{PAUSE_UNTIL_PRESS}");
+static const u8 gOtherText_InfiniteRepelOff[] = _("The Infinite Repel was {COLOR RED}{SHADOW LIGHT_RED}disabled!{PAUSE_UNTIL_PRESS}");
+
+void ItemUseOutOfBattle_InfRepel(u8 taskId)
+{
+    if (!gSaveBlock3Ptr->permanentRepel)
+	{
+		PlaySE(SE_REPEL);
+		if (!gTasks[taskId].data[2]) // to account for pressing select in the overworld
+		{
+			DisplayItemMessageOnField(taskId, gOtherText_InfiniteRepelOn, Task_CloseCantUseKeyItemMessage);
+		}
+		else
+		{
+			DisplayItemMessage(taskId, 1, gOtherText_InfiniteRepelOn, CloseItemMessage);
+		}
+	}
+	else
+	{
+		PlaySE(SE_PC_OFF);
+		if (!gTasks[taskId].data[2]) // to account for pressing select in the overworld
+		{
+			DisplayItemMessageOnField(taskId, gOtherText_InfiniteRepelOff, Task_CloseCantUseKeyItemMessage);
+		}
+		else
+		{
+			DisplayItemMessage(taskId, 1, gOtherText_InfiniteRepelOff, CloseItemMessage);
+		}
+	}
+	gSaveBlock3Ptr->permanentRepel = !gSaveBlock3Ptr->permanentRepel;
+}
+
+
 void ItemUseOutOfBattle_Repel(u8 taskId)
 {
     if (REPEL_STEP_COUNT == 0)

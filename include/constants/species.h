@@ -1639,10 +1639,12 @@
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
 
 #define SPECIES_COALOSSAL_MEGA                          (SPECIES_MIMIKYU_TOTEM_BUSTED + 1)
-#define SPECIES_ARCEUS_SOUND                            (SPECIES_COALOSSAL_MEGA + 1)
-#define SPECIES_SILVALLY_SOUND                          (SPECIES_ARCEUS_SOUND + 1)
+#define SPECIES_ARCEUS_SOUND                            (SPECIES_MIMIKYU_TOTEM_BUSTED + 2)
+#define SPECIES_SILVALLY_SOUND                          (SPECIES_MIMIKYU_TOTEM_BUSTED + 3)
+#define SPECIES_NIDOKING_MEGA                           (SPECIES_MIMIKYU_TOTEM_BUSTED + 4)
+#define SPECIES_NIDOQUEEN_MEGA                          (SPECIES_MIMIKYU_TOTEM_BUSTED + 5)
 
-#define SPECIES_EGG                                     (SPECIES_SILVALLY_SOUND + 1)
+#define SPECIES_EGG                                     (SPECIES_MIMIKYU_TOTEM_BUSTED + 6)
 
 #define NUM_SPECIES SPECIES_EGG
 

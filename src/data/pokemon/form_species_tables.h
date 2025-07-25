@@ -68,6 +68,22 @@ static const u16 sPidgeotFormSpeciesIdTable[] = {
 };
 #endif //P_FAMILY_PIDGEY
 
+static const u16 sNidokingFormSpeciesIdTable[] = {
+    SPECIES_NIDOKING,
+#if P_MEGA_EVOLUTIONS
+    SPECIES_NIDOKING_MEGA,
+#endif
+    FORM_SPECIES_END,
+};
+
+static const u16 sNidoqueenFormSpeciesIdTable[] = {
+    SPECIES_NIDOQUEEN,
+#if P_MEGA_EVOLUTIONS
+    SPECIES_NIDOQUEEN_MEGA,
+#endif
+    FORM_SPECIES_END,
+};
+
 #if P_FAMILY_RATTATA
 static const u16 sRattataFormSpeciesIdTable[] = {
     SPECIES_RATTATA,

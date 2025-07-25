@@ -1,0 +1,356 @@
+raw `
+Common_EventScript_PkmnCenterNurse::
+	lock
+	faceplayer
+	setvar VAR_0x8004, 0
+	specialvar VAR_RESULT, CountPlayerTrainerStars
+	goto_if_eq VAR_RESULT, 4, EventScript_PkmnCenterNurse_GoldCard
+	msgbox gText_WouldYouLikeToRestYourPkmn, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_HealPkmn
+	goto_if_eq VAR_RESULT, NO, EventScript_PkmnCenterNurse_Goodbye
+	end
+
+EventScript_PkmnCenterNurse_Goodbye::
+	message gText_WeHopeToSeeYouAgain
+	return
+
+@ VAR_0x8004 is 1 when player has Gold Card; jumps are identical
+EventScript_PkmnCenterNurse_HealPkmn::
+	incrementgamestat GAME_STAT_USED_POKECENTER
+	call_if_eq VAR_0x8004, 0, EventScript_PkmnCenterNurse_IllTakeYourPkmn
+	call_if_eq VAR_0x8004, 1, EventScript_PkmnCenterNurse_IllTakeYourPkmn2
+	waitmessage
+	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
+	goto_if_unset FLAG_POKERUS_EXPLAINED, EventScript_PkmnCenterNurse_CheckPokerus
+	goto EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom
+	end
+
+EventScript_PkmnCenterNurse_IllTakeYourPkmn::
+	message gText_IllTakeYourPkmn
+	return
+
+EventScript_PkmnCenterNurse_IllTakeYourPkmn2::
+	message gText_IllTakeYourPkmn2
+	return
+
+EventScript_PkmnCenterNurse_TakeAndHealPkmn::
+	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Turn @ Changed from Common_Movement_WalkInPlaceFasterLeft to force the follower to enter their Poké Ball
+	waitmovement 0
+	dofieldeffect FLDEFF_POKECENTER_HEAL
+.if OW_UNION_DISABLE_CHECK == FALSE && OW_FLAG_MOVE_UNION_ROOM_CHECK != 0
+	setflag OW_FLAG_MOVE_UNION_ROOM_CHECK
+	call CableClub_OnResume
+	clearflag OW_FLAG_MOVE_UNION_ROOM_CHECK
+.endif
+	waitfieldeffect FLDEFF_POKECENTER_HEAL
+	applymovement VAR_0x800B, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	special HealPlayerParty
+	callnative UpdateFollowingPokemon
+	return
+
+EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom::
+	specialvar VAR_RESULT, PlayerNotAtTrainerHillEntrance
+	goto_if_eq VAR_RESULT, 0, EventScript_PkmnCenterNurse_ReturnPkmn
+	specialvar VAR_RESULT, BufferUnionRoomPlayerName
+	copyvar VAR_0x8008, VAR_RESULT
+	goto_if_eq VAR_0x8008, 0, EventScript_PkmnCenterNurse_ReturnPkmn
+	goto_if_eq VAR_0x8008, 1, EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom
+	end
+
+@ VAR_0x8004 is 1 when player has Gold Card
+EventScript_PkmnCenterNurse_ReturnPkmn::
+	goto_if_eq VAR_0x8004, 1, EventScript_PkmnCenterNurse_ReturnPkmn2
+	message gText_RestoredPkmnToFullHealth
+	waitmessage
+	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Bow
+	waitmovement 0
+	message gText_WeHopeToSeeYouAgain
+	return
+
+EventScript_PkmnCenterNurse_ReturnPkmn2::
+	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Bow
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
+	return
+
+
+EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom::
+	goto_if_set FLAG_NURSE_UNION_ROOM_REMINDER, EventScript_PkmnCenterNurse_ReturnPkmn
+	msgbox gText_RestoredPkmnToFullHealth, MSGBOX_DEFAULT
+	setflag FLAG_NURSE_UNION_ROOM_REMINDER
+	message CableClub_Text_PlayerIsWaiting
+	waitmessage
+	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Bow
+	waitmovement 0
+	message gText_WeHopeToSeeYouAgain
+	return
+
+EventScript_PkmnCenterNurse_CheckPokerus::
+	specialvar VAR_RESULT, IsPokerusInParty
+	goto_if_eq VAR_RESULT, TRUE, EventScript_PkmnCenterNurse_ExplainPokerus
+	goto_if_eq VAR_RESULT, FALSE, EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom
+	end
+
+EventScript_PkmnCenterNurse_ExplainPokerus::
+	message gText_PokerusExplanation
+	setflag FLAG_POKERUS_EXPLAINED
+	return
+
+EventScript_PkmnCenterNurse_GoldCard::
+	goto_if_set FLAG_NURSE_MENTIONS_GOLD_CARD, EventScript_PkmnCenterNurse_AskForUsual
+	setflag FLAG_NURSE_MENTIONS_GOLD_CARD
+	msgbox gText_WelcomeCutShort, MSGBOX_DEFAULT
+	playse SE_PIN
+	applymovement VAR_0x800B, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement VAR_0x800B, Common_Movement_Delay48
+	waitmovement 0
+	msgbox gText_NoticesGoldCard, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_GoldCardHealPkmn
+	message gText_WeHopeToSeeYouAgain2
+	return
+
+EventScript_PkmnCenterNurse_AskForUsual::
+	msgbox gText_YouWantTheUsual, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_GoldCardHealPkmn
+	message gText_WeHopeToSeeYouAgain2
+	return
+
+EventScript_PkmnCenterNurse_GoldCardHealPkmn::
+	setvar VAR_0x8004, 1
+	goto EventScript_PkmnCenterNurse_HealPkmn
+	end
+
+Movement_PkmnCenterNurse_Bow:
+	nurse_joy_bow
+	delay_4
+	step_end
+
+Movement_PkmnCenterNurse_Turn:
+	walk_in_place_faster_left
+	step_end
+`
+
+script EventScript_PkmnCenterPokeHelper {
+	lock
+	faceplayer
+	message("Welcome!\nWhat service are you looking for?")
+	waitmessage
+
+	dynmultipush("Change Nature", 0)
+	dynmultipush("Change Gender", 1)
+	dynmultipush("Mode Info", 2)
+	dynmultipush("Current Release Info", 3)
+	dynmultipush("Cancel", MULTI_B_PRESSED)
+
+	// setting initial selected to a non-existant ID will always have it point to the first option
+	//.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
+	dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+
+	switch(var(VAR_RESULT))
+	{
+		case 0: goto(NatureChanger) //Nature Changer
+		case 1: goto(GenderChanger) //Gender Changer
+		case 2: goto(ModeInfo)
+		case 3: goto(VersionInfo)
+		case MULTI_B_PRESSED: msgbox("I see. Come back if you need\nsomething else.") release end	
+	}
+	release
+	end
+}
+
+script NatureChanger{
+	message(format("Which Pokemon would you like to change its nature?"))
+	waitmessage
+	special(ChoosePartyMon) 
+	waitstate
+	if(var(VAR_0x8004) == PARTY_NOTHING_CHOSEN)
+	{
+		msgbox("I see. Come back if you need\nsomething else.")
+		release
+		end
+	}
+	specialvar (VAR_RESULT, ScriptGetPartyMonSpecies)
+	if(var(VAR_RESULT) == SPECIES_EGG)
+	{
+		message(format("Thats.. an egg.\nEggs can't be nature swapped."))
+		waitmessage
+		waitbuttonpress
+	}
+	special (BufferMonNickname)
+	message(format("Which new Nature suits {STR_VAR_1} best?"))
+	waitmessage
+
+	dynmultipush("Adamant: {COLOR RED}{SHADOW LIGHT_RED}+Atk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpAtk", NATURE_ADAMANT)
+	dynmultipush("Bashful: Neutral", NATURE_BASHFUL)
+	dynmultipush("Bold:    {COLOR RED}{SHADOW LIGHT_RED}+Def{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Atk       ", NATURE_BOLD)
+	dynmultipush("Brave:   {COLOR RED}{SHADOW LIGHT_RED}+Atk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Speed     ", NATURE_BRAVE)
+	dynmultipush("Calm:    {COLOR RED}{SHADOW LIGHT_RED}+SpDef{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Atk     ", NATURE_CALM)
+	dynmultipush("Careful: {COLOR RED}{SHADOW LIGHT_RED}+SpDef{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpAtk   ", NATURE_CAREFUL)
+	dynmultipush("Docile:  Neutral", NATURE_DOCILE)
+	dynmultipush("Gentle:  {COLOR RED}{SHADOW LIGHT_RED}+SpDef{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Def     ", NATURE_GENTLE)
+	dynmultipush("Hardy:   Neutral", NATURE_HARDY)
+	dynmultipush("Hasty:   {COLOR RED}{SHADOW LIGHT_RED}+Speed{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Def     ", NATURE_HASTY)
+	dynmultipush("Impish:  {COLOR RED}{SHADOW LIGHT_RED}+Def{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpAtk   ", NATURE_IMPISH)
+	dynmultipush("Jolly:   {COLOR RED}{SHADOW LIGHT_RED}+Speed{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpAtk   ", NATURE_JOLLY)
+	dynmultipush("Lax:     {COLOR RED}{SHADOW LIGHT_RED}+Def{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpDef   ", NATURE_LAX)
+	dynmultipush("Lonely:  {COLOR RED}{SHADOW LIGHT_RED}+Atk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Def     ", NATURE_LONELY)
+	dynmultipush("Mild:    {COLOR RED}{SHADOW LIGHT_RED}+SpAtk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Def   ", NATURE_MILD)
+	dynmultipush("Modest:  {COLOR RED}{SHADOW LIGHT_RED}+SpAtk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Atk   ", NATURE_MODEST)
+	dynmultipush("Naive:   {COLOR RED}{SHADOW LIGHT_RED}+Speed{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpDef ", NATURE_NAIVE)
+	dynmultipush("Naughty: {COLOR RED}{SHADOW LIGHT_RED}+Atk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpDef   ", NATURE_NAUGHTY)
+	dynmultipush("Quiet:   {COLOR RED}{SHADOW LIGHT_RED}+SpAtk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Speed ", NATURE_QUIET)
+	dynmultipush("Quirky:  Neutral", NATURE_QUIRKY)
+	dynmultipush("Rash:    {COLOR RED}{SHADOW LIGHT_RED}+SpAtk{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-SpDef ", NATURE_RASH)
+	dynmultipush("Relaxed: {COLOR RED}{SHADOW LIGHT_RED}+Def{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Speed   ", NATURE_RELAXED)
+	dynmultipush("Sassy:   {COLOR RED}{SHADOW LIGHT_RED}+SpDef{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Speed ", NATURE_SASSY)
+	dynmultipush("Serious: Neutral", NATURE_SERIOUS)
+	dynmultipush("Timid:   {COLOR RED}{SHADOW LIGHT_RED}+Speed{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}/{COLOR BLUE}{SHADOW LIGHT_BLUE}-Atk   ", NATURE_TIMID)
+	dynmultipush("Cancel", MULTI_B_PRESSED)
+
+	// // setting initial selected to a non-existant ID will always have it point to the first option
+	dynmultistack(0, 0, FALSE, 6, FALSE, 3, DYN_MULTICHOICE_CB_NONE)
+
+	if (var(VAR_RESULT) == MULTI_B_PRESSED) 
+	{
+		msgbox("I see. Come back if you need\nsomething else.")
+		release
+		end	
+	}
+
+	copyvar(VAR_0x8005, VAR_RESULT)
+	special (BufferMonNickname)
+	//buffernaturename(STR_VAR_2, VAR_RESULT)
+	msgbox(format("I will now change\n"
+	"{STR_VAR_1}'s Nature.\p"
+	"Is that okay?"), MSGBOX_YESNO)
+
+	if(var(VAR_RESULT) == NO) 
+	{
+		msgbox("I see. Come back if you need\nsomething else.")
+		release
+		end	
+	}
+
+	msgbox("Excellent. We shall begin at once!")
+	fadescreen(FADE_TO_BLACK)
+	special(ChangeMonNature)
+	playfanfare(MUS_OBTAIN_ITEM)
+	waitfanfare
+	closemessage
+	fadescreen(FADE_FROM_BLACK)
+	msgbox("{STR_VAR_1}'s Nature has been\nchanged.\pCome again if you need\nsomething else.")
+	release
+	end
+}
+
+script GenderChanger{
+	msgbox(format("I can swap the Gender of the\n"
+	"following Pokémon:\p"
+	"{COLOR GREEN}{SHADOW LIGHT_GREEN}Snorunt, Ralts, Kirlia, Salandit, Burmy,\n"
+	"Combee, Espurr, Basculin, and Lechonk.\p"
+	"{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}This is because these Pokémon have\n"
+	"Gender-based evolutions.\p"
+	"Which Pokémon's Gender should I swap?"))
+	special(ChoosePartyMon)
+	waitstate
+	if(var(VAR_0x8004) == PARTY_NOTHING_CHOSEN)
+	{
+		msgbox("I see. Come back if you need\nsomething else.")
+		release
+		end	
+	}
+	specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
+	switch (var(VAR_RESULT)) {
+        case SPECIES_SNORUNT:
+		case SPECIES_RALTS:
+        case SPECIES_KIRLIA:
+		case SPECIES_SALANDIT:
+        case SPECIES_BURMY_PLANT:
+		case SPECIES_BURMY_SANDY:
+		case SPECIES_BURMY_TRASH:
+		case SPECIES_COMBEE:
+        case SPECIES_ESPURR:
+		case SPECIES_BASCULIN_RED_STRIPED:
+		case SPECIES_BASCULIN_BLUE_STRIPED:
+		case SPECIES_BASCULIN_WHITE_STRIPED:
+        case SPECIES_LECHONK:
+			special(BufferMonNickname)
+			msgbox(format("I will now swap\n"
+			"{STR_VAR_1}'s Gender.\p"
+			"Is that okay?"), MSGBOX_YESNO)
+			if(var(VAR_RESULT) == NO) 
+			{
+				msgbox("I see. Come back if you need\nsomething else.")
+				release
+				end	
+			}
+            msgbox("Excellent. We shall begin at once!")
+			fadescreen(FADE_TO_BLACK)
+			special(ChangeMonGender)
+			playfanfare(MUS_OBTAIN_ITEM)
+			waitfanfare
+			closemessage
+			fadescreen(FADE_FROM_BLACK)
+			msgbox("{STR_VAR_1}'s Gender has been\nswapped. Come again if you need\lsomething else.")
+
+		case SPECIES_EGG:
+			msgbox("I can't swap the Gender of an Egg.")
+
+        default:
+            msgbox("Sorry, I can't swap the Gender of\nthat Pokémon.")
+    }
+	release
+	end
+}
+
+script ModeInfo{
+	msgbox("To be worked on.")
+	release
+	end
+}
+
+script VersionInfo{
+	msgbox("Current version: {COLOR GREEN}{SHADOW LIGHT_GREEN}Beta v1.1.\n"
+	"{COLOR GREEN}{SHADOW LIGHT_GREEN}Beta v1.1 {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}goes up to {COLOR GREEN}{SHADOW LIGHT_GREEN}Elite Four.")
+	release
+	end
+}
+
+script PkmnCenterChansey{
+	lock
+	faceplayer
+	playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+	message("Chansey: Chansey!")
+	waitmoncry
+	waitbuttonpress
+	dynmultichoice(0,0,TRUE,3,0,DYN_MULTICHOICE_CB_NONE,"Healing","Status Removal","Cancel")
+	switch(var(VAR_RESULT))
+	{
+		case 0: //Healing
+			closemessage
+			message("Chansey used Soft Boiled!")
+			playfanfare(MUS_HEAL)
+			waitfanfare
+			waitbuttonpress
+			closemessage
+			//special(HealHP)
+			callnative(UpdateFollowingPokemon)
+			release
+			end
+		case 1: //Status Removed
+			closemessage
+			message("Chansey used Heal Bell!")
+			playfanfare(MUS_HEAL)
+			waitfanfare
+			waitbuttonpress
+			closemessage
+			//special(HealStatus)
+			callnative(UpdateFollowingPokemon)
+			release
+			end
+		case 2: release end //Cancel
+	}
+}
+

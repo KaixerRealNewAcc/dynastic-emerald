@@ -1,3 +1,4 @@
+
 RustboroCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, RustboroCity_OnFrame
@@ -1290,3 +1291,114 @@ RustboroCity_Text_YouCanHave2On2Battle:
 	.string "they'll both challenge you.\p"
 	.string "Don't you think it'd be cool if you\n"
 	.string "could beat two TRAINERS by yourself?$"
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer::
+	lock
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_0
+	waitmovement OBJ_EVENT_ID_PLAYER
+	playbgm MUS_RG_ENCOUNTER_RIVAL, TRUE
+	opendoor 27, 19
+	waitdooranim
+	addobject LOCALID_LEAF
+	applymovement LOCALID_LEAF, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_1
+	waitmovement LOCALID_LEAF
+	delay 32
+	message RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0
+	waitbuttonpress
+	closemessage
+	clearflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_2
+	waitmovement OBJ_EVENT_ID_PLAYER
+	applymovement LOCALID_LEAF, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_3
+	waitmovement LOCALID_LEAF
+	closedoor 27, 19
+	waitdooranim
+	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1, MSGBOX_DEFAULT
+	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_2, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_LEAF_RUSTBORO, RustboroCity_Text_RivalLeaf_MeetsPlayer_1
+	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_3, MSGBOX_DEFAULT
+	giveitem ITEM_EXP_ALL, 1
+	message RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_4
+	waitbuttonpress
+	closemessage
+	applymovement LOCALID_LEAF, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4
+	waitmovement LOCALID_LEAF
+	removeobject LOCALID_LEAF
+	setvar VAR_BATTLED_LEAF, 1
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	release
+	end
+
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_0:
+	face_up
+	step_end
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_1:
+	emote_exclamation_mark
+	step_end
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_2:
+	emote_exclamation_mark
+	delay_8
+	walk_down
+	face_up
+	lock_facing_direction
+	step_end
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_3:
+	walk_down
+	step_end
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0:
+	.string "Excuse me.$"
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1:
+	.string "Err... Hi, are you a Trainer who's looking\n"
+	.string "to battle this Gym?$"
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_2:
+	.string "Okay!\n"
+	.string "Well, I'm Leaf.\p"
+	.string "A Trainer from the Kanto region, and\n"
+	.string "also the granddaughter of the\l"
+	.string "world-famous Professor Oak.\p"
+	.string "Oh this gym?\n"
+	.string "I just got done battling Roxanne, she\l"
+	.string "was hard to defeat.\p"
+	.string "How about a little battle.\n"
+	.string "I won't take no for an answer!$"
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_3:
+	.string "Well done! That was a great battle, I\n"
+	.string "hope we can meet again some other time.\p"
+	.string "Here's a little gift from me,\n"
+	.string "to make your training sessions easier!$"
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_4:
+	.string "If you enable this, then all the Pokémon\n"
+	.string "in your party will get Exp. Points after\l"
+	.string "a battle, even if they didn't take part\l"
+	.string "in that fight.\p"
+	.string "Don't worry about me! I have a few more\n"
+	.string "of these.\p"
+	.string "Well, good luck for your Gym battles.\n"
+	.string "Byeeee!$"
+
+RustboroCity_Text_RivalLeaf_MeetsPlayer_1::
+	.string "Ugh...\nThought I had you for sure.\pWell, back to training for me, I suppose.$"

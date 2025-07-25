@@ -53,7 +53,7 @@
 #include "constants/songs.h"
 #include "item_icon.h"
 
-//#include "data/dynastic_shortcuts.h"
+#include "data/dynastic_shortcuts.h"
 
 // Screen titles (upper left)
 #define PSS_LABEL_WINDOW_POKEMON_INFO_TITLE 0
@@ -2251,7 +2251,7 @@ static u8 IncrementSkillsStatsMode(u8 mode)
     switch (mode)
     {
     case SUMMARY_SKILLS_MODE_STATS:
-        if (P_SUMMARY_SCREEN_EV_ONLY /*|| IsMinimalGrindingMode()*/)
+        if (P_SUMMARY_SCREEN_EV_ONLY || IsMinimalGrindingMode())
         {
             sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_EVS;
             return SUMMARY_SKILLS_MODE_EVS;
@@ -2263,7 +2263,7 @@ static u8 IncrementSkillsStatsMode(u8 mode)
         }
 
     case SUMMARY_SKILLS_MODE_IVS:
-        if (P_SUMMARY_SCREEN_IV_ONLY /*|| IsMinimalGrindingMode()*/)
+        if (P_SUMMARY_SCREEN_IV_ONLY || IsMinimalGrindingMode())
         {
             sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_STATS;
             return SUMMARY_SKILLS_MODE_STATS;
@@ -5381,10 +5381,10 @@ static inline bool32 ShouldShowIvEvPrompt(void)
     }
     else if (!P_SUMMARY_SCREEN_IV_EV_BOX_ONLY)
     {
-        /*if(IsMinimalGrindingMode())
+        if(IsMinimalGrindingMode())
             return FALSE; //(P_SUMMARY_SCREEN_IV_EV_INFO || FlagGet(P_FLAG_SUMMARY_SCREEN_IV_EV_INFO));
-        else*/
-            return (P_SUMMARY_SCREEN_IV_EV_INFO || FlagGet(P_FLAG_SUMMARY_SCREEN_IV_EV_INFO));
+        else
+            return TRUE;
     }
     return FALSE;
 }

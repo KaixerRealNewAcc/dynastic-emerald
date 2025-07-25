@@ -546,6 +546,10 @@ gSpecials::
 	def_special GetSprayId
 	def_special GetLastUsedSprayType
 	def_special TrySkyBattle
+	def_special ChangeMonNature
+	def_special ChangeMonGender
+	def_special ChangeMonIVsForHPAndSP
+	def_special RemoveAllEVs
 	def_special VsSeekerResetObjectMovementAfterChargeComplete
 	def_special VsSeekerFreezeObjectsAfterChargeComplete
 	def_special PlayerHasMulch
@@ -563,3 +567,4 @@ gSpecials::
 	def_special UseBlankMessageToCancelPokemonPic
 	def_special EnterCode
 	def_special GetCodeFeedback
+	def_special ForceBattleStyleSet

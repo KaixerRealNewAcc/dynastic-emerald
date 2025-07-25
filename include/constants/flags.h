@@ -45,7 +45,7 @@
 
 #define FLAG_DN_SEARCHING    0x20 
 #define FLAG_DN_DETECTOR_MODE 0x21
-#define FLAG_UNUSED_0x022      0x22
+#define FLAG_HIDE_RUSTBORO_LEAF 0x22
 #define FLAG_UNUSED_0x023    0x23
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag
@@ -1222,10 +1222,10 @@
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET                     0x491
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
 
-#define FLAG_UNUSED_0x493                                           0x493 // Unused Flag
-#define FLAG_UNUSED_0x494                                           0x494 // Unused Flag
-#define FLAG_UNUSED_0x495                                           0x495 // Unused Flag
-#define FLAG_UNUSED_0x496                                           0x496 // Unused Flag
+#define FLAG_MINIMAL_GRINDING_MODE                                  0x493 
+#define FLAG_EXPERT_MODE                                            0x494
+#define FLAG_DISABLED_FOLLOWERS                                     0x495
+#define FLAG_VGC_MODE                                               0x496 // Unused Flag
 #define FLAG_UNUSED_0x497                                           0x497 // Unused Flag
 #define FLAG_UNUSED_0x498                                           0x498 // Unused Flag
 #define FLAG_UNUSED_0x499                                           0x499 // Unused Flag
@@ -1566,11 +1566,19 @@
 #define FLAG_UNUSED_0x91D                           (SYSTEM_FLAGS + 0xBD) // Unused Flag
 #define FLAG_UNUSED_0x91E                           (SYSTEM_FLAGS + 0xBE) // Unused Flag
 #define FLAG_UNUSED_0x91F                           (SYSTEM_FLAGS + 0xBF) // Unused Flag
+#define SYSTEM_FLAGS_END                            (FLAG_UNUSED_0x91F)
+
+#define CODE_FLAGS_START                            (SYSTEM_FLAGS_END + 1)
+#define DEXALL_CODE                                 (CODE_FLAGS_START + 0x0)
+#define EZCATCH_CODE                                (CODE_FLAGS_START + 0x1)
+#define EZLEVELING_CODE                             (CODE_FLAGS_START + 0x3)
+#define CODE_FLAG_END                               (EZLEVELING_CODE)
+
 
 // Daily Flags
 // These flags are cleared once per day
 // The start and end are byte-aligned because the flags are cleared in byte increments
-#define DAILY_FLAGS_START                           (FLAG_UNUSED_0x91F + (8 - FLAG_UNUSED_0x91F % 8))
+#define DAILY_FLAGS_START                           (CODE_FLAG_END + (8 - CODE_FLAG_END % 8))
 #define FLAG_UNUSED_0x920                           (DAILY_FLAGS_START + 0x0)  // Unused Flag
 #define FLAG_DAILY_CONTEST_LOBBY_RECEIVED_BERRY     (DAILY_FLAGS_START + 0x1)
 #define FLAG_DAILY_SECRET_BASE                      (DAILY_FLAGS_START + 0x2)

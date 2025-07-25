@@ -1,0 +1,257 @@
+raw`
+MauvilleCity_House1_MapScripts::
+	.byte 0
+
+MauvilleCity_House1_EventScript_RockSmashDude::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_HM_ROCK_SMASH, MauvilleCity_House1_EventScript_ReceivedRockSmash
+	msgbox MauvilleCity_House1_Text_ImRockSmashDudeTakeThis, MSGBOX_DEFAULT
+	giveitem ITEM_HM_ROCK_SMASH
+	setflag FLAG_RECEIVED_HM_ROCK_SMASH
+	setflag FLAG_HIDE_ROUTE_111_ROCK_SMASH_TIP_GUY
+	msgbox MauvilleCity_House1_Text_ExplainRockSmash, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House1_EventScript_ReceivedRockSmash::
+	msgbox MauvilleCity_House1_Text_MonCanFlyOutOfSmashedRock, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House1_Text_ImRockSmashDudeTakeThis:
+	.string "Woohoo!\p"
+	.string "I hear people call me the ROCK SMASH\n"
+	.string "GUY, but I find that sort of degrading.\p"
+	.string "I think I deserve a bit more respect,\n"
+	.string "like maybe the ROCK SMASH DUDE.\p"
+	.string "Woohoo!\p"
+	.string "Anyways, your POKéMON look pretty\n"
+	.string "strong.\p"
+	.string "I like that!\n"
+	.string "Here, take this HIDDEN MACHINE!$"
+
+MauvilleCity_House1_Text_ExplainRockSmash:
+	.string "That HM contains ROCK SMASH.\p"
+	.string "If you come across large boulders\n"
+	.string "that block your path…\p"
+	.string "Well, use that HM move and smash\n"
+	.string "them right out of your way!\p"
+	.string "Yes, sir! Smash rocks aside, I say!\n"
+	.string "Woohoo!$"
+
+MauvilleCity_House1_Text_MonCanFlyOutOfSmashedRock:
+	.string "Oh, yes, if you smash a rock, a POKéMON\n"
+	.string "could come flying out of hiding.\p"
+	.string "Woohoo!$"
+`
+
+script MauvilleCity_House1_EventScript_EvTrainer{
+	lock
+	faceplayer
+	if(defeated(TRAINER_WATTSON_1))
+	{
+		msgbox(format("Hello there trainer, I'm the EV Trainer\nIf you need your Pokémon EV Trained\pI'm the girl for the job."), MSGBOX_DEFAULT)
+		if(flag(FLAG_MINIMAL_GRINDING_MODE))
+		{
+			msgbox(format("Oh it appears you can't use EV's for some strange reason, I'm sorry but i can't train with you this way :("))
+			release
+			end
+		}
+		msgbox(format("Before we start training do you want to Remove all the EV's your Pokémon already have?\pThis can make EvTraining easy for you."), MSGBOX_YESNO)
+		if(var(VAR_RESULT) == YES)
+		{
+			msgbox(format("Which Pokémon would you like their EV's to be removed?"))
+			special(ChoosePartyMon)
+			waitstate
+			if(var(VAR_0x8004) == PARTY_NOTHING_CHOSEN)
+			{
+				message(format("No Pokémon... Aww.. i see, come back soon!"))
+				waitbuttonpress
+				closemessage
+				release
+				end
+			}
+			specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
+			if(var(VAR_RESULT) == SPECIES_EGG) {
+				msgbox("I can't change the EV's\nof an Egg you silly goose.")
+				release
+				end
+			}
+			message("I shall begin at once.")
+			waitbuttonpress
+			fadescreen(FADE_TO_BLACK)
+			special(RemoveAllEVs)
+			playfanfare(MUS_OBTAIN_ITEM)
+			waitfanfare
+			closemessage
+			fadescreen(FADE_FROM_BLACK)
+			msgbox("Do you want to continue?", MSGBOX_YESNO)
+			if(var(VAR_RESULT) == YES)
+			{
+				message(format("Alrighty, Lets train."))
+				waitbuttonpress
+				closemessage
+				goto(MauvilleCity_House1_EventScript_EvTrainer_Continue)
+				end
+			}
+			elif(var(VAR_RESULT) == NO)
+			{
+				message(format("No Training...? Aww.. i see, come back soon!"))
+				waitbuttonpress
+				closemessage
+				release
+				end
+			}
+		}
+		elif(var(VAR_RESULT) == NO)
+		{
+			message(format("Alrighty, Lets train."))
+			waitbuttonpress
+			closemessage
+			goto(MauvilleCity_House1_EventScript_EvTrainer_Continue)
+		}
+	}
+	else
+	{
+		msgbox(format("Hello there trainer, I'm the EV Trainer\nIf you need your Pokémon EV Trained\pI'm the girl for the job."))
+		msgbox(format("Oh... its seems like u don't have the Dynamo Badge yet. Come back when you have gotten the Dynamo Badge!"))
+		release
+		end
+	}
+}
+
+script MauvilleCity_House1_EventScript_EvTrainer_Continue{
+	message(format("Wich EV stat would you like to train?"))
+	dynmultichoice(0,0,TRUE,5,0,DYN_MULTICHOICE_CB_NONE,"HP","Attack","Defense","Special Attack","Special Defense","Speed")
+	switch(var(VAR_RESULT))
+	{
+		case 0: closemessage trainerbattle_no_intro(EV_TRAINER_HP, "Ur Welcome.") release end
+		case 1: closemessage trainerbattle_no_intro(EV_TRAINER_ATK, "Ur Welcome.") release end
+		case 2:	closemessage trainerbattle_no_intro(EV_TRAINER_DEF, "Ur Welcome.") release end
+		case 3: closemessage trainerbattle_no_intro(EV_TRAINER_SPA, "Ur Welcome.") release end
+		case 4:	closemessage trainerbattle_no_intro(EV_TRAINER_SPD, "Ur Welcome.") release end
+		case 5: closemessage trainerbattle_no_intro(EV_TRAINER_SPEED, "Ur Welcome.") release end
+	}
+}
+
+script MauvilleCity_House1_EventScript_HiddenSecretPowerSetter{
+	lock
+    faceplayer
+	if(flag(FLAG_MINIMAL_GRINDING_MODE) || flag(FLAG_BADGE08_GET))
+	{
+		goto(MauvilleCity_House1_EventScript_ChangeHP)
+	}
+	msgbox(HpChangerHelloCantChange)
+	release
+	end
+}
+
+script MauvilleCity_House1_EventScript_ChangeHP{
+	msgbox(HpChangerHelloCanChange, MSGBOX_YESNO)
+	if(var(VAR_RESULT) == NO)
+	{
+		goto(MauvilleCity_House1_EventScript_HPChangerNo)
+	}
+	msgbox("Which Pokémon?")
+	special(ChoosePartyMon)
+	waitstate
+	if(var(VAR_0x8004) == PARTY_NOTHING_CHOSEN)
+	{
+		goto(MauvilleCity_House1_EventScript_HPChangerNo)
+	}
+	specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
+	if(var(VAR_RESULT) == SPECIES_EGG) {
+		msgbox("I can't change the Hidden Power\nof an Egg.")
+		release
+		end
+	}
+	special(BufferMonNickname)
+	msgbox("Which new Hidden and Secret Power type would\nyou like for {STR_VAR_1}?")
+	dynmultipush("Fighting", TYPE_FIGHTING)
+	dynmultipush("Flying", TYPE_FLYING)
+	dynmultipush("Poison", TYPE_POISON)
+	dynmultipush("Ground", TYPE_GROUND)
+	dynmultipush("Rock", TYPE_ROCK)
+	dynmultipush("Bug", TYPE_BUG)
+	dynmultipush("Ghost", TYPE_GHOST)
+	dynmultipush("Steel", TYPE_STEEL)
+	dynmultipush("Fire", TYPE_FIRE)
+	dynmultipush("Water", TYPE_WATER)
+	dynmultipush("Grass", TYPE_GRASS)
+	dynmultipush("Electric", TYPE_ELECTRIC)
+	dynmultipush("Psychic", TYPE_PSYCHIC)
+	dynmultipush("Ice", TYPE_ICE)
+	dynmultipush("Dragon", TYPE_DRAGON)
+	dynmultipush("Dark", TYPE_DARK)
+	dynmultipush("Cancel", MULTI_B_PRESSED)
+	// // setting initial selected to a non-existant ID will always have it point to the first option
+	dynmultistack(0, 0, FALSE, 6, FALSE, TYPE_FIGHTING, DYN_MULTICHOICE_CB_NONE)
+
+	if (var(VAR_RESULT) == MULTI_B_PRESSED) 
+	{
+		goto(MauvilleCity_House1_EventScript_HPChangerNo)
+	}
+
+	copyvar(VAR_0x8005, VAR_RESULT)
+	bufferhptypeinfo(STR_VAR_2, STR_VAR_3, VAR_RESULT)
+	msgbox(AreYouSureHPTypeChange, MSGBOX_YESNO)
+
+	if(var(VAR_RESULT) == NO) 
+	{
+		goto(MauvilleCity_House1_EventScript_HPChangerNo)
+	}
+
+	msgbox("I shall begin at once.")
+	fadescreen(FADE_TO_BLACK)
+	special(ChangeMonIVsForHPAndSP)
+	playfanfare(MUS_OBTAIN_ITEM)
+	waitfanfare
+	closemessage
+	fadescreen(FADE_FROM_BLACK)
+	msgbox(HPTypeChangedComeBackSoon)
+	release
+	end
+}
+
+script MauvilleCity_House1_EventScript_HPChangerNo {
+    msgbox("I see. Come back if you change\nyour mind.")
+    release
+    end
+}
+
+
+text HpChangerHelloCantChange
+{
+	"Hello, I am the Hidden Power type\n"
+	"changer.\p"
+	"Oh, it looks like you are not in\n"
+	"Minimal Grinding Mode.\p"
+	"I can't modify your Pokémon's IVs until\n"
+	"you have 3 Badges in that case."
+}
+
+text HpChangerHelloCanChange
+{
+	format("Hiya there trainer, im the infamous Hidden Power or Secret Power type changer. You can choose a Pokémon i can quickly modify its IV's to change the type of Hidden Power and Secret Power.")
+}
+
+text AreYouSureHPTypeChange
+{
+	"So you want me to change\n"
+	"{STR_VAR_1}'s Hidden Power type\l"
+	"to {STR_VAR_2}?\p"
+	"This will modify {STR_VAR_1}'s\n"
+	"IVs to be the following:\p"
+	"HP   Atk   Def   SpAtk   SpDef   Spd\n"
+	"{STR_VAR_3}"
+}
+
+text HPTypeChangedComeBackSoon
+{
+	"{STR_VAR_1}'s Hidden Power type\n"
+	"has been changed to {STR_VAR_2}.\p"
+	"Come back if you need me to change\n"
+	"the Hidden Power type of\l"
+	"another Pokémon."
+}

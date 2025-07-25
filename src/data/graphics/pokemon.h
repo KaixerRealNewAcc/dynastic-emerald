@@ -1310,6 +1310,13 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
     const u16 gOverworldPalette_Nidoqueen[] = INCBIN_U16("graphics/pokemon/nidoqueen/overworld_normal.gbapal");
     const u16 gShinyOverworldPalette_Nidoqueen[] = INCBIN_U16("graphics/pokemon/nidoqueen/overworld_shiny.gbapal");
+
+    const u32 gMonFrontPic_Nidoqueen_Mega[] = INCBIN_U32("graphics/pokemon/nidoqueen/mega/front.4bpp.lz");
+    const u16 gMonPalette_Nidoqueen_Mega[] = INCBIN_U16("graphics/pokemon/nidoqueen/mega/normal.gbapal");
+    const u32 gMonBackPic_Nidoqueen_Mega[] = INCBIN_U32("graphics/pokemon/nidoqueen/mega/back.4bpp.lz");
+    const u16 gMonShinyPalette_Nidoqueen_Mega[] = INCBIN_U16("graphics/pokemon/nidoqueen/mega/shiny.gbapal");
+
+    const u8 gMonIcon_Nidoqueen_Mega[] = INCBIN_U8("graphics/pokemon/nidoqueen/mega/icon.4bpp");
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 
@@ -1393,6 +1400,13 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
     const u16 gShinyOverworldPalette_Nidoking[] = INCBIN_U16("graphics/pokemon/nidoking/overworld_shiny.gbapal");
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
+
+    const u32 gMonFrontPic_Nidoking_Mega[] = INCBIN_U32("graphics/pokemon/nidoking/mega/front.4bpp.lz");
+    const u16 gMonPalette_Nidoking_Mega[] = INCBIN_U16("graphics/pokemon/nidoking/mega/normal.gbapal");
+    const u32 gMonBackPic_Nidoking_Mega[] = INCBIN_U32("graphics/pokemon/nidoking/mega/back.4bpp.lz");
+    const u16 gMonShinyPalette_Nidoking_Mega[] = INCBIN_U16("graphics/pokemon/nidoking/mega/shiny.gbapal");
+
+    const u8 gMonIcon_Nidoking_Mega[] = INCBIN_U8("graphics/pokemon/nidoking/mega/icon.4bpp");
 #endif //P_FAMILY_NIDORAN
 
 #if P_FAMILY_CLEFAIRY

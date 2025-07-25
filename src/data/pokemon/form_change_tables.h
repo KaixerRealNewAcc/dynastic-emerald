@@ -61,7 +61,22 @@ static const struct FormChange sPidgeotFormChangeTable[] = {
 #endif
     {FORM_CHANGE_TERMINATOR},
 };
-#endif //P_FAMILY_PIDGEY
+#endif //P_FAMILY_PIDGEY?
+
+static const struct FormChange sNidokingFormChangeTable[] = {
+#if P_MEGA_EVOLUTIONS
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_NIDOKING_MEGA, ITEM_NIDOKINGITE},
+#endif
+    {FORM_CHANGE_TERMINATOR},
+};
+
+static const struct FormChange sNidoqueenFormChangeTable[] = {
+#if P_MEGA_EVOLUTIONS
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_NIDOQUEEN_MEGA, ITEM_NIDOQUEENITE},
+#endif
+    {FORM_CHANGE_TERMINATOR},
+};
+
 
 #if P_FAMILY_PIKACHU
 static const struct FormChange sPikachuFormChangeTable[] =

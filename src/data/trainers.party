@@ -16958,3 +16958,242 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== EV_TRAINER_HP ===
+Name: Luna
+Class: Pkmn Trainer 1
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Lickilicky @ Quick Claw
+Level: 1
+- Memento
+
+Lickilicky @ Quick Claw
+Level: 1
+- Memento
+
+Lickilicky @ Quick Claw
+Level: 1
+- Memento
+
+Lickilicky @ Quick Claw
+Level: 1
+- Memento
+
+Lickilicky @ Quick Claw
+Level: 1
+- Memento
+
+Lickilicky @ Quick Claw
+Level: 1
+- Memento
+
+=== EV_TRAINER_ATK ===
+Name: Luna
+Class: Pkmn Trainer 1
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Luxray @ Quick Claw
+Level: 1
+- Memento
+
+Luxray @ Quick Claw
+Level: 1
+- Memento
+
+Luxray @ Quick Claw
+Level: 1
+- Memento
+
+Luxray @ Quick Claw
+Level: 1
+- Memento
+
+Luxray @ Quick Claw
+Level: 1
+- Memento
+
+Luxray @ Quick Claw
+Level: 1
+- Memento
+
+=== EV_TRAINER_DEF ===
+Name: Luna
+Class: Pkmn Trainer 1
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Aggron @ Quick Claw
+Level: 1
+- Memento
+
+Aggron @ Quick Claw
+Level: 1
+- Memento
+
+Aggron @ Quick Claw
+Level: 1
+- Memento
+
+Aggron @ Quick Claw
+Level: 1
+- Memento
+
+Aggron @ Quick Claw
+Level: 1
+- Memento
+
+Aggron @ Quick Claw
+Level: 1
+- Memento
+
+=== EV_TRAINER_SPA ===
+Name: Luna
+Class: Pkmn Trainer 1
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Vileplume @ Quick Claw
+Level: 1
+- Memento
+
+Vileplume @ Quick Claw
+Level: 1
+- Memento
+
+Vileplume @ Quick Claw
+Level: 1
+- Memento
+
+Vileplume @ Quick Claw
+Level: 1
+- Memento
+
+Vileplume @ Quick Claw
+Level: 1
+- Memento
+
+Vileplume @ Quick Claw
+Level: 1
+- Memento
+
+=== EV_TRAINER_SPD ===
+Name: Luna
+Class: Pkmn Trainer 1
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Gothitelle @ Quick Claw
+Level: 1
+- Memento
+
+Gothitelle @ Quick Claw
+Level: 1
+- Memento
+
+Gothitelle @ Quick Claw
+Level: 1
+- Memento
+
+Gothitelle @ Quick Claw
+Level: 1
+- Memento
+
+Gothitelle @ Quick Claw
+Level: 1
+- Memento
+
+Gothitelle @ Quick Claw
+Level: 1
+- Memento
+
+=== EV_TRAINER_SPEED ===
+Name: Luna
+Class: Pkmn Trainer 1
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Scolipede @ Quick Claw
+Level: 1
+- Memento
+
+Scolipede @ Quick Claw
+Level: 1
+- Memento
+
+Scolipede @ Quick Claw
+Level: 1
+- Memento
+
+Scolipede @ Quick Claw
+Level: 1
+- Memento
+
+Scolipede @ Quick Claw
+Level: 1
+- Memento
+
+Scolipede @ Quick Claw
+Level: 1
+- Memento
+
+=== TRAINER_LEAF_RUSTBORO ===
+Name: LEAF
+Class: Pkmn Trainer 1
+Pic: Leaf
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
+
+Eevee @ Oran Berry   
+Ability: Adaptability
+Level: 12  
+Tera Type: Normal  
+Serious Nature  
+- Quick Attack  
+- Bite  
+- Tail Whip  
+- Covet  
+
+Cleffa @ Oran Berry  
+Ability: Magic Guard
+Level: 12  
+Tera Type: Fairy  
+IVs: 0 Atk  
+Serious Nature
+- Disarming Voice  
+- Magical Leaf  
+- Charm  
+- Sing
+
+Bulbasaur @ Oran Berry  
+Ability: Effect Spore  
+Level: 13
+Tera Type: Grass  
+IVs: 0 Atk  
+Serious Nature
+- Magical Leaf  
+- Clear Smog  
+- Leech Seed  
+- Growl  

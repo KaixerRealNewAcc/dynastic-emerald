@@ -77,6 +77,8 @@
 #include "constants/weather.h"
 #include "cable_club.h"
 
+#include "data/dynastic_shortcuts.h"
+
 extern const struct BgTemplate gBattleBgTemplates[];
 extern const struct WindowTemplate *const gBattleWindowTemplates[];
 
@@ -4261,7 +4263,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if (FlagGet(B_FLAG_NO_BAG_USE))
+                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !IsEasyMode())
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionItemsCantBeUsed;
