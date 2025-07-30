@@ -1159,3 +1159,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/scripts/dexnav.inc"
 
 	.include "data/maps/PetalburgWoodsNoibatCave/scripts.inc"
+
+	.include "data/maps/PetalburgWoodsExtended/scripts.inc"

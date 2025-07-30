@@ -1143,7 +1143,7 @@ void PrepareStringBattle(enum StringID stringId, u32 battler)
         stringId = STRINGID_STATSWONTDECREASE2;
 
     // Check Defiant and Competitive stat raise whenever a stat is lowered.
-    else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH)
+    else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_PKMNCUTSSPECIALATTACKWITH)
               && ((HAS_ABILITY_OR_INNATE(battler, ABILITY_DEFIANT) && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))
                  || (HAS_ABILITY_OR_INNATE(battler, ABILITY_COMPETITIVE) && CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
                     || (HAS_ABILITY_OR_INNATE(battler, ABILITY_RUN_AWAY) && CompareStat(gBattlerTarget, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN)))
@@ -4160,6 +4160,19 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     BattleScriptPushCursorAndCallback(BattleScript_IntimidateActivates);
                     effect++;
                 }
+            }
+
+            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_MEAN_GLARE))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattlerAttacker = battler;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_MEAN_GLARE;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    SET_STATCHANGER(STAT_SPATK, 1, TRUE);
+                    BattleScriptPushCursorAndCallback(BattleScript_MeanGlareActivates);
+                    effect++;
+                }   
             }
 
             if(HAS_INNATE(battler,  ABILITY_PRESSURE))

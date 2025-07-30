@@ -1706,6 +1706,10 @@
     {
       "id": "MAPSEC_PETALBURG_WOODS_CAVE",
       "name": "NOIBAT CAVE"
+    },
+    {
+      "id": "MAPSEC_PETALBURG_WOODS_EXTENDED",
+      "name": "Petalburg Woods Extended"
     }
   ]
 }

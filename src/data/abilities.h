@@ -173,7 +173,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_INTIMIDATE] =
         {
             .name = _("Intimidate"),
-            .description = COMPOUND_STRING("The user lower's the opponent's Attack by 1 stage whenever it enters the battlefield."),
+            .description = COMPOUND_STRING("The user lower's the opponent's Attack stat by 1 stage whenever it enters the battlefield."),
             .aiRating = 7,
         },
 
@@ -2429,4 +2429,19 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .description = COMPOUND_STRING("Turns Sound moves into Ice-Type.\nBoosts Sound moves by 20%."),
             .aiRating = 5,
         },
+
+        [ABILITY_MEAN_GLARE] =
+        {
+            .name = _("Mean Glare"),
+            .description = COMPOUND_STRING("The user lower's the opponent's Special Attack stat by 1 stage when it enters the battlefield."),
+            .aiRating = 7,
+        },
+
+        [ABILITY_MOUNTAINEER] = 
+        {
+            .name = _("Mountaineer"),
+            .description = COMPOUND_STRING("The user takes no damage from Rock-Type moves and is immune to Stealth Rocks."),
+            .aiRating = 6,
+        }
+
 };

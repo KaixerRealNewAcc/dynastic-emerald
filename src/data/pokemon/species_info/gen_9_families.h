@@ -7031,6 +7031,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
+        .innateAbility = ABILITY_MEAN_GLARE,
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Walking Wake"),
         .cryId = CRY_WALKING_WAKE,

@@ -901,6 +901,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_FORFEITBATTLEGAVEMONEY]               = COMPOUND_STRING("You gave ¥{B_BUFF1} to the winner…{PAUSE_UNTIL_PRESS}"),
     [STRINGID_POWERCONSTRUCTPRESENCEOFMANY]         = COMPOUND_STRING("You sense the presence of many!"),
     [STRINGID_POWERCONSTRUCTTRANSFORM]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} transformed into its Complete Forme!"),
+    [STRINGID_PKMNCUTSSPECIALATTACKWITH]            = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX}'s ability cuts {B_DEF_NAME_WITH_PREFIX2}'s Special Attack!"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =
@@ -2599,7 +2600,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
     u8 fontId = FONT_NORMAL;
 
     u32 nature = GetNature(&gEnemyParty[0]);
-    u32 item = GetWildMonHeldItem(&gEnemyParty[0]);
+    u32 heldItem = GetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, 0);
     u32 ability = GetMonAbility(&gEnemyParty[0]);
 
     if (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK)
@@ -3144,7 +3145,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
                 HANDLE_NICKNAME_STRING_LOWERCASE(gBattleScripting.battler)
                 break;
             case B_TXT_DEF_ITEM_NAME:
-                toCpy = gItemsInfo[item].name;
+                toCpy = gItemsInfo[heldItem].name;
                 break;
             }
 
