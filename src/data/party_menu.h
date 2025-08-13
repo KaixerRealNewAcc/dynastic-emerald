@@ -668,6 +668,7 @@ static const u8 *const sDescriptionStringTable[] =
 {
     [PARTYBOX_DESC_NO_USE]     = gText_NoUse,
     [PARTYBOX_DESC_ABLE_3]     = gText_Able,
+    //[PARTYBOX_DESC_ABLE_4]     = gText_Able,
     [PARTYBOX_DESC_FIRST]      = gText_First_PM,
     [PARTYBOX_DESC_SECOND]     = gText_Second_PM,
     [PARTYBOX_DESC_THIRD]      = gText_Third_PM,

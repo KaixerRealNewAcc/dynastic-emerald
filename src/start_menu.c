@@ -67,7 +67,6 @@ enum
     MENU_ACTION_RETIRE_FRONTIER,
     MENU_ACTION_PYRAMID_BAG,
     MENU_ACTION_DEBUG,
-    MENU_ACTION_DEXNAV,
 };
 
 // Save status
@@ -204,7 +203,6 @@ static const struct MenuAction sStartMenuItems[] =
     [MENU_ACTION_RETIRE_FRONTIER] = {gText_MenuRetire,  {.u8_void = StartMenuBattlePyramidRetireCallback}},
     [MENU_ACTION_PYRAMID_BAG]     = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}},
     [MENU_ACTION_DEBUG]           = {sText_MenuDebug,   {.u8_void = StartMenuDebugCallback}},
-    [MENU_ACTION_DEXNAV]          = {gText_MenuDexNav,  {.u8_void = StartMenuDexNavCallback}},
 };
 
 static const struct BgTemplate sBgTemplates_LinkBattleSave[] =
@@ -332,9 +330,6 @@ static void BuildNormalStartMenu(void)
 {
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
-
-    if (DN_FLAG_DEXNAV_GET != 0 && FlagGet(DN_FLAG_DEXNAV_GET))
-        AddStartMenuAction(MENU_ACTION_DEXNAV);
 
     if (FlagGet(FLAG_SYS_POKEMON_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEMON);
@@ -641,9 +636,6 @@ static bool8 HandleStartMenuInput(void)
             if (GetNationalPokedexCount(FLAG_GET_SEEN) == 0)
                 return FALSE;
         }
-        if (sCurrentStartMenuActions[sStartMenuCursorPos] == MENU_ACTION_DEXNAV
-          && MapHasNoEncounterData())
-            return FALSE;
 
         gMenuCallback = sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void;
 

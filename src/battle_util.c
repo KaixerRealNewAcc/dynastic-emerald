@@ -3108,6 +3108,81 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
         break;
     }
 
+    if(HAS_INNATE(battlerDef, ABILITY_VOLT_ABSORB))
+    {
+        if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+            effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+    }
+    else if((HAS_INNATE(battlerDef, ABILITY_WATER_ABSORB)) || 
+           (HAS_INNATE(battlerDef, ABILITY_DRY_SKIN)))
+    {
+        if (moveType == TYPE_WATER && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+            effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_EARTH_EATER))
+    {
+        if (moveType == TYPE_GROUND && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+            effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_MOTOR_DRIVE))
+    {
+        if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+        {
+            effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
+            statId = STAT_SPEED;
+        }
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_LIGHTNING_ROD))
+    {
+        if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+        {
+            effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
+            statId = STAT_SPATK;
+        }
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_STORM_DRAIN))
+    {
+        if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_WATER)
+        {
+            effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
+            statId = STAT_SPATK;
+        }
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_SAP_SIPPER))
+    {
+        if (moveType == TYPE_GRASS)
+        {
+            effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
+            statId = STAT_ATK;
+        }
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_WELL_BAKED_BODY))
+    {
+        if (moveType == TYPE_FIRE)
+        {
+            effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
+            statAmount = 2;
+            statId = STAT_DEF;
+        }
+    }
+    else if(HAS_INNATE(battlerDef,  ABILITY_WIND_RIDER))
+    {
+        if (IsWindMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
+        {
+            effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
+            statId = STAT_ATK;
+        }
+    }
+    else if(HAS_INNATE(battlerDef, ABILITY_FLASH_FIRE))
+    {
+        if (moveType == TYPE_FIRE && (B_FLASH_FIRE_FROZEN >= GEN_5 || !(gBattleMons[battlerDef].status1 & STATUS1_FREEZE)))
+            effect = MOVE_ABSORBED_BY_BOOST_FLASH_FIRE;
+    }
+    else
+    {
+        effect = MOVE_ABSORBED_BY_NO_ABILITY;
+    }
+
     if (effect == MOVE_ABSORBED_BY_NO_ABILITY || option != ABILITY_RUN_SCRIPT)
         return effect;
 
@@ -3876,6 +3951,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break;
         case ABILITY_CLOUD_NINE:
         case ABILITY_AIR_LOCK:
+        case ABILITY_WEATHER_CONTROL:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
             {
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
@@ -4250,12 +4326,15 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
 
             if((HAS_INNATE(battler, ABILITY_CLOUD_NINE)) || 
-               (HAS_INNATE(battler, ABILITY_AIR_LOCK)))
+               (HAS_INNATE(battler, ABILITY_AIR_LOCK))   ||
+               (HAS_INNATE(battler, ABILITY_WEATHER_CONTROL)))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
                     if(HAS_INNATE(battler, ABILITY_CLOUD_NINE))
                         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_CLOUD_NINE;
+                    else if(HAS_INNATE(battler, ABILITY_WEATHER_CONTROL))
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_WEATHER_CONTROL;
                     else
                         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_AIR_LOCK;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
@@ -4357,7 +4436,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
                 break;
             case ABILITY_DRY_SKIN:
-                if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
+                if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
                     goto SOLAR_POWER_HP_DROP;
             // Dry Skin works similarly to Rain Dish in Rain
             case ABILITY_RAIN_DISH:
@@ -4753,6 +4832,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break;
         case ABILITY_ROUGH_SKIN:
         case ABILITY_IRON_BARBS:
+        case ABILITY_SPIKY_THORNS:
             if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
              && IsBattlerAlive(gBattlerAttacker)
              && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
@@ -5184,7 +5264,21 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         }
-        break;
+
+        if(abilityEffect && caseID == ABILITYEFFECT_MOVE_END_ATTACKER)
+        {
+            if(HAS_INNATE(battler, ABILITY_ILLUSION))
+            {
+                if (gBattleStruct->illusion[gBattlerTarget].state == ILLUSION_ON && IsBattlerTurnDamaged(gBattlerTarget))
+                {
+                    gBattleScripting.battler = gBattlerTarget;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ILLUSION;
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_IllusionOff;
+                    effect++;
+                }
+            }   
+        }
     case ABILITYEFFECT_MOVE_END_OTHER: // Abilities that activate on *another* battler's moveend: Dancer, Soul-Heart, Receiver, Symbiosis
         switch (GetBattlerAbility(battler))
         {
@@ -5714,15 +5808,15 @@ u32 IsAbilityPreventingEscape(u32 battler)
         if (battler == battlerDef || IsBattlerAlly(battler, battlerDef))
             continue;
 
-        u32 ability = GetBattlerAbility(battlerDef);
+        // u32 ability = GetBattlerAbility(battlerDef);
 
-        if (ability == ABILITY_SHADOW_TAG && (B_SHADOW_TAG_ESCAPE <= GEN_3 || GetBattlerAbility(battler) != ABILITY_SHADOW_TAG))
+        if (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_SHADOW_TAG) && (B_SHADOW_TAG_ESCAPE <= GEN_3 || GetBattlerAbility(battler) != ABILITY_SHADOW_TAG))
             return battlerDef + 1;
 
-        if (ability == ABILITY_ARENA_TRAP && IsBattlerGrounded(battler))
+        if (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_ARENA_TRAP) && IsBattlerGrounded(battler))
             return battlerDef + 1;
 
-        if (ability == ABILITY_MAGNET_PULL && IS_BATTLER_OF_TYPE(battler, TYPE_STEEL))
+        if (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(battler, TYPE_STEEL))
             return battlerDef + 1;
     }
 
@@ -8348,7 +8442,7 @@ static inline u32 CalcMoveBasePower(struct DamageCalculationData *damageCalcData
             basePower *= 2;
         break;
     case EFFECT_WEATHER_BALL:
-        if (weather & B_WEATHER_ANY)
+        if (weather & B_WEATHER_ANY && !HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_WEATHER_CONTROL))
             basePower *= 2;
         break;
     case EFFECT_PURSUIT:
@@ -8875,6 +8969,12 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *damageCalcData
         if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && IsBattleMoveSpecial(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3333));
         break;
+    }
+
+    if(HAS_INNATE(battlerAtk, ABILITY_FLASH_FIRE))
+    {
+        if (moveType == TYPE_FIRE && gDisableStructs[battlerAtk].flashFireBoosted)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
     }
 
     if(HAS_INNATE(battlerAtk, ABILITY_TORRENT))
@@ -10175,6 +10275,14 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u32 move, u32 move
         if (recordAbilities)
             RecordAbilityBattle(battlerAtk, abilityAtk);
     }
+    else if ((moveType == TYPE_GHOST) && defType == TYPE_NORMAL
+        && (abilityAtk == ABILITY_PHANTOM_PAIN)
+        && mod == UQ_4_12(0.0))
+    {
+        mod = UQ_4_12(1.0);
+        if (recordAbilities)
+            RecordAbilityBattle(battlerDef, abilityAtk);
+    }
 
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
@@ -10352,6 +10460,9 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 a
         if (moveType == TYPE_GROUND && abilityDef == ABILITY_LEVITATE && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
         if (abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && GetMovePower(move) != 0)
+            modifier = UQ_4_12(0.0);
+
+        if (moveType == TYPE_GROUND && SPECIES_INNATE(speciesDef, ABILITY_MOUNTAINEER))
             modifier = UQ_4_12(0.0);
     }
 
@@ -10857,7 +10968,7 @@ bool32 TryClearIllusion(u32 battler, u32 caseID)
 {
     if (gBattleStruct->illusion[battler].state != ILLUSION_ON)
         return FALSE;
-    if (GetBattlerAbility(battler) == ABILITY_ILLUSION && IsBattlerAlive(battler))
+    if (HAS_ABILITY_OR_INNATE(battler, ABILITY_ILLUSION) && IsBattlerAlive(battler))
         return FALSE;
 
     gBattleScripting.battler = battler;
@@ -10931,6 +11042,8 @@ bool32 SetIllusionMon(struct Pokemon *mon, u32 battler)
     gBattleStruct->illusion[battler].state = ILLUSION_OFF;
     if (GetMonAbility(mon) != ABILITY_ILLUSION)
         return FALSE;
+    /*if (!GetMonInnate(mon, ABILITY_ILLUSION))    
+        return FALSE;*/
 
     party = GetBattlerParty(battler);
 
@@ -11398,6 +11511,9 @@ bool32 IsBattlerWeatherAffected(u32 battler, u32 weatherFlags)
         // given weather is active -> check if its sun, rain against utility umbrella (since only 1 weather can be active at once)
         if (gBattleWeather & (B_WEATHER_SUN | B_WEATHER_RAIN) && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
+
+        if(HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
+            return FALSE;
 
         return TRUE;
     }

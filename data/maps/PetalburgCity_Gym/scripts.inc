@@ -369,6 +369,15 @@ PetalburgCity_Gym_EventScript_GiveEnigmaBerry::
 
 PetalburgCity_Gym_EventScript_NormanBattle::
 	msgbox PetalburgCity_Gym_Text_NormanIntro, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	special ChooseFourPokemonsForBattle
+	waitstate
+	compare VAR_RESULT, 0
+	goto_if_eq LittlerootTown_Norman_Test_2
+	compare VAR_RESULT, 1
+	goto_if_eq LittlerootTown_Norman_Test_5
+	special LoadPlayerParty
+	special ReducePlayerPartyToSelectedMons
 	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanDefeat
 	message PetalburgCity_Gym_Text_ReceivedBalanceBadge
 	waitmessage

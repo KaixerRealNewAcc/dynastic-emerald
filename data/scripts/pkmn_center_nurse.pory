@@ -130,6 +130,31 @@ Movement_PkmnCenterNurse_Bow:
 Movement_PkmnCenterNurse_Turn:
 	walk_in_place_faster_left
 	step_end
+
+PokeVialHealScript::
+	special HealPlayerParty
+	callnative UpdateFollowingPokemon
+	msgbox PokeVialText, MSGBOX_SIGN
+	end
+
+PokeVialHealScript2::
+	special HealPlayerPartyNonDead
+	callnative UpdateFollowingPokemon
+	msgbox PokeVial2Text, MSGBOX_SIGN
+	end
+
+PokeVialHealScriptItem::
+	special HealPlayerParty
+	callnative UpdateFollowingPokemon
+	msgbox PokeVialText, MSGBOX_DEFAULT
+	releaseall
+	end
+
+PokeVialText::
+	.string "Your party was fully healed.$"
+
+PokeVial2Text::
+	.string "Your party was… almost fully healed.$"
 `
 
 script EventScript_PkmnCenterPokeHelper {

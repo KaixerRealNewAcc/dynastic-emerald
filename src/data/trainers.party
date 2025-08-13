@@ -4807,44 +4807,65 @@ Music: Female
 Double Battle: No
 AI: Smart Trainer
 
-Geodude-Alola @ Custap Berry  
-Ability: Sturdy  
-Level: 14  
-Tera Type: Rock  
+Hippopotas @ Smooth Rock  
+Ability: Sand Stream  
+Level: 13  
+Tera Type: Ground  
+Impish Nature  
 - Stealth Rock  
-- Rock Blast  
-- Spark  
-- Self-Destruct  
+- Bulldoze  
+- Toxic  
+- Slack Off  
 
-Amaura @ Wise Glasses  
-Ability: Refrigerate  
+Anorith @ Muscle Band  
+Ability: Battle Armor  
 Level: 13  
 Tera Type: Rock  
-Quiet Nature  
-- Echoed Voice  
+Jolly Nature  
+- Bug Bite  
 - Rock Tomb  
-- Shock Wave  
-- Sleep Talk  
+- Bulldoze  
+- Rapid Spin  
 
-Bonsly @ Oran Berry  
-Ability: Rattled  
+Frillish @ Leftovers  
+Ability: Water Absorb  
+Level: 13  
+Tera Type: Water  
+Calm Nature  
+IVs: 0 Atk  
+- Will-O-Wisp  
+- Brine  
+- Hex  
+- Recover  
+
+Growlithe-Hisui @ Focus Sash  
+Ability: Intimidate  
+Tera Type: Fire  
+Jolly Nature  
+- Sandstorm  
+- Rock Tomb  
+- Fire Fang  
+- Thunder Fang  
+
+Sandshrew @ Muscle Band  
+Ability: Sand Rush  
+Level: 13  
+Tera Type: Ground  
+Jolly Nature  
+- Aerial Ace  
+- Rock Tomb  
+- Bulldoze  
+- Hone Claws  
+
+Nosepass @ Leftovers  
+Ability: Sand Force  
 Level: 14  
 Tera Type: Rock  
-Careful Nature  
+Adamant Nature  
+- Spark  
 - Rock Tomb  
-- Razor Leaf  
 - Bulldoze  
-- Sleep Talk  
-
-Aron @ Muscle Band  
-Ability: Sturdy  
-Level: 15  
-Tera Type: Steel  
-Jolly Nature  
-- Bulldoze  
-- Rock Tomb  
-- Metal Claw  
-- Rock Polish  
+- Protect  
 
 === TRAINER_BRAWLY_1 ===
 Name: BRAWLY
@@ -4855,15 +4876,16 @@ Music: Male
 Double Battle: No
 AI: Smart Trainer
 
-Meditite @ Eviolite  
-Ability: Pure Power  
+Quilladin @ Rocky Helmet  
+Ability: Spiky Thorns  
 Level: 24  
-Tera Type: Fighting  
-Jolly Nature  
-- Brick Break  
-- Fake Out  
-- Bullet Punch  
-- Rock Slide  
+Tera Type: Grass  
+Impish Nature  
+IVs: 0 Atk  
+- Spiky Shield  
+- Body Press  
+- Synthesis  
+- Spikes  
 
 Lopunny @ Lum Berry  
 Ability: Scrappy  
@@ -4882,17 +4904,38 @@ Tera Type: Flying
 Jolly Nature  
 - Low Kick  
 - Wing Attack  
-- Thief  
+- U-turn  
 - Roost  
+
+Breloom @ Lum Berry  
+Ability: Technician  
+Level: 23  
+Tera Type: Grass  
+Jolly Nature  
+- Brick Break  
+- Bullet Seed  
+- Aerial Ace  
+- Spore  
+
+Sableye @ Leftovers  
+Ability: Prankster  
+Level: 24  
+Tera Type: Dark  
+Careful Nature  
+- Shadow Claw  
+- Drain Punch  
+- Recover  
+- Will-O-Wisp  
 
 Hariyama @ Lum Berry  
 Ability: Stalwart  
 Level: 25  
 Tera Type: Fighting  
+Jolly Nature  
 - Force Palm  
 - Thief  
 - Bullet Punch  
-- Rock Tomb  
+- Rock Tomb
 
 === TRAINER_WATTSON_1 ===
 Name: WATTSON
@@ -4907,7 +4950,7 @@ Pachirisu @ Terrain Extender
 Ability: Electric Surge  
 Level: 33  
 Tera Type: Electric  
-EVs: 100 HP / 100 Spe  
+EVs: 52 Spe  
 Timid Nature  
 IVs: 0 Atk  
 - Grass Knot  
@@ -4915,46 +4958,58 @@ IVs: 0 Atk
 - Volt Switch  
 - Charm  
 
-Vikavolt @ Occa Berry  
-Ability: Levitate  
-Level: 32  
-Tera Type: Bug  
-Calm Nature  
-IVs: 0 Atk  
-- Mud Shot  
-- Signal Beam  
+Magneton @ Occa Berry  
+Ability: Magnet Pull  
+Level: 33  
+Tera Type: Electric  
+IVs: 0 Atk / 30 SpA  
+Timid Nature  
+- Flash Cannon  
+- Hidden Power  
 - Volt Switch  
-- Roost  
+- Self-Destruct  
 
 Toxtricity @ Shuca Berry  
 Ability: Punk Rock  
-Level: 32    
+Level: 33  
 Tera Type: Electric  
-IVs: 30 Atk / 30 SpA
+IVs: 30 Atk / 30 SpA  
 Hasty Nature  
-- Overdrive
-- Hidden Power 
-- Hyper Voice 
+- Overdrive  
+- Hidden Power
+- Hyper Voice  
 - Fire Punch  
 
-Bellibolt @ Leftovers  
-Ability: Static  
-Level: 32  
+Raichu-Alola @ Focus Sash  
+Ability: Surge Surfer  
+Level: 33  
 Tera Type: Electric  
-Bold Nature  
+Timid Nature  
 IVs: 0 Atk  
-- Muddy Water  
+- Surf  
+- Psyshock  
 - Volt Switch  
-- Thunder Wave  
-- Slack Off  
+- Nasty Plot  
+
+Zapdos (Kilowattrel) @ Sharp Beak  
+Ability: Wind Power  
+Level: 34  
+Tera Type: Electric  
+Timid Nature  
+IVs: 0 Atk / 30 Def / 30 SpA  
+- Air Slash  
+- Volt Switch  
+- Hidden Power 
+- Roost  
 
 Manectric @ Manectite  
 Ability: Intimidate  
 Level: 34  
 Tera Type: Electric  
+Timid Nature  
 IVs: 0 Atk / 30 SpA  
 - Flame Burst  
-- Hidden Power 
+- Hidden Power
 - Volt Switch  
 - Charge Beam  
 
@@ -4969,7 +5024,7 @@ AI: Smart Trainer
 
 Ninetales @ Heat Rock  
 Ability: Drought  
-Level: 46  
+Level: 47  
 Tera Type: Fire  
 EVs: 252 SpA / 4 SpD / 252 Spe  
 Timid Nature  
@@ -4990,17 +5045,17 @@ Jolly Nature
 - Wild Charge  
 - Zen Headbutt  
 
-Salazzle @ Shuca Berry  
-Ability: Corrosion  
+Vileplume @ Leftovers  
+Ability: Chlorophyll  
 Level: 45  
-Tera Type: Poison  
-EVs: 248 HP / 8 SpA / 248 Spe  
-Timid Nature  
-IVs: 0 Atk / 30 SpA  
+Tera Type: Grass  
+EVs: 4 Def / 252 SpA / 252 Spe  
+Modest Nature  
+IVs: 0 Atk  
 - Sludge Bomb  
-- Toxic  
-- Protect  
-- Hidden Power 
+- Giga Drain  
+- Weather Ball  
+- Growth  
 
 Oricorio @ Heavy-Duty Boots  
 Ability: Dancer  
@@ -5014,7 +5069,19 @@ IVs: 0 Atk
 - Roost  
 - Quiver Dance  
 
-Coalossal @ Coalossite
+Heliolisk @ Magnet  
+Ability: Solar Power  
+Level: 46  
+Tera Type: Electric  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Weather Ball  
+- Hyper Voice  
+- Thunderbolt  
+- Volt Switch  
+
+Coalossal @ Coalossite  
 Ability: Steam Engine  
 Level: 47  
 Tera Type: Rock  
@@ -5031,41 +5098,78 @@ Class: Leader
 Pic: Leader Norman
 Gender: Male
 Music: Male
-Items: Hyper Potion / Hyper Potion
-Double Battle: No
-AI: Basic Trainer
+Double Battle: Yes
+AI: Smart Trainer
+Party Size: 4
+Pool Rules: Doubles
+Pool Pick Functions: Default
 
-Spinda
-Level: 27
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Teeter Dance
-- Psybeam
-- Facade
-- Encore
+Rillaboom @ Assault Vest  
+Ability: Grassy Surge  
+Level: 50  
+Tera Type: Grass  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Grassy Glide  
+- Drain Punch  
+- Knock Off  
+- Fake Out  
 
-Vigoroth
-Level: 27
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Slash
-- Facade
-- Encore
-- Feint Attack
+Grafaiai @ Grassy Seed  
+Ability: Unburden  
+Level: 50  
+Tera Type: Poison  
+EVs: 132 HP / 252 Atk / 124 Spe  
+Jolly Nature  
+- Gunk Shot  
+- Knock Off  
+- Flower Trick  
+- Swords Dance  
 
-Linoone
-Level: 29
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Slash
-- Belly Drum
-- Facade
-- Headbutt
+Scrafty @ Leftovers  
+Ability: Shed Skin  
+Level: 50  
+Tera Type: Dark  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Drain Punch  
+- Knock Off  
+- Rest  
+- Protect  
 
-Slaking @ Sitrus Berry
-Level: 31
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Counter
-- Yawn
-- Facade
-- Feint Attack
+Volbeat (M) @ Covert Cloak  
+Ability: Prankster  
+Level: 50  
+Tera Type: Normal  
+EVs: 164 HP / 252 SpA / 84 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Thunderbolt  
+- Giga Drain  
+- Tailwind  
+- Roost  
+
+Mimikyu @ Life Orb  
+Ability: Disguise  
+Level: 50  
+Tera Type: Ghost  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Drain Punch  
+- Play Rough  
+- Shadow Claw  
+- Protect  
+
+Kangaskhan (F) @ Kangaskhanite  
+Ability: Scrappy  
+Level: 50  
+Tera Type: Normal  
+EVs: 252 HP / 56 Atk / 36 Def / 152 SpD / 12 Spe  
+Jolly Nature  
+- Fake Out  
+- Power-Up Punch  
+- Body Slam  
+- Helping Hand  
 
 === TRAINER_WINONA_1 ===
 Name: WINONA
@@ -5073,49 +5177,77 @@ Class: Leader
 Pic: Leader Winona
 Gender: Female
 Music: Female
-Items: Hyper Potion / Hyper Potion
 Double Battle: No
-AI: Basic Trainer / Risky
+AI: Smart Trainer
 
-Swablu
-Level: 29
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Perish Song
-- Mirror Move
-- Safeguard
-- Aerial Ace
+Skarmory @ Custap Berry  
+Ability: Sturdy  
+Level: 65  
+Tera Type: Steel  
+EVs: 252 HP / 252 Def / 4 SpD  
+Impish Nature  
+- Spikes  
+- Drill Peck  
+- Body Press  
+- Roost  
 
-Tropius
-Level: 29
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Sunny Day
-- Aerial Ace
-- Solar Beam
-- Synthesis
+Frosmoth @ Heavy-Duty Boots  
+Ability: Ice Scales  
+Level: 65  
+Tera Type: Ice  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Quiver Dance  
+- Ice Beam  
+- Giga Drain  
+- Roost  
 
-Pelipper
-Level: 30
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Water Gun
-- Supersonic
-- Protect
-- Aerial Ace
+Thundurus-Therian @ Leftovers  
+Ability: Volt Absorb  
+Level: 65  
+Tera Type: Electric  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+IVs: 0 Atk
+Timid Nature  
+- Thunderbolt  
+- Grass Knot  
+- Sludge Wave  
+- Hidden Power
 
-Skarmory
-Level: 31
-IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
-- Sand Attack
-- Fury Attack
-- Steel Wing
-- Aerial Ace
+Gyarados @ Wacan Berry  
+Ability: Moxie  
+Level: 65  
+Tera Type: Water  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Dragon Dance  
+- Waterfall  
+- Power Whip  
+- Earthquake  
 
-Altaria @ Oran Berry
-Level: 33
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Dragon Breath
-- Dragon Dance
-- Aerial Ace
+Gengar @ Focus Sash  
+Ability: Cursed Body  
+Level: 65  
+Tera Type: Ghost  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Nasty Plot  
+- Shadow Ball  
+- Sludge Wave  
+- Aura Sphere  
+
+Altaria @ Altarianite  
+Ability: Natural Cure  
+Level: 66  
+Tera Type: Dragon  
+EVs: 252 Atk / 4 Def / 252 Spe  
+Jolly Nature  
+- Dragon Dance  
+- Return  
+- Earthquake  
+- Roost  
 
 === TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
@@ -5123,41 +5255,74 @@ Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
 Music: Female
-Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Double Battle: Yes
-AI: Basic Trainer
+AI: Smart Trainer
 
-Claydol
-Level: 41
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Earthquake
-- Ancient Power
-- Psychic
-- Light Screen
+Grimmsnarl @ Light Clay  
+Ability: Prankster  
+Level: 72  
+Tera Type: Dark  
+EVs: 252 HP / 252 Atk / 4 SpD  
+Brave Nature  
+- Fake Out  
+- False Surrender  
+- Reflect  
+- Light Screen  
 
-Xatu
-Level: 41
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Psychic
-- Sunny Day
-- Confuse Ray
-- Calm Mind
+Hatterene @ Leftovers  
+Ability: Magic Bounce  
+Level: 72  
+Tera Type: Psychic  
+EVs: 252 HP / 252 SpA / 4 SpD  
+Quiet Nature  
+IVs: 0 Atk  
+- Expanding Force  
+- Dazzling Gleam  
+- Mystical Fire  
+- Trick Room  
 
-Lunatone @ Sitrus Berry
-Level: 42
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Light Screen
-- Psychic
-- Hypnosis
-- Calm Mind
+Marowak-Alola @ Thick Club  
+Ability: Rock Head  
+Level: 72  
+Tera Type: Fire  
+EVs: 252 HP / 252 Atk / 4 SpD  
+Adamant Nature  
+- Flare Blitz  
+- Poltergeist  
+- Low Kick  
+- Swords Dance  
 
-Solrock @ Sitrus Berry
-Level: 42
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Sunny Day
-- Solar Beam
-- Psychic
-- Flamethrower
+Ursaluna @ Flame Orb  
+Ability: Guts  
+Level: 72  
+Tera Type: Ground  
+EVs: 248 HP / 252 Atk / 8 Def  
+Brave Nature  
+- Headlong Rush  
+- Close Combat  
+- Facade  
+- Protect  
+
+Iron Hands @ Booster Energy  
+Ability: Quark Drive  
+Tera Type: Fighting  
+EVs: 248 HP / 252 Atk / 8 SpD  
+Brave Nature  
+- Plasma Fists  
+- Drain Punch  
+- Ice Punch  
+- Heavy Slam  
+
+Slowbro-Mega @ Slowbronite  
+Ability: Shell Armor  
+Tera Type: Water  
+EVs: 252 HP / 252 SpA  
+Quiet Nature  
+IVs: 0 Atk  
+- Expanding Force  
+- Scald  
+- Slack Off  
+- Trick Room  
 
 === TRAINER_JUAN_1 ===
 Name: JUAN
@@ -5169,45 +5334,72 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Luvdisc
-Level: 41
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Water Pulse
-- Attract
-- Sweet Kiss
-- Flail
+Politoed @ Damp Rock  
+Ability: Drizzle  
+Level: 81  
+Tera Type: Water  
+EVs: 252 SpA / 252 Spe  
+Timid Nature  
+- Scald  
+- Dazzling Gleam  
+- Ice Beam  
+- Flip Turn  
 
-Whiscash
-Level: 41
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Rain Dance
-- Water Pulse
-- Amnesia
-- Earthquake
+Greninja @ Life Orb  
+Ability: Protean  
+Level: 81  
+Tera Type: Water  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Scald  
+- Dark Pulse  
+- Sludge Wave  
+- Ice Beam  
 
-Sealeo
-Level: 43
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Encore
-- Body Slam
-- Aurora Beam
-- Water Pulse
+Beartic @ Focus Sash  
+Ability: Swift Swim  
+Level: 81  
+Tera Type: Ice  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Icicle Crash  
+- Liquidation  
+- Close Combat  
+- Swords Dance  
 
-Crawdaunt
-Level: 43
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Water Pulse
-- Crabhammer
-- Taunt
-- Leer
+Metagross @ Assault Vest  
+Ability: Tough Claws  
+Level: 81  
+Tera Type: Steel  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Meteor Mash  
+- Ice Punch  
+- Knock Off  
+- Bullet Punch  
 
-Kingdra @ Chesto Berry
-Level: 46
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Water Pulse
-- Double Team
-- Ice Beam
-- Rest
+Vaporeon @ Damp Rock  
+Ability: Drizzle  
+Level: 81  
+Tera Type: Water  
+EVs: 252 HP / 252 Def / 4 SpD  
+Bold Nature  
+- Scald  
+- Ice Beam  
+- Flip Turn  
+- Rest  
+
+Swampert @ Swampertite  
+Ability: Damp  
+Level: 81  
+Tera Type: Water  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Liquidation  
+- Ice Punch  
+- Earthquake  
+- Flip Turn  
 
 === TRAINER_JERRY_1 ===
 Name: JERRY

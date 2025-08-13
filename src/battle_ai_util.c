@@ -1091,7 +1091,8 @@ s32 AI_WhichMoveBetter(u32 move1, u32 move2, u32 battlerAtk, u32 battlerDef, s32
     // Check if physical moves hurt.
     if (gAiLogicData->holdEffects[battlerAtk] != HOLD_EFFECT_PROTECTIVE_PADS && atkAbility != ABILITY_LONG_REACH
         && (gAiLogicData->holdEffects[battlerDef] == HOLD_EFFECT_ROCKY_HELMET
-        || defAbility == ABILITY_IRON_BARBS || defAbility == ABILITY_ROUGH_SKIN))
+        || defAbility == ABILITY_IRON_BARBS || defAbility == ABILITY_ROUGH_SKIN
+        || HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_SPIKY_THORNS)))
     {
         bool32 moveContact1 = MoveMakesContact(move1);
         bool32 moveContact2 = MoveMakesContact(move2);
@@ -1784,6 +1785,9 @@ bool32 ShouldSetSandstorm(u32 battler, u32 ability, enum ItemHoldEffect holdEffe
     if (IsWeatherActive(B_WEATHER_SANDSTORM | B_WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
         return FALSE;
 
+    if (HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
+        return FALSE;
+
     if (ability == ABILITY_SAND_VEIL
      || ability == ABILITY_SAND_RUSH
      || ability == ABILITY_SAND_FORCE
@@ -1802,6 +1806,9 @@ bool32 ShouldSetSandstorm(u32 battler, u32 ability, enum ItemHoldEffect holdEffe
 bool32 ShouldSetHail(u32 battler, u32 ability, enum ItemHoldEffect holdEffect)
 {
     if (IsWeatherActive(B_WEATHER_HAIL | B_WEATHER_SNOW | B_WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
+        return FALSE;
+
+    if (HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
         return FALSE;
 
     if (ability == ABILITY_SNOW_CLOAK
@@ -1826,6 +1833,9 @@ bool32 ShouldSetRain(u32 battlerAtk, u32 atkAbility, enum ItemHoldEffect holdEff
     if (IsWeatherActive(B_WEATHER_RAIN | B_WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
         return FALSE;
 
+    if (HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_WEATHER_CONTROL))
+        return FALSE;
+
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
      && (atkAbility == ABILITY_SWIFT_SWIM
       || atkAbility == ABILITY_FORECAST
@@ -1844,6 +1854,9 @@ bool32 ShouldSetRain(u32 battlerAtk, u32 atkAbility, enum ItemHoldEffect holdEff
 bool32 ShouldSetSun(u32 battlerAtk, u32 atkAbility, enum ItemHoldEffect holdEffect)
 {
     if (IsWeatherActive(B_WEATHER_SUN | B_WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
+        return FALSE;
+
+    if (HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_WEATHER_CONTROL))
         return FALSE;
 
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
@@ -1869,6 +1882,9 @@ bool32 ShouldSetSun(u32 battlerAtk, u32 atkAbility, enum ItemHoldEffect holdEffe
 bool32 ShouldSetSnow(u32 battler, u32 ability, enum ItemHoldEffect holdEffect)
 {
     if (IsWeatherActive(B_WEATHER_SNOW | B_WEATHER_HAIL | B_WEATHER_PRIMAL_ANY) != WEATHER_INACTIVE)
+        return FALSE;
+
+    if (HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
         return FALSE;
 
     if (ability == ABILITY_SNOW_CLOAK

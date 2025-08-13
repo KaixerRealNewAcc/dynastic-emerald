@@ -1869,12 +1869,12 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
         return;
     }
 
-    pltAdder = PLTT_ID(gSprites[healthboxSpriteId].oam.paletteNum);
-    pltAdder += battler + 12;
+    //pltAdder = PLTT_ID(gSprites[healthboxSpriteId].oam.paletteNum);
+    //pltAdder += battler + 12;
 
     //FillPalette(sStatusIconColors[statusPalId], OBJ_PLTT_OFFSET + pltAdder, PLTT_SIZEOF(1));
     //CpuCopy16(&gPlttBufferUnfaded[OBJ_PLTT_OFFSET + pltAdder], (u16 *)OBJ_PLTT + pltAdder, PLTT_SIZEOF(1));
-    CpuCopy32(statusGfxPtr, (void *)(OBJ_VRAM0 + (gSprites[healthboxSpriteId].oam.tileNum + tileNumAdder) * TILE_SIZE_4BPP), 96);
+    CpuCopy32(statusGfxPtr, (void *)(OBJ_VRAM0 + (gSprites[healthboxSpriteId].oam.tileNum + tileNumAdder) * TILE_SIZE_4BPP), 64);
     if (GetBattlerCoordsIndex(battler) == BATTLE_COORDS_DOUBLES || !IsOnPlayerSide(battler))
     {
         if (!gBattleSpritesDataPtr->battlerData[battler].hpNumbersNoBars)

@@ -214,6 +214,7 @@ struct PartyMenuInternal
     TaskFunc task;
     MainCallback exitCallback;
     u32 chooseHalf:1;
+    u32 chooseFour:1;
     u32 lastSelectedSlot:3;  // Used to return to same slot when going left/right bewtween columns
     u32 spriteIdConfirmPokeball:7;
     u32 spriteIdCancelPokeball:7;
@@ -277,7 +278,7 @@ static void LoadPartyMenuPokeballGfx(void);
 static bool8 CreatePartyMonSpritesLoop(void);
 static bool8 RenderPartyMenuBoxes(void);
 static void CreateCancelConfirmPokeballSprites(void);
-static void CreateCancelConfirmWindows(u8);
+static void CreateCancelConfirmWindows(u8, bool8);
 static void Task_ExitPartyMenu(u8);
 static void FreePartyPointers(void);
 static void PartyPaletteBufferCopy(u8);
@@ -287,6 +288,7 @@ static void DrawEmptySlot(u8 windowId);
 static void DisplayPartyPokemonDataForRelearner(u8);
 static void DisplayPartyPokemonDataForContest(u8);
 static void DisplayPartyPokemonDataForChooseHalf(u8);
+static void DisplayPartyPokemonDataForChooseFour(u8);
 static void DisplayPartyPokemonDataForWirelessMinigame(u8);
 static void DisplayPartyPokemonDataForBattlePyramidHeldItem(u8);
 static bool8 DisplayPartyPokemonDataForMoveTutorOrEvolutionItem(u8);
@@ -463,6 +465,7 @@ static bool8 ReturnGiveItemToBagOrPC(u16);
 static void Task_DisplayGaveMailFromBagMessage(u8);
 static void Task_HandleSwitchItemsFromBagYesNoInput(u8);
 static void Task_ValidateChosenHalfParty(u8);
+static void Task_ValidateChosenFourthParty(u8 taskId);
 static bool8 GetBattleEntryEligibility(struct Pokemon *);
 static bool8 HasPartySlotAlreadyBeenSelected(u8);
 static u8 GetBattleEntryLevelCap(void);
@@ -551,8 +554,13 @@ static void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCurs
 
         if (menuType == PARTY_MENU_TYPE_CHOOSE_HALF)
             sPartyMenuInternal->chooseHalf = TRUE;
+        else if (menuType == PARTY_MENU_TYPE_CHOOSE_FOUR)
+            sPartyMenuInternal->chooseFour = TRUE;
         else
+        {
             sPartyMenuInternal->chooseHalf = FALSE;
+            sPartyMenuInternal->chooseFour = FALSE;
+        }
 
         if (layout != KEEP_PARTY_LAYOUT)
             gPartyMenu.layout = layout;
@@ -718,7 +726,7 @@ static bool8 ShowPartyMenu(void)
         gMain.state++;
         break;
     case 18:
-        CreateCancelConfirmWindows(sPartyMenuInternal->chooseHalf);
+        CreateCancelConfirmWindows(sPartyMenuInternal->chooseHalf, sPartyMenuInternal->chooseFour);
         gMain.state++;
         break;
     case 19:
@@ -824,7 +832,7 @@ static bool8 ReloadPartyMenu(void)
         gMain.state++;
         break;
     case 16:
-        CreateCancelConfirmWindows(sPartyMenuInternal->chooseHalf);
+        CreateCancelConfirmWindows(sPartyMenuInternal->chooseHalf, sPartyMenuInternal->chooseFour);
         gMain.state++;
         break;
     case 17:
@@ -1017,6 +1025,8 @@ static void RenderPartyMenuBox(u8 slot)
                 DisplayPartyPokemonDataForContest(slot);
             else if (gPartyMenu.menuType == PARTY_MENU_TYPE_CHOOSE_HALF)
                 DisplayPartyPokemonDataForChooseHalf(slot);
+            else if (gPartyMenu.menuType == PARTY_MENU_TYPE_CHOOSE_FOUR)
+                DisplayPartyPokemonDataForChooseFour(slot);
             else if (gPartyMenu.menuType == PARTY_MENU_TYPE_MINIGAME)
                 DisplayPartyPokemonDataForWirelessMinigame(slot);
             else if (gPartyMenu.menuType == PARTY_MENU_TYPE_STORE_PYRAMID_HELD_ITEMS)
@@ -1091,6 +1101,31 @@ static void DisplayPartyPokemonDataForChooseHalf(u8 slot)
             }
         }
         DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_ABLE_3);
+    }
+}
+
+static void DisplayPartyPokemonDataForChooseFour(u8 slot)
+{
+    u8 i;
+    struct Pokemon *mon = &gPlayerParty[slot];
+    u8 *order = gSelectedOrderFromParty;
+
+    if (!GetBattleEntryEligibility(mon))
+    {
+        DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_NOT_ABLE);
+        return;
+    }
+    else
+    {
+        for (i = 0; i < GetMaxBattleEntries(); i++)
+        {
+            if (order[i] != 0 && (order[i] - 1) == slot)
+            {
+                DisplayPartyPokemonDescriptionData(slot, i + PARTYBOX_DESC_FIRST);
+                return;
+            }
+        }
+        DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_ABLE_3); // maybe change to PARTYBOX_DESC_ABLE_4?
     }
 }
 
@@ -1270,7 +1305,7 @@ static void CreateCancelConfirmPokeballSprites(void)
     }
     else
     {
-        if (sPartyMenuInternal->chooseHalf)
+        if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
         {
             sPartyMenuInternal->spriteIdConfirmPokeball = CreateSmallPokeballButtonSprite(0xBF, 0x88);
             DrawCancelConfirmButtons();
@@ -1307,7 +1342,7 @@ void AnimatePartySlot(u8 slot, u8 animNum)
         break;
     case PARTY_SIZE + 1: // Cancel
         // The position of the Cancel button changes if Confirm is present
-        if (!sPartyMenuInternal->chooseHalf)
+        if (!sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
         {
             if (animNum == 0)
                 SetBgTilemapPalette(1, 23, 17, 7, 2, 1);
@@ -1438,7 +1473,7 @@ void Task_HandleChooseMonInput(u8 taskId)
             HandleChooseMonCancel(taskId, slotPtr);
             break;
         case START_BUTTON:
-            if (sPartyMenuInternal->chooseHalf)
+            if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
             {
                 PlaySE(SE_SELECT);
                 MoveCursorToConfirm();
@@ -1770,7 +1805,7 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
         }
         else if (*slotPtr == PARTY_SIZE + 1)
         {
-            if (sPartyMenuInternal->chooseHalf)
+            if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
                 *slotPtr = PARTY_SIZE;
             else
                 *slotPtr = gPlayerPartyCount - 1;
@@ -1789,7 +1824,7 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
         {
             if (*slotPtr == gPlayerPartyCount - 1)
             {
-                if (sPartyMenuInternal->chooseHalf)
+                if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
                     *slotPtr = PARTY_SIZE;
                 else
                     *slotPtr = PARTY_SIZE + 1;
@@ -1840,7 +1875,7 @@ static void UpdatePartySelectionDoubleLayout(s8 *slotPtr, s8 movementDir)
         }
         else if (*slotPtr == PARTY_SIZE + 1)
         {
-            if (sPartyMenuInternal->chooseHalf)
+            if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
             {
                 *slotPtr = PARTY_SIZE;
                 break;
@@ -1865,7 +1900,7 @@ static void UpdatePartySelectionDoubleLayout(s8 *slotPtr, s8 movementDir)
             newSlot = GetNewSlotDoubleLayout(*slotPtr, MENU_DIR_DOWN);
             if (newSlot == -1)
             {
-                if (sPartyMenuInternal->chooseHalf)
+                if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
                     *slotPtr = PARTY_SIZE;
                 else
                     *slotPtr = PARTY_SIZE + 1;
@@ -2314,7 +2349,7 @@ static void LoadPartyMenuWindows(void)
     LoadPalette(gStandardMenuPalette, BG_PLTT_ID(15), PLTT_SIZE_4BPP);
 }
 
-static void CreateCancelConfirmWindows(bool8 chooseHalf)
+static void CreateCancelConfirmWindows(bool8 chooseHalf, bool8 chooseFour)
 {
     u8 confirmWindowId;
     u8 cancelWindowId;
@@ -2323,7 +2358,7 @@ static void CreateCancelConfirmWindows(bool8 chooseHalf)
 
     if (gPartyMenu.menuType != PARTY_MENU_TYPE_MULTI_SHOWCASE)
     {
-        if (chooseHalf == TRUE)
+        if (chooseHalf == TRUE || chooseFour == TRUE)
         {
             confirmWindowId = AddWindow(&sConfirmButtonWindowTemplate);
             FillWindowPixelBuffer(confirmWindowId, PIXEL_FILL(0));
@@ -2735,6 +2770,8 @@ void DisplayPartyMenuStdMessage(u32 stringId)
         {
             if (sPartyMenuInternal->chooseHalf)
                 stringId = PARTY_MSG_CHOOSE_MON_AND_CONFIRM;
+            else if (sPartyMenuInternal->chooseFour)
+                stringId = PARTY_MSG_CHOOSE_MON_AND_CONFIRM;
             else if (!ShouldUseChooseMonText())
                 stringId = PARTY_MSG_CHOOSE_MON_OR_CANCEL;
 
@@ -2910,6 +2947,20 @@ static u8 GetPartyMenuActionsType(struct Pokemon *mon)
         actionType = GetPartyMenuActionsTypeInBattle(mon);
         break;
     case PARTY_MENU_TYPE_CHOOSE_HALF:
+        switch (GetPartySlotEntryStatus(gPartyMenu.slotId))
+        {
+        default: // Not eligible
+            actionType = ACTIONS_SUMMARY_ONLY;
+            break;
+        case 0: // Eligible
+            actionType = ACTIONS_ENTER;
+            break;
+        case 1: // Already selected
+            actionType = ACTIONS_NO_ENTRY;
+            break;
+        }
+        break;
+    case PARTY_MENU_TYPE_CHOOSE_FOUR:
         switch (GetPartySlotEntryStatus(gPartyMenu.slotId))
         {
         default: // Not eligible
@@ -7059,6 +7110,13 @@ void InitChooseHalfPartyForBattle(u8 unused)
     gPartyMenu.task = Task_ValidateChosenHalfParty;
 }
 
+void InitChooseFourPokemonForBattle(u8 unused)
+{
+    ClearSelectedPartyOrder();
+    InitPartyMenu(PARTY_MENU_TYPE_CHOOSE_FOUR, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, gMain.savedCallback);
+    gPartyMenu.task = Task_ValidateChosenFourthParty;
+}
+
 void ClearSelectedPartyOrder(void)
 {
     memset(gSelectedOrderFromParty, 0, sizeof(gSelectedOrderFromParty));
@@ -7078,10 +7136,7 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
     u32 species;
 
     if (GetMonData(mon, MON_DATA_IS_EGG)
-        || GetMonData(mon, MON_DATA_LEVEL) > GetBattleEntryLevelCap()
-        || (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
-            && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
-            && GetMonData(mon, MON_DATA_HELD_ITEM) != ITEM_NONE))
+        || GetMonData(mon, MON_DATA_LEVEL) > GetCurrentLevelCap())//GetBattleEntryLevelCap()
     {
         return FALSE;
     }
@@ -7089,6 +7144,7 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
     case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI_FOUR:
         if (GetMonData(mon, MON_DATA_HP) != 0)
             return TRUE;
         return FALSE;
@@ -7098,8 +7154,9 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
         species = GetMonData(mon, MON_DATA_SPECIES);
         if (gSpeciesInfo[species].isFrontierBanned)
             return FALSE;
-        return TRUE;
     }
+
+    return TRUE;
 }
 
 static u8 CheckBattleEntriesAndGetMessage(void)
@@ -7120,7 +7177,7 @@ static u8 CheckBattleEntriesAndGetMessage(void)
     }
 
     facility = VarGet(VAR_FRONTIER_FACILITY);
-    if (facility == FACILITY_UNION_ROOM || facility == FACILITY_MULTI_OR_EREADER)
+    if (facility == FACILITY_UNION_ROOM || facility == FACILITY_MULTI_OR_EREADER || facility == FACILITY_MULTI_FOUR)
         return 0xFF;
 
     maxBattlers = GetMaxBattleEntries();
@@ -7150,6 +7207,33 @@ static bool8 HasPartySlotAlreadyBeenSelected(u8 slot)
             return TRUE;
     }
     return FALSE;
+}
+
+static void Task_ContinueChoosingFourthParty(u8 taskId)
+{
+    if ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON)))
+    {
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuStdMessage(PARTY_MSG_CHOOSE_MON);
+        gTasks[taskId].func = Task_HandleChooseMonInput;
+    }
+}
+
+static void Task_ValidateChosenFourthParty(u8 taskId)
+{
+    u8 msgId = CheckBattleEntriesAndGetMessage();
+
+    if (msgId != 0xFF)
+    {
+        PlaySE(SE_FAILURE);
+        DisplayPartyMenuStdMessage(msgId);
+        gTasks[taskId].func = Task_ContinueChoosingFourthParty;
+    }
+    else
+    {
+        PlaySE(SE_SELECT);
+        Task_ClosePartyMenu(taskId);
+    }
 }
 
 static void Task_ValidateChosenHalfParty(u8 taskId)
@@ -7185,6 +7269,8 @@ static u8 GetMaxBattleEntries(void)
     {
     case FACILITY_MULTI_OR_EREADER:
         return MULTI_PARTY_SIZE;
+    case FACILITY_MULTI_FOUR:
+        return MULTI_PARTY_SIZE_FOUR;
     case FACILITY_UNION_ROOM:
         return UNION_ROOM_PARTY_SIZE;
     default: // Battle Frontier
@@ -7197,6 +7283,7 @@ static u8 GetMinBattleEntries(void)
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
     case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI_FOUR:
         return 1;
     case FACILITY_UNION_ROOM:
         return UNION_ROOM_PARTY_SIZE;
@@ -7210,6 +7297,7 @@ static u8 GetBattleEntryLevelCap(void)
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
     case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI_FOUR:
         return MAX_LEVEL;
     case FACILITY_UNION_ROOM:
         return UNION_ROOM_MAX_LEVEL;
@@ -7225,6 +7313,8 @@ static const u8 *GetFacilityCancelString(void)
     u8 facilityNum = VarGet(VAR_FRONTIER_FACILITY);
 
     if (!(facilityNum != FACILITY_UNION_ROOM && facilityNum != FACILITY_MULTI_OR_EREADER))
+        return gText_CancelBattle;
+    else if (facilityNum == FACILITY_MULTI_FOUR)
         return gText_CancelBattle;
     else if (facilityNum == FRONTIER_FACILITY_DOME && gSpecialVar_0x8005 == 2)
         return gText_ReturnToWaitingRoom;

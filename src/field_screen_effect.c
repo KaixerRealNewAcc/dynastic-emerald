@@ -42,6 +42,8 @@
 #include "fldeff.h"
 #include "battle.h"
 
+#include "l_menu.h"
+
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
 static void Task_DoContestHallWarp(u8);
@@ -470,6 +472,28 @@ void ReturnToFieldOpenStartMenu(void)
 bool8 FieldCB_ReturnToFieldOpenStartMenu(void)
 {
     ShowReturnToFieldStartMenu();
+    return FALSE;
+}
+    
+static void Task_WaitForFadeShowLMenu(u8 taskId)
+{
+    if (WaitForWeatherFadeIn() == TRUE)
+    {
+        DestroyTask(taskId);
+        CreateTask(Task_ShowLMenu, 80);
+    }
+}
+
+void ReturnToFieldOpenLMenu(void)
+{
+    FadeInFromBlack();
+    CreateTask(Task_WaitForFadeShowLMenu, 0x50);
+    LockPlayerFieldControls();
+}
+
+bool8 FieldCB_ReturnToFieldOpenLMenu(void)
+{
+    ShowReturnToFieldLMenu();
     return FALSE;
 }
 

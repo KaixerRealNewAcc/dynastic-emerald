@@ -1,3 +1,4 @@
+
 SlateportCity_PokemonFanClub_MapScripts::
 	.byte 0
 
@@ -398,3 +399,602 @@ SlateportCity_PokemonFanClub_Text_Zigzagoon:
 SlateportCity_PokemonFanClub_Text_Azumarill:
 	.string "AZUMARILL: Marimari?$"
 
+SlateportCity_PokemonFanClub_EventScript_FossilGiver::
+	lock
+	faceplayer
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_1
+	goto SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue
+	return
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_1:
+	goto FossilGiver_Explain
+	return
+
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue::
+	message SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_0
+	waitmessage
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_1, 0
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_2, 1
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_3, 2
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_4, 3
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_5, 127
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	compare VAR_RESULT, 127
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_2
+	compare VAR_RESULT, 0
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_5
+	compare VAR_RESULT, 1
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_8
+	compare VAR_RESULT, 2
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_14
+	compare VAR_RESULT, 3
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_19
+	return
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_2:
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_6
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_5:
+	checkitem ITEM_GREEN_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithGreenShard
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_11
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_9
+	waitfanfare
+	randomelement SPECIES_ANORITH, SPECIES_LILEEP
+	givemon VAR_RESULT, 5
+	removeitem ITEM_GREEN_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_8:
+	checkitem ITEM_BLUE_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithBlueShard
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_17
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_9
+	waitfanfare
+	randomelement SPECIES_OMANYTE, SPECIES_KABUTO, SPECIES_TIRTOUGA
+	givemon VAR_RESULT, 5
+	removeitem ITEM_BLUE_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_11:
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_7, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_14:
+	checkitem ITEM_RED_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithRedShard
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_22
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_9
+	waitfanfare
+	randomelement SPECIES_CRANIDOS, SPECIES_TYRUNT, SPECIES_ARCHEN
+	givemon VAR_RESULT, 5
+	removeitem ITEM_RED_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_17:
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_7, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_19:
+	checkitem ITEM_YELLOW_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithYellowShard
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_25
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_9
+	waitfanfare
+	randomelement SPECIES_SHIELDON, SPECIES_AMAURA, SPECIES_AERODACTYL
+	givemon VAR_RESULT, 5
+	removeitem ITEM_YELLOW_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_22:
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_7, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_25:
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_7, MSGBOX_DEFAULT
+	release
+	end
+
+
+FossilGiver_Explain::
+	message FossilGiver_Explain_Text_0
+	waitmessage
+	dynmultipush FossilGiver_Explain_Text_1, 0
+	dynmultipush FossilGiver_Explain_Text_2, 1
+	dynmultipush FossilGiver_Explain_Text_3, 2
+	dynmultipush FossilGiver_Explain_Text_4, 3
+	dynmultipush FossilGiver_Explain_Text_5, 127
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	compare VAR_RESULT, 127
+	goto_if_eq FossilGiver_Explain_2
+FossilGiver_Explain_1:
+	compare VAR_RESULT, 0
+	goto_if_eq FossilGiver_Explain_5
+FossilGiver_Explain_4:
+	compare VAR_RESULT, 1
+	goto_if_eq FossilGiver_Explain_8
+FossilGiver_Explain_7:
+	compare VAR_RESULT, 2
+	goto_if_eq FossilGiver_Explain_14
+FossilGiver_Explain_13:
+	compare VAR_RESULT, 3
+	goto_if_eq FossilGiver_Explain_19
+	return
+
+FossilGiver_Explain_2:
+	goto SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue
+	goto FossilGiver_Explain_1
+
+FossilGiver_Explain_5:
+	msgbox FossilGiver_Explain_Text_6
+	msgbox FossilGiver_Explain_Text_7, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq FossilGiver_Explain_10
+	goto SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue
+	goto FossilGiver_Explain_4
+
+FossilGiver_Explain_8:
+	msgbox FossilGiver_Explain_Text_8
+	msgbox FossilGiver_Explain_Text_7, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq FossilGiver_Explain_16
+	goto SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue
+	goto FossilGiver_Explain_7
+
+FossilGiver_Explain_10:
+	goto FossilGiver_Explain
+	goto FossilGiver_Explain_4
+
+FossilGiver_Explain_14:
+	msgbox FossilGiver_Explain_Text_9
+	msgbox FossilGiver_Explain_Text_7, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq FossilGiver_Explain_21
+	goto SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue
+	goto FossilGiver_Explain_13
+
+FossilGiver_Explain_16:
+	goto FossilGiver_Explain
+	goto FossilGiver_Explain_7
+
+FossilGiver_Explain_19:
+	msgbox FossilGiver_Explain_Text_10
+	msgbox FossilGiver_Explain_Text_7, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq FossilGiver_Explain_24
+	goto SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue
+	return
+
+FossilGiver_Explain_21:
+	goto FossilGiver_Explain
+	goto FossilGiver_Explain_13
+
+FossilGiver_Explain_24:
+	goto FossilGiver_Explain
+	return
+
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver::
+	lock
+	faceplayer
+	msgbox EggManIntro
+	message SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_0
+	waitmessage
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_EggGiver_Text_0, 0
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_EggGiver_Text_1, 1
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_EggGiver_Text_2, 127
+	dynmultistack 0, 0, FALSE, 6, FALSE, 3, DYN_MULTICHOICE_CB_NONE
+	compare VAR_RESULT, 127
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_EggGiver_2
+SlateportCity_PokemonFanClub_EventScript_EggGiver_1:
+	compare VAR_RESULT, 0
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_EggGiver_5
+SlateportCity_PokemonFanClub_EventScript_EggGiver_4:
+	compare VAR_RESULT, 1
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_EggGiver_7
+	return
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver_2:
+	goto SlateportCity_PokemonFanClub_EventScript_EggManNo
+	goto SlateportCity_PokemonFanClub_EventScript_EggGiver_1
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver_5:
+	goto SlateportCity_PokemonFanClub_EventScript_StarterEggGive
+	goto SlateportCity_PokemonFanClub_EventScript_EggGiver_4
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver_7:
+	goto SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose
+	return
+
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive::
+	message SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_0
+	waitmessage
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_1, ITEM_RED_SHARD
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_2, ITEM_BLUE_SHARD
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_3, ITEM_GREEN_SHARD
+	dynmultipush FossilGiver_Explain_Text_5, 127
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	compare VAR_RESULT, 127
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_StarterEggGive_2
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_1:
+	compare VAR_RESULT, ITEM_RED_SHARD
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_StarterEggGive_5
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_4:
+	compare VAR_RESULT, ITEM_BLUE_SHARD
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_StarterEggGive_8
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_7:
+	compare VAR_RESULT, ITEM_GREEN_SHARD
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_StarterEggGive_11
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_10:
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_2:
+	goto SlateportCity_PokemonFanClub_EventScript_EggGiver
+	goto SlateportCity_PokemonFanClub_EventScript_StarterEggGive_1
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_5:
+	goto SlateportCity_PokemonFanClub_EventScript_GiveFireEgg
+	goto SlateportCity_PokemonFanClub_EventScript_StarterEggGive_4
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_8:
+	goto SlateportCity_PokemonFanClub_EventScript_GiveWaterEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	goto SlateportCity_PokemonFanClub_EventScript_StarterEggGive_7
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_11:
+	goto SlateportCity_PokemonFanClub_EventScript_GiveGrassEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	goto SlateportCity_PokemonFanClub_EventScript_StarterEggGive_10
+
+
+SlateportCity_PokemonFanClub_EventScript_GiveFireEgg::
+	checkitem ITEM_RED_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithRedShard
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, SlateportCity_PokemonFanClub_EventScript_NoRoomForEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_Text_ReceivedTheEgg
+	waitfanfare
+	randomelement SPECIES_CHARMANDER, SPECIES_CYNDAQUIL, SPECIES_TORCHIC, SPECIES_CHIMCHAR, SPECIES_TEPIG, SPECIES_FENNEKIN, SPECIES_LITTEN, SPECIES_SCORBUNNY, SPECIES_FUECOCO
+	givemon VAR_RESULT, 5, ITEM_CHARCOAL
+	removeitem ITEM_RED_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_GiveWaterEgg::
+	checkitem ITEM_BLUE_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithBlueShard
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, SlateportCity_PokemonFanClub_EventScript_NoRoomForEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_Text_ReceivedTheEgg
+	waitfanfare
+	randomelement SPECIES_SQUIRTLE, SPECIES_TOTODILE, SPECIES_MUDKIP, SPECIES_PIPLUP, SPECIES_OSHAWOTT, SPECIES_FROAKIE, SPECIES_POPPLIO, SPECIES_SOBBLE, SPECIES_QUAXLY
+	givemon VAR_RESULT, 5, ITEM_MYSTIC_WATER
+	removeitem ITEM_BLUE_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_GiveGrassEgg::
+	checkitem ITEM_GREEN_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithGreenShard
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, SlateportCity_PokemonFanClub_EventScript_NoRoomForEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_Text_ReceivedTheEgg
+	waitfanfare
+	randomelement SPECIES_BULBASAUR, SPECIES_CHIKORITA, SPECIES_TREECKO, SPECIES_TURTWIG, SPECIES_SNIVY, SPECIES_CHESPIN, SPECIES_ROWLET, SPECIES_GROOKEY, SPECIES_SPRIGATITO
+	givemon VAR_RESULT, 5, ITEM_MIRACLE_SEED
+	removeitem ITEM_GREEN_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose::
+	message SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_Text_0
+	waitmessage
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_Text_1, 0
+	dynmultipush SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_Text_2, 1
+	dynmultipush FossilGiver_Explain_Text_5, 127
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	compare VAR_RESULT, 127
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_2
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_1:
+	compare VAR_RESULT, 0
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_5
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_4:
+	compare VAR_RESULT, 1
+	goto_if_eq SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_8
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_7:
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_2:
+	goto SlateportCity_PokemonFanClub_EventScript_EggGiver
+	goto SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_1
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_5:
+	goto SlateportCity_PokemonFanClub_EventScript_GiveCostumeEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	goto SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_4
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_8:
+	goto SlateportCity_PokemonFanClub_EventScript_GiveCapEgg
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	goto SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_7
+
+
+SlateportCity_PokemonFanClub_EventScript_GiveCostumeEgg::
+	checkitem ITEM_YELLOW_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithYellowShard
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, SlateportCity_PokemonFanClub_EventScript_NoRoomForPikachu
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_Text_ReceivedThePikachu
+	waitfanfare
+	randomelement SPECIES_PIKACHU_POP_STAR, SPECIES_PIKACHU_BELLE, SPECIES_PIKACHU_ROCK_STAR, SPECIES_PIKACHU_LIBRE, SPECIES_PIKACHU_PHD
+	givemon VAR_RESULT, 5, ITEM_LIGHT_BALL
+	removeitem ITEM_YELLOW_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_GiveCapEgg::
+	checkitem ITEM_YELLOW_SHARD
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_PokemonFanClub_EventScript_ComeBackWithYellowShard
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, SlateportCity_PokemonFanClub_EventScript_NoRoomForPikachu
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8
+	playfanfare MUS_OBTAIN_ITEM
+	message SlateportCity_PokemonFanClub_Text_ReceivedThePikachu
+	waitfanfare
+	randomelement SPECIES_PIKACHU_ORIGINAL, SPECIES_PIKACHU_HOENN, SPECIES_PIKACHU_SINNOH, SPECIES_PIKACHU_UNOVA, SPECIES_PIKACHU_KALOS, SPECIES_PIKACHU_ALOLA, SPECIES_PIKACHU_PARTNER, SPECIES_PIKACHU_WORLD
+	givemon VAR_RESULT, 5, ITEM_LIGHT_BALL
+	removeitem ITEM_YELLOW_SHARD
+	msgbox SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_EggManNo::
+	msgbox SlateportCity_PokemonFanClub_EventScript_EggManNo_Text_0
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_ComeBackWithRedShard::
+	msgbox SlateportCity_PokemonFanClub_Text_ComeBackWithRedShard, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_ComeBackWithBlueShard::
+	msgbox SlateportCity_PokemonFanClub_Text_ComeBackWithBlueShard, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_ComeBackWithGreenShard::
+	msgbox SlateportCity_PokemonFanClub_Text_ComeBackWithGreenShard, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_ComeBackWithYellowShard::
+	msgbox SlateportCity_PokemonFanClub_Text_ComeBackWithYellowShard, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_NoRoomForEgg::
+	msgbox SlateportCity_PokemonFanClub_Text_NoRoomForThisEgg, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_NoRoomForPikachu::
+	msgbox SlateportCity_PokemonFanClub_Text_NoRoomForThisPikachu, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Text_0:
+	.string "Hello, I am a shard collector.\n"
+	.string "If you give me a some Shards, I can give\l"
+	.string "you an\l"
+	.string "Fossil in Return!\p"
+	.string "Would you like me to Explain which shard\n"
+	.string "gives which fossil?$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_0:
+	.string "Well im waiting.$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_1:
+	.string "Plant Fossils$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_2:
+	.string "Aquatic Fossils$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_3:
+	.string "Dinosaur Fossils$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_4:
+	.string "Others Fossils$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_5:
+	.string "Leave$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_6:
+	.string "I see.\nCome back when you\nwant a Fossil$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_7:
+	.string "It seems like you got no room\nFor this fossil\pPlease come back with Space.$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_8:
+	.string "A wise choice. Here you go.$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_9:
+	.string "{PLAYER} Recieved the Random Fossil$"
+
+SlateportCity_PokemonFanClub_EventScript_FossilGiver_Continue_Text_10:
+	.string "Come back if you have more shards!$"
+
+FossilGiver_Explain_Text_0:
+	.string "Which shard would you like me to\n"
+	.string "explain?$"
+
+FossilGiver_Explain_Text_1:
+	.string "Green Shard$"
+
+FossilGiver_Explain_Text_2:
+	.string "Blue Shard$"
+
+FossilGiver_Explain_Text_3:
+	.string "Red Shard$"
+
+FossilGiver_Explain_Text_4:
+	.string "Yellow Shard$"
+
+FossilGiver_Explain_Text_5:
+	.string "Return$"
+
+FossilGiver_Explain_Text_6:
+	.string "The Green Shard gets you Lilleep and\n"
+	.string "Anorith!$"
+
+FossilGiver_Explain_Text_7:
+	.string "Would you like me to explain more?$"
+
+FossilGiver_Explain_Text_8:
+	.string "The Blue Shard gets you Omanyte,\n"
+	.string "Kabuto and Tirtouga!$"
+
+FossilGiver_Explain_Text_9:
+	.string "The Red Shard gets you Cranidos, Archen\n"
+	.string "and Tyrunt!$"
+
+FossilGiver_Explain_Text_10:
+	.string "The Yellow Shard gets you Shieldon,\n"
+	.string "Amaura and Aerodactyl!$"
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver_Text_0:
+	.string "Starters$"
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver_Text_1:
+	.string "Pikachu Forms$"
+
+SlateportCity_PokemonFanClub_EventScript_EggGiver_Text_2:
+	.string "Cancel$"
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_0:
+	.string "Which Type of Starter did you want?$"
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_1:
+	.string "{COLOR RED}{SHADOW LIGHT_RED}Fire Starters$"
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_2:
+	.string "{COLOR BLUE}{SHADOW LIGHT_BLUE}Water Starters$"
+
+SlateportCity_PokemonFanClub_EventScript_StarterEggGive_Text_3:
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Grass Starters$"
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_Text_0:
+	.string "Which Type of Pikachu forms did you\n"
+	.string "want?$"
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_Text_1:
+	.string "Costume$"
+
+SlateportCity_PokemonFanClub_EventScript_PikachuEggChoose_Text_2:
+	.string "Caps$"
+
+SlateportCity_PokemonFanClub_EventScript_EggManNo_Text_0:
+	.string "I see.\nCome back when you\lwant a Starter\lOr Pikachu form.$"
+
+EggManIntro::
+	.string "Hello, I am a shard collector. If you\n"
+	.string "give me a Red Shard, I can give you an\l"
+	.string "a Fire-type starter Pokémon.\p"
+	.string "I can do the same with Blue Shards and\n"
+	.string "Green Shards for the other types of\l"
+	.string "Starters.\p"
+	.string "Or maybe ur more of a pikachu fan.\n"
+	.string "well lucky for you i can give you\l"
+	.string "a Pikachu Form for a yellow shard.$"
+
+SlateportCity_PokemonFanClub_Text_ComeBackWithRedShard::
+	.string "It doesn't look like you have a Red\n"
+	.string "Shard. Come back when you do.$"
+
+SlateportCity_PokemonFanClub_Text_ComeBackWithBlueShard::
+	.string "It doesn't look like you have a Blue\n"
+	.string "Shard. Come back when you do.$"
+
+SlateportCity_PokemonFanClub_Text_ComeBackWithGreenShard::
+	.string "It doesn't look like you have a Green\n"
+	.string "Shard. Come back when you do.$"
+
+SlateportCity_PokemonFanClub_Text_ComeBackWithYellowShard::
+	.string "It doesn't look like you have a Yellow\n"
+	.string "Shard. Come back when you do.$"
+
+SlateportCity_PokemonFanClub_Text_NoRoomForThisEgg::
+	.string "Oh? You've too many Pokémon.\n"
+	.string "There's no room for this Starter.$"
+
+SlateportCity_PokemonFanClub_Text_NoRoomForThisPikachu::
+	.string "Oh? You've too many Pokémon.\n"
+	.string "There's no room for this Pikachu Form.$"
+
+SlateportCity_PokemonFanClub_Text_ReceivedTheFossil::
+	.string "{PLAYER} received a Random Fossil.$"
+
+SlateportCity_PokemonFanClub_Text_ReceivedTheEgg::
+	.string "{PLAYER} received a Random Starter.$"
+
+SlateportCity_PokemonFanClub_Text_ReceivedThePikachu::
+	.string "{PLAYER} received a Random Pikachu Form.$"

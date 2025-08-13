@@ -80,7 +80,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_VOLT_ABSORB] =
         {
             .name = _("Volt Absorb"),
-            .description = COMPOUND_STRING("The user restores up to 25% of its max HP when hit with Electric-\ntype moves."),
+            .description = COMPOUND_STRING("The user restores up to 25% of its max HP when hit with Electric-type moves."),
             .aiRating = 7,
             .breakable = TRUE,
         },
@@ -88,7 +88,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_WATER_ABSORB] =
         {
             .name = _("Water Absorb"),
-            .description = COMPOUND_STRING("The user restores up to 25% of its max HP when hit with Water-\ntype moves."),
+            .description = COMPOUND_STRING("The user restores up to 25% of its max HP when hit with Water-type moves."),
             .aiRating = 7,
             .breakable = TRUE,
         },
@@ -2442,6 +2442,34 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .name = _("Mountaineer"),
             .description = COMPOUND_STRING("The user takes no damage from Rock-Type moves and is immune to Stealth Rocks."),
             .aiRating = 6,
-        }
+        },
+
+        [ABILITY_WEATHER_CONTROL] =
+        {
+            .name = _("Weather Control"),
+            .description = COMPOUND_STRING("The user takes control of the weather making Weather Abilities useless."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_STRIKER] =
+        {
+            .name = _("Striker"),
+            .description = COMPOUND_STRING("Increases the damage done by Kicking moves by 30%."),
+            .aiRating = 6,
+        },
+
+        [ABILITY_SPIKY_THORNS] =
+        {
+            .name = _("Spiky Thorns"),
+            .description = COMPOUND_STRING("Hurts to touch."),
+            .aiRating = 6,
+        },
+
+        [ABILITY_PHANTOM_PAIN] =
+        {
+            .name = _("Phantom Pain"),
+            .description = COMPOUND_STRING("The user can hit Normal-type Pokemon with Ghost-type moves, the user also becomes unaffected by Intimidate."),
+            .aiRating = 6,
+        },
 
 };

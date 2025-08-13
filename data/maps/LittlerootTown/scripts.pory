@@ -1,4 +1,4 @@
-
+raw`
 LittlerootTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_OnFrame
@@ -1014,40 +1014,38 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
+`
 
-LittlerootTown_Norman_Test::
+script LittlerootTown_Norman_Test
+{
 	lock
-	fadescreen FADE_TO_BLACK
-	special ChooseFourPokemonsForBattle
+	fadescreen (FADE_TO_BLACK)
+	special (ChooseFourPokemonsForBattle)
 	waitstate
-	compare VAR_RESULT, 0
-	goto_if_eq LittlerootTown_Norman_Test_2
-	compare VAR_RESULT, 1
-	goto_if_eq LittlerootTown_Norman_Test_5
-LittlerootTown_Norman_Test_4:
-	special SavePlayerParty
+	if(var(VAR_RESULT) == 0)
+	{
+		release
+		fadescreen (FADE_FROM_BLACK)
+		end
+	}
+	
+	if(var(VAR_RESULT) == 1)
+	{
+		goto(LittlerootTown_Norman_Test_Battle)
+	}
+	special (SavePlayerParty)
 	end
-
-LittlerootTown_Norman_Test_2:
-	release
-	fadescreen FADE_FROM_BLACK
-	end
-
-LittlerootTown_Norman_Test_5:
-	goto LittlerootTown_Norman_Test_Battle
-	goto LittlerootTown_Norman_Test_4
-
-
-LittlerootTown_Norman_Test_Battle::
-	special LoadPlayerParty
-	special ReducePlayerPartyToSelectedMons
-	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanDefeat
-	cleartrainerflag TRAINER_NORMAN_1
-	goto LittlerootTown_Norman_Test_BattleEnd
-	return
-
-
-LittlerootTown_Norman_Test_BattleEnd::
+}
+script LittlerootTown_Norman_Test_Battle
+{
+	special (LoadPlayerParty)
+	special (ReducePlayerPartyToSelectedMons)
+	trainerbattle_no_intro (TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanDefeat)
+	cleartrainerflag (TRAINER_NORMAN_1)
+	goto(LittlerootTown_Norman_Test_BattleEnd)
+}
+script LittlerootTown_Norman_Test_BattleEnd
+{
 	release
 	end
-
+}

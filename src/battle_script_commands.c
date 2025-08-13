@@ -1975,7 +1975,8 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
             critChance = ARRAY_COUNT(sCriticalHitOdds) - 1;
     }
 
-    if (critChance != CRITICAL_HIT_BLOCKED && (abilityDef == ABILITY_BATTLE_ARMOR || abilityDef == ABILITY_SHELL_ARMOR))
+    if (critChance != CRITICAL_HIT_BLOCKED && (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_BATTLE_ARMOR) || 
+                                               HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_SHELL_ARMOR)))
     {
         // Record ability only if move had 100% chance to get a crit
         if (recordAbility)
@@ -18698,6 +18699,7 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
     {
     case ABILITY_INNER_FOCUS:
     case ABILITY_SCRAPPY:
+    case ABILITY_PHANTOM_PAIN:
     case ABILITY_OWN_TEMPO:
     case ABILITY_OBLIVIOUS:
         if (B_UPDATED_INTIMIDATE >= GEN_8)
@@ -18709,6 +18711,8 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
                     gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_INNER_FOCUS;
                 case ABILITY_SCRAPPY:
                     gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SCRAPPY;
+                case ABILITY_PHANTOM_PAIN:  
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_PHANTOM_PAIN;
                 case ABILITY_OWN_TEMPO:
                     gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_OWN_TEMPO;
                 case ABILITY_OBLIVIOUS:

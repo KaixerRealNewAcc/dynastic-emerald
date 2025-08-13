@@ -46,7 +46,7 @@
 #define FLAG_DN_SEARCHING    0x20 
 #define FLAG_DN_DETECTOR_MODE 0x21
 #define FLAG_HIDE_RUSTBORO_LEAF 0x22
-#define FLAG_UNUSED_0x023    0x23
+#define FLAG_INVERSE_BATTLE    0x23
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
@@ -700,7 +700,7 @@
 #define FLAG_UNUSED_0x28D  0x28D // Unused Flag
 #define FLAG_UNUSED_0x28E  0x28E // Unused Flag
 #define FLAG_UNUSED_0x28F  0x28F // Unused Flag
-#define FLAG_UNUSED_0x290  0x290 // Unused Flag
+#define FLAG_USING_POKEMONPCMENU  0x290
 #define FLAG_UNUSED_0x291  0x291 // Unused Flag
 #define FLAG_UNUSED_0x292  0x292 // Unused Flag
 #define FLAG_UNUSED_0x293  0x293 // Unused Flag
@@ -1225,8 +1225,8 @@
 #define FLAG_MINIMAL_GRINDING_MODE                                  0x493 
 #define FLAG_EXPERT_MODE                                            0x494
 #define FLAG_DISABLED_FOLLOWERS                                     0x495
-#define FLAG_VGC_MODE                                               0x496 // Unused Flag
-#define FLAG_UNUSED_0x497                                           0x497 // Unused Flag
+#define FLAG_VGC_MODE                                               0x496
+#define FLAG_ENTERED_ELITE_4                                        0x497
 #define FLAG_UNUSED_0x498                                           0x498 // Unused Flag
 #define FLAG_UNUSED_0x499                                           0x499 // Unused Flag
 #define FLAG_UNUSED_0x49A                                           0x49A // Unused Flag

@@ -54,7 +54,9 @@ MossdeepCity_Gym_EventScript_SetSwitch4Metatiles::
 	end
 
 MossdeepCity_Gym_EventScript_TateAndLiza::
+	setflag FLAG_INVERSE_BATTLE
 	trainerbattle_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaIntro, MossdeepCity_Gym_Text_TateAndLizaDefeat, MossdeepCity_Gym_Text_TateAndLizaNeedTwoMons, MossdeepCity_Gym_EventScript_TateAndLizaDefeated, NO_MUSIC
+	clearflag FLAG_INVERSE_BATTLE
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, MossdeepCity_Gym_EventScript_TateAndLizaRematch
 	goto_if_unset FLAG_RECEIVED_TM_CALM_MIND, MossdeepCity_Gym_EventScript_GiveCalmMind2
@@ -63,6 +65,7 @@ MossdeepCity_Gym_EventScript_TateAndLiza::
 	end
 
 MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
+	clearflag FLAG_INVERSE_BATTLE
 	message MossdeepCity_Gym_Text_ReceivedMindBadge
 	waitmessage
 	call Common_EventScript_PlayGymBadgeFanfare

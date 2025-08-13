@@ -61,6 +61,7 @@ static void WindowFunc_ClearStdWindowAndFrameToTransparent(u8, u8, u8, u8, u8, u
 static void task_free_buf_after_copying_tile_data_to_vram(u8 taskId);
 
 static EWRAM_DATA u8 sStartMenuWindowId = 0;
+static EWRAM_DATA u8 sLMenuWindowId = 0;
 static EWRAM_DATA u8 sMapNamePopupWindowId = 0;
 static EWRAM_DATA u8 sSecondaryPopupWindowId = 0;
 static EWRAM_DATA struct Menu sMenu = {0};
@@ -146,6 +147,7 @@ void InitStandardTextBoxWindows(void)
 {
     InitWindows(sStandardTextBox_WindowTemplates);
     sStartMenuWindowId = WINDOW_NONE;
+    sLMenuWindowId = WINDOW_NONE;
     sMapNamePopupWindowId = WINDOW_NONE;
     if (OW_POPUP_GENERATION == GEN_5)
         sSecondaryPopupWindowId = WINDOW_NONE;
@@ -624,6 +626,27 @@ void RemoveStartMenuWindow(void)
         RemoveWindow(sStartMenuWindowId);
         sStartMenuWindowId = WINDOW_NONE;
     }
+}
+
+u8 GetLMenuWindowId(void)
+{
+    return sLMenuWindowId;
+}
+
+void RemoveLMenuWindow(void)
+{
+    if (sLMenuWindowId != WINDOW_NONE)
+    {
+        RemoveWindow(sLMenuWindowId);
+        sLMenuWindowId = WINDOW_NONE;
+    }
+}
+
+u8 AddLMenuWindow(u8 numActions)
+{
+    if (sLMenuWindowId == WINDOW_NONE)
+        sLMenuWindowId = AddWindowParameterized(0, 1, 1, 8, (numActions * 2) + 2, 15, 0x139);
+    return sLMenuWindowId;
 }
 
 static u16 UNUSED GetDialogFrameBaseTileNum(void)

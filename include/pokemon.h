@@ -729,6 +729,7 @@ bool32 GetInnateBySpecies(u32 species, u32 ability);
 u16 GetInnateBySpeciesUnused(u16 species, u16 ability);
 u16 GetInnateBySpeciesSummaryScreen(u16 species, u16 innateAbility);
 u16 GetMonAbility(struct Pokemon *mon);
+u16 GetMonInnate(struct Pokemon *mon);
 void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord);
 u8 GetSecretBaseTrainerPicIndex(void);
 u8 GetSecretBaseTrainerClass(void);

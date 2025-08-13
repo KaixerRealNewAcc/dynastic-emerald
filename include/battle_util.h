@@ -102,6 +102,7 @@ enum {
 
 #define HAS_ABILITY_OR_INNATE(battler, ability) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
 #define HAS_INNATE(battler, ability)      (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
+#define SPECIES_INNATE(species, ability) (GetInnateBySpecies(species, ability))
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 

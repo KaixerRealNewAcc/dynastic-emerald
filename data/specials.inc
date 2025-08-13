@@ -57,6 +57,7 @@ gSpecials::
 	def_special SpawnLinkPartnerObjectEvent
 	def_special SavePlayerParty
 	def_special LoadPlayerParty
+	def_special ChooseFourPokemonsForBattle
 	def_special ChooseHalfPartyForBattle
 	def_special Script_ShowLinkTrainerCard
 	def_special ObjectEventInteractionGetBerryTreeData
@@ -568,3 +569,4 @@ gSpecials::
 	def_special EnterCode
 	def_special GetCodeFeedback
 	def_special ForceBattleStyleSet
+	def_special HealPlayerPartyNonDead

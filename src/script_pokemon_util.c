@@ -29,6 +29,7 @@
 #include "constants/battle_frontier.h"
 
 static void CB2_ReturnFromChooseHalfParty(void);
+static void CB2_ReturnFromChooseFourthParty(void);
 static void CB2_ReturnFromChooseBattleFrontierParty(void);
 static void HealPlayerBoxes(void);
 
@@ -37,6 +38,23 @@ void HealPlayerParty(void)
     u32 i;
     for (i = 0; i < gPlayerPartyCount; i++)
         HealPokemon(&gPlayerParty[i]);
+    if (OW_PC_HEAL >= GEN_8)
+        HealPlayerBoxes();
+
+    // Recharge Tera Orb, if possible.
+    if (B_FLAG_TERA_ORB_CHARGED != 0 && CheckBagHasItem(ITEM_TERA_ORB, 1))
+        FlagSet(B_FLAG_TERA_ORB_CHARGED);
+}
+
+void HealPlayerPartyNonDead(void)
+{
+    u32 i;
+    for (i = 0; i < gPlayerPartyCount; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_HP) != 0)
+            HealPokemon(&gPlayerParty[i]);
+    }
+        
     if (OW_PC_HEAL >= GEN_8)
         HealPlayerBoxes();
 
@@ -172,6 +190,28 @@ void ScriptSetMonMoveSlot(u8 monIndex, u16 move, u8 slot)
 
 // Note: When control returns to the event script, gSpecialVar_Result will be
 // TRUE if the party selection was successful.
+void ChooseFourPokemonsForBattle(void)
+{
+    gMain.savedCallback = CB2_ReturnFromChooseFourthParty;
+    VarSet(VAR_FRONTIER_FACILITY, FACILITY_MULTI_FOUR);
+    InitChooseFourPokemonForBattle(0);
+}
+
+static void CB2_ReturnFromChooseFourthParty(void)
+{
+    switch (gSelectedOrderFromParty[0])
+    {
+    case 0:
+        gSpecialVar_Result = FALSE;
+        break;
+    default:
+        gSpecialVar_Result = TRUE;
+        break;
+    }
+
+    SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+}
+
 void ChooseHalfPartyForBattle(void)
 {
     gMain.savedCallback = CB2_ReturnFromChooseHalfParty;

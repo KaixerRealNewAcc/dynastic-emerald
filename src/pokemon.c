@@ -3831,6 +3831,13 @@ u16 GetInnateBySpeciesSummaryScreen(u16 species, u16 innateAbility)
     return gSpeciesInfo[speciesAndInnate].innateAbility;
 }
 
+u16 GetMonInnate(struct Pokemon *mon)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 ability = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
+    return GetInnateBySpecies(species, ability);
+}
+
 void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord)
 {
     s32 i, j;

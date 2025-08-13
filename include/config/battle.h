@@ -185,7 +185,7 @@
 #define B_DREAM_BALL_MODIFIER       GEN_LATEST // In Gen8+, Dream Ball's catch multiplier is x4 when the target is asleep or has the ability Comatose.
 #define B_SPORT_BALL_MODIFIER       GEN_LATEST // In Gen8+, Sport Ball's catch multiplier was reduced from x1.5 to x1.
 #define B_SAFARI_BALL_MODIFIER      GEN_LATEST // In Gen8+, Safari Ball's catch multiplier was reduced from x1.5 to x1.
-#define B_FRIEND_BALL_MODIFIER      GEN_LATEST // In Gen8+, Friend Ball's friendship boost was reduced from 200 to 150.
+#define B_FRIEND_BALL_MODIFIER      GEN_7 // In Gen8+, Friend Ball's friendship boost was reduced from 200 to 150.
 #define B_SERENE_GRACE_BOOST        GEN_LATEST // In Gen5+, Serene Grace boosts the added flinch chance of King's Rock and Razor Fang.
 #define B_IRON_BALL                 GEN_LATEST // In Gen5+, Flying-type Pokemon holding Iron Ball take x1 damage from Ground-type moves regardless of their other types, except during Inverse Battles or if the Pokemon is grounded by any other effect.
 
@@ -200,7 +200,7 @@
 #define B_FLAG_BADGE_BOOST_SPATK    FLAG_BADGE07_GET // If this flag is set and B_BADGE_BOOST == GEN_3, it will multiply the player's Pokémon's Sp. Atk by x1.1
 #define B_FLAG_BADGE_BOOST_SPDEF    FLAG_BADGE07_GET // If this flag is set and B_BADGE_BOOST == GEN_3, it will multiply the player's Pokémon's Sp. Def by x1.1
 // Other battle flags
-#define B_FLAG_INVERSE_BATTLE       0     // If this flag is set, the battle's type effectiveness are inversed. For example, fire is super effective against water.
+#define B_FLAG_INVERSE_BATTLE       FLAG_INVERSE_BATTLE // If this flag is set, the battle's type effectiveness are inversed. For example, fire is super effective against water.
 #define B_FLAG_FORCE_DOUBLE_WILD    0     // If this flag is set, all land and surfing wild battles will be double battles.
 #define B_SMART_WILD_AI_FLAG        0     // If this flag is set, wild Pokémon will become smart, with all AI flags enabled.
 #define B_FLAG_NO_BAG_USE           0     // If this flag is set, the ability to use the bag in battle is disabled.
@@ -234,7 +234,7 @@
 #define B_RESET_FLAGS_VARS_AFTER_WHITEOUT TRUE // If TRUE, Overworld_ResetBattleFlagsAndVars will reset battle-related Flags and Vars when the player whites out.
 
 // Ingame partner flag
-#define B_SHOW_PARTNER_TARGET             FALSE // Shows the battler partner will target.
+#define B_SHOW_PARTNER_TARGET             TRUE // Shows the battler partner will target.
 
 // Move description menu
 #define B_SHOW_MOVE_DESCRIPTION     TRUE       // Shows move information in battler
@@ -355,7 +355,7 @@
 #define B_POOL_SETTING_CONSISTENT_RNG       FALSE    // If set to true, the same trainer will always generate the same pool on the same save file
 #define B_POOL_SETTING_USE_FIXED_SEED       FALSE    // If set to true, will use the fixed seed defined in B_POOL_SETTING_FIXED_SEED
 #define B_POOL_SETTING_FIXED_SEED           0x1D4127 // "Random" number, unless a mistake was made, it's へだら in Emerald charmap which should spell he-da-ra
-#define B_POOL_RULE_SPECIES_CLAUSE          FALSE    // Only pick a single pokemon of a unique NatDex number
+#define B_POOL_RULE_SPECIES_CLAUSE          TRUE    // Only pick a single pokemon of a unique NatDex number
 #define B_POOL_RULE_EXCLUDE_FORMS           FALSE    // Exclude different forms from the Species Clause
 #define B_POOL_RULE_ITEM_CLAUSE             FALSE    // Only allow each item to be picked once
 #define B_POOL_RULES_USE_ITEM_EXCLUSIONS    FALSE    // Exclude items listed in poolItemClauseExclusions
