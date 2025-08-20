@@ -47,4 +47,9 @@ static inline u32 IsFollowerDisabled(void)
     return FlagGet(FLAG_DISABLED_FOLLOWERS);
 }
 
+static inline u32 IsNuzlockeModeActive(void)
+{
+    return (FlagGet(FLAG_NUZLOCKE_MODE) && FlagGet(FLAG_SYS_POKEDEX_GET));
+}
+
 #endif //GUARD_DYNASTIC_SHORTCUTS_H

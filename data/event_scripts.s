@@ -929,6 +929,10 @@ gText_PlayerWhitedOut::
 	.string "{PLAYER} is out of usable\n"
 	.string "POKéMON!\p{PLAYER} whited out!$"
 
+gText_PlayerWhitedOutNuzlockMode::
+	.string "{PLAYER} Lost the nuzlock challenge.\n"
+	.string "goodluck next time!$"
+
 gText_FirstShouldRestoreMonsHealth::
 	.string "First, you should restore your\n"
 	.string "POKéMON to full health.$"

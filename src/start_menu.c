@@ -606,7 +606,7 @@ void ShowStartMenu(void)
 {
     if (!IsOverworldLinkActive())
     {
-        FreezeObjectEvents();
+        //FreezeObjectEvents();
         PlayerFreeze();
         StopPlayerAvatar();
     }

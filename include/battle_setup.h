@@ -46,6 +46,7 @@ extern const struct RematchTrainer gRematchTable[REMATCH_TABLE_ENTRIES];
 
 extern TrainerBattleParameter gTrainerBattleParameter;
 extern u16 gPartnerTrainerId;
+extern bool8 gNuzlockeCannotCatch;
 
 #define TRAINER_BATTLE_PARAM gTrainerBattleParameter.params
 
@@ -109,5 +110,8 @@ void BattleSetup_StartTrainerBattle_Debug(void);
 s32 TrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);
 s32 FirstBattleTrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);
 u16 GetRematchTrainerIdFromTable(const struct RematchTrainer *table, u16 firstBattleTrainerId);
+
+u8 HasWildPokmnOnThisRouteBeenSeen(u8 currLocation, bool8 setVarForThisEnc);
+u8 currLocConvertForNuzlocke(u8 currLocation);
 
 #endif // GUARD_BATTLE_SETUP_H

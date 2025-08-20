@@ -36,8 +36,10 @@ static void HealPlayerBoxes(void);
 void HealPlayerParty(void)
 {
     u32 i;
+    u16 maxHP;
     for (i = 0; i < gPlayerPartyCount; i++)
         HealPokemon(&gPlayerParty[i]);
+    
     if (OW_PC_HEAL >= GEN_8)
         HealPlayerBoxes();
 

@@ -144,9 +144,10 @@
 #define OPTIONS_BUTTON_MODE_LR 1
 #define OPTIONS_BUTTON_MODE_L_EQUALS_A 2
 
-#define OPTIONS_TEXT_SPEED_SLOW 0
-#define OPTIONS_TEXT_SPEED_MID 1
-#define OPTIONS_TEXT_SPEED_FAST 2
+#define OPTIONS_TEXT_SPEED_SLOW         0
+#define OPTIONS_TEXT_SPEED_MID          1
+#define OPTIONS_TEXT_SPEED_FAST         2
+#define OPTIONS_TEXT_SPEED_INSTANT      3
 
 #define OPTIONS_SOUND_MONO 0
 #define OPTIONS_SOUND_STEREO 1
@@ -177,6 +178,15 @@
 #define CONNECTION_EAST     4
 #define CONNECTION_DIVE     5
 #define CONNECTION_EMERGE   6
+
+//Saveblock Toggle Stuffwdad
+#define SAVEBLOCK_NUZLOCKE  0
+
+//Nuzlocke Stuff
+#define NUZLOCKE_OFF     0
+#define NUZLOCKE_SEEN    1
+#define NUZLOCKE_DUPES   2
+
 
 #if TESTING
 #include "config/test.h"

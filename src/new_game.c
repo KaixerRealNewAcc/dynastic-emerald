@@ -49,6 +49,8 @@
 #include "difficulty.h"
 #include "follower_npc.h"
 
+#include "battle.h"
+
 extern const u8 EventScript_ResetAllMapFlags[];
 
 static void ClearFrontierRecord(void);
@@ -151,6 +153,13 @@ void ResetMenuAndMonGlobals(void)
     ResetPokeblockScrollPositions();
 }
 
+static void NewGameKeepNuzlockIfAlreadyActivated(void)
+{
+    if (gNuzlockeIsActivated == TRUE)
+        FlagSet(FLAG_NUZLOCKE_MODE);
+}
+
+
 void NewGameInitData(void)
 {
     if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
@@ -175,7 +184,7 @@ void NewGameInitData(void)
     ResetGabbyAndTy();
     ClearSecretBases();
     ClearBerryTrees();
-    SetMoney(&gSaveBlock1Ptr->money, 3000);
+    SetMoney(&gSaveBlock1Ptr->money, 6500);
     SetCoins(0);
     ResetLinkContestBoolean();
     ResetGameStats();
@@ -213,6 +222,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+    NewGameKeepNuzlockIfAlreadyActivated();
 }
 
 static void ResetMiniGamesRecords(void)

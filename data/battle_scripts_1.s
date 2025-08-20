@@ -7352,6 +7352,24 @@ BattleScript_DrizzleActivates::
 	call BattleScript_ActivateWeatherAbilities
 	end3
 
+BattleScript_GravitationalPullActivates::
+	pause B_WAIT_TIME_SHORT
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_PKMNMADEGRAVITYTURNUPSIDEDOWN
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_MAGIC_ROOM
+	setgravity BattleScript_ButItFailed
+	end3
+
+BattleScript_TwistedDimensionActivates::
+	pause B_WAIT_TIME_SHORT
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_PKMNMADEGRAVITYTURNUPSIDEDOWN
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_TRICK_ROOM
+	setroom
+	end3
+
 BattleScript_AbilityRaisesDefenderStat::
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUp

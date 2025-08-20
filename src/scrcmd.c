@@ -2296,6 +2296,8 @@ bool8 ScrCmd_setmonmove(struct ScriptContext *ctx)
     return FALSE;
 }
 
+#include "data/dynastic_shortcuts.h"
+
 bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
 {
     u8 i;
@@ -2309,7 +2311,8 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
         u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
         if (!species)
             break;
-        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && MonKnowsMove(&gPlayerParty[i], move) == TRUE)
+        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && MonKnowsMove(&gPlayerParty[i], move) == TRUE
+         && (GetMonData(&gPlayerParty[i], MON_DATA_DEAD) && IsNuzlockeModeActive())) // Nuzlocke check to stop a dead Pokemon from using field moves.
         {
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
@@ -3256,4 +3259,29 @@ void Script_EndTrainerCanSeeIf(struct ScriptContext *ctx)
     u8 condition = ScriptReadByte(ctx);
     if (ctx->breakOnTrainerBattle && sScriptConditionTable[condition][ctx->comparisonResult] == 1)
         StopScript(ctx);
+}
+
+bool8 ScrCmd_toggleSaveblock(struct ScriptContext *ctx)
+{
+    u16 flag  = ScriptReadHalfword(ctx);
+    u16 value = ScriptReadHalfword(ctx);
+    switch(flag)
+    {
+        case SAVEBLOCK_NUZLOCKE:
+            gSaveBlock3Ptr->nuzlockeMode = value;
+        break;
+    }
+    return TRUE;
+}
+
+bool8 ScrCmd_checkSaveblockValue(struct ScriptContext *ctx)
+{
+    u16 flag  = ScriptReadHalfword(ctx);
+    switch(flag)
+    {
+        case SAVEBLOCK_NUZLOCKE:
+            gSpecialVar_Result = gSaveBlock3Ptr->nuzlockeMode;
+        break;
+    }
+    return FALSE;
 }

@@ -2131,8 +2131,16 @@ void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest)
     SetMonData(dest, MON_DATA_MAIL, &value);
     value = GetBoxMonData(&dest->box, MON_DATA_HP_LOST);
     CalculateMonStats(dest);
-    value = GetMonData(dest, MON_DATA_MAX_HP) - value;
-    SetMonData(dest, MON_DATA_HP, &value);
+    if (IsNuzlockeModeActive() && GetMonData(dest, MON_DATA_DEAD))
+    {
+        value = 0;
+        SetMonData(dest, MON_DATA_HP, &value);
+    }
+    else
+    {
+        value = GetMonData(dest, MON_DATA_MAX_HP) - value;
+        SetMonData(dest, MON_DATA_HP, &value);
+    }
 }
 
 u8 GetLevelFromMonExp(struct Pokemon *mon)
@@ -3140,6 +3148,9 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_LANGUAGE:
             retVal = boxMon->language;
             break;
+        case MON_DATA_DEAD:
+            retVal = boxMon->dead;
+            break;
         case MON_DATA_SANITY_IS_BAD_EGG:
             retVal = boxMon->isBadEgg;
             break;
@@ -3569,6 +3580,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             break;
         case MON_DATA_LANGUAGE:
             SET8(boxMon->language);
+            break;
+        case MON_DATA_DEAD:
+            SET8(boxMon->dead);
             break;
         case MON_DATA_SANITY_IS_BAD_EGG:
             SET8(boxMon->isBadEgg);
@@ -7343,6 +7357,9 @@ void HealPokemon(struct Pokemon *mon)
 {
     u32 data;
 
+    if(IsNuzlockeModeActive() && GetMonData(mon, MON_DATA_DEAD, NULL))
+        return; // Don't heal dead mons
+    
     data = GetMonData(mon, MON_DATA_MAX_HP);
     SetMonData(mon, MON_DATA_HP, &data);
 
@@ -7355,6 +7372,9 @@ void HealPokemon(struct Pokemon *mon)
 void HealBoxPokemon(struct BoxPokemon *boxMon)
 {
     u32 data;
+
+    if(IsNuzlockeModeActive() && GetBoxMonData(boxMon, MON_DATA_DEAD, NULL))
+        return; // Don't heal dead mons
 
     data = 0;
     SetBoxMonData(boxMon, MON_DATA_HP_LOST, &data);

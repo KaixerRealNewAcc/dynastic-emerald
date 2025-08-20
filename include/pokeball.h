@@ -34,6 +34,8 @@ enum PokeBall
     POKEBALL_COUNT
 };
 
+
+
 enum {
     BALL_AFFINE_ANIM_0,
     BALL_ROTATE_RIGHT,

@@ -69,6 +69,8 @@ enum
     MENU_ACTION_FOLLOWERS_OFF,
     MENU_ACTION_STAT_EDITOR,
     MENU_ACTION_POKEVIAL2,
+    MENU_ACTION_BALL_CHANGER,
+    MENU_ACTION_CURRENT_VERSION
 };
 
 // IWRAM common
@@ -92,6 +94,8 @@ static bool8 LMenuFollowersCallback(void);
 static bool8 LMenuTimeChangerCallback(void);
 static bool8 LMenuPokeVialCallback(void);
 static bool8 LMenuPokeVial2Callback(void);
+static bool8 LMenuBallChangerCallback(void);
+static bool8 LMenuCurrentVersionCallback(void);
 
 // Menu callbacks
 static bool8 HandleLMenuInput(void);
@@ -117,18 +121,19 @@ static const u8 gText_TimeChanger[] = _("TIME");
 static const u8 gText_AutoRunOn[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}AUTO RUN");
 static const u8 gText_AutoRunOff[] = _("{COLOR RED}{SHADOW LIGHT_RED}AUTO RUN");
 static const u8 gText_MenuPC[] = _("PC");
+static const u8 gText_MenuBallChanger[] = _("BALL CHANGER (W.I.P)");
 
 static const struct MenuAction sLMenuItems[] =
 {
-    [MENU_ACTION_POKEVIAL]              = {gText_MenuPokeVial, {.u8_void = LMenuPokeVialCallback}},
-    [MENU_ACTION_PC]                    = {gText_MenuPC, {.u8_void = LMenuPCCallback}},
-    [MENU_ACTION_DEXNAV]                = {gText_MenuDexNav,  {.u8_void = LMenuDexNavCallback}},
-    [MENU_ACTION_TIME_CHANGER]          = {gText_TimeChanger,  {.u8_void = LMenuTimeChangerCallback}},
-    //[MENU_ACTION_INFINITE_REPEL_ON]     = {gText_InfiniteRepelOn,  {.u8_void = LMenuInfiniteRepelCallback}},
-    //[MENU_ACTION_INFINITE_REPEL_OFF]    = {gText_InfiniteRepelOff,  {.u8_void = LMenuInfiniteRepelCallback}},
-    [MENU_ACTION_AUTO_RUN_ON]           = {gText_AutoRunOn,  {.u8_void = LMenuAutoRunCallback}},
-    [MENU_ACTION_AUTO_RUN_OFF]          = {gText_AutoRunOff,  {.u8_void = LMenuAutoRunCallback}},
-    [MENU_ACTION_POKEVIAL2]             = {gText_MenuPokeVial2, {.u8_void = LMenuPokeVial2Callback}},
+    [MENU_ACTION_POKEVIAL]              = {COMPOUND_STRING("Portable Healer"), {.u8_void = LMenuPokeVialCallback}},
+    [MENU_ACTION_PC]                    = {COMPOUND_STRING("Portable PC"), {.u8_void = LMenuPCCallback}},
+    [MENU_ACTION_DEXNAV]                = {COMPOUND_STRING("Dexnav"),  {.u8_void = LMenuDexNavCallback}},
+    [MENU_ACTION_TIME_CHANGER]          = {COMPOUND_STRING("Time Changer (W.I.P)"),  {.u8_void = LMenuTimeChangerCallback}},
+    [MENU_ACTION_AUTO_RUN_ON]           = {COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}Auto Run"),  {.u8_void = LMenuAutoRunCallback}},
+    [MENU_ACTION_AUTO_RUN_OFF]          = {COMPOUND_STRING("{COLOR RED}{SHADOW LIGHT_RED}Auto Run"),  {.u8_void = LMenuAutoRunCallback}},
+    [MENU_ACTION_POKEVIAL2]             = {COMPOUND_STRING("Nuzvail"), {.u8_void = LMenuPokeVial2Callback}},
+    [MENU_ACTION_BALL_CHANGER]          = {COMPOUND_STRING("Ball Changer (W.I.P)"), {.u8_void = LMenuBallChangerCallback}},
+    [MENU_ACTION_CURRENT_VERSION]       = {COMPOUND_STRING("Current Version"), {.u8_void = LMenuCurrentVersionCallback}},
 };
 
 // Local functions
@@ -155,7 +160,6 @@ static void HideLMenuWindowPokeVial2(void);
 static void HideLMenuWindowNoWildMons(void);
 static void ShowTimeWindow(void);
 static void RemoveLMenuTimeWindow(void);
-
 
 static void BuildLMenuActions(void)
 {
@@ -242,6 +246,8 @@ static void BuildNormalLMenu(void)
     {
         AddLMenuAction(MENU_ACTION_AUTO_RUN_OFF);
     }
+
+    AddLMenuAction(MENU_ACTION_BALL_CHANGER);
 }
 
 static void BuildSafariZoneLMenu(void)
@@ -571,7 +577,7 @@ void ShowLMenu(void)
 {
     if (!IsOverworldLinkActive())
     {
-        FreezeObjectEvents();
+        //FreezeObjectEvents();
         PlayerFreeze();
         StopPlayerAvatar();
     }
@@ -846,6 +852,55 @@ static void HideLMenuWindowNoWildMons(void)
     ScriptUnfreezeObjectEvents();
     UnlockPlayerFieldControls();
     ScriptContext_SetupScript(EventScript_NoWildMonsFound);
+}
+
+static bool8 LMenuBallChangerCallback(void)
+{
+    HideLMenuBallChanger(); // Hide start menu
+    return TRUE;
+}
+
+extern const u8 EventScript_BallChanger[];
+
+static void HideLMenuWindowBallChanger(void)
+{
+    ClearStdWindowAndFrame(GetLMenuWindowId(), TRUE);
+    RemoveLMenuWindow();
+    RemoveLMenuTimeWindow();
+    ScriptUnfreezeObjectEvents();
+    UnlockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_BallChanger);
+}
+
+void HideLMenuBallChanger(void)
+{
+    PlaySE(SE_SELECT);
+    HideLMenuWindowBallChanger();
+}
+
+
+extern const u8 EventScript_CurrentVersion[];
+
+static bool8 LMenuCurrentVersionCallback(void)
+{
+    HideLMenuCurrentVersion(); // Hide start menu
+    return TRUE;
+}
+
+static void HideLMenuWindowCurrentVersion(void)
+{
+    ClearStdWindowAndFrame(GetLMenuWindowId(), TRUE);
+    RemoveLMenuWindow();
+    RemoveLMenuTimeWindow();
+    ScriptUnfreezeObjectEvents();
+    UnlockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_CurrentVersion);
+}
+
+void HideLMenuCurrentVersion(void)
+{
+    PlaySE(SE_SELECT);
+    HideLMenuWindowCurrentVersion();
 }
 
 static void HideLMenuWindow(void)

@@ -165,7 +165,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_SUCTION_CUPS] =
         {
             .name = _("Suction Cups"),
-            .description = COMPOUND_STRING("Firmly anchors the body."),
+            .description = COMPOUND_STRING("s"),
             .aiRating = 2,
             .breakable = TRUE,
         },
@@ -2472,4 +2472,17 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .aiRating = 6,
         },
 
+        [ABILITY_GRAVITATIONAL_PULL] =
+        {
+            .name = _("Gravitational Pull"),
+            .description = COMPOUND_STRING("The user uses its power to create a gravitational field. Lasts 5 turns. 8 turns with the Lustrious Orb."),
+            .aiRating = 9,
+        },
+
+        [ABILITY_FLAMING_JAWS] =
+        {
+            .name = _("Flaming Jaws"),
+            .description = COMPOUND_STRING("Biting Moves have a 30% chance to burn the opponent when hitting the opponent."),
+            .aiRating = 6,
+        },
 };

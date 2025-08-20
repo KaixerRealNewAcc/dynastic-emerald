@@ -8,6 +8,7 @@ EventScript_FieldPoison::
 	end
 
 EventScript_FieldWhiteOut::
+	call_if_set FLAG_NUZLOCKE_MODE, EventScript_FieldWhiteOutNuzlock
 	message gText_PlayerWhitedOut
 	waitmessage
 	waitbuttonpress
@@ -16,6 +17,17 @@ EventScript_FieldWhiteOut::
 	fadescreen FADE_TO_BLACK
 	call_if_set FLAG_WHITEOUT_TO_LAVARIDGE, EventScript_SetRespawnLavaridgePkmnCenter
 	special SetCB2WhiteOut
+	waitstate
+	end
+
+EventScript_FieldWhiteOutNuzlock::
+	message gText_PlayerWhitedOutNuzlockMode
+	waitmessage
+	waitbuttonpress
+	special Script_FadeOutMapMusic
+	waitstate
+	fadescreen FADE_TO_BLACK
+	special DoSoftReset
 	waitstate
 	end
 

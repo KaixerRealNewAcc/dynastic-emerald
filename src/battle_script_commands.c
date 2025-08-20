@@ -2252,11 +2252,13 @@ static void Cmd_adjustdamage(void)
             gLastUsedItem = gBattleMons[battlerDef].item;
             gBattleStruct->moveResultFlags[battlerDef] |= MOVE_RESULT_FOE_HUNG_ON;
         }
-        else if (B_STURDY >= GEN_5 && GetBattlerAbility(battlerDef) == ABILITY_STURDY && IsBattlerAtMaxHp(battlerDef))
+        else if (HAS_ABILITY_OR_INNATE(gBattlerTarget, ABILITY_STURDY) && IsBattlerAtMaxHp(battlerDef))
         {
             enduredHit = TRUE;
             RecordAbilityBattle(battlerDef, ABILITY_STURDY);
-            gLastUsedAbility = ABILITY_STURDY;
+            gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STURDY;
+            PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+            BattleScriptPushCursor();
             gBattleStruct->moveResultFlags[battlerDef] |= MOVE_RESULT_STURDIED;
         }
         else if (holdEffect == HOLD_EFFECT_FOCUS_SASH && IsBattlerAtMaxHp(battlerDef))
@@ -4667,6 +4669,11 @@ static void Cmd_tryfaintmon(void)
                 gHitMarker |= HITMARKER_PLAYER_FAINTED;
                 if (gBattleResults.playerFaintCounter < 255)
                     gBattleResults.playerFaintCounter++;
+                if (IsNuzlockeModeActive() && FlagGet(FLAG_SYS_POKEDEX_GET))
+                {
+                    bool8 dead = TRUE;
+                    SetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_DEAD, &dead);
+                }
                 AdjustFriendshipOnBattleFaint(battler);
                 gSideTimers[B_SIDE_PLAYER].retaliateTimer = 2;
             }
@@ -13044,10 +13051,12 @@ static void Cmd_tryKO(void)
             endured = AFFECTION_ENDURED;
     }
 
-    if (targetAbility == ABILITY_STURDY)
+    if (HAS_ABILITY_OR_INNATE(gBattlerTarget, ABILITY_STURDY))
     {
         gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
-        gLastUsedAbility = ABILITY_STURDY;
+        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STURDY;
+        PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+        BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_SturdyPreventsOHKO;
         gBattlerAbility = gBattlerTarget;
     }

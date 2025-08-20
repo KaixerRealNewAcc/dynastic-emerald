@@ -155,6 +155,104 @@ LittlerootTown_BrendansHouse_1F_EventScript_Paldea:
 	setvar VAR_REGION_CHECK, 1
 	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
 
+ChooseStarterSet2::
+	lock
+	message KaixerHello
+	waitmessage
+	dynmultichoice 0,0,FALSE,6,0,DYN_MULTICHOICE_CB_NONE, StarterRegionStringKanto, StarterRegionStringJohto, StarterRegionStringHoenn, StarterRegionStringSinnoh, StarterRegionStringUnova, StarterRegionStringKalos, StarterRegionStringAlola, StarterRegionStringGalar, StarterRegionStringPaldea
+	switch VAR_RESULT
+	case 0, LittlerootTown_BrendansHouse_1F_EventScript_Kanto2
+	case 1, LittlerootTown_BrendansHouse_1F_EventScript_Johto2
+	case 2, LittlerootTown_BrendansHouse_1F_EventScript_Hoenn2
+	case 3, LittlerootTown_BrendansHouse_1F_EventScript_Sinnoh2
+	case 4, LittlerootTown_BrendansHouse_1F_EventScript_Unova2
+	case 5, LittlerootTown_BrendansHouse_1F_EventScript_Kalos2
+	case 6, LittlerootTown_BrendansHouse_1F_EventScript_Alola2
+	case 7, LittlerootTown_BrendansHouse_1F_EventScript_Galar2
+	case 8, LittlerootTown_BrendansHouse_1F_EventScript_Paldea2
+	end
+
+LittlerootTown_BrendansHouse_1F_EventScript_Kanto2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 1
+	bufferstring 1, StarterRegionStringKanto
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Johto2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 2
+	bufferstring 1, StarterRegionStringJohto
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Hoenn2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 3
+	bufferstring 1, StarterRegionStringHoenn
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Sinnoh2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 4
+	bufferstring 1, StarterRegionStringSinnoh
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Unova2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 5
+	bufferstring 1, StarterRegionStringUnova
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Kalos2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 6
+	bufferstring 1, StarterRegionStringKalos
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Alola2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 7
+	bufferstring 1, StarterRegionStringAlola
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Galar2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 8
+	bufferstring 1, StarterRegionStringGalar
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Paldea2:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 9
+	bufferstring 1, StarterRegionStringPaldea
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_2_Continue
+
 StarterRegionStringKanto:
 	.string "Kanto$"
 
@@ -201,10 +299,24 @@ InsideOfTruck_EventScript_StartSettingsMenu::
 	msgbox InsideOfTruck_EventScript_StartSettingsMenu_Text_1, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq InsideOfTruck_EventScript_StartSettingsMenu_1
-	goto InsideOfTruck_EventScript_SaveSettingsDone_1
+	goto InsideOfTruck_EventScript_StartSettingsMenuCon
 	return
 
 InsideOfTruck_EventScript_StartSettingsMenu_1:
+	setflag FLAG_NUZLOCKE_MODE
+	msgbox InsideOfTruck_EventScript_StartSettingsMenu_Text_2
+	goto InsideOfTruck_EventScript_StartSettingsMenuCon
+	return
+
+
+InsideOfTruck_EventScript_StartSettingsMenuCon::
+	msgbox InsideOfTruck_EventScript_StartSettingsMenuCon_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq InsideOfTruck_EventScript_StartSettingsMenuCon_1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1
+	return
+
+InsideOfTruck_EventScript_StartSettingsMenuCon_1:
 	goto InsideOfTruck_EventScript_StartSettingsMenu_Continue
 	return
 
@@ -212,14 +324,14 @@ InsideOfTruck_EventScript_StartSettingsMenu_1:
 InsideOfTruck_EventScript_StartSettingsMenu_Continue::
 	message InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_0
 	waitmessage
-	dynmultipush InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_1, 0
-	dynmultipush InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_2, 1
+	dynmultipush InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_1, 1
+	dynmultipush InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_2, 2
 	dynmultipush InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_3, 127
 	dynmultistack 0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
-	compare VAR_RESULT, 0
+	compare VAR_RESULT, 1
 	goto_if_eq InsideOfTruck_EventScript_StartSettingsMenu_Continue_2
 InsideOfTruck_EventScript_StartSettingsMenu_Continue_1:
-	compare VAR_RESULT, 1
+	compare VAR_RESULT, 2
 	goto_if_eq InsideOfTruck_EventScript_StartSettingsMenu_Continue_5
 InsideOfTruck_EventScript_StartSettingsMenu_Continue_4:
 	compare VAR_RESULT, 127
@@ -410,6 +522,11 @@ InsideOfTruck_EventScript_SaveSettingsDone_1::
 	return
 
 
+InsideOfTruck_EventScript_SaveSettingsDone_2::
+	goto ChooseStarterSet2
+	return
+
+
 InsideOfTruck_EventScript_SaveSettingsDone_1_Continue::
 	msgbox InsideOfTruck_EventScript_SaveSettingsDone_1_Continue_Text_0
 	fadescreen FADE_FROM_BLACK
@@ -417,21 +534,29 @@ InsideOfTruck_EventScript_SaveSettingsDone_1_Continue::
 	end
 
 
-InsideOfTruck_EventScript_SaveSettingsDone_2::
-	goto ChooseStarterSet
-	msgbox InsideOfTruck_EventScript_SaveSettingsDone_2_Text_0
+InsideOfTruck_EventScript_SaveSettingsDone_2_Continue::
+	msgbox InsideOfTruck_EventScript_SaveSettingsDone_2_Continue_Text_0
 	fadescreen FADE_FROM_BLACK
 	releaseall
 	end
 
 
 InsideOfTruck_EventScript_StartSettingsMenu_Text_0:
-	.string "Please stop smashing {A_BUTTON} and properly\n"
-	.string "answer the following questions.$"
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}: Please stop smashing {A_BUTTON} and\n"
+	.string "properly answer the following\l"
+	.string "questions.$"
 
 InsideOfTruck_EventScript_StartSettingsMenu_Text_1:
-	.string "Would you like to play {COLOR GREEN}{SHADOW LIGHT_GREEN}Dynastic Emerald\n"
-	.string "{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}with custom options enabled?$"
+	.string "Would you like to play with the\n"
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Nuzlock Challenge enabled{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}?$"
+
+InsideOfTruck_EventScript_StartSettingsMenu_Text_2:
+	.string "Nuzlocke Mode is {COLOR GREEN}{SHADOW LIGHT_GREEN}Enabled.$"
+
+InsideOfTruck_EventScript_StartSettingsMenuCon_Text_0:
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}: and would you like to play\n"
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Dynastic Emerald {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}with custom options\l"
+	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}enabled{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}?$"
 
 InsideOfTruck_EventScript_StartSettingsMenu_Continue_Text_0:
 	.string "Press {A_BUTTON} to select an Option.$"
@@ -518,7 +643,7 @@ InsideOfTruck_EventScript_SaveSettingsDone_1_Continue_Text_0:
 	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer:{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} Very well then.\n"
 	.string "good luck and have fun!$"
 
-InsideOfTruck_EventScript_SaveSettingsDone_2_Text_0:
+InsideOfTruck_EventScript_SaveSettingsDone_2_Continue_Text_0:
 	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer:{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} Custom settings saved.\n"
 	.string "Very well then. good luck and have fun!$"
 
@@ -539,6 +664,15 @@ ModesCheck_Text_MinimalGrinding::
 ModesCheck_Text_DoublesOnly::
 	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Doubles Only Mode{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} turns trainer battles\n"
 	.string "into forced double battles.\p"
+	.string "This is mainly for people who like a\n"
+	.string "challenge or for people who are more\p"
+	.string "into VGC than Singles.\p"
+	.string "Do you want to turn on {COLOR GREEN}{SHADOW LIGHT_GREEN}Doubles Only\n"
+	.string "Mode?$"
+
+ModesCheck_Text_NuzlockeChallenge::
+	.string "The {COLOR GREEN}{SHADOW LIGHT_GREEN}Nuzlocke Challenge{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} makes it so i\n"
+	.string "\p"
 	.string "This is mainly for people who like a\n"
 	.string "challenge or for people who are more\p"
 	.string "into VGC than Singles.\p"

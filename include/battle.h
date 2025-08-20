@@ -1095,6 +1095,9 @@ extern u8 gSentPokesToOpponent[2];
 extern struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT];
 extern struct BattleScripting gBattleScripting;
 extern struct BattleStruct *gBattleStruct;
+
+extern u8 gNuzlockeIsActivated;
+
 extern struct AiBattleData *gAiBattleData;
 extern struct AiThinkingStruct *gAiThinkingStruct;
 extern struct AiLogicData *gAiLogicData;

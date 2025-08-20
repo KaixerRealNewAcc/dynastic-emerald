@@ -15,6 +15,8 @@ void HideLMenuInfiniteRepel(void);
 void HideLMenuPokeVial(void);
 void HideLMenuPokeVial2(void);
 void HideLMenuNoWildMons(void);
+void HideLMenuCurrentVersion(void);
+void HideLMenuBallChanger(void);
 void AppendToLList(u8 *list, u8 *pos, u8 newEntry);
 
 #endif // GUARD_L_MENU_H

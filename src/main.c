@@ -451,6 +451,8 @@ void ClearTrainerHillVBlankCounter(void)
     gTrainerHillVBlankCounter = NULL;
 }
 
+#include "event_data.h"
+
 void DoSoftReset(void)
 {
     REG_IME = 0;

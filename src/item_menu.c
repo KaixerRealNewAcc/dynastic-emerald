@@ -1582,18 +1582,23 @@ static void CancelItemSwap(u8 taskId)
     gTasks[taskId].func = Task_BagMenu_HandleInput;
 }
 
+static const u8 gText_Var1NuzlockePrevents[] = _("Nuzlocke challenge\nprevents using\n{STR_VAR_1}.");
+
+#include "data/dynastic_shortcuts.h"
+#include "battle_setup.h"
+
 static void OpenContextMenu(u8 taskId)
 {
     switch (gBagPosition.location)
     {
     case ITEMMENULOCATION_BATTLE:
     case ITEMMENULOCATION_WALLY:
-        if (GetItemBattleUsage(gSpecialVar_ItemId))
+        if (GetItemBattleUsage(gSpecialVar_ItemId) && !IsNuzlockeModeActive() && gNuzlockeCannotCatch != NUZLOCKE_SEEN)
         {
             gBagMenu->contextMenuItemsPtr = sContextMenuItems_BattleUse;
             gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_BattleUse);
         }
-        else
+        else if (IsNuzlockeModeActive() && gNuzlockeCannotCatch == NUZLOCKE_SEEN)
         {
             gBagMenu->contextMenuItemsPtr = sContextMenuItems_Cancel;
             gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Cancel);
@@ -1729,7 +1734,11 @@ static void OpenContextMenu(u8 taskId)
     {
         u8 *end = CopyItemName(gSpecialVar_ItemId, gStringVar1);
         WrapFontIdToFit(gStringVar1, end, FONT_NORMAL, WindowWidthPx(WIN_DESCRIPTION) - 10 - 6);
-        StringExpandPlaceholders(gStringVar4, gText_Var1IsSelected);
+        if (GetItemBattleUsage(gSpecialVar_ItemId) && IsNuzlockeModeActive() 
+            && gBagPosition.pocket != BALLS_POCKET && gBagPosition.location == ITEMMENULOCATION_BATTLE)
+            StringExpandPlaceholders(gStringVar4, gText_Var1NuzlockePrevents);
+        else
+            StringExpandPlaceholders(gStringVar4, gText_Var1IsSelected);
         FillWindowPixelBuffer(WIN_DESCRIPTION, PIXEL_FILL(0));
         BagMenu_Print(WIN_DESCRIPTION, FONT_NORMAL, gStringVar4, 3, 1, 0, 0, 0, COLORID_NORMAL);
     }

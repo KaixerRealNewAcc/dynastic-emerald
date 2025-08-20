@@ -136,7 +136,7 @@ EventScript_AccessTimeChanger_Text_5:
 EventScript_PCLMenu::
 	lockall
 	setflag FLAG_USING_POKEMONPCMENU
-	goto EventScript_PCMainMenuLMenu
+	goto EventScript_AccessPokemonStorageLMenu
 	end
 
 EventScript_PCMainMenuLMenu::

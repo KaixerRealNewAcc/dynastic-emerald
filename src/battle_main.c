@@ -78,6 +78,7 @@
 #include "cable_club.h"
 
 #include "data/dynastic_shortcuts.h"
+#include "overworld.h"
 
 extern const struct BgTemplate gBattleBgTemplates[];
 extern const struct WindowTemplate *const gBattleWindowTemplates[];
@@ -211,6 +212,8 @@ EWRAM_DATA u8 gSentPokesToOpponent[2] = {0};
 EWRAM_DATA struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct BattleScripting gBattleScripting = {0};
 EWRAM_DATA struct BattleStruct *gBattleStruct = NULL;
+
+EWRAM_DATA u8 gNuzlockeIsActivated = 0; // Nuzlocke mode is not activated by default
 
 EWRAM_DATA struct AiThinkingStruct *gAiThinkingStruct = NULL;
 EWRAM_DATA struct AiLogicData *gAiLogicData = NULL;
@@ -4523,7 +4526,7 @@ static void HandleTurnActionSelectionState(void)
                     gBattleCommunication[battler]++;
                     break;
                 case B_ACTION_THROW_BALL:
-                    gBattleStruct->throwingPokeBall = TRUE;
+                    gBattleStruct->throwingPokeBall = TRUE;                
                     gBattleCommunication[battler]++;
                     break;
                 case B_ACTION_SAFARI_POKEBLOCK:
@@ -5451,7 +5454,16 @@ static void HandleEndTurn_BattleLost(void)
     }
     else
     {
-        gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
+        if (IsNuzlockeModeActive())
+        {
+            gBattleMainFunc = HandleEndTurn_FinishBattle;
+            PrepareStringBattle(STRINGID_NUZLOCKELOST, 0);
+            return;
+        }
+        else
+        {
+            gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
+        }
     }
 
     gBattleMainFunc = HandleEndTurn_FinishBattle;
@@ -5460,6 +5472,7 @@ static void HandleEndTurn_BattleLost(void)
 static void HandleEndTurn_RanFromBattle(void)
 {
     gCurrentActionFuncId = 0;
+    gNuzlockeCannotCatch = 0;  // While not necissary, resetting this is nice to stay deterministic
 
     if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {

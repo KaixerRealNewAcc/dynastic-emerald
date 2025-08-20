@@ -4436,3 +4436,19 @@ void GetCodeFeedback(void)
     else
         gSpecialVar_Result = 0;
 }
+
+void ChangeBallType(void)
+{
+    u8 newBallType = 0; //gBall;
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_POKEBALL, &newBallType);
+}
+
+void SetNuzlockeMode(void)
+{
+    gNuzlockeIsActivated = TRUE;
+}
+
+void ClearNuzlockeMode(void)
+{
+    gNuzlockeIsActivated = FALSE;
+}

@@ -551,6 +551,7 @@ gSpecials::
 	def_special ChangeMonGender
 	def_special ChangeMonIVsForHPAndSP
 	def_special RemoveAllEVs
+	def_special ChangeBallType
 	def_special VsSeekerResetObjectMovementAfterChargeComplete
 	def_special VsSeekerFreezeObjectsAfterChargeComplete
 	def_special PlayerHasMulch
@@ -570,3 +571,5 @@ gSpecials::
 	def_special GetCodeFeedback
 	def_special ForceBattleStyleSet
 	def_special HealPlayerPartyNonDead
+	def_special SetNuzlockeMode
+	def_special ClearNuzlockeMode

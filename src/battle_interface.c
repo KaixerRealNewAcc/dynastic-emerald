@@ -35,6 +35,8 @@
 #include "constants/items.h"
 #include "caps.h"
 
+#include "battle_setup.h"
+
 enum
 {   // Corresponds to gHealthboxElementsGfxTable (and the tables after it) in graphics.c
     // These are indexes into the tables, which are filled with 8x8 square pixel data.
@@ -2982,6 +2984,8 @@ bool32 CanThrowLastUsedBall(void)
     if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FRONTIER))
         return FALSE;
     if (!CheckBagHasItem(gBallToDisplay, 1))
+        return FALSE;
+    if (gNuzlockeCannotCatch == NUZLOCKE_SEEN)
         return FALSE;
 
     return TRUE;

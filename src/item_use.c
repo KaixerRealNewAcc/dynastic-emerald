@@ -46,6 +46,8 @@
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/map_types.h"
+#include "battle_setup.h"
+#include "region_map.h"
 
 static void SetUpItemUseCallback(u8);
 static void FieldCB_UseItemOnField(void);
@@ -1192,6 +1194,8 @@ static u32 GetBallThrowableState(void)
         return BALL_THROW_UNABLE_SEMI_INVULNERABLE;
     else if (FlagGet(B_FLAG_NO_CATCHING))
         return BALL_THROW_UNABLE_DISABLED_FLAG;
+    else if (gNuzlockeCannotCatch == NUZLOCKE_SEEN)
+        return BALL_THROW_NUZLOCKE_UNABLE;
 
     return BALL_THROW_ABLE;
 }
@@ -1204,17 +1208,33 @@ bool32 CanThrowBall(void)
 static const u8 sText_CantThrowPokeBall_TwoMons[] = _("Cannot throw a ball!\nThere are two Pokémon out there!\p");
 static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _("Cannot throw a ball!\nThere's no Pokémon in sight!\p");
 static const u8 sText_CantThrowPokeBall_Disabled[] = _("POKé BALLS cannot be used\nright now!\p");
+static const u8 gText_BallsCannotBeUsedNuz[] = _("You already caught a POKéMON\non this ROUTE!{PAUSE_UNTIL_PRESS}");
 void ItemUseInBattle_PokeBall(u8 taskId)
 {
     switch (GetBallThrowableState())
     {
     case BALL_THROW_ABLE:
     default:
-        RemoveBagItem(gSpecialVar_ItemId, 1);
-        if (!InBattlePyramid())
-            Task_FadeAndCloseBagMenu(taskId);
+        if (gNuzlockeCannotCatch == NUZLOCKE_SEEN)
+        {
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_BallsCannotBeUsedNuz, CloseItemMessage);
+            return;
+        }
         else
-            CloseBattlePyramidBag(taskId);
+        {
+            RemoveBagItem(gSpecialVar_ItemId, 1);
+            if (!InBattlePyramid())
+                Task_FadeAndCloseBagMenu(taskId);
+            else
+                CloseBattlePyramidBag(taskId);
+        }
+        break;
+    case BALL_THROW_NUZLOCKE_UNABLE:
+        if (gNuzlockeCannotCatch == NUZLOCKE_SEEN)
+        {
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_BallsCannotBeUsedNuz, CloseItemMessage);
+            return;
+        }
         break;
     case BALL_THROW_UNABLE_TWO_MONS:
         if (!InBattlePyramid())

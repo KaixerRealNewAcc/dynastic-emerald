@@ -2370,6 +2370,17 @@
 	.4byte \weekday
 	.endm
 
+	.macro toggleSaveblock flag:req, value:req
+	callnative ScrCmd_toggleSaveblock
+	.2byte \flag
+	.2byte \value
+	.endm
+
+	.macro checkSaveblockValue flag:req
+	callnative ScrCmd_checkSaveblockValue
+	.2byte \flag
+	.endm
+
 	@ ============================ @
 	@ ITEM DESCRIPTION HEADER MACROS
 	@ Used with OW_SHOW_ITEM_DESCRIPTIONS config
