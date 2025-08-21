@@ -4806,6 +4806,7 @@ Gender: Female
 Music: Female
 Double Battle: No
 AI: Smart Trainer
+Mugshot: Blue
 
 Hippopotas @ Smooth Rock  
 Ability: Sand Stream  
@@ -4840,6 +4841,7 @@ IVs: 0 Atk
 
 Growlithe-Hisui @ Focus Sash  
 Ability: Intimidate  
+Level: 14
 Tera Type: Fire  
 Jolly Nature  
 - Sandstorm  
