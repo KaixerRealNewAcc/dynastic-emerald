@@ -55,6 +55,29 @@
 
 #include "data/dynastic_shortcuts.h"
 
+#define MOVE_SELECTOR_SPRITES_COUNT 10
+#define TYPE_ICON_SPRITE_COUNT (MAX_MON_MOVES + 1)
+// for the spriteIds field in PokemonSummaryScreenData
+enum
+{
+    SPRITE_ARR_ID_MON,
+    SPRITE_ARR_ID_SHADOW,
+    SPRITE_ARR_ID_BALL,
+    SPRITE_ARR_ID_STATUS,
+    // all sprites below are considered "page-specific" and will be hidden when switching pages
+    SPRITE_ARR_ID_ITEM_ICON,
+    SPRITE_ARR_ID_TERA_TYPE,
+    SPRITE_ARR_ID_TYPE, // 2 for mon types, 5 for move types(4 moves and 1 to learn), used interchangeably, because mon types and move types aren't shown on the same screen
+    SPRITE_ARR_ID_MOVE_SELECTOR1 = SPRITE_ARR_ID_TYPE + TYPE_ICON_SPRITE_COUNT, // 10 sprites that make up the selector
+    SPRITE_ARR_ID_MOVE_SELECTOR2 = SPRITE_ARR_ID_MOVE_SELECTOR1 + MOVE_SELECTOR_SPRITES_COUNT,
+    SPRITE_ARR_ID_COUNT = SPRITE_ARR_ID_MOVE_SELECTOR2 + MOVE_SELECTOR_SPRITES_COUNT
+};
+
+#define TILE_EMPTY_APPEAL_HEART  0x1039
+#define TILE_FILLED_APPEAL_HEART 0x103A
+#define TILE_FILLED_JAM_HEART    0x103C
+#define TILE_EMPTY_JAM_HEART     0x103D
+
 static EWRAM_DATA struct PokemonSummaryScreenData
 {
     /*0x00*/ union {

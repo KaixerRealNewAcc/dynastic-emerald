@@ -1244,7 +1244,7 @@ void ItemUseInBattle_PokeBall(u8 taskId)
         else
         {
             RemoveBagItem(gSpecialVar_ItemId, 1);
-            if (!InBattlePyramid())
+            if (!InBattlePyramid_())
                 Task_FadeAndCloseBagMenu(taskId);
             else
                 CloseBattlePyramidBag(taskId);

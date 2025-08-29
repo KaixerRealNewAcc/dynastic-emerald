@@ -5819,7 +5819,7 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
 {
     u32 moveType = GetMoveType(move);
     enum BattleMoveEffects moveEffect = GetMoveEffect(move);
-    u32 species, heldItem, ability, innate, type1, type2, type3;
+    u32 species, heldItem, ability, type1, type2, type3;
     enum ItemHoldEffect holdEffect;
     enum Gimmick gimmick = GetActiveGimmick(battler);
 
@@ -6019,7 +6019,7 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
     {
         return TYPE_WATER;
     }
-    else if ((GetMoveType(move) == TYPE_GROUND) && (ability == ABILITY_EARTHBOUND || HAS_INNATE(battler, ABILITY_EARTHBOUND)))
+    else if (GetMoveType(move) == TYPE_NORMAL && ability == ABILITY_EARTHBOUND)
     {
         return TYPE_GROUND;
     }
