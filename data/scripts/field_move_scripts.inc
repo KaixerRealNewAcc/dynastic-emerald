@@ -552,9 +552,8 @@ EventScript_BallChanger_4:
 
 
 EventScript_CurrentVersion::
-	message EventScript_CurrentVersion_Text_0
-	waitmessage
-	closemessage
+	lock
+	msgbox EventScript_CurrentVersion_Text_0
 	release
 	end
 
@@ -660,9 +659,9 @@ EventScript_BallChanger_Text_31:
 	.string "Exit$"
 
 EventScript_CurrentVersion_Text_0:
-	.string "Current Version: Beta 1.1.0 the Innate\n"
-	.string "update.\n"
-	.string "This is a work in progress, so expect\l"
-	.string "bugs and incomplete features.\n"
-	.string "Please report any bugs you find to the\l"
+	.string "Current Version: Beta 1.1.0\n"
+	.string "the Innate update.\p"
+	.string "This is a work in progress, so expect\n"
+	.string "bugs and incomplete features.\p"
+	.string "Please report any bugs you find to the\n"
 	.string "development team.$"

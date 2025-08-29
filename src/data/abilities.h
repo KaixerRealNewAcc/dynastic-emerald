@@ -2485,4 +2485,32 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .description = COMPOUND_STRING("Biting Moves have a 30% chance to burn the opponent when hitting the opponent."),
             .aiRating = 6,
         },
+
+        [ABILITY_FORESTS_RAGE] =
+        {
+            .name = _("Forest's Rage"),
+            .description = COMPOUND_STRING("Increases Grass moves by 80% when the user's HP is under 1/3 HP otherwise 30%."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_HELLBLAZE] =
+        {
+            .name = _("Hellblaze"),
+            .description = COMPOUND_STRING("Increases Fire moves by 80% when the user's HP is under 1/3 HP otherwise 30%."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_TIDAL_WRATH] =
+        {
+            .name = _("Tidal Wrath"),
+            .description = COMPOUND_STRING("Increases Water moves by 80% when the user's HP is under 1/3 HP otherwise 30%."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_EARTHBOUND] =
+        {
+            .name = _("Earthbound"),
+            .description = COMPOUND_STRING("Turns Normal-Moves into Ground-Type attacks.\nBoosts Ground-Moves by 20%."),
+            .aiRating = 5,
+        },
 };

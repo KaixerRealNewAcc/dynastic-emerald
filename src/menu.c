@@ -646,7 +646,7 @@ void RemoveLMenuWindow(void)
 u8 AddLMenuWindow(u8 numActions)
 {
     if (sLMenuWindowId == WINDOW_NONE)
-        sLMenuWindowId = AddWindowParameterized(0, 1, 1, 14, (numActions * 2) + 2, 15, 0x139);
+        sLMenuWindowId = AddWindowParameterized(0, 1, 1, 13, (numActions * 2) + 2, 15, 0x139);
     return sLMenuWindowId;
 }
 

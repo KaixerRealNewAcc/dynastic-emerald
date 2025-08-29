@@ -8857,220 +8857,8 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *damageCalcData
     case ABILITY_SUPREME_OVERLORD:
         modifier = uq4_12_multiply(modifier, GetSupremeOverlordModifier(battlerAtk));
         break;
-    case ABILITY_HUGE_POWER:
-    case ABILITY_PURE_POWER:
-        if (IsBattleMovePhysical(move))
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
-        break;
-    case ABILITY_SLOW_START:
-        if (gDisableStructs[battlerAtk].slowStartTimer > gBattleTurnCounter)
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
-        break;
-    case ABILITY_SOLAR_POWER:
-        if (IsBattleMoveSpecial(move) && IsBattlerWeatherAffected(battlerAtk, B_WEATHER_SUN))
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_DEFEATIST:
-        if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
-        break;
-    case ABILITY_FLASH_FIRE:
-        if (moveType == TYPE_FIRE && gDisableStructs[battlerAtk].flashFireBoosted)
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_SWARM:
-        if(moveType == TYPE_BUG)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-        break;
-    case ABILITY_TORRENT:
-        if(moveType == TYPE_WATER)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-        break;
-    case ABILITY_BLAZE:
-        if(moveType == TYPE_FIRE)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-        break;
-    case ABILITY_OVERGROW:
-        if(moveType == TYPE_GRASS)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-        break;
-    case ABILITY_PLUS:
-        if (IsBattleMoveSpecial(move) && IsBattlerAlive(BATTLE_PARTNER(battlerAtk)))
-        {
-            u32 partnerAbility = GetBattlerAbility(BATTLE_PARTNER(battlerAtk));
-            if (partnerAbility == ABILITY_MINUS
-            || (B_PLUS_MINUS_INTERACTION >= GEN_5 && partnerAbility == ABILITY_PLUS))
-                modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        }
-        break;
-    case ABILITY_MINUS:
-        if (IsBattleMoveSpecial(move) && IsBattlerAlive(BATTLE_PARTNER(battlerAtk)))
-        {
-            u32 partnerAbility = GetBattlerAbility(BATTLE_PARTNER(battlerAtk));
-            if (partnerAbility == ABILITY_PLUS
-            || (B_PLUS_MINUS_INTERACTION >= GEN_5 && partnerAbility == ABILITY_MINUS))
-                modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        }
-        break;
-    case ABILITY_FLOWER_GIFT:
-        if (gBattleMons[battlerAtk].species == SPECIES_CHERRIM_SUNSHINE && IsBattlerWeatherAffected(battlerAtk, B_WEATHER_SUN) && IsBattleMovePhysical(move))
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_HUSTLE:
-        if (IsBattleMovePhysical(move))
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_STAKEOUT:
-        if (gDisableStructs[battlerDef].isFirstTurn == 2) // just switched in
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
-        break;
-    case ABILITY_GUTS:
-        if (gBattleMons[battlerAtk].status1 & STATUS1_ANY && IsBattleMovePhysical(move))
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_TRANSISTOR:
-        if (moveType == TYPE_ELECTRIC)
-        {
-            if (B_TRANSISTOR_BOOST >= GEN_9)
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-        }
-        break;
-    case ABILITY_DRAGONS_MAW:
-        if (moveType == TYPE_DRAGON)
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_GORILLA_TACTICS:
-        if (IsBattleMovePhysical(move))
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_ROCKY_PAYLOAD:
-        if (moveType == TYPE_ROCK)
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-        break;
-    case ABILITY_PROTOSYNTHESIS:
-        if (!(gBattleMons[battlerAtk].status2 & STATUS2_TRANSFORMED))
-        {
-            u32 atkHighestStat = GetHighestStatId(battlerAtk);
-            if (((weather & B_WEATHER_SUN) && HasWeatherEffect()) || gDisableStructs[battlerAtk].boosterEnergyActivates)
-            {
-                if ((IsBattleMovePhysical(move) && atkHighestStat == STAT_ATK) || (IsBattleMoveSpecial(move) && atkHighestStat == STAT_SPATK))
-                    modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
-            }
-        }
-        break;
-    case ABILITY_QUARK_DRIVE:
-        if (!(gBattleMons[battlerAtk].status2 & STATUS2_TRANSFORMED))
-        {
-            u32 atkHighestStat = GetHighestStatId(battlerAtk);
-            if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gDisableStructs[battlerAtk].boosterEnergyActivates)
-            {
-                if ((IsBattleMovePhysical(move) && atkHighestStat == STAT_ATK) || (IsBattleMoveSpecial(move) && atkHighestStat == STAT_SPATK))
-                    modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
-            }
-        }
-        break;
-    case ABILITY_ORICHALCUM_PULSE:
-        if ((weather & B_WEATHER_SUN) && HasWeatherEffect() && IsBattleMovePhysical(move))
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3333));
-        break;
-    case ABILITY_HADRON_ENGINE:
-        if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && IsBattleMoveSpecial(move))
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3333));
-        break;
     }
-
-    if(HAS_INNATE(battlerAtk, ABILITY_FLASH_FIRE))
-    {
-        if (moveType == TYPE_FIRE && gDisableStructs[battlerAtk].flashFireBoosted)
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-    }
-
-    if(HAS_INNATE(battlerAtk, ABILITY_TORRENT))
-    {
-        if(moveType == TYPE_WATER)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-    }
-    if(HAS_INNATE(battlerAtk, ABILITY_BLAZE))
-    {
-        if(moveType == TYPE_FIRE)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-    }
-    if(HAS_INNATE(battlerAtk, ABILITY_OVERGROW))
-    {
-        if(moveType == TYPE_GRASS)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-    }
-    if(HAS_INNATE(battlerAtk, ABILITY_SWARM))
-    {
-        if(moveType == TYPE_BUG)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-    }
-
-    if(HAS_INNATE(battlerAtk, ABILITY_WEAK_JAW))
-    {
-        if (IsBitingMove(move))
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-    }
-
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_BIG_PECKS))
-    {
-        if (moveType == TYPE_FLYING)
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
-    }
-
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_SHORT_CIRCUIT))
-    {
-        if(moveType == TYPE_ELECTRIC)
-        {
-            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
-            else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
-        }
-    }
-
+    
     if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_LIQUID_VOICE))
     {
         if(moveType == TYPE_WATER)
@@ -9481,6 +9269,38 @@ static inline u32 CalcAttackStat(struct DamageCalculationData *damageCalcData, u
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        }
+    }
+
+    //Mega Starters abilitys
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_TIDAL_WRATH))
+    {
+        if(moveType == TYPE_WATER)
+        {
+            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+            else
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        }
+    }
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_HELLBLAZE))
+    {
+        if(moveType == TYPE_FIRE)
+        {
+            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+            else
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        }
+    }
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FORESTS_RAGE))
+    {
+        if(moveType == TYPE_GRASS)
+        {
+            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+            else
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         }
     }
 

@@ -491,8 +491,7 @@ NoWildMonsFound:
     .string "There are no wild Pokémon in this area!$"
 `
 
-script EventScript_BallChanger
-{
+script EventScript_BallChanger{
 		message(format("Which Pokémon's ball would you like to change?"))
 		waitmessage
 		special (ChoosePartyMon)
@@ -561,9 +560,8 @@ script EventScript_BallChanger
 
 script EventScript_CurrentVersion
 {
-	message(format("Current Version: Beta 1.1.0 the Innate update.\nThis is a work in progress, so expect bugs and incomplete features.\nPlease report any bugs you find to the development team."))
-	waitmessage
-	closemessage
+	lock
+	msgbox(format("Current Version: Beta 1.1.0\nthe Innate update.\pThis is a work in progress, so expect bugs and incomplete features.\pPlease report any bugs you find to the development team."))
 	release
 	end
 }

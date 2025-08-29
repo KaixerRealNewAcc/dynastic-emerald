@@ -248,6 +248,7 @@ static void BuildNormalLMenu(void)
     }
 
     AddLMenuAction(MENU_ACTION_BALL_CHANGER);
+    AddLMenuAction(MENU_ACTION_CURRENT_VERSION);
 }
 
 static void BuildSafariZoneLMenu(void)
@@ -643,6 +644,8 @@ static bool8 ShouldCallbackFadeToBlack(void)
     if(gMenuCallback2 == LMenuPokeVial2Callback)
         return FALSE;
     if(gMenuCallback2 == LMenuPCCallback)
+        return FALSE;
+    if(gMenuCallback2 == LMenuCurrentVersionCallback)
         return FALSE;
     
     return TRUE;
