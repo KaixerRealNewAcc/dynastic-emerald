@@ -573,3 +573,4 @@ gSpecials::
 	def_special HealPlayerPartyNonDead
 	def_special SetNuzlockeMode
 	def_special ClearNuzlockeMode
+	def_special SetHiddenNature
