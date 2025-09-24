@@ -4295,7 +4295,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         if(abilityEffect && caseID == ABILITYEFFECT_ON_SWITCHIN)
         {
             //Weathers.
-
             if(HAS_ABILITY_OR_INNATE(battler, ABILITY_GRAVITATIONAL_PULL))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
@@ -4303,6 +4302,21 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GRAVITATIONAL_PULL;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     BattleScriptPushCursorAndCallback(BattleScript_GravitationalPullActivates);
+                    effect++;
+                }
+            }
+
+            //Eletrified Veins.
+            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_ELECTRIFIED_VEINS))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    gBattlerAttacker = battler;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ELECTRIFIED_VEINS;
+                    SET_BATTLER_TYPE(battler, TYPE_ELECTRIC);
+                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, TYPE_ELECTRIC);
+                    BattleScriptPushCursorAndCallback(BattleScript_BattlerAddedTheType);
                     effect++;
                 }
             }
@@ -11608,6 +11622,7 @@ bool8 IsMonBannedFromSkyBattles(u16 species)
         case SPECIES_VULLABY:
         case SPECIES_FLETCHLING:
         case SPECIES_HAWLUCHA:
+        case SPECIES_HAWLUCHA_MEGA:
         case SPECIES_ROWLET:
         case SPECIES_PIKIPEK:
 #endif

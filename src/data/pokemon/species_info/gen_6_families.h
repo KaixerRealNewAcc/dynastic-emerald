@@ -3306,6 +3306,73 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .levelUpLearnset = sMalamarLevelUpLearnset,
         .teachableLearnset = sMalamarTeachableLearnset,
     },
+
+#if P_MEGA_EVOLUTIONS
+    [SPECIES_MALAMAR_MEGA] = //100 + BST.
+    {
+        .baseHP        = 86,
+        .baseAttack    = 102,
+        .baseDefense   = 78, 
+        .baseSpeed     = 123,
+        .baseSpAttack  = 118,
+        .baseSpDefense = 95,
+        .types = MON_TYPES(TYPE_DARK, TYPE_PSYCHIC),
+        .catchRate = 80,
+        .expYield = 169,
+        .evYield_Attack = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_WATER_2),
+        .abilities = { ABILITY_CONTRARY, ABILITY_CONTRARY, ABILITY_CONTRARY },
+        .innateAbility = ABILITY_TINTED_LENS,
+        .bodyColor = BODY_COLOR_BLUE,
+        .speciesName = _("Malamar"),
+        .cryId = CRY_MALAMAR,
+        .natDexNum = NATIONAL_DEX_MALAMAR,
+        .categoryName = _("Overturning"),
+        .height = 15,
+        .weight = 470,
+        .description = COMPOUND_STRING(
+            "It lures prey close with hypnotic motions,\n"
+            "then wraps its tentacles around it before\n"
+            "finishing it off with digestive fluids. It\n"
+            "forces others to do whatever it wants."),
+        .pokemonScale = 268,
+        .pokemonOffset = 2,
+        .trainerScale = 271,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_MalamarMega,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .enemyMonElevation = 4,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
+        .backPic = gMonBackPic_MalamarMega,
+        .backPicSize = MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = 11,
+        .backAnimId = BACK_ANIM_V_STRETCH,
+        .palette = gMonPalette_MalamarMega,
+        .shinyPalette = gMonShinyPalette_MalamarMega,
+        .iconSprite = gMonIcon_MalamarMega,
+        .iconPalIndex = 2,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(5, 14, SHADOW_SIZE_M)
+        FOOTPRINT(Malamar)
+        OVERWORLD(
+            sPicTable_Malamar,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Malamar,
+            gShinyOverworldPalette_Malamar
+        )
+        .levelUpLearnset = sMalamarLevelUpLearnset,
+        .teachableLearnset = sMalamarTeachableLearnset,
+    },
+#endif
 #endif //P_FAMILY_INKAY
 
 #if P_FAMILY_BINACLE
@@ -4201,7 +4268,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .pokemonOffset = 7,
         .trainerScale = 257,
         .trainerOffset = 0,
-        .frontPic = gMonFrontPic_Hawlucha,
+        .frontPic = gMonFrontPic_HawluchaMega,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = 8,
         .frontAnimFrames = ANIM_FRAMES(
@@ -4234,6 +4301,78 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .teachableLearnset = sHawluchaTeachableLearnset,
         .eggMoveLearnset = sHawluchaEggMoveLearnset,
     },
+
+#if P_MEGA_EVOLUTIONS
+    [SPECIES_HAWLUCHA_MEGA] = // 100 bst +
+    {
+        .baseHP        = 78,
+        .baseAttack    = 132, 
+        .baseDefense   = 100, 
+        .baseSpeed     = 128,
+        .baseSpAttack  = 74, 
+        .baseSpDefense = 83,
+        .types = MON_TYPES(TYPE_FIGHTING, TYPE_FLYING),
+        .catchRate = 100,
+        .expYield = 175,
+        .evYield_Attack = 2,
+        .itemRare = ITEM_KINGS_ROCK,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+    #if P_UPDATED_EGG_GROUPS >= GEN_8
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_HUMAN_LIKE),
+    #else
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+    #endif
+        .abilities = { ABILITY_DEFIANT, ABILITY_DEFIANT, ABILITY_DEFIANT },
+        .innateAbility = ABILITY_MOLD_BREAKER,
+        .bodyColor = BODY_COLOR_GREEN,
+        .speciesName = _("Hawlucha"),
+        .cryId = CRY_HAWLUCHA,
+        .natDexNum = NATIONAL_DEX_HAWLUCHA,
+        .categoryName = _("Wrestling"),
+        .height = 8,
+        .weight = 215,
+        .description = COMPOUND_STRING(
+            "With its wings, it controls its position in\n"
+            "the air. Its proficient fighting skills\n"
+            "enable it to keep up with big bruisers\n"
+            "like Machamp and Hariyama."),
+        .pokemonScale = 366,
+        .pokemonOffset = 7,
+        .trainerScale = 257,
+        .trainerOffset = 0,
+        .frontPic =  gMonFrontPic_HawluchaMega,
+        .frontPicSize = MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = 8,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
+        .backPic = gMonBackPic_HawluchaMega,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 10,
+        .backAnimId = BACK_ANIM_GROW_STUTTER,
+        .palette = gMonPalette_HawluchaMega,
+        .shinyPalette = gMonShinyPalette_HawluchaMega,
+        .iconSprite = gMonIcon_HawluchaMega,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(3, 6, SHADOW_SIZE_S)
+        FOOTPRINT(Hawlucha)
+        /*OVERWORLD(
+            sPicTable_Hawlucha,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Hawlucha,
+            gShinyOverworldPalette_Hawlucha
+        )*/
+        .levelUpLearnset = sHawluchaLevelUpLearnset,
+        .teachableLearnset = sHawluchaTeachableLearnset,
+        .eggMoveLearnset = sHawluchaEggMoveLearnset,
+    },
+#endif //P_FAMILY_HAWLUCHA
 #endif //P_FAMILY_HAWLUCHA
 
 #if P_FAMILY_DEDENNE

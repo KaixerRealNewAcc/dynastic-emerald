@@ -2513,4 +2513,11 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .description = COMPOUND_STRING("Turns Normal-Moves into Ground-Type attacks.\nBoosts Ground-Moves by 20%."),
             .aiRating = 5,
         },
-};
+
+        [ABILITY_ELECTRIFIED_VEINS] =
+        {
+            .name = _("Electrified Veins"),
+            .description = COMPOUND_STRING("The user gains the Electric Type + Normal moves turn into Electric-Type moves."),
+            .aiRating = 7,
+        },
+    };

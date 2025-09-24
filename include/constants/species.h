@@ -1643,8 +1643,10 @@
 #define SPECIES_SILVALLY_SOUND                          (SPECIES_MIMIKYU_TOTEM_BUSTED + 3)
 #define SPECIES_NIDOKING_MEGA                           (SPECIES_MIMIKYU_TOTEM_BUSTED + 4)
 #define SPECIES_NIDOQUEEN_MEGA                          (SPECIES_MIMIKYU_TOTEM_BUSTED + 5)
+#define SPECIES_HAWLUCHA_MEGA                           (SPECIES_MIMIKYU_TOTEM_BUSTED + 6)
+#define SPECIES_MALAMAR_MEGA                            (SPECIES_MIMIKYU_TOTEM_BUSTED + 7)  
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_TOTEM_BUSTED + 6)
+#define SPECIES_EGG                                     (SPECIES_MIMIKYU_TOTEM_BUSTED + 8)
 
 #define NUM_SPECIES SPECIES_EGG
 

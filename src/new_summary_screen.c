@@ -32,7 +32,7 @@
 #include "pokemon.h"
 #include "pokemon_sprite_visualizer.h"
 #include "pokemon_storage_system.h"
-#include "pokemon_summary_screen.h"
+#include "new_summary_screen.h"
 #include "region_map.h"
 #include "scanline_effect.h"
 #include "sound.h"

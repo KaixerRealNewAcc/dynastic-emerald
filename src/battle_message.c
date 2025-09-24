@@ -904,6 +904,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_PKMNMADEGRAVITYTURNUPSIDEDOWN]        = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX}'s ability made the gravity feel weird!"),
     [STRINGID_UNNERVEENTERS]                        = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX2} team is too nervous to eat Berries!"),
     [STRINGID_ABILITYSHIELDPROTECTS]                = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX}'s Ability is protected by the effects of its {B_LAST_ITEM}!"),
+    [STRINGID_BATTLERADDEDTHETYPE]                  = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} added the {B_BUFF1} type!"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =

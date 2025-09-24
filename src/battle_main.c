@@ -6039,6 +6039,10 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
     {
         return TYPE_WATER;
     }
+    else if (GetMoveType(move) == TYPE_NORMAL && HAS_ABILITY_OR_INNATE(battler, ABILITY_ELECTRIFIED_VEINS))
+    {
+        return TYPE_ELECTRIC;
+    }
     else if (GetMoveType(move) == TYPE_NORMAL && ability == ABILITY_EARTHBOUND)
     {
         return TYPE_GROUND;

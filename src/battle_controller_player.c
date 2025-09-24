@@ -1735,7 +1735,7 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
     u32 moveEffect = gMovesInfo[move].effect;
 
     // Initialize DamageCalculationData struct
-    struct DamageCalculationData damageCalcData = {
+    struct DamageContext damageCalcData = {
         .battlerAtk = battler,
         .battlerDef = BATTLE_OPPOSITE(battler),
         .move = move,
@@ -1743,7 +1743,7 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
         .isCrit = FALSE,  // Not relevant for this calculation
         .randomFactor = 0, // Unused in this context
         .updateFlags = 0, // No special flags needed
-        .padding = 0  // Zero padding for safety
+        .padding1 = 0  // Zero padding for safety
     };
 
     if (move != MOVE_NONE && move != 0xFFFF && moveEffect != EFFECT_KNOCK_OFF 
@@ -1756,7 +1756,7 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
         else 
         {
             // NON-STATUS MOVES: Modify both power and accuracy
-            pwr = CalcMoveBasePowerAfterModifiers(&damageCalcData, atkAbility, 0, holdEffectAtk, gBattleWeather);
+            pwr = CalcMoveBasePowerAfterModifiers(&damageCalcData);
 
             if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && moveEffect == EFFECT_EARTHQUAKE)
                 pwr /= 2;

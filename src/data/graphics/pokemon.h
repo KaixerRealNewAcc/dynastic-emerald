@@ -26746,6 +26746,46 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_FAMILY_PECHARUNT
 
+#if P_FAMILY_HAWLUCHA
+#if P_MEGA_EVOLUTIONS
+    const u32 gMonFrontPic_HawluchaMega[] = INCBIN_U32("graphics/pokemon/hawlucha/mega/front.4bpp.smol");
+    const u16 gMonPalette_HawluchaMega[] = INCBIN_U16("graphics/pokemon/hawlucha/mega/normal.gbapal");
+    const u32 gMonBackPic_HawluchaMega[] = INCBIN_U32("graphics/pokemon/hawlucha/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_HawluchaMega[] = INCBIN_U16("graphics/pokemon/hawlucha/mega/shiny.gbapal");
+    const u8 gMonIcon_HawluchaMega[] = INCBIN_U8("graphics/pokemon/hawlucha/mega/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_HawluchaMega[] = INCBIN_U8("graphics/pokemon/hawlucha/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_HawluchaMega[] = INCBIN_COMP("graphics/pokemon/hawlucha/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_HawluchaMega[] = INCBIN_U16("graphics/pokemon/hawlucha/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_HawluchaMega[] = INCBIN_U16("graphics/pokemon/hawlucha/overworld_shiny.gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+#endif //P_MEGA_EVOLUTIONS
+#endif //P_FAMILY_HAWLUCHA
+
+#if P_FAMILY_INKAY
+#if P_MEGA_EVOLUTIONS
+    const u32 gMonFrontPic_MalamarMega[] = INCBIN_U32("graphics/pokemon/malamar/mega/anim_front.4bpp.smol");
+    const u16 gMonPalette_MalamarMega[] = INCBIN_U16("graphics/pokemon/malamar/mega/normal.gbapal");
+    const u32 gMonBackPic_MalamarMega[] = INCBIN_U32("graphics/pokemon/malamar/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_MalamarMega[] = INCBIN_U16("graphics/pokemon/malamar/mega/shiny.gbapal");
+    const u8 gMonIcon_MalamarMega[] = INCBIN_U8("graphics/pokemon/malamar/mega/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_MalamarMega[] = INCBIN_U8("graphics/pokemon/malamar/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_MalamarMega[] = INCBIN_COMP("graphics/pokemon/malamar/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_MalamarMega[] = INCBIN_U16("graphics/pokemon/malamar/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_MalamarMega[] = INCBIN_U16("graphics/pokemon/malamar/overworld_shiny.gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+#endif //P_MEGA_EVOLUTIONS
+#endif //P_FAMILY_INKAY
+
     const u32 gMonFrontPic_Egg[] = INCBIN_U32("graphics/pokemon/egg/anim_front.4bpp.smol");
     const u16 gMonPalette_Egg[] = INCBIN_U16("graphics/pokemon/egg/normal.gbapal");
     const u8 gMonIcon_Egg[] = INCBIN_U8("graphics/pokemon/egg/icon.4bpp");

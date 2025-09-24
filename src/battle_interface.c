@@ -2431,12 +2431,12 @@ static void SafariTextIntoHealthboxObject(void *dest, u8 *windowTileData, u32 wi
  * FG = ForeGround
  * SH = SHadow
  */
-#define ABILITY_POP_UP_BATTLER_BG_TXTCLR 2
+#define ABILITY_POP_UP_BATTLER_BG_TXTCLR 0
 #define ABILITY_POP_UP_BATTLER_FG_TXTCLR 7
 #define ABILITY_POP_UP_BATTLER_SH_TXTCLR 1
 
-#define ABILITY_POP_UP_ABILITY_BG_TXTCLR 7
-#define ABILITY_POP_UP_ABILITY_FG_TXTCLR 9
+#define ABILITY_POP_UP_ABILITY_BG_TXTCLR 4
+#define ABILITY_POP_UP_ABILITY_FG_TXTCLR 7
 #define ABILITY_POP_UP_ABILITY_SH_TXTCLR 1
 
 #define sState          data[0]
@@ -2464,7 +2464,7 @@ enum
     TAG_LAST_BALL_WINDOW,
 };
 
-static const u32 sAbilityPopUpGfx[] = INCBIN_U8("graphics/battle_interface/ability_pop_up_BW2.4bpp");
+static const u32 sAbilityPopUpGfx[] = INCBIN_U32("graphics/battle_interface/ability_pop_up_BW2.4bpp");
 static const u16 sAbilityPopUpPalette[] = INCBIN_U16("graphics/battle_interface/ability_pop_up_BW2.gbapal");
 
 static const struct SpriteSheet sSpriteSheet_AbilityPopUp =
