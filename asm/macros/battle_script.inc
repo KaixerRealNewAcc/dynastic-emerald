@@ -885,9 +885,11 @@
 	.byte 0x9f
 	.endm
 
-	.macro unused_0xA0
-	.byte 0xa0
+	.macro settrickroom failInstr:req
+	.byte 0xA0
+	.4byte \failInstr
 	.endm
+
 
 	.macro counterdamagecalculator failInstr:req
 	.byte 0xa1

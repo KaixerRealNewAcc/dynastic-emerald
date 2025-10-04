@@ -7083,10 +7083,10 @@ BattleScript_GravitationalPullActivates::
 BattleScript_TwistedDimensionActivates::
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUp
-	printstring STRINGID_PKMNMADEGRAVITYTURNUPSIDEDOWN
+	printstring STRINGID_PKMNMADETHEFIELDTWISTED
 	waitstate
 	playanimation BS_BATTLER_0, B_ANIM_TRICK_ROOM
-	setroom
+	settrickroom BattleScript_ButItFailed
 	end3
 
 BattleScript_AbilityRaisesDefenderStat::

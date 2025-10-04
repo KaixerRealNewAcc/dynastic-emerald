@@ -499,7 +499,7 @@ static void Cmd_setsubstitute(void);
 static void Cmd_mimicattackcopy(void);
 static void Cmd_metronome(void);
 static void Cmd_unused_0x9f(void);
-static void Cmd_unused_0xA0(void);
+static void Cmd_settrickroom(void);
 static void Cmd_counterdamagecalculator(void);
 static void Cmd_mirrorcoatdamagecalculator(void);
 static void Cmd_disablelastusedattack(void);
@@ -758,7 +758,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     Cmd_mimicattackcopy,                         //0x9D
     Cmd_metronome,                               //0x9E
     Cmd_unused_0x9f,                             //0x9F
-    Cmd_unused_0xA0,                             //0xA0
+    Cmd_settrickroom,                             //0xA0
     Cmd_counterdamagecalculator,                 //0xA1
     Cmd_mirrorcoatdamagecalculator,              //0xA2
     Cmd_disablelastusedattack,                   //0xA3
@@ -11309,8 +11309,20 @@ static void Cmd_unused_0x9f(void)
 {
 }
 
-static void Cmd_unused_0xA0(void)
+static void Cmd_settrickroom(void)
 {
+    CMD_ARGS(const u8 *failInstr);
+
+    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else
+    {
+        gFieldStatuses |= STATUS_FIELD_TRICK_ROOM;
+        gFieldTimers.trickRoomTimer = gBattleTurnCounter + 3;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }
 
 static void Cmd_counterdamagecalculator(void)

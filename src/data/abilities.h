@@ -2520,4 +2520,61 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .description = COMPOUND_STRING("The user gains the Electric Type + Normal moves turn into Electric-Type moves."),
             .aiRating = 7,
         },
+
+        [ABILITY_AIR_BLOWER] =
+        {
+            .name = _("Gravitational Pull"),
+            .description = COMPOUND_STRING("The user uses its power to create a gravitational field. Lasts 5 turns. 8 turns with the Lustrious Orb."),
+            .aiRating = 9,
+        },
+
+        [ABILITY_TWISTED_DIMENSION] =
+        {
+            .name = _("Twisted Dimension"),
+            .description = COMPOUND_STRING("Sets up Trick Room on entry, lasts 3 turns.\n5 turns with the Adamant Orb."),
+            .aiRating = 9,
+        },
+
+        [ABILITY_NOCTURNAL] =
+        {
+            .name = _("Nocturnal"),
+            .description = COMPOUND_STRING("Boosts Dark-Type moves by 25%.\ntakes 25% less from Dark-Type and Fairy-Type moves."),
+            .aiRating = 4,
+        },
+
+        [ABILITY_SIGHTING_SYSTEM] =
+        {
+            .name = _("Sighting System"),
+            .description = COMPOUND_STRING("Boosts Super Effective moves accuracy under 60% to 100%."),
+            .aiRating = 4,
+        },
+
+        [ABILITY_FATAL_PRECISION] =
+        {
+            .name = _("Fatal Precision"),
+            .description = COMPOUND_STRING("Boosts Super Effective moves accuracy under 60% to 100%."),
+            .aiRating = 4,
+        },
+
+        [ABILITY_FOSSILIZED] =
+        {
+            .name = _("Fossilized"),
+            .description = COMPOUND_STRING("Boosts Rock-Type moves by 20%.\nTakes 25% less damage from Rock-Type moves."),
+            .aiRating = 6,
+        },
+
+        [ABILITY_MIGHTY_TUSKS] =
+        {
+            .name = _("Sharp Tusks"),
+            .description = COMPOUND_STRING("Boosts the power of the user's Horn moves by 30%. Horn Moves never miss."),
+            .aiRating = 6,
+        },
+
+        [ABILITY_THICK_SACK] =
+        {
+            .name = _("Thick Sack"),
+            .description = COMPOUND_STRING("Damage received from Fire-type and Ice-type moves is reduced to 50%."),
+            .aiRating = 7,
+            .breakable = TRUE,
+        },
     };

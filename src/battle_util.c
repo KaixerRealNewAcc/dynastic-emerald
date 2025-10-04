@@ -4306,6 +4306,17 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
+            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_TWISTED_DIMENSION))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TWISTED_DIMENSION;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_TwistedDimensionActivates);
+                    effect++;
+                }
+            }
+
             //Eletrified Veins.
             if(HAS_ABILITY_OR_INNATE(battler, ABILITY_ELECTRIFIED_VEINS))
             {
@@ -8725,11 +8736,19 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         break;
     case ABILITY_RECKLESS:
         if (moveEffect == EFFECT_RECOIL || moveEffect == EFFECT_RECOIL_IF_MISS)
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
     case ABILITY_IRON_FIST:
         if (IsPunchingMove(move))
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_STRIKER:
+        if (IsStrikingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_MIGHTY_TUSKS:
+        if (IsHornMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
     case ABILITY_SHEER_FORCE:
         if (MoveIsAffectedBySheerForce(move))
@@ -8809,6 +8828,34 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
     case ABILITY_SUPREME_OVERLORD:
         modifier = uq4_12_multiply(modifier, GetSupremeOverlordModifier(battlerAtk));
         break;
+    case ABILITY_FOSSILIZED:
+        if (moveType == TYPE_ROCK)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        break;
+    }
+
+    if(HAS_INNATE(battlerAtk, ABILITY_IRON_FIST))
+    {
+        if (IsPunchingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+    }
+
+    if(HAS_INNATE(battlerAtk, ABILITY_STRIKER))
+    {
+        if (IsStrikingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+    }
+
+    if(HAS_INNATE(battlerAtk, ABILITY_MIGHTY_TUSKS))
+    {
+        if (IsHornMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+    }
+
+    if(HAS_INNATE(battlerAtk, ABILITY_SHARPNESS))
+    {
+        if (IsSlicingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
     }
     
     if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_LIQUID_VOICE))
@@ -8827,6 +8874,12 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
             if(IsSoundMove(move))
              modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
+    }
+
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FOSSILIZED))
+    {
+        if (moveType == TYPE_ROCK)
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
     }
 
 
@@ -9036,6 +9089,9 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
     // apply attack stat modifiers
     modifier = UQ_4_12(1.0);
 
+    u8 defType = gBattleMons[battlerDef].types[0];
+    uq4_12_t mod = GetTypeModifier(ctx->moveType, defType);
+
     // attacker's abilities
     switch (ctx->abilityAtk)
     {
@@ -9224,6 +9280,23 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         }
     }
 
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_NOCTURNAL))
+    {
+		if (moveType == TYPE_DARK)
+        {
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
+        }
+	}
+
+    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_SIGHTING_SYSTEM) 
+    || HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FATAL_PRECISION))
+    {
+		if (mod == UQ_4_12(2.0))
+        {
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
+        }
+	}
+
     //Mega Starters abilitys
     if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_TIDAL_WRATH))
     {
@@ -9260,6 +9333,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
     switch (ctx->abilityDef)
     {
     case ABILITY_THICK_FAT:
+    case ABILITY_THICK_SACK:
         if (moveType == TYPE_FIRE || moveType == TYPE_ICE)
         {
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
@@ -9275,6 +9349,24 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 RecordAbilityBattle(battlerDef, ABILITY_PURIFYING_SALT);
         }
         break;
+    }
+
+    if(HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_THICK_FAT) ||
+       HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_THICK_SACK))
+    {
+        if (moveType == TYPE_FIRE || moveType == TYPE_ICE)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
+        if (ctx->updateFlags)
+            RecordAbilityBattle(battlerDef, ABILITY_THICK_FAT);
+    }
+
+
+    if(HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_NOCTURNAL))
+    {
+        if (moveType == TYPE_DARK || moveType == TYPE_FAIRY)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
+        if (ctx->updateFlags)
+                RecordAbilityBattle(battlerDef, ABILITY_NOCTURNAL);
     }
 
     // ally's abilities
@@ -9736,6 +9828,20 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
             recordAbility = TRUE;
         }
         break;
+	case ABILITY_FOSSILIZED:
+        if (ctx->moveType == TYPE_ROCK)
+        {
+            modifier =  UQ_4_12(0.75);
+            recordAbility = TRUE;
+        }
+        break;
+    }
+
+    if(HAS_ABILITY_OR_INNATE(ctx->battlerDef, ABILITY_FOSSILIZED))
+    {
+        if (ctx->moveType == TYPE_ROCK)
+            modifier =  UQ_4_12(0.75);
+        recordAbility = TRUE;
     }
 
     if (recordAbility && ctx->updateFlags)
@@ -10289,12 +10395,12 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 a
         if (GetSpeciesType(speciesDef, 1) != GetSpeciesType(speciesDef, 0))
             MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesType(speciesDef, 1));
 
-        if (ctx.moveType == TYPE_GROUND && abilityDef == ABILITY_LEVITATE && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
+        if (ctx.moveType == TYPE_GROUND && ctx.abilityDef == ABILITY_LEVITATE && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
-        if (abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && GetMovePower(move) != 0)
+        if (ctx.abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && GetMovePower(move) != 0)
             modifier = UQ_4_12(0.0);
 
-        if (moveType == TYPE_GROUND && SPECIES_INNATE(speciesDef, ABILITY_MOUNTAINEER))
+        if (ctx.moveType == TYPE_ROCK && HAS_ABILITY_OR_INNATE(ctx.abilityDef, ABILITY_MOUNTAINEER))
             modifier = UQ_4_12(0.0);
     }
 
@@ -11192,6 +11298,11 @@ bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes)
         RecordItemEffectBattle(battler, holdEffect);
     }
     else if (holdEffect == HOLD_EFFECT_HEAVY_DUTY_BOOTS)
+    {
+        ret = FALSE;
+        RecordItemEffectBattle(battler, holdEffect);
+    }
+    else if (HAS_ABILITY_OR_INNATE(battler, ABILITY_MOUNTAINEER))
     {
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
@@ -12227,6 +12338,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     u32 atkParam = GetBattlerHoldEffectParam(battlerAtk);
     u32 defParam = GetBattlerHoldEffectParam(battlerDef);
 
+    u8 defType = gBattleMons[battlerDef].types[0];
+
+    uq4_12_t mod = GetTypeModifier(ctx->moveType, defType);
+
     gPotentialItemEffectBattler = battlerDef;
     accStage = gBattleMons[battlerAtk].statStages[STAT_ACC];
     evasionStage = gBattleMons[battlerDef].statStages[STAT_EVASION];
@@ -12253,8 +12368,12 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN) && MoveHas50AccuracyInSun(move))
         moveAcc = 50;
     // Check Wonder Skin.
-    if (defAbility == ABILITY_WONDER_SKIN && IsBattleMoveStatus(move) && moveAcc > 50)
+    if (HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_WONDER_SKIN) && IsBattleMoveStatus(move) && moveAcc > 50)
         moveAcc = 50;
+    if ((HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_SIGHTING_SYSTEM) || HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FATAL_PRECISION)) && (mod == UQ_4_12(2.0) && moveAcc < 60))
+        moveAcc = 100; // Sighting System and Fatal Precision boost super effective move accuracy to 100%
+    if (HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_MIGHTY_TUSKS) && IsHornMove(move) && moveAcc < 100)
+        moveAcc = 100; // Mighty Tusk boosts Horn move accuracy to 100%
 
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;
     calc /= gAccuracyStageRatios[buff].divisor;
