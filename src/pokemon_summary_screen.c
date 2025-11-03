@@ -514,16 +514,16 @@ static const struct WindowTemplate sSummaryTemplate[] =
     },
     [PSS_LABEL_WINDOW_POKEMON_INFO_TYPE] = {
         .bg = 0,
-        .tilemapLeft = 11,
+        .tilemapLeft = 10,
         .tilemapTop = 6,
         .width = 18,
-        .height = 2,
+        .height = 4,
         .paletteNum = 6,
         .baseBlock = 173,
     },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT] = {
         .bg = 0,
-        .tilemapLeft = 10,
+        .tilemapLeft = 11,
         .tilemapTop = 7,
         .width = 6,
         .height = 6,
@@ -618,7 +618,7 @@ static const struct WindowTemplate sPageInfoTemplate[] =
     [PSS_DATA_WINDOW_INFO_ORIGINAL_TRAINER] = {
         .bg = 0,
         .tilemapLeft = 11,
-        .tilemapTop = 4,
+        .tilemapTop = 3,
         .width = 11,
         .height = 2,
         .paletteNum = 6,
@@ -627,7 +627,7 @@ static const struct WindowTemplate sPageInfoTemplate[] =
     [PSS_DATA_WINDOW_INFO_ID] = {
         .bg = 0,
         .tilemapLeft = 22,
-        .tilemapTop = 4,
+        .tilemapTop = 3,
         .width = 7,
         .height = 2,
         .paletteNum = 6,
@@ -637,7 +637,7 @@ static const struct WindowTemplate sPageInfoTemplate[] =
         .bg = 0,
         #if(P_SUMMARY_SCREEN_EXPAND_ABILITY_DESCRIPTION)
         .tilemapLeft = 10,
-        .tilemapTop = 8,
+        .tilemapTop = 6,
         .width = 20,
         .height = 8,
         .paletteNum = 6,
@@ -655,9 +655,9 @@ static const struct WindowTemplate sPageInfoTemplate[] =
         .bg = 0,
         #if(P_SUMMARY_SCREEN_EXPAND_ABILITY_DESCRIPTION)
         .tilemapLeft = 11,
-        .tilemapTop = 16,
+        .tilemapTop = 14,
         .width = 20,
-        .height = 4,
+        .height = 6,
         .paletteNum = 6,
         .baseBlock = 665,
         #else
@@ -2196,9 +2196,9 @@ static void Task_HandleInput(u8 taskId)
             
                 FillWindowPixelBuffer(sMonSummaryScreen->windowIds[PSS_DATA_WINDOW_INFO_ABILITY], 0);
                 if(P_SUMMARY_SCREEN_ABILITY_COLOR)
-                    PrintTextOnWindow(windowId, gAbilitiesInfo[innateAbility].name, 5, 8, 2, 7);
+                    PrintTextOnWindow(windowId, gAbilitiesInfo[innateAbility].name, 6, 16, 2, 7);
                 FormatTextByWidth(desc, MAX_ABILITY_DESCRIPTION_WIDTH, FONT_SHORT_NARROW, gAbilitiesInfo[innateAbility].description, 0);
-                PrintTextOnWindow_SmallNarrow(windowId, desc, 5, 22, 2, 0);
+                PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 29, 2, 0);
             }
             else
             {
@@ -2225,11 +2225,11 @@ static void Task_HandleInput(u8 taskId)
 
                 FillWindowPixelBuffer(sMonSummaryScreen->windowIds[PSS_DATA_WINDOW_INFO_ABILITY], 0);
                 if(P_SUMMARY_SCREEN_ABILITY_COLOR && isHiddenAbility)
-                    PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 5, 8, 2, ABILITY_COLOR_VALUE);
+                    PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 16, 2, ABILITY_COLOR_VALUE);
                 else
-                    PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 5, 8, 2, 1);
+                    PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 16, 2, 1);
                 FormatTextByWidth(desc, MAX_ABILITY_DESCRIPTION_WIDTH, FONT_SHORT_NARROW, gAbilitiesInfo[ability].description, 0);
-                PrintTextOnWindow_SmallNarrow(windowId, desc, 5, 22, 2, 0);
+                PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 29, 2, 0);
             }
             else
             {
@@ -4010,16 +4010,16 @@ static void PrintMonAbilityName(void)
     if(P_SUMMARY_SCREEN_EXPAND_ABILITY_DESCRIPTION)
     {
         if(P_SUMMARY_SCREEN_ABILITY_COLOR && isHiddenAbility)
-            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 5, 8, 2, ABILITY_COLOR_VALUE);
+            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 16, 2, ABILITY_COLOR_VALUE);
         else
-            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 5, 8, 2, 1);
+            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 16, 2, 1);
     }
     else 
     {
         if(P_SUMMARY_SCREEN_ABILITY_COLOR && isHiddenAbility)
-            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 5, 1, 0, ABILITY_COLOR_VALUE);
+            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 1, 0, ABILITY_COLOR_VALUE);
         else
-            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 5, 1, 0, 1);
+            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 1, 0, 1);
     }
 }
 
@@ -4032,14 +4032,14 @@ static void PrintMonAbilityDescription(void)
     {
         u8 desc[MAX_ABILITY_DESCRIPTION_LENGTH];
         FormatTextByWidth(desc, MAX_ABILITY_DESCRIPTION_WIDTH, FONT_SHORT_NARROW, gAbilitiesInfo[ability].description, 0);
-        PrintTextOnWindow_SmallNarrow(windowId, desc, 5, 22, 2, 0);
+        PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 29, 2, 0);
     }
     else
     {
         if(P_SUMMARY_SCREEN_ABILITY_DESCRIPTION_FONT_CHANGE == TRUE)
-            PrintTextOnWindowToFitPx(windowId, gAbilitiesInfo[ability].description, 5, 16, 0, 0, WindowWidthPx(windowId) - DESCRIPTION_FONT_CHANGE_VALUE);
+            PrintTextOnWindowToFitPx(windowId, gAbilitiesInfo[ability].description, 5, 24, 0, 0, WindowWidthPx(windowId) - DESCRIPTION_FONT_CHANGE_VALUE);
         else
-            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].description, 5, 16, 0, 0);
+            PrintTextOnWindow(windowId, gAbilitiesInfo[ability].description, 5, 24, 0, 0);
     }
 }
 
@@ -4126,7 +4126,7 @@ static void BufferMonTrainerMemo(void)
 
 static void PrintMonTrainerMemo(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageInfoTemplate, PSS_DATA_WINDOW_INFO_MEMO), gStringVar4, 0, 1, 0, 0);
+    PrintTextOnWindow(AddWindowFromTemplateList(sPageInfoTemplate, PSS_DATA_WINDOW_INFO_MEMO), gStringVar4, 0, 8, 0, 0);
 }
 
 static void BufferNatureString(void)
@@ -4883,7 +4883,7 @@ static void CreateMoveTypeIcons(void)
         }
         else
         {   
-            sMonSummaryScreen->spriteIds[i] = CreateSprite(&gSpriteTemplate_MoveTypes, 0, 0, 2);
+            sMonSummaryScreen->spriteIds[i] = CreateSprite(&gSpriteTemplate_MoveTypes, 0, 0, 0);
         }
 
         SetSpriteInvisibility(i, TRUE);
@@ -4903,8 +4903,6 @@ void SetTypeSpritePosAndPal(u8 typeId, u8 x, u8 y, u8 spriteArrayId)
     SetSpriteInvisibility(spriteArrayId, FALSE);
 }
 
-#include "constants/abilities.h"
-
 static void SetMonTypeIcons(void)
 {
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
@@ -4919,16 +4917,11 @@ static void SetMonTypeIcons(void)
     }
     else
     {
-        SetTypeSpritePosAndPal(GetSpeciesType(summary->species, 0), 120, 48, SPRITE_ARR_ID_TYPE);
+        SetTypeSpritePosAndPal(GetSpeciesType(summary->species, 0), 90, 39, SPRITE_ARR_ID_TYPE);
         if (GetSpeciesType(summary->species, 0) != GetSpeciesType(summary->species, 1))
         {
-            SetTypeSpritePosAndPal(GetSpeciesType(summary->species, 1), 160, 48, SPRITE_ARR_ID_TYPE + 1);
+            SetTypeSpritePosAndPal(GetSpeciesType(summary->species, 1), 130, 39, SPRITE_ARR_ID_TYPE + 1);
             SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, FALSE);
-        }
-        else if (gSpeciesInfo[summary->species].innateAbility == ABILITY_ELECTRIFIED_VEINS) // Multitype ability changes type based on held item
-        {
-            SetTypeSpritePosAndPal(TYPE_ELECTRIC, 200, 48, SPRITE_ARR_ID_TYPE + 2);
-            SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 2, TRUE);
         }
         else
         {
@@ -4937,9 +4930,9 @@ static void SetMonTypeIcons(void)
         if (P_SHOW_TERA_TYPE == TRUE)
         {
             if (P_SUMMARY_SCREEN_NEW_TERA_TYPE_ICONS == TRUE)
-                SetTypeSpritePosAndPal(summary->teraType, 200, 48, SPRITE_ARR_ID_TERA_TYPE);
+                SetTypeSpritePosAndPal(summary->teraType, 200, 39, SPRITE_ARR_ID_TERA_TYPE);
             else
-                SetTypeSpritePosAndPal(summary->teraType, 200, 48, SPRITE_ARR_ID_TYPE + 2);
+                SetTypeSpritePosAndPal(summary->teraType, 200, 39, SPRITE_ARR_ID_TYPE + 2);
         }
     }
 }

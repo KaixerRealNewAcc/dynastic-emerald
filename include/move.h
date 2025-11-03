@@ -90,6 +90,9 @@ struct MoveInfo
     bool32 ignoresKingsRock:1;
     bool32 punchingMove:1;
     bool32 strikingMove:1;
+    bool32 hornMove:1;
+    bool32 fieldMove:1;
+    bool32 eruptiveMove:1;
     bool32 bitingMove:1;
     bool32 pulseMove:1;
     bool32 soundMove:1;
@@ -296,6 +299,16 @@ static inline bool32 IsStrikingMove(u32 moveId)
 static inline bool32 IsHornMove(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].hornMove;
+}
+
+static inline bool32 IsFieldMove(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].fieldMove;
+}
+
+static inline bool32 IsEruptiveMove(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].eruptiveMove;
 }
 
 static inline bool32 IsBitingMove(u32 moveId)

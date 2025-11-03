@@ -1119,8 +1119,8 @@ static void Cmd_attackcanceler(void)
     if (AtkCanceller_MoveSuccessOrder() != MOVE_STEP_SUCCESS)
         return;
 
-    if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_OFF
-     && GetBattlerAbility(gBattlerAttacker) == ABILITY_PARENTAL_BOND
+    if ((gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_OFF)
+     && (HAS_ABILITY_OR_INNATE(gBattlerAttacker, ABILITY_PARENTAL_BOND) || HAS_ABILITY_OR_INNATE(gBattlerAttacker, ABILITY_HYPER_AGGRESIVE))
      && IsMoveAffectedByParentalBond(gCurrentMove, gBattlerAttacker)
      && !(gAbsentBattlerFlags & (1u << gBattlerTarget))
      && GetActiveGimmick(gBattlerAttacker) != GIMMICK_Z_MOVE)
@@ -3349,8 +3349,11 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
         if (gBattleStruct->moveDamage[gEffectBattler] == 0)
             gBattleStruct->moveDamage[gEffectBattler] = 1;
-        if (GetBattlerAbility(gEffectBattler) == ABILITY_PARENTAL_BOND)
+        if (HAS_ABILITY_OR_INNATE(gEffectBattler, ABILITY_PARENTAL_BOND))
             gBattleStruct->moveDamage[gEffectBattler] *= 2;
+        if (HAS_ABILITY_OR_INNATE(gEffectBattler, ABILITY_HYPER_AGGRESIVE))
+            gBattleStruct->moveDamage[gEffectBattler] *= 2;
+
 
         BattleScriptPush(gBattlescriptCurrInstr + 1);
         gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
@@ -5698,6 +5701,8 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
             gLastUsedItem = gBattleMons[gBattlerTarget].item;
             gBattleMons[gBattlerTarget].item = 0;
             if (gBattleMons[gBattlerTarget].ability != ABILITY_GORILLA_TACTICS)
+                gBattleStruct->choicedMove[gBattlerTarget] = 0;
+            if (HAS_ABILITY_OR_INNATE(gBattlerTarget, ABILITY_FELINE_PROWESS))
                 gBattleStruct->choicedMove[gBattlerTarget] = 0;
             CheckSetUnburden(gBattlerTarget);
 

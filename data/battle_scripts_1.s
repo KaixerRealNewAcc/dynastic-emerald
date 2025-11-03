@@ -8232,6 +8232,12 @@ BattleScript_AbilityStatusEffect::
 	setnonvolatilestatus TRIGGER_ON_ABILITY
 	return
 
+BattleScript_AbilityInfatuationEffect::
+	waitstate
+	call BattleScript_AbilityPopUp
+	trysetinfatuation BattleScript_InfatuateSideIncrement
+	return
+
 BattleScript_BattleBondActivatesOnMoveEndAttacker::
 	pause 5
 	copybyte gBattlerAbility, gBattlerAttacker

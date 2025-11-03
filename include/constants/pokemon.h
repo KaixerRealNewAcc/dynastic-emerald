@@ -365,7 +365,7 @@ enum EvoSpinDirections {
 
 #define SKIP_FRONT_ANIM (1 << 7)
 
-#define NUM_ABILITY_SLOTS (NUM_NORMAL_ABILITY_SLOTS + NUM_HIDDEN_ABILITY_SLOTS) //For now innate is the last ability slot, but this may change in the future.
+#define NUM_ABILITY_SLOTS (NUM_NORMAL_ABILITY_SLOTS + NUM_HIDDEN_ABILITY_SLOTS)
 #define NUM_NORMAL_ABILITY_SLOTS 2
 #define NUM_HIDDEN_ABILITY_SLOTS 1
 
@@ -373,7 +373,7 @@ enum EvoSpinDirections {
 #define NUM_ABILITY_PERSONALITY 0xFF
 
 #if P_LEGENDARY_PERFECT_IVS >= GEN_6
-#define LEGENDARY_PERFECT_IV_COUNT 3
+#define LEGENDARY_PERFECT_IV_COUNT 4
 #else
 #define LEGENDARY_PERFECT_IV_COUNT 0
 #endif

@@ -2475,7 +2475,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_GRAVITATIONAL_PULL] =
         {
             .name = _("Gravitational Pull"),
-            .description = COMPOUND_STRING("The user uses its power to create a gravitational field. Lasts 5 turns. 8 turns with the Lustrious Orb."),
+            .description = COMPOUND_STRING("The user uses its power to create a gravitational field. Lasts 5 turns."),
             .aiRating = 9,
         },
 
@@ -2524,14 +2524,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_AIR_BLOWER] =
         {
             .name = _("Gravitational Pull"),
-            .description = COMPOUND_STRING("The user uses its power to create a gravitational field. Lasts 5 turns. 8 turns with the Lustrious Orb."),
+            .description = COMPOUND_STRING("The user uses its power to create a gravitational field. Lasts 5 turns."),
             .aiRating = 9,
         },
 
         [ABILITY_TWISTED_DIMENSION] =
         {
             .name = _("Twisted Dimension"),
-            .description = COMPOUND_STRING("Sets up Trick Room on entry, lasts 3 turns.\n5 turns with the Adamant Orb."),
+            .description = COMPOUND_STRING("Sets up Trick Room on entry, lasts 3 turns."),
             .aiRating = 9,
         },
 
@@ -2577,4 +2577,56 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .aiRating = 7,
             .breakable = TRUE,
         },
+
+        [ABILITY_FIELD_EXPLORER] =
+        {
+            .name = _("Field Explorer"),
+            .description = COMPOUND_STRING("Boosts the power of Field moves by 50%.\nField moves are classified as HM Moves."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_FLOCK] =
+        {
+            .name = _("Flock"),
+            .description = COMPOUND_STRING("Increases Flock moves by 50% when the user's HP is under 1/3 HP."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_FELINE_PROWESS] =
+        {
+            .name = _("Feline Prowess"),
+            .description = COMPOUND_STRING("Doubles the user's Special Attack stat."),
+            .aiRating = 6,
+        },
+
+        [ABILITY_ERUPTIVE_BACK] = 
+        {
+            .name = _("Eruptive Back"),
+            .description = COMPOUND_STRING("Boosts Eruptive moves by 30%."),
+            .aiRating = 6,
+            .breakable = TRUE,
+        },
+
+        [ABILITY_PSYCHIC_MIND] =
+        {
+            .name = _("Psychic Mind"),
+            .description = COMPOUND_STRING("Increases Psychic moves by 50% when the user's HP is under 1/3 HP."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_HYPER_AGGRESIVE] =
+        {
+            .name = _("Hyper Aggresive"),
+            .description = COMPOUND_STRING("Moves hit twice."),
+            .aiRating = 10,
+        },
+
+        [ABILITY_PURE_LOVE] = 
+        {
+            .name = _("Pure Love"),
+            .description = COMPOUND_STRING("25% chance to infatuate on contact."),/*\nHeals 25% HP against Infatuated foes.*/
+            .aiRating = 8,
+            .breakable = TRUE,
+        },
+
     };

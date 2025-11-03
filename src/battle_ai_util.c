@@ -801,7 +801,8 @@ static inline void CalcDynamicMoveDamage(struct DamageContext *ctx, u16 *medianD
         maximum *= strikeCount;
     }
 
-    if (ctx->abilityAtk == ABILITY_PARENTAL_BOND
+    if (HAS_ABILITY_OR_INNATE(ctx->battlerAtk, ABILITY_PARENTAL_BOND)
+        && HAS_ABILITY_OR_INNATE(ctx->battlerAtk, ABILITY_HYPER_AGGRESIVE)
         && !strikeCount
         && effect != EFFECT_TRIPLE_KICK
         && effect != EFFECT_MULTI_HIT
@@ -3636,6 +3637,8 @@ bool32 HasChoiceEffect(u32 battler)
     u32 ability = gAiLogicData->abilities[battler];
     if (ability == ABILITY_GORILLA_TACTICS)
         return TRUE;
+    if (ability == ABILITY_FELINE_PROWESS)
+        return FALSE;
 
     if (ability == ABILITY_KLUTZ)
         return FALSE;
