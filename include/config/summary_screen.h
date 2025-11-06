@@ -3,7 +3,7 @@
 
 // Settings
 #define P_SUMMARY_SCREEN_MOVE_RELEARNER  TRUE   // If TRUE, shows an option for Pokémon to relearn moves on the summary screen moves page.
-#define P_SUMMARY_SCREEN_NATURE_COLORS  TRUE    // If TRUE, nature-based stat boosts and reductions will be red and blue in the summary screen.
+#define P_SUMMARY_SCREEN_NATURE_COLORS   TRUE    // If TRUE, nature-based stat boosts and reductions will be red and blue in the summary screen.
 #define P_SUMMARY_MOVE_RELEARNER_FULL_PP TRUE   // If TRUE, the move relearner in the summary screen restores relearned moves' PP to full.
 #define P_SUMMARY_SCREEN_RENAME          TRUE   // If TRUE, an option to change Pokémon nicknames replaces the cancel prompt on the summary screen info page.
 #define P_SUMMARY_SCREEN_IV_EV_INFO      TRUE  // If TRUE, will allow player to cycle through the Stats, IVs, and EVs in the summary screen skills page.
@@ -63,7 +63,7 @@ Info taken from https://bulbapedia.bulbagarden.net/wiki/Stats_judge.
 
 //Color Settings
 #define P_SUMMARY_SCREEN_ABILITY_COLOR    TRUE //If TRUE, the ability description will be have to its color changes if its a Hidden Ability.
-#define P_SUMMARY_SCREEN_BACKGROUND_COLOR TRUE //If TRUE, the background color of the summary screen will be changed when the mon is shiny.
+#define P_SUMMARY_SCREEN_BACKGROUND_COLOR FALSE //If TRUE, the background color of the summary screen will be changed when the mon is shiny.
 #define ABILITY_COLOR_VALUE               2 //The color of the ability name. Defaults to Red.
 #define BACKGROUND_COLOR_VALUE            2 //The color of the background. Defaults to Gold.
 
@@ -74,13 +74,13 @@ Info taken from https://bulbapedia.bulbagarden.net/wiki/Stats_judge.
 #define P_SUMMARY_SCREEN_SHOW_CONTEST_MOVES  FALSE //If FALSE, the contest moves page will be hidden in the summary screen.
 
 //Mon Settings
-#define P_SUMMARY_SCREEN_MON_IDLE_ANIMS         TRUE //If TRUE, the mons animations regularly as an "idle" anim.
+#define P_SUMMARY_SCREEN_MON_IDLE_ANIMS         FALSE //If TRUE, the mons animations regularly as an "idle" anim.
 #define P_SUMMARY_SCREEN_MON_IDLE_ANIMS_FRAMES  300 // number of frames between each idle anim IF P_SUMMARY_SCREEN_MON_IDLE_ANIMS is true.
                                                     // for reference, Emerald runs at 60FPS by default, 300 is the default number.
  
 //Type Icons Settings
-#define P_SUMMARY_SCREEN_NEW_TYPE_ICONS FALSE //If TRUE, the new type icons will be used in the summary screen, TRUE by default.
+#define P_SUMMARY_SCREEN_NEW_TYPE_ICONS      FALSE //If TRUE, the new type icons will be used in the summary screen, TRUE by default.
 #define P_SUMMARY_SCREEN_NEW_TERA_TYPE_ICONS FALSE //If TRUE, the new tera type icons will be used in the summary screen.
-#define P_SHOW_TERA_TYPE                FALSE       // Since Gen 9, the Tera Type is shown on the summary screen.
+#define P_SHOW_TERA_TYPE                     FALSE // Since Gen 9, the Tera Type is shown on the summary screen.
 
 #endif // GUARD_CONFIG_SUMMARY_SCREEN_H

@@ -108,6 +108,9 @@
 
 #define MOVE_SELECTOR_SPRITES_COUNT 10
 #define TYPE_ICON_SPRITE_COUNT (MAX_MON_MOVES + 1)
+
+const u8 gText_Relearn[] = _("{START_BUTTON} RELEARN"); // future note: don't decap this, because it mimics the summary screen BG graphics which will not get decapped
+const u8 gText_Rename[] = _("RENAME");
 // for the spriteIds field in PokemonSummaryScreenData
 enum
 {
@@ -238,7 +241,6 @@ static void PssScrollRight(u8);
 static void PssScrollRightEnd(u8);
 static void PssScrollLeft(u8);
 static void PssScrollLeftEnd(u8);
-static void TryDrawExperienceProgressBar(void);
 static void SwitchToMoveSelection(u8);
 static void Task_HandleInput_MoveSelect(u8);
 static bool8 HasMoreThanOneMove(void);
@@ -523,7 +525,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
     },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT] = {
         .bg = 0,
-        .tilemapLeft = 11,
+        .tilemapLeft = 10,
         .tilemapTop = 7,
         .width = 6,
         .height = 6,
@@ -731,9 +733,9 @@ static const struct WindowTemplate sPageMovesTemplate[] = // This is used for bo
     },
     [PSS_DATA_WINDOW_MOVE_PP] = {
         .bg = 0,
-        .tilemapLeft = 24,
+        .tilemapLeft = 23,
         .tilemapTop = 4,
-        .width = 6,
+        .width = 7,
         .height = 10,
         .paletteNum = 8,
         .baseBlock = 557,
@@ -2493,7 +2495,6 @@ static void Task_ChangeSummaryMon(u8 taskId)
         if (sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_MON] == SPRITE_NONE)
             return;
         gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_MON]].data[2] = 1;
-        TryDrawExperienceProgressBar();
         data[1] = 0;
         break;
     case 9:
@@ -2668,7 +2669,6 @@ static void PssScrollRightEnd(u8 taskId) // display right
     DrawPagination();
     PutPageWindowTilemaps(sMonSummaryScreen->currPageIndex);
     SetTypeIcons();
-    TryDrawExperienceProgressBar();
     SwitchTaskToFollowupFunc(taskId);
 }
 
@@ -2720,14 +2720,7 @@ static void PssScrollLeftEnd(u8 taskId) // display left
     DrawPagination();
     PutPageWindowTilemaps(sMonSummaryScreen->currPageIndex);
     SetTypeIcons();
-    TryDrawExperienceProgressBar();
     SwitchTaskToFollowupFunc(taskId);
-}
-
-static void TryDrawExperienceProgressBar(void)
-{
-    if (sMonSummaryScreen->currPageIndex == PSS_PAGE_SKILLS)
-        DrawExperienceProgressBar(&sMonSummaryScreen->currentMon);
 }
 
 static void SwitchToMoveSelection(u8 taskId)
@@ -3755,12 +3748,12 @@ static void PrintPageNamesAndStats(void)
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Speed2, statsXPos, 33, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_ExpPoints, 6, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_NextLv, 6, 17, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS, gText_Status, 2, 1, 0, 1);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS, gText_Status, 3, 0, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Power, 0, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Accuracy2, 0, 17, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM, gText_Appeal, 0, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM, gText_Jam, 0, 17, 0, 1);
-    PrintTextOnWindowWithFont(PSS_LABEL_WINDOW_PROMPT_RELEARN, gText_Relearn, 0, 4, 0, 0, FONT_SMALL);
+    PrintTextOnWindowWithFont(PSS_LABEL_WINDOW_PROMPT_RELEARN, gText_Relearn, 0, 4, 0, 1, FONT_SMALL);
 }
 
 static void PutPageWindowTilemaps(u8 page)
@@ -4334,7 +4327,7 @@ static void PrintHeldItemName(void)
 
     fontId = GetFontIdToFit(text, FONT_NORMAL, 0, WindowTemplateWidthPx(&sPageSkillsTemplate[PSS_DATA_WINDOW_SKILLS_HELD_ITEM]) - 8);
     x = GetStringCenterAlignXOffset(fontId, text, 72) + 3;
-    PrintTextOnWindowWithFont(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_HELD_ITEM), text, x, 1, 0, 0, fontId);
+    PrintTextOnWindow_SmallNarrow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_HELD_ITEM), text, x, 1, 0, 0);
 }
 
 static void PrintRibbonCount(void)
@@ -4353,7 +4346,7 @@ static void PrintRibbonCount(void)
         text = gStringVar4;
     }
 
-    x = GetStringCenterAlignXOffset(FONT_NORMAL, text, 70) + 8;
+    x = GetStringCenterAlignXOffset(FONT_NORMAL, text, 70) + 14;
     PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT), text, x, 1, 0, 0);
 }
 
@@ -4584,7 +4577,7 @@ static void PrintMoveNameAndPP(u8 moveIndex)
     if (move != 0)
     {
         pp = CalculatePPWithBonus(move, summary->ppBonuses, moveIndex);
-        PrintTextOnWindowToFit(moveNameWindowId, GetMoveName(move), 0, moveIndex * 16 + 1, 0, 1);
+        PrintTextOnWindow_SmallNarrow(moveNameWindowId, GetMoveName(move), 0, moveIndex * 16 + 1, 0, 1);
         ConvertIntToDecimalStringN(gStringVar1, summary->pp[moveIndex], STR_CONV_MODE_RIGHT_ALIGN, 2);
         ConvertIntToDecimalStringN(gStringVar2, pp, STR_CONV_MODE_RIGHT_ALIGN, 2);
         DynamicPlaceholderTextUtil_Reset();
@@ -4593,14 +4586,14 @@ static void PrintMoveNameAndPP(u8 moveIndex)
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sMovesPPLayout);
         text = gStringVar4;
         ppState = GetCurrentPpToMaxPpState(summary->pp[moveIndex], pp) + 9;
-        x = GetStringRightAlignXOffset(FONT_NORMAL, text, 44);
+        x = GetStringRightAlignXOffset(FONT_NORMAL, text, 50);
     }
     else
     {
         PrintTextOnWindow(moveNameWindowId, gText_OneDash, 0, moveIndex * 16 + 1, 0, 1);
         text = gText_TwoDashes;
         ppState = 12;
-        x = GetStringCenterAlignXOffset(FONT_NORMAL, text, 44);
+        x = GetStringCenterAlignXOffset(FONT_NORMAL, text, 50);
     }
 
     PrintTextOnWindow(ppValueWindowId, text, x, moveIndex * 16 + 1, 0, ppState);
@@ -4611,7 +4604,7 @@ static void PrintMovePowerAndAccuracy(u16 moveIndex)
     const u8 *text;
     if (moveIndex != MOVE_NONE)
     {
-        FillWindowPixelRect(PSS_LABEL_WINDOW_MOVES_POWER_ACC, PIXEL_FILL(0), 53, 0, 19, 32);
+        FillWindowPixelRect(PSS_LABEL_WINDOW_MOVES_POWER_ACC, PIXEL_FILL(0), 50, 0, 19, 32);
 
         u32 power = GetMovePower(moveIndex);
         if (power < 2)
@@ -4624,7 +4617,7 @@ static void PrintMovePowerAndAccuracy(u16 moveIndex)
             text = gStringVar1;
         }
 
-        PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, text, 53, 1, 0, 0);
+        PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, text, 50, 1, 0, 0);
 
         u32 accuracy = GetMoveAccuracy(moveIndex);
         if (accuracy == 0)
@@ -4637,7 +4630,7 @@ static void PrintMovePowerAndAccuracy(u16 moveIndex)
             text = gStringVar1;
         }
 
-        PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, text, 53, 17, 0, 0);
+        PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, text, 50, 17, 0, 0);
     }
 }
 
@@ -4732,7 +4725,7 @@ static void PrintMoveDetails(u16 move)
             {
                 u8 desc[MAX_MOVE_DESCRIPTION_LENGTH];
                 FormatTextByWidth(desc, MAX_MOVE_DESCRIPTION_WIDTH, FONT_SMALL_NARROW, GetMoveDescription(move), 0);
-                PrintTextOnWindow_SmallNarrow(windowId, desc, 5, 6, 2, 0);
+                PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 7, 2, 0);
             }
             else
             {
@@ -4745,7 +4738,7 @@ static void PrintMoveDetails(u16 move)
             {
                 u8 desc[MAX_MOVE_DESCRIPTION_LENGTH];
                 FormatTextByWidth(desc, MAX_MOVE_DESCRIPTION_WIDTH, FONT_SMALL_NARROW, GetMoveDescription(move), 0);
-                PrintTextOnWindow_SmallNarrow(windowId, desc, 5, 6, 2, 0);
+                PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 7, 2, 0);
             }
             else
             {
@@ -4785,7 +4778,7 @@ static void PrintNewMoveDetailsOrCancelText(void)
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gStringVar1);
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sMovesPPLayout);
-        PrintTextOnWindow(windowId2, gStringVar4, GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, 44), 65, 0, 12);
+        PrintTextOnWindow(windowId2, gStringVar4, GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, 45), 65, 0, 12);
     }
 }
 
@@ -4955,7 +4948,7 @@ static void SetMoveTypeIcons(void)
                 type = CheckDynamicMoveType(mon, summary->moves[i], 0, state); // Bug: in battle, this only shows the dynamic type of battler in position 0
             }
 
-            SetTypeSpritePosAndPal(type, 85, 32 + (i * 16), i + SPRITE_ARR_ID_TYPE);
+            SetTypeSpritePosAndPal(type, 86, 32 + (i * 16), i + SPRITE_ARR_ID_TYPE);
         }
         else
         {
@@ -5219,8 +5212,8 @@ static void CreateItemIconSprite(struct Pokemon *mon)
         sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON] = AddItemIconSprite(5501, 5501, item);
         gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON]].callback = SpriteCallbackDummy;
         gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON]].oam.priority = 1;
-        gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON]].x = 162;
-        gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON]].y = 44;
+        gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON]].x = 172;
+        gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_ITEM_ICON]].y = 40;
     }
 }
 
