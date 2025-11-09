@@ -2629,4 +2629,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .breakable = TRUE,
         },
 
+        [ABILITY_JETSTREAM] =
+        {
+            .name = _("Jetstream"),
+            .description = COMPOUND_STRING("Boosts Special Attack if hit by Wind-Move."),
+            .aiRating = 4,
+            .breakable = TRUE,
+        },
+
     };
