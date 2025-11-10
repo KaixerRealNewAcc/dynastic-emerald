@@ -836,7 +836,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_SLOW_START] =
         {
             .name = _("Slow Start"),
-            .description = COMPOUND_STRING("Takes a while to get going."),
+            .description = COMPOUND_STRING("Cuts Attack and Speed by 25% for 3 turns."),
             .aiRating = -2,
         },
 
@@ -2633,6 +2633,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         {
             .name = _("Jetstream"),
             .description = COMPOUND_STRING("Boosts Special Attack if hit by Wind-Move."),
+            .aiRating = 4,
+            .breakable = TRUE,
+        },
+
+        [ABILITY_FIGHTING_SPIRIT] =
+        {
+            .name = _("Fighting Spirit"),
+            .description = COMPOUND_STRING("Boosts Fighting-Type moves by 20%."),
             .aiRating = 4,
             .breakable = TRUE,
         },

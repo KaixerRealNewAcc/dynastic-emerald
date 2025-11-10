@@ -3274,7 +3274,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_ATK;
         }
     }    
-    else if(HAS_INNATE(battlerDef,  ABILITY_JETSTREAN))
+    else if(HAS_INNATE(battlerDef,  ABILITY_JETSTREAM))
     {
         if (IsWindMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
         {
@@ -3754,7 +3754,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         case ABILITY_SLOW_START:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
             {
-                gDisableStructs[battler].slowStartTimer = gBattleTurnCounter + 5;
+                gDisableStructs[battler].slowStartTimer = gBattleTurnCounter + 3;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SLOWSTART;
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
@@ -4128,7 +4128,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
-        case ABILITY_JETSTREAM;
+        case ABILITY_JETSTREAM:
             if (!gSpecialStatuses[battler].switchInAbilityDone
              && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
              && gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
@@ -8816,6 +8816,10 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         if (IsStrikingMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
+    case ABILITY_FIGHTING_SPIRIT:
+        if (moveType == TYPE_FIGHTING)
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        break;
     case ABILITY_MIGHTY_TUSKS:
         if (IsHornMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
@@ -8922,6 +8926,12 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
     {
         if (IsStrikingMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+    }
+
+    if(HAS_INNATE(battlerAtk, ABILITY_FIGHTING_SPIRIT))
+    {
+        if (moveType == TYPE_FIGHTING)
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
     }
 
     if(HAS_INNATE(battlerAtk, ABILITY_MIGHTY_TUSKS))
@@ -9201,7 +9211,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         break;
     case ABILITY_SLOW_START:
         if (gDisableStructs[battlerAtk].slowStartTimer > gBattleTurnCounter)
-            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
         break;
     case ABILITY_SOLAR_POWER:
         if (IsBattleMoveSpecial(move) && IsBattlerWeatherAffected(battlerAtk, B_WEATHER_SUN))
