@@ -90,8 +90,10 @@ enum {
     BATTLER_INNATE,   
 }; 
 
-#define HAS_ABILITY_OR_INNATE(battler, ability) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
-#define HAS_INNATE(battler, ability)      (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
+#define hasAbilityOrInnate(battler, ability) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
+#define hasAbilityOrInnateAI(battler, ability) ((gAiLogicData->abilities[battler] == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
+#define hasAbilityOrInnateAISwitchIn(battler, ability) ((gAiLogicData->switchinCandidate.battleMon.ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
+#define hasInnate(battler, ability)    (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
 #define SPECIES_INNATE(species, ability) (GetInnateBySpecies(species, ability))
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
@@ -257,6 +259,7 @@ bool32 TryPrimalReversion(u32 battler);
 bool32 IsNeutralizingGasOnField(void);
 bool32 IsMoldBreakerTypeAbility(u32 battler, u32 ability);
 u32 GetBattlerAbilityIgnoreMoldBreaker(u32 battler);
+u32 GetBattlerInnateIgnoreMoldBreaker(u32 battler, u32 ability);
 u32 GetBattlerAbilityNoAbilityShield(u32 battler);
 u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityShield);
 u32 GetBattlerAbility(u32 battler);
@@ -403,6 +406,7 @@ bool32 HasWeatherEffect(void);
 u32 RestoreWhiteHerbStats(u32 battler);
 bool32 IsFutureSightAttackerInParty(u32 battlerAtk, u32 battlerDef, u32 move);
 bool32 HadMoreThanHalfHpNowDoesnt(u32 battler);
+bool32 HadMoreThanThirdHpNowDoesnt(u32 battler);
 void UpdateStallMons(void);
 bool32 TryRestoreHPBerries(u32 battler, enum ItemCaseId caseId);
 bool32 TrySwitchInEjectPack(enum ItemCaseId caseID);

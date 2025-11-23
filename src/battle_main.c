@@ -3489,6 +3489,7 @@ static void DoBattleIntro(void)
                 gBattleMons[battler].types[1] = GetSpeciesType(gBattleMons[battler].species, 1);
                 gBattleMons[battler].types[2] = TYPE_MYSTERY;
                 gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+                gBattleMons[battler].innateAbility = GetInnateBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
                 gBattleStruct->hpOnSwitchout[GetBattlerSide(battler)] = gBattleMons[battler].hp;
                 memset(&gBattleMons[battler].volatiles, 0, sizeof(struct Volatiles));
                 for (i = 0; i < NUM_BATTLE_STATS; i++)
@@ -4737,13 +4738,13 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
     // weather abilities
     if (HasWeatherEffect())
     {
-        if (ability == ABILITY_SWIFT_SWIM       && !HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
+        if (ability == ABILITY_SWIFT_SWIM       && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
             speed *= 2;
-        else if (ability == ABILITY_CHLOROPHYLL && !HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+        else if (ability == ABILITY_CHLOROPHYLL && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
             speed *= 2;
-        else if (ability == ABILITY_SAND_RUSH   && !HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL) && gBattleWeather & B_WEATHER_SANDSTORM)
+        else if (ability == ABILITY_SAND_RUSH   && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && gBattleWeather & B_WEATHER_SANDSTORM)
             speed *= 2;
-        else if (ability == ABILITY_SLUSH_RUSH  && !HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL) && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+        else if (ability == ABILITY_SLUSH_RUSH  && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
             speed *= 2;
     }
 
@@ -4826,7 +4827,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
     if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return GetMovePriority(MOVE_MAX_GUARD);
 
-    if (HAS_ABILITY_OR_INNATE(battler, ABILITY_GALE_WINGS)
+    if (hasAbilityOrInnate(battler, ABILITY_GALE_WINGS)
         && (GetGenConfig(GEN_CONFIG_GALE_WINGS) < GEN_7 || IsBattlerAtMaxHp(battler))
         && GetMoveType(move) == TYPE_FLYING)
     {
@@ -4841,7 +4842,7 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
     {
         priority++;
     }
-    else if (HAS_ABILITY_OR_INNATE(battler, ABILITY_TRIAGE) && IsHealingMove(move))
+    else if (hasAbilityOrInnate(battler, ABILITY_TRIAGE) && IsHealingMove(move))
         priority += 3;
 
     if (gProtectStructs[battler].quash)
@@ -6039,11 +6040,11 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
     {
         return TYPE_WATER;
     }
-    else  if (IsSoundMove(move) && HAS_ABILITY_OR_INNATE(battler, ABILITY_SAND_SONG))
+    else  if (IsSoundMove(move) && hasAbilityOrInnate(battler, ABILITY_SAND_SONG))
     {
         return TYPE_GROUND;
     }
-    else if (GetMoveType(move) == TYPE_NORMAL && HAS_ABILITY_OR_INNATE(battler, ABILITY_ELECTRIFIED_VEINS))
+    else if (GetMoveType(move) == TYPE_NORMAL && hasAbilityOrInnate(battler, ABILITY_ELECTRIFIED_VEINS))
     {
         return TYPE_ELECTRIC;
     }

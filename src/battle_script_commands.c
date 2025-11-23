@@ -1120,7 +1120,7 @@ static void Cmd_attackcanceler(void)
         return;
 
     if ((gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_OFF)
-     && (HAS_ABILITY_OR_INNATE(gBattlerAttacker, ABILITY_PARENTAL_BOND) || HAS_ABILITY_OR_INNATE(gBattlerAttacker, ABILITY_HYPER_AGGRESIVE))
+     && (hasAbilityOrInnate(gBattlerAttacker, ABILITY_PARENTAL_BOND) || hasAbilityOrInnate(gBattlerAttacker, ABILITY_HYPER_AGGRESIVE))
      && IsMoveAffectedByParentalBond(gCurrentMove, gBattlerAttacker)
      && !(gAbsentBattlerFlags & (1u << gBattlerTarget))
      && GetActiveGimmick(gBattlerAttacker) != GIMMICK_Z_MOVE)
@@ -1644,8 +1644,8 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
             critChance = ARRAY_COUNT(sCriticalHitOdds) - 1;
     }
 
-    if (critChance != CRITICAL_HIT_BLOCKED && (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_BATTLE_ARMOR) || 
-                                               HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_SHELL_ARMOR)))
+    if (critChance != CRITICAL_HIT_BLOCKED && (hasAbilityOrInnate(battlerDef, ABILITY_BATTLE_ARMOR) || 
+                                               hasAbilityOrInnate(battlerDef, ABILITY_SHELL_ARMOR)))
     {
         // Record ability only if move had 100% chance to get a crit
         if (recordAbility)
@@ -1935,7 +1935,7 @@ static void Cmd_adjustdamage(void)
             gLastUsedItem = gBattleMons[battlerDef].item;
             gBattleStruct->moveResultFlags[battlerDef] |= MOVE_RESULT_FOE_HUNG_ON;
         }
-        else if (HAS_ABILITY_OR_INNATE(gBattlerTarget, ABILITY_STURDY) && IsBattlerAtMaxHp(battlerDef))
+        else if (hasAbilityOrInnate(gBattlerTarget, ABILITY_STURDY) && IsBattlerAtMaxHp(battlerDef))
         {
             enduredHit |= 1u << battlerDef;
             RecordAbilityBattle(battlerDef, ABILITY_STURDY);
@@ -2017,13 +2017,13 @@ static void Cmd_multihitresultmessage(void)
 static inline bool32 DoesBattlerNegateDamage(u32 battler)
 {
     u32 species = gBattleMons[battler].species;
-    u32 ability = GetBattlerAbility(battler);
+    //u32 ability = GetBattlerAbility(battler);
 
     if (gBattleMons[battler].volatiles.transformed)
         return FALSE;
-    if (ability == ABILITY_DISGUISE && species == SPECIES_MIMIKYU)
+    if (hasAbilityOrInnate(battler, ABILITY_DISGUISE) && species == SPECIES_MIMIKYU)
         return TRUE;
-    if (ability == ABILITY_ICE_FACE && species == SPECIES_EISCUE && GetBattleMoveCategory(gCurrentMove) == DAMAGE_CATEGORY_PHYSICAL)
+    if (hasAbilityOrInnate(battler, ABILITY_ICE_FACE) && species == SPECIES_EISCUE && GetBattleMoveCategory(gCurrentMove) == DAMAGE_CATEGORY_PHYSICAL)
         return TRUE;
 
     return FALSE;
@@ -3349,9 +3349,9 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
         if (gBattleStruct->moveDamage[gEffectBattler] == 0)
             gBattleStruct->moveDamage[gEffectBattler] = 1;
-        if (HAS_ABILITY_OR_INNATE(gEffectBattler, ABILITY_PARENTAL_BOND))
+        if (hasAbilityOrInnate(gEffectBattler, ABILITY_PARENTAL_BOND))
             gBattleStruct->moveDamage[gEffectBattler] *= 2;
-        if (HAS_ABILITY_OR_INNATE(gEffectBattler, ABILITY_HYPER_AGGRESIVE))
+        if (hasAbilityOrInnate(gEffectBattler, ABILITY_HYPER_AGGRESIVE))
             gBattleStruct->moveDamage[gEffectBattler] *= 2;
 
 
@@ -5702,7 +5702,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
             gBattleMons[gBattlerTarget].item = 0;
             if (gBattleMons[gBattlerTarget].ability != ABILITY_GORILLA_TACTICS)
                 gBattleStruct->choicedMove[gBattlerTarget] = 0;
-            if (HAS_ABILITY_OR_INNATE(gBattlerTarget, ABILITY_FELINE_PROWESS))
+            if (hasAbilityOrInnate(gBattlerTarget, ABILITY_FELINE_PROWESS))
                 gBattleStruct->choicedMove[gBattlerTarget] = 0;
             CheckSetUnburden(gBattlerTarget);
 
@@ -7117,6 +7117,7 @@ static void Cmd_switchindataupdate(void)
     gBattleMons[battler].types[1] = GetSpeciesType(gBattleMons[battler].species, 1);
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
     gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+    gBattleMons[battler].innateAbility = GetInnateBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
     #if TESTING
     if (gTestRunnerEnabled)
     {
@@ -10912,7 +10913,7 @@ static void Cmd_tryKO(void)
             endured = AFFECTION_ENDURED;
     }
 
-    if (HAS_ABILITY_OR_INNATE(gBattlerTarget, ABILITY_STURDY))
+    if (hasAbilityOrInnate(gBattlerTarget, ABILITY_STURDY))
     {
         gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STURDY;
@@ -13534,7 +13535,7 @@ bool32 DoesDisguiseBlockMove(u32 battler, u32 move)
         || gBattleMons[battler].volatiles.transformed
         || (!gProtectStructs[battler].confusionSelfDmg && (IsBattleMoveStatus(move) || gHitMarker & HITMARKER_PASSIVE_HP_UPDATE))
         || gHitMarker & HITMARKER_IGNORE_DISGUISE
-        || !IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_DISGUISE))
+        || hasAbilityOrInnate(battler, ABILITY_DISGUISE)) //!IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_DISGUISE))
         return FALSE;
     else
         return TRUE;
@@ -13734,6 +13735,8 @@ static void Cmd_handleballthrow(void)
         gBallToDisplay = gLastThrownBall = gLastUsedItem;
         if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
             catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
+        else if (FlagGet(EZCATCH_CODE))
+            catchRate = 255;
         else
             catchRate = gSpeciesInfo[gBattleMons[gBattlerTarget].species].catchRate;
 
@@ -13967,7 +13970,7 @@ static void Cmd_handleballthrow(void)
                 maxShakes = BALL_3_SHAKES_SUCCESS;
             }
 
-            if (ballId == BALL_MASTER)
+            if (ballId == BALL_MASTER || FlagGet(EZCATCH_CODE))
             {
                 shakes = maxShakes;
             }
@@ -15548,7 +15551,7 @@ void BS_TryHealPulse(void)
     }
     else
     {
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MEGA_LAUNCHER && IsPulseMove(gCurrentMove))
+        if (hasAbilityOrInnate(gBattlerAttacker, ABILITY_MEGA_LAUNCHER) && IsPulseMove(gCurrentMove))
             gBattleStruct->moveDamage[gBattlerTarget] = -(GetNonDynamaxMaxHP(gBattlerTarget) * 75 / 100);
         else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && GetMoveEffectArg_MoveProperty(gCurrentMove) == MOVE_EFFECT_FLORAL_HEALING)
             gBattleStruct->moveDamage[gBattlerTarget] = -(GetNonDynamaxMaxHP(gBattlerTarget) * 2 / 3);
@@ -16029,7 +16032,7 @@ void BS_TryWindRiderPower(void)
     u32 battler = GetBattlerForBattleScript(cmd->battler);
     u16 ability = GetBattlerAbility(battler);
     if (IsBattlerAlly(battler, gBattlerAttacker)
-        && (HAS_ABILITY_OR_INNATE(battler, ABILITY_WIND_RIDER) || HAS_ABILITY_OR_INNATE(battler, ABILITY_WIND_POWER) || HAS_ABILITY_OR_INNATE(battler, ABILITY_JETSTREAM)))
+        && (hasAbilityOrInnate(battler, ABILITY_WIND_RIDER) || hasAbilityOrInnate(battler, ABILITY_WIND_POWER) || hasAbilityOrInnate(battler, ABILITY_JETSTREAM)))
     {
         gLastUsedAbility = ability;
         RecordAbilityBattle(battler, gLastUsedAbility);

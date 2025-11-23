@@ -1196,11 +1196,11 @@ void PrepareStringBattle(enum StringID stringId, u32 battler)
     {
         gBattlerAbility = gBattlerTarget;
         BattleScriptCall(BattleScript_AbilityRaisesDefenderStat);
-        if (HAS_ABILITY_OR_INNATE(battler, ABILITY_DEFIANT))
+        if (hasAbilityOrInnate(battler, ABILITY_DEFIANT))
             SET_STATCHANGER(STAT_ATK, 2, FALSE);
-        else if (HAS_ABILITY_OR_INNATE(battler,  ABILITY_COMPETITIVE))
+        else if (hasAbilityOrInnate(battler,  ABILITY_COMPETITIVE))
             SET_STATCHANGER(STAT_SPATK, 2, FALSE);
-        else if (HAS_ABILITY_OR_INNATE(battler,  ABILITY_RUN_AWAY))
+        else if (hasAbilityOrInnate(battler,  ABILITY_RUN_AWAY))
             SET_STATCHANGER(STAT_SPEED, 1, FALSE);
     }
     else if (B_UPDATED_INTIMIDATE >= GEN_8 && stringId == STRINGID_PKMNCUTSATTACKWITH && targetAbility == ABILITY_RATTLED
@@ -1548,7 +1548,7 @@ u32 TrySetCantSelectMoveBattleScript(u32 battler)
         }
     }
 
-    if (DYNAMAX_BYPASS_CHECK && (HAS_ABILITY_OR_INNATE(battler, ABILITY_FELINE_PROWESS)) && *choicedMove != MOVE_NONE
+    if (DYNAMAX_BYPASS_CHECK && (hasAbilityOrInnate(battler, ABILITY_FELINE_PROWESS)) && *choicedMove != MOVE_NONE
               && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
     {
         gCurrentMove = *choicedMove;
@@ -1659,7 +1659,7 @@ u32 CheckMoveLimitations(u32 battler, u8 unusableMoves, u16 check)
         else if (check & MOVE_LIMITATION_CHOICE_ITEM && GetBattlerAbility(battler) == ABILITY_GORILLA_TACTICS && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
             unusableMoves |= 1u << i;
         // Feline Prowess
-        else if (check & MOVE_LIMITATION_CHOICE_ITEM && HAS_ABILITY_OR_INNATE(battler, ABILITY_FELINE_PROWESS) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
+        else if (check & MOVE_LIMITATION_CHOICE_ITEM && hasAbilityOrInnate(battler, ABILITY_FELINE_PROWESS) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
             unusableMoves |= 1u << i;
         // Can't Use Twice flag
         else if (check & MOVE_LIMITATION_CANT_USE_TWICE && MoveCantBeUsedTwice(move) && move == gLastResultingMoves[battler])
@@ -2340,7 +2340,7 @@ static enum MoveCanceller CancellerChoiceLock(void)
 
     if (gChosenMove != MOVE_STRUGGLE
      && (*choicedMoveAtk == MOVE_NONE || *choicedMoveAtk == MOVE_UNAVAILABLE)
-     && (IsHoldEffectChoice(holdEffect) || GetBattlerAbility(gBattlerAttacker) == ABILITY_GORILLA_TACTICS || HAS_ABILITY_OR_INNATE(gBattlerAttacker, ABILITY_FELINE_PROWESS)))
+     && (IsHoldEffectChoice(holdEffect) || GetBattlerAbility(gBattlerAttacker) == ABILITY_GORILLA_TACTICS || hasAbilityOrInnate(gBattlerAttacker, ABILITY_FELINE_PROWESS)))
         *choicedMoveAtk = gChosenMove;
 
     u32 moveIndex;
@@ -2977,6 +2977,14 @@ bool32 HadMoreThanHalfHpNowDoesnt(u32 battler)
         && gBattleMons[battler].hp <= cutoff;
 }
 
+bool32 HadMoreThanThirdHpNowDoesnt(u32 battler)
+{
+    u32 cutoff = gBattleMons[battler].maxHP / 3;
+    // Had more than half of hp before, now has less
+    return gBattleStruct->hpBefore[battler] > cutoff
+        && gBattleMons[battler].hp <= cutoff;
+}
+
 #define ANIM_STAT_HP      0
 #define ANIM_STAT_ATK     1
 #define ANIM_STAT_DEF     2
@@ -3209,23 +3217,25 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
         break;
     }
 
-    if(HAS_INNATE(battlerDef, ABILITY_VOLT_ABSORB))
+    if(hasInnate(battlerDef, ABILITY_VOLT_ABSORB))
     {
-        if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+        /*if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
+            effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;*/
+        if (moveType == TYPE_NORMAL && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
             effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
     }
-    else if((HAS_INNATE(battlerDef, ABILITY_WATER_ABSORB)) || 
-           (HAS_INNATE(battlerDef, ABILITY_DRY_SKIN)))
+    if((hasInnate(battlerDef, ABILITY_WATER_ABSORB)) || 
+        (hasInnate(battlerDef, ABILITY_DRY_SKIN)))
     {
         if (moveType == TYPE_WATER && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
             effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_EARTH_EATER))
+    if(hasInnate(battlerDef, ABILITY_EARTH_EATER))
     {
         if (moveType == TYPE_GROUND && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
             effect = MOVE_ABSORBED_BY_DRAIN_HP_ABILITY;
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_MOTOR_DRIVE))
+    if(hasInnate(battlerDef, ABILITY_MOTOR_DRIVE))
     {
         if (moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
         {
@@ -3233,7 +3243,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_SPEED;
         }
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_LIGHTNING_ROD))
+    if(hasInnate(battlerDef, ABILITY_LIGHTNING_ROD))
     {
         if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_ELECTRIC && GetBattlerMoveTargetType(battlerAtk, move) != MOVE_TARGET_ALL_BATTLERS)
         {
@@ -3241,7 +3251,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_SPATK;
         }
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_STORM_DRAIN))
+    if(hasInnate(battlerDef, ABILITY_STORM_DRAIN))
     {
         if (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && moveType == TYPE_WATER)
         {
@@ -3249,7 +3259,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_SPATK;
         }
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_SAP_SIPPER))
+    if(hasInnate(battlerDef, ABILITY_SAP_SIPPER))
     {
         if (moveType == TYPE_GRASS)
         {
@@ -3257,7 +3267,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_ATK;
         }
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_WELL_BAKED_BODY))
+    if(hasInnate(battlerDef, ABILITY_WELL_BAKED_BODY))
     {
         if (moveType == TYPE_FIRE)
         {
@@ -3266,7 +3276,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_DEF;
         }
     }
-    else if(HAS_INNATE(battlerDef,  ABILITY_WIND_RIDER))
+    if(hasInnate(battlerDef,  ABILITY_WIND_RIDER))
     {
         if (IsWindMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
         {
@@ -3274,7 +3284,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_ATK;
         }
     }    
-    else if(HAS_INNATE(battlerDef,  ABILITY_JETSTREAM))
+    if(hasInnate(battlerDef,  ABILITY_JETSTREAM))
     {
         if (IsWindMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
         {
@@ -3282,7 +3292,7 @@ bool32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 
             statId = STAT_SPATK;
         }
     }
-    else if(HAS_INNATE(battlerDef, ABILITY_FLASH_FIRE))
+    if(hasInnate(battlerDef, ABILITY_FLASH_FIRE))
     {
         if (moveType == TYPE_FIRE && (B_FLASH_FIRE_FROZEN >= GEN_5 || !(gBattleMons[battlerDef].status1 & STATUS1_FREEZE)))
             effect = MOVE_ABSORBED_BY_BOOST_FLASH_FIRE;
@@ -4332,7 +4342,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         if(abilityEffect && caseID == ABILITYEFFECT_ON_SWITCHIN)
         {
             //Weathers.
-            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_GRAVITATIONAL_PULL))
+            if(hasAbilityOrInnate(battler, ABILITY_GRAVITATIONAL_PULL))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4343,7 +4353,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_TWISTED_DIMENSION))
+            if(hasAbilityOrInnate(battler, ABILITY_TWISTED_DIMENSION))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4355,7 +4365,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
 
             //Eletrified Veins.
-            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_ELECTRIFIED_VEINS))
+            if(hasAbilityOrInnate(battler, ABILITY_ELECTRIFIED_VEINS))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4370,7 +4380,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
 
             //Normal Abilities.
-            if(HAS_INNATE(battler, ABILITY_INTIMIDATE))
+            if(hasInnate(battler, ABILITY_INTIMIDATE))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4383,7 +4393,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_MEAN_GLARE))
+            if(hasAbilityOrInnate(battler, ABILITY_MEAN_GLARE))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4396,7 +4406,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }   
             }
 
-            if(HAS_INNATE(battler,  ABILITY_PRESSURE))
+            if(hasInnate(battler,  ABILITY_PRESSURE))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4408,7 +4418,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler,  ABILITY_DARK_AURA))
+            if(hasInnate(battler,  ABILITY_DARK_AURA))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4420,7 +4430,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler,  ABILITY_FAIRY_AURA))
+            if(hasInnate(battler,  ABILITY_FAIRY_AURA))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4432,7 +4442,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler,  ABILITY_AURA_BREAK))
+            if(hasInnate(battler,  ABILITY_AURA_BREAK))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4444,7 +4454,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler,  ABILITY_COMATOSE))
+            if(hasInnate(battler,  ABILITY_COMATOSE))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4456,7 +4466,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler, ABILITY_SUPERSWEET_SYRUP))
+            if(hasInnate(battler, ABILITY_SUPERSWEET_SYRUP))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone
                 && !gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].supersweetSyrup)
@@ -4470,15 +4480,15 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if((HAS_INNATE(battler, ABILITY_CLOUD_NINE)) || 
-               (HAS_INNATE(battler, ABILITY_AIR_LOCK))   ||
-               (HAS_INNATE(battler, ABILITY_WEATHER_CONTROL)))
+            if((hasInnate(battler, ABILITY_CLOUD_NINE)) || 
+               (hasInnate(battler, ABILITY_AIR_LOCK))   ||
+               (hasInnate(battler, ABILITY_WEATHER_CONTROL)))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
-                    if(HAS_INNATE(battler, ABILITY_CLOUD_NINE))
+                    if(hasInnate(battler, ABILITY_CLOUD_NINE))
                         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_CLOUD_NINE;
-                    else if(HAS_INNATE(battler, ABILITY_WEATHER_CONTROL))
+                    else if(hasInnate(battler, ABILITY_WEATHER_CONTROL))
                         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_WEATHER_CONTROL;
                     else
                         gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_AIR_LOCK;
@@ -4488,7 +4498,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler, ABILITY_WIND_RIDER))
+            if(hasInnate(battler, ABILITY_WIND_RIDER))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone
                 && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN)
@@ -4503,7 +4513,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler, ABILITY_JETSTREAM))
+            if(hasInnate(battler, ABILITY_JETSTREAM))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone
                 && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
@@ -4518,7 +4528,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_INNATE(battler, ABILITY_MOLD_BREAKER))
+            if(hasInnate(battler, ABILITY_MOLD_BREAKER))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4529,7 +4539,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     effect++;
                 }
             }
-            if(HAS_INNATE(battler, ABILITY_TERAVOLT))
+            if(hasInnate(battler, ABILITY_TERAVOLT))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4540,7 +4550,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     effect++;
                 }
             }
-            if(HAS_INNATE(battler, ABILITY_TURBOBLAZE))
+            if(hasInnate(battler, ABILITY_TURBOBLAZE))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -4597,7 +4607,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
                 break;
             case ABILITY_DRY_SKIN:
-                if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
+                if (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL))
                     goto SOLAR_POWER_HP_DROP;
             // Dry Skin works similarly to Rain Dish in Rain
             case ABILITY_RAIN_DISH:
@@ -5311,6 +5321,42 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
+        case ABILITY_LOOSE_ROCKS:
+            if (!gBattleStruct->isSkyBattle
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+             && IsBattlerTurnDamaged(gBattlerTarget)
+             && !IsHazardOnSide(GetBattlerSide(gEffectBattler), HAZARDS_STEALTH_ROCK))
+            {
+                SWAP(gBattlerAttacker, gBattlerTarget, i);
+                BattleScriptCall(BattleScript_LooseRocksActivates);
+                effect++;
+            }
+            break;
+        case ABILITY_WEB_SPINNER:
+            if (!gBattleStruct->isSkyBattle
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && IsBattlerAlive(gBattlerTarget)
+             && HadMoreThanThirdHpNowDoesnt(gBattlerTarget)
+             && !IsHazardOnSide(GetBattlerSide(gEffectBattler), HAZARDS_STICKY_WEB))
+            { 
+                SWAP(gBattlerAttacker, gBattlerTarget, i);
+                BattleScriptCall(BattleScript_WebSpinnerActivates);
+                effect++;
+            }
+            break;
+        case ABILITY_LOOSE_QUILLS:
+            if (!gBattleStruct->isSkyBattle
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move) 
+             && IsBattlerTurnDamaged(gBattlerTarget)
+             && (gSideTimers[GetBattlerSide(gBattlerAttacker)].spikesAmount != 2))
+            {
+                SWAP(gBattlerAttacker, gBattlerTarget, i);
+                BattleScriptCall(BattleScript_LooseQuillsActivates);
+                effect++;
+            }
+            break;
         }
         break;
     case ABILITYEFFECT_MOVE_END_ATTACKER: // Same as above, but for attacker
@@ -5389,7 +5435,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
 
         if(abilityEffect && caseID == ABILITYEFFECT_MOVE_END_ATTACKER)
         {
-            if(HAS_INNATE(battler, ABILITY_ILLUSION))
+            if(hasInnate(battler, ABILITY_ILLUSION))
             {
                 if (gBattleStruct->illusion[gBattlerTarget].state == ILLUSION_ON && IsBattlerTurnDamaged(gBattlerTarget))
                 {
@@ -5401,7 +5447,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }   
 
-            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_FLAMING_JAWS))
+            if(hasAbilityOrInnate(battler, ABILITY_FLAMING_JAWS))
             {
                 if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
                 && IsBattlerAlive(gBattlerAttacker)
@@ -5419,7 +5465,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
 
-            if(HAS_ABILITY_OR_INNATE(battler, ABILITY_PURE_LOVE))
+            if(hasAbilityOrInnate(battler, ABILITY_PURE_LOVE))
             {
                 if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
                 && IsBattlerAlive(gBattlerAttacker)
@@ -5859,6 +5905,11 @@ bool32 BattlerHasInnate(u32 battler, u32 ability)
     return BattlerHasInnateInternal(battler, ability, FALSE, FALSE);
 }
 
+u32 GetBattlerInnateIgnoreMoldBreaker(u32 battler, u32 ability)
+{
+    return BattlerHasInnateInternal(battler, ability, TRUE, FALSE);
+}
+
 bool32 BattlerHasInnateInternal(u32 battler, u32 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield)
 {
     bool32 hasAbilityShield = GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
@@ -5949,13 +6000,13 @@ u32 IsAbilityPreventingEscape(u32 battler)
 
         // u32 ability = GetBattlerAbility(battlerDef);
 
-        if (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_SHADOW_TAG) && (B_SHADOW_TAG_ESCAPE <= GEN_3 || GetBattlerAbility(battler) != ABILITY_SHADOW_TAG))
+        if (hasAbilityOrInnate(battlerDef, ABILITY_SHADOW_TAG) && (B_SHADOW_TAG_ESCAPE <= GEN_3 || GetBattlerAbility(battler) != ABILITY_SHADOW_TAG))
             return battlerDef + 1;
 
-        if (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_ARENA_TRAP) && IsBattlerGrounded(battler))
+        if (hasAbilityOrInnate(battlerDef, ABILITY_ARENA_TRAP) && IsBattlerGrounded(battler))
             return battlerDef + 1;
 
-        if (HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(battler, TYPE_STEEL))
+        if (hasAbilityOrInnate(battlerDef, ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(battler, TYPE_STEEL))
             return battlerDef + 1;
     }
 
@@ -8190,7 +8241,7 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum InverseBattleCheck
         return FALSE;
     if (holdEffect == HOLD_EFFECT_AIR_BALLOON)
         return FALSE;
-    if (gAiLogicData->aiCalcInProgress ? gAiLogicData->abilities[battler] == ABILITY_LEVITATE : IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_LEVITATE))
+    if (gAiLogicData->aiCalcInProgress ? hasAbilityOrInnateAI(battler, ABILITY_LEVITATE) : hasAbilityOrInnate(battler, ABILITY_LEVITATE))
         return FALSE;
     if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && (!(checkInverse == INVERSE_BATTLE) || !FlagGet(B_FLAG_INVERSE_BATTLE)))
         return FALSE;
@@ -8916,49 +8967,67 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         break;
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_IRON_FIST))
+    if(hasInnate(battlerAtk, ABILITY_IRON_FIST))
     {
         if (IsPunchingMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_STRIKER))
+    if(hasInnate(battlerAtk, ABILITY_STRIKER))
     {
         if (IsStrikingMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_FIGHTING_SPIRIT))
+    if(hasInnate(battlerAtk, ABILITY_FIGHTING_SPIRIT))
     {
         if (moveType == TYPE_FIGHTING)
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_MIGHTY_TUSKS))
+    if(hasInnate(battlerAtk, ABILITY_MIGHTY_TUSKS))
     {
         if (IsHornMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_FIELD_EXPLORER))
+    if(hasInnate(battlerAtk, ABILITY_FIELD_EXPLORER))
     {
         if (IsFieldMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
     }
 
-    if(HAS_INNATE(battlerAtk,  ABILITY_ERUPTIVE_BACK))
+    if(hasInnate(battlerAtk,  ABILITY_ERUPTIVE_BACK))
     {
         if (IsEruptiveMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_SHARPNESS))
+    if(hasInnate(battlerAtk,  ABILITY_SHEER_FORCE))
+    {
+        if (MoveIsAffectedBySheerForce(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+    }
+
+    if(hasInnate(battlerAtk, ABILITY_SHARPNESS))
     {
         if (IsSlicingMove(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
     }
+
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_HYPER_CUTTER))
+    {
+        if (IsSlicingMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+    }
+
+    if(hasInnate(battlerAtk, ABILITY_MEGA_LAUNCHER))
+    {
+        if (IsPulseMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+    }
     
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_LIQUID_VOICE))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_LIQUID_VOICE))
     {
         if(moveType == TYPE_WATER)
         {
@@ -8967,7 +9036,7 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         }
     }
 
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_SAND_SONG))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_SAND_SONG))
     {
         if(moveType == TYPE_GROUND)
         {
@@ -8976,7 +9045,7 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         }
     }
 
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FREEZING_MELODY))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_FREEZING_MELODY))
     {
         if(moveType == TYPE_ICE)
         {
@@ -8985,7 +9054,7 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         }
     }
 
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FOSSILIZED))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_FOSSILIZED))
     {
         if (moveType == TYPE_ROCK)
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
@@ -9370,18 +9439,18 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         break;
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_HUGE_POWER))
+    if(hasInnate(battlerAtk, ABILITY_HUGE_POWER))
     {
         if (IsBattleMovePhysical(move))
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
     }
-    if(HAS_INNATE(battlerAtk, ABILITY_FELINE_PROWESS))
+    if(hasInnate(battlerAtk, ABILITY_FELINE_PROWESS))
     {
         if (IsBattleMoveSpecial(move))
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
     }
 
-    if(HAS_INNATE(battlerAtk, ABILITY_TORRENT))
+    if(hasInnate(battlerAtk, ABILITY_TORRENT))
     {
         if(moveType == TYPE_WATER)
         {
@@ -9391,7 +9460,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
-    if(HAS_INNATE(battlerAtk, ABILITY_BLAZE))
+    if(hasInnate(battlerAtk, ABILITY_BLAZE))
     {
         if(moveType == TYPE_FIRE)
         {
@@ -9401,7 +9470,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
-    if(HAS_INNATE(battlerAtk, ABILITY_OVERGROW))
+    if(hasInnate(battlerAtk, ABILITY_OVERGROW))
     {
         if(moveType == TYPE_GRASS)
         {
@@ -9411,7 +9480,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
-    if(HAS_INNATE(battlerAtk, ABILITY_SWARM))
+    if(hasInnate(battlerAtk, ABILITY_SWARM))
     {
         if(moveType == TYPE_BUG)
         {
@@ -9421,7 +9490,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
-    if(HAS_INNATE(battlerAtk, ABILITY_FLOCK))
+    if(hasInnate(battlerAtk, ABILITY_FLOCK))
     {
         if(moveType == TYPE_FLYING)
         {
@@ -9431,7 +9500,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
-    if(HAS_INNATE(battlerAtk, ABILITY_PSYCHIC_MIND))
+    if(hasInnate(battlerAtk, ABILITY_PSYCHIC_MIND))
     {
         if(moveType == TYPE_PSYCHIC)
         {
@@ -9442,7 +9511,18 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         }
     }
 
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_NOCTURNAL))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_FULL_BLOWN_MIND_POWER))
+    {
+        if(moveType == TYPE_PSYCHIC)
+        {
+            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+            else
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.4));
+        }
+    }
+
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_NOCTURNAL))
     {
 		if (moveType == TYPE_DARK)
         {
@@ -9450,8 +9530,8 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         }
 	}
 
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_SIGHTING_SYSTEM) 
-    || HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FATAL_PRECISION))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_SIGHTING_SYSTEM) 
+    || hasAbilityOrInnate(battlerAtk, ABILITY_FATAL_PRECISION))
     {
 		if (mod == UQ_4_12(2.0))
         {
@@ -9460,7 +9540,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
 	}
 
     //Mega Starters abilitys
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_TIDAL_WRATH))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_TIDAL_WRATH))
     {
         if(moveType == TYPE_WATER)
         {
@@ -9470,7 +9550,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         }
     }
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_HELLBLAZE))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_HELLBLAZE))
     {
         if(moveType == TYPE_FIRE)
         {
@@ -9480,7 +9560,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         }
     }
-    if(HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FORESTS_RAGE))
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_FORESTS_RAGE))
     {
         if(moveType == TYPE_GRASS)
         {
@@ -9513,8 +9593,8 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         break;
     }
 
-    if(HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_THICK_FAT) ||
-       HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_THICK_SACK))
+    if(hasAbilityOrInnate(battlerDef, ABILITY_THICK_FAT) ||
+       hasAbilityOrInnate(battlerDef, ABILITY_THICK_SACK))
     {
         if (moveType == TYPE_FIRE || moveType == TYPE_ICE)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
@@ -9523,7 +9603,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
     }
 
 
-    if(HAS_ABILITY_OR_INNATE(battlerDef, ABILITY_NOCTURNAL))
+    if(hasAbilityOrInnate(battlerDef, ABILITY_NOCTURNAL))
     {
         if (moveType == TYPE_DARK || moveType == TYPE_FAIRY)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
@@ -9990,20 +10070,71 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
             recordAbility = TRUE;
         }
         break;
-	case ABILITY_FOSSILIZED:
-        if (ctx->moveType == TYPE_ROCK)
-        {
-            modifier =  UQ_4_12(0.75);
-            recordAbility = TRUE;
-        }
-        break;
     }
 
-    if(HAS_ABILITY_OR_INNATE(ctx->battlerDef, ABILITY_FOSSILIZED))
+    if((hasInnate(ctx->battlerDef,  ABILITY_MULTISCALE))
+    || (hasInnate(ctx->battlerDef,  ABILITY_SHADOW_SHIELD)))
+    {
+        if (IsBattlerAtMaxHp(ctx->battlerDef))
+        {
+            modifier = UQ_4_12(0.5);
+            recordAbility = TRUE;
+        }
+    }
+    if(((hasInnate(ctx->battlerDef, ABILITY_FILTER))
+    || (hasInnate(ctx->battlerDef, ABILITY_SOLID_ROCK))
+    || (hasInnate(ctx->battlerDef, ABILITY_PRISM_ARMOR))))
+    {
+        if (ctx->typeEffectivenessModifier >= UQ_4_12(2.0))
+        {
+            modifier = UQ_4_12(0.75);
+            recordAbility = TRUE;
+        }
+    }
+    if(hasInnate(ctx->battlerDef, ABILITY_FLUFFY))
+    {
+        if (ctx->moveType == TYPE_FIRE && !IsMoveMakingContact(ctx->battlerAtk, ctx->battlerDef, ABILITY_NONE, ctx->holdEffectAtk, ctx->move))
+        {
+            modifier = UQ_4_12(2.0);
+            recordAbility = TRUE;
+        }
+        if (ctx->moveType != TYPE_FIRE && IsMoveMakingContact(ctx->battlerAtk, ctx->battlerDef, ABILITY_NONE, ctx->holdEffectAtk, ctx->move))
+        {
+            modifier = UQ_4_12(0.5);
+            recordAbility = TRUE;
+        }
+    }
+    if(hasInnate(ctx->battlerDef, ABILITY_PUNK_ROCK))
+    {
+        if (IsSoundMove(ctx->move))
+        {
+            modifier = UQ_4_12(0.5);
+            recordAbility = TRUE;
+        }
+    }
+    if(hasInnate(ctx->battlerDef, ABILITY_ICE_SCALES))
+    {
+        if (IsBattleMoveSpecial(ctx->move))
+        {
+            modifier =  UQ_4_12(0.5);
+            recordAbility = TRUE;
+        }
+    }
+
+    if(hasAbilityOrInnate(ctx->battlerDef, ABILITY_FOSSILIZED))
     {
         if (ctx->moveType == TYPE_ROCK)
             modifier =  UQ_4_12(0.75);
         recordAbility = TRUE;
+    }
+
+    if(hasAbilityOrInnate(ctx->battlerDef, ABILITY_PRIMAL_ARMOR))
+    {
+        if (ctx->typeEffectivenessModifier >= UQ_4_12(2.0))
+        {
+            modifier = UQ_4_12(0.5);
+            recordAbility = TRUE;
+        }
     }
 
     if (recordAbility && ctx->updateFlags)
@@ -10467,10 +10598,10 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
     else if (ctx->moveType == TYPE_GROUND && !IsBattlerGroundedInverseCheck(ctx->battlerDef, INVERSE_BATTLE, CHECK_IRON_BALL) && !(MoveIgnoresTypeIfFlyingAndUngrounded(ctx->move)))
     {
         modifier = UQ_4_12(0.0);
-        if (ctx->updateFlags && ctx->abilityDef == ABILITY_LEVITATE)
+        if (ctx->updateFlags && hasAbilityOrInnate(ctx->battlerDef, ABILITY_LEVITATE))
         {
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-            gLastUsedAbility = ABILITY_LEVITATE;
+            gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[ctx->battlerDef] = 0;
             gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
@@ -10557,12 +10688,12 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 a
         if (GetSpeciesType(speciesDef, 1) != GetSpeciesType(speciesDef, 0))
             MulByTypeEffectiveness(&ctx, &modifier, GetSpeciesType(speciesDef, 1));
 
-        if (ctx.moveType == TYPE_GROUND && ctx.abilityDef == ABILITY_LEVITATE && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
+        if (ctx.moveType == TYPE_GROUND && hasAbilityOrInnate(ctx.battlerDef, ABILITY_LEVITATE) && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
         if (ctx.abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && GetMovePower(move) != 0)
             modifier = UQ_4_12(0.0);
 
-        if (ctx.moveType == TYPE_ROCK && HAS_ABILITY_OR_INNATE(ctx.abilityDef, ABILITY_MOUNTAINEER))
+        if (ctx.moveType == TYPE_ROCK && hasAbilityOrInnate(ctx.abilityDef, ABILITY_MOUNTAINEER))
             modifier = UQ_4_12(0.0);
     }
 
@@ -11065,7 +11196,7 @@ bool32 TryClearIllusion(u32 battler, u32 caseID)
 {
     if (gBattleStruct->illusion[battler].state != ILLUSION_ON)
         return FALSE;
-    if (HAS_ABILITY_OR_INNATE(battler, ABILITY_ILLUSION) && IsBattlerAlive(battler))
+    if (hasAbilityOrInnate(battler, ABILITY_ILLUSION) && IsBattlerAlive(battler))
         return FALSE;
 
     gBattleScripting.battler = battler;
@@ -11464,7 +11595,7 @@ bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes)
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
     }
-    else if (HAS_ABILITY_OR_INNATE(battler, ABILITY_MOUNTAINEER))
+    else if (hasAbilityOrInnate(battler, ABILITY_MOUNTAINEER))
     {
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
@@ -11623,7 +11754,7 @@ bool32 IsBattlerWeatherAffected(u32 battler, u32 weatherFlags)
         if (gBattleWeather & (B_WEATHER_SUN | B_WEATHER_RAIN) && GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
 
-        if(HAS_ABILITY_OR_INNATE(battler, ABILITY_WEATHER_CONTROL))
+        if(hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL))
             return FALSE;
 
         return TRUE;
@@ -12526,11 +12657,11 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN) && MoveHas50AccuracyInSun(move))
         moveAcc = 50;
     // Check Wonder Skin.
-    if (HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_WONDER_SKIN) && IsBattleMoveStatus(move) && moveAcc > 50)
+    if (hasAbilityOrInnate(battlerAtk, ABILITY_WONDER_SKIN) && IsBattleMoveStatus(move) && moveAcc > 50)
         moveAcc = 50;
-    if ((HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_SIGHTING_SYSTEM) || HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_FATAL_PRECISION)) && moveAcc < 60)
+    if ((hasAbilityOrInnate(battlerAtk, ABILITY_SIGHTING_SYSTEM) || hasAbilityOrInnate(battlerAtk, ABILITY_FATAL_PRECISION)) && moveAcc < 60)
         moveAcc = 100; // Sighting System and Fatal Precision boost super effective move accuracy to 100%
-    if (HAS_ABILITY_OR_INNATE(battlerAtk, ABILITY_MIGHTY_TUSKS) && IsHornMove(move) && moveAcc < 100)
+    if (hasAbilityOrInnate(battlerAtk, ABILITY_MIGHTY_TUSKS) && IsHornMove(move) && moveAcc < 100)
         moveAcc = 100; // Mighty Tusk boosts Horn move accuracy to 100%
 
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;

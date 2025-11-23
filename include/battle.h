@@ -313,6 +313,7 @@ struct SimulatedDamage
 struct AiLogicData
 {
     u16 abilities[MAX_BATTLERS_COUNT];
+    u16 innate[MAX_BATTLERS_COUNT];
     u16 items[MAX_BATTLERS_COUNT];
     u16 holdEffects[MAX_BATTLERS_COUNT];
     u8 holdEffectParams[MAX_BATTLERS_COUNT];

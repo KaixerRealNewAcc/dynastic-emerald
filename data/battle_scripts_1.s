@@ -6004,9 +6004,53 @@ BattleScript_ToxicDebrisActivates::
 	call BattleScript_AbilityPopUp
 	pause B_WAIT_TIME_SHORT
 	settoxicspikes BattleScript_ToxicDebrisRet
+	playmoveanimation MOVE_TOXIC_SPIKES
+	waitanimation
 	printstring STRINGID_POISONSPIKESSCATTERED
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_ToxicDebrisRet:
+	copybyte sBATTLER, gBattlerTarget
+	copybyte gBattlerTarget, gBattlerAttacker
+	copybyte gBattlerAttacker, sBATTLER
+	return
+
+BattleScript_LooseRocksActivates::
+	call BattleScript_AbilityPopUp
+	pause B_WAIT_TIME_SHORT
+	setstealthrock BattleScript_LooseRocksRet
+	playmoveanimation MOVE_STEALTH_ROCK
+	waitanimation
+	printstring STRINGID_LOOSEROCKSSCATTERED
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_LooseRocksRet:
+	copybyte sBATTLER, gBattlerTarget
+	copybyte gBattlerTarget, gBattlerAttacker
+	copybyte gBattlerAttacker, sBATTLER
+	return
+
+BattleScript_WebSpinnerActivates::
+	call BattleScript_AbilityPopUp
+	pause B_WAIT_TIME_SHORT
+	setstickyweb BattleScript_WebSpinnerRet
+	playmoveanimation MOVE_STICKY_WEB
+	waitanimation
+	printstring STRINGID_USERSPUNAWEB
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_WebSpinnerRet:
+	copybyte sBATTLER, gBattlerTarget
+	copybyte gBattlerTarget, gBattlerAttacker
+	copybyte gBattlerAttacker, sBATTLER
+	return
+
+BattleScript_LooseQuillsActivates::
+	call BattleScript_AbilityPopUp
+	pause B_WAIT_TIME_SHORT
+	trysetspikes BattleScript_LooseQuillsRet
+	playmoveanimation MOVE_SPIKES
+	waitanimation
+	printstring STRINGID_LOOSESQUILSSCATTERED
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_LooseQuillsRet:
 	copybyte sBATTLER, gBattlerTarget
 	copybyte gBattlerTarget, gBattlerAttacker
 	copybyte gBattlerAttacker, sBATTLER

@@ -35,6 +35,8 @@
 #include "constants/items.h"
 #include "caps.h"
 
+#include "data/comfy_anims/comfy_anim.h"
+
 #include "battle_setup.h"
 
 enum
@@ -2732,7 +2734,6 @@ static void SpriteCb_AbilityPopUp(struct Sprite *sprite)
             sState = APU_STATE_IDLE;
             break;
 	}
-
         speed = sIsPlayerSide ? ABILITY_POP_UP_POS_X_SPEED : -ABILITY_POP_UP_POS_X_SPEED;
         sprite->x2 += speed;
         break;

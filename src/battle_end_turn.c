@@ -237,7 +237,7 @@ static bool32 HandleEndTurnWeatherDamage(u32 battler)
          && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERWATER
          && GetBattlerHoldEffect(battler, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
          && !(IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD)
-         || !HAS_ABILITY_OR_INNATE(battler, ABILITY_IMPENETRABLE)))
+         || !hasAbilityOrInnate(battler, ABILITY_IMPENETRABLE)))
         {
             gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 16;
             if (gBattleStruct->moveDamage[battler] == 0)
@@ -263,7 +263,7 @@ static bool32 HandleEndTurnWeatherDamage(u32 battler)
              && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERWATER
              && GetBattlerHoldEffect(battler, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
              && !(IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD)
-             || !HAS_ABILITY_OR_INNATE(battler, ABILITY_IMPENETRABLE)))
+             || !hasAbilityOrInnate(battler, ABILITY_IMPENETRABLE)))
             {
                 gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 16;
                 if (gBattleStruct->moveDamage[battler] == 0)
@@ -439,7 +439,7 @@ static bool32 HandleEndTurnFirstEventBlock(u32 battler)
             if ((IsBattlerAlive(battler)
              && !IS_BATTLER_OF_TYPE(battler, gSideTimers[side].damageNonTypesType))
              && !(IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_MAGIC_GUARD)
-             || !HAS_ABILITY_OR_INNATE(battler, ABILITY_IMPENETRABLE)))
+             || !hasAbilityOrInnate(battler, ABILITY_IMPENETRABLE)))
             {
                 gBattlerAttacker = battler;
                 gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 6;
@@ -587,7 +587,7 @@ static bool32 HandleEndTurnLeechSeed(u32 battler)
      && IsBattlerAlive(gBattleMons[battler].volatiles.leechSeed - 1)
      && IsBattlerAlive(battler)
      && !(IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_MAGIC_GUARD)
-    || !HAS_ABILITY_OR_INNATE(battler, ABILITY_IMPENETRABLE)))
+    || !hasAbilityOrInnate(battler, ABILITY_IMPENETRABLE)))
     {
         gBattlerTarget = gBattleMons[battler].volatiles.leechSeed - 1; // leech seed receiver
         gBattleScripting.animArg1 = gBattlerTarget;
@@ -1471,6 +1471,27 @@ static bool32 HandleEndTurnAbilities(u32 battler)
     case ABILITY_SHIELDS_DOWN:
     case ABILITY_ZEN_MODE:
         if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, battler, ability, 0, MOVE_NONE))
+            effect = TRUE;
+    }
+
+    if(hasInnate(battler, ABILITY_POWER_CONSTRUCT))
+    {
+        if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, battler, ABILITY_POWER_CONSTRUCT, 0, MOVE_NONE))
+            effect = TRUE;
+    }
+    if(hasInnate(battler, ABILITY_SCHOOLING))
+    {
+        if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, battler, ABILITY_SCHOOLING, 0, MOVE_NONE))
+            effect = TRUE;
+    }
+    if(hasInnate(battler, ABILITY_SHIELDS_DOWN))
+    {
+        if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, battler, ABILITY_SHIELDS_DOWN, 0, MOVE_NONE))
+            effect = TRUE;
+    }
+    if(hasInnate(battler, ABILITY_ZEN_MODE))
+    {
+        if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, battler, ABILITY_ZEN_MODE, 0, MOVE_NONE))
             effect = TRUE;
     }
 

@@ -111,13 +111,13 @@ void FakeRtc_ManuallySetTime(u32 day, u32 hour, u32 minute, u32 second)
 void FakeRtc_ManuallySetTimeDay(u32 hour, u32 minute, u32 second)
 {
     FakeRtc_Reset();
-    FakeRtc_ForwardTimeTo(10, 0, 0);
+    FakeRtc_ForwardTimeTo(NIGHT_HOUR_END, 0, 0);
 }
 
 void FakeRtc_ManuallySetTimeNight(u32 hour, u32 minute, u32 second)
 {
     FakeRtc_Reset();
-    FakeRtc_ForwardTimeTo(20, 0, 0);
+    FakeRtc_ForwardTimeTo(NIGHT_HOUR_BEGIN, 0, 0);
 }
 
 void FakeRtc_ManuallySetTimeDusk(u32 hour, u32 minute, u32 second)

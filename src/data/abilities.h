@@ -398,7 +398,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_HYPER_CUTTER] =
         {
             .name = _("Hyper Cutter"),
-            .description = COMPOUND_STRING("The user's Attack stat cannot be lowered by other Pokemon."),
+            .description = COMPOUND_STRING("The user's Attack stat cannot be lowered by other Pokemon.\nBoosts Slashing moves by 20%."),
             .aiRating = 3,
             .breakable = TRUE,
         },
@@ -2643,6 +2643,42 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .description = COMPOUND_STRING("Boosts Fighting-Type moves by 20%."),
             .aiRating = 4,
             .breakable = TRUE,
+        },
+
+        [ABILITY_LOOSE_ROCKS] =
+        {
+            .name = _("Loose Rocks"),
+            .description = COMPOUND_STRING("The User scattered Stealth Rocks around the battlefield when hit."),
+            .aiRating = 6,
+        },
+
+        [ABILITY_WEB_SPINNER] =
+        {
+            .name = _("Web Spinner"),
+            .description = COMPOUND_STRING("The User spins a Sticky Web when it feels threatend.\n(At 25% HP or Less)"),
+            .aiRating = 6,
+        },
+
+        [ABILITY_FULL_BLOWN_MIND_POWER] =
+        {
+            .name = _("Full Blown Mind Power"),
+            .description = COMPOUND_STRING("Increases Psychic moves by 80% when the user's HP is under 1/3 HP, otherwise 40%."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_PRIMAL_ARMOR] =
+        {
+            .name = _("Primal Armor"),
+            .description = COMPOUND_STRING("Damage taken by the user from “super effective” attacks are decreased by 50%."),
+            .aiRating = 6,
+            .breakable = TRUE,
+        },
+
+        [ABILITY_LOOSE_QUILLS] =
+        {
+            .name = _("Loose Quills"),
+            .description = COMPOUND_STRING("The User scattered Spikes around the battlefield when hit.\nMax 2 Layers."),
+            .aiRating = 6,
         },
 
     };
