@@ -1853,7 +1853,7 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
     if (gCategoryIconSpriteId == 0xFF)
         gCategoryIconSpriteId = CreateSprite(&gSpriteTemplate_CategoryIcons, 38, 64, 1);
 
-    StartSpriteAnim(&gSprites[gCategoryIconSpriteId], cat);
+    //StartSpriteAnim(&gSprites[gCategoryIconSpriteId], cat_desc);
 
     CopyWindowToVram(B_WIN_MOVE_DESCRIPTION, COPYWIN_FULL);
 }

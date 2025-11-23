@@ -4157,7 +4157,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break;
         case ABILITY_JETSTREAM:
             if (!gSpecialStatuses[battler].switchInAbilityDone
-             && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+             && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility)
              && gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
             {
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
@@ -4511,7 +4511,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             if(hasInnate(battler, ABILITY_WIND_RIDER))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone
-                && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+                && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_WIND_RIDER)
                 && gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
                 {
                     gBattleScripting.savedBattler = gBattlerAttacker;
@@ -4526,7 +4526,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             if(hasInnate(battler, ABILITY_JETSTREAM))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone
-                && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+                && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_JETSTREAM)
                 && gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
                 {
                     gBattleScripting.savedBattler = gBattlerAttacker;
