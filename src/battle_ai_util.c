@@ -28,6 +28,17 @@ static u32 GetAIEffectGroup(enum BattleMoveEffects effect);
 static u32 GetAIEffectGroupFromMove(u32 battler, u32 move);
 
 // Functions
+static u32 AI_GetMoldBreakerSanitizedAbility(u32 battlerAtk, u32 abilityAtk, u32 abilityDef, u32 holdEffectDef, u32 move)
+{
+    if (MoveIgnoresTargetAbility(move))
+        return ABILITY_NONE;
+
+    if (holdEffectDef != HOLD_EFFECT_ABILITY_SHIELD && IsMoldBreakerTypeAbility(battlerAtk, abilityAtk))
+        return ABILITY_NONE;
+
+    return abilityDef;
+}
+
 static bool32 AI_IsDoubleSpreadMove(u32 battlerAtk, u32 move)
 {
     u32 numOfTargets = 0;
@@ -523,7 +534,7 @@ bool32 IsTruantMonVulnerable(u32 battlerAI, u32 opposingBattler)
 bool32 IsAffectedByPowder(u32 battler, u32 ability, enum ItemHoldEffect holdEffect)
 {
     if (hasAbilityOrInnate(battler, ABILITY_OVERCOAT)
-        || (B_POWDER_GRASS >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GRASS))
+        || (GetGenConfig(GEN_CONFIG_POWDER_GRASS) >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GRASS))
         || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
         return FALSE;
     return TRUE;
@@ -887,7 +898,7 @@ struct SimulatedDamage AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u
     gBattleStruct->magnitudeBasePower = 70;
     gBattleStruct->presentBasePower = 80;
 
-    struct DamageContext ctx;
+    struct DamageContext ctx = {0};
     ctx.battlerAtk = battlerAtk;
     ctx.battlerDef = battlerDef;
     ctx.move = move;
@@ -897,10 +908,10 @@ struct SimulatedDamage AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u
     ctx.updateFlags = FALSE;
     ctx.weather = weather;
     ctx.fixedBasePower = SetFixedMoveBasePower(battlerAtk, move);
-    ctx.abilityAtk = aiData->abilities[battlerAtk];
-    ctx.abilityDef = aiData->abilities[battlerDef];
     ctx.holdEffectAtk = aiData->holdEffects[battlerAtk];
     ctx.holdEffectDef = aiData->holdEffects[battlerDef];
+    ctx.abilityAtk = aiData->abilities[battlerAtk];
+    ctx.abilityDef = AI_GetMoldBreakerSanitizedAbility(battlerAtk, ctx.abilityAtk, aiData->abilities[battlerDef], ctx.holdEffectDef, move);
     ctx.typeEffectivenessModifier = CalcTypeEffectivenessMultiplier(&ctx);
 
     u32 movePower = GetMovePower(move);
@@ -1562,7 +1573,8 @@ bool32 CanTargetMoveFaintAi(u32 move, u32 battlerDef, u32 battlerAtk, u32 nHits)
     u32 indexSlot = GetMoveSlot(GetMovesArray(battlerDef), move);
     if (indexSlot < MAX_MON_MOVES)
     {
-        if (GetNoOfHitsToKO(AI_GetDamage(battlerDef, battlerAtk, indexSlot, AI_DEFENDING, gAiLogicData), gBattleMons[battlerAtk].hp) <= nHits)
+        u32 hitsToKO = GetNoOfHitsToKO(AI_GetDamage(battlerDef, battlerAtk, indexSlot, AI_DEFENDING, gAiLogicData), gBattleMons[battlerAtk].hp);
+        if (hitsToKO <= nHits && hitsToKO != 0 && !(CanEndureHit(battlerDef, battlerAtk, move) && hitsToKO == 1))
             return TRUE;
     }
     return FALSE;
@@ -1591,8 +1603,15 @@ bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dm
         if (dmgMod)
             dmg *= dmgMod;
 
-        if (dmg >= hpCheck)
+        // Applies modified HP percent to AI data for consideration when running CanEndureHit
+        gAiLogicData->hpPercents[battlerAtk] = (hpCheck/gBattleMons[battlerAtk].maxHP)*100;
+
+        if (dmg >= hpCheck && !(CanEndureHit(battlerDef, battlerAtk, moves[moveIndex]) && (dmgMod <= 1)))
+        {
+            gAiLogicData->hpPercents[battlerAtk] = (gBattleMons[battlerAtk].hp / gBattleMons[battlerAtk].maxHP) * 100;
             return TRUE;
+        }
+        gAiLogicData->hpPercents[battlerAtk] = (gBattleMons[battlerAtk].hp / gBattleMons[battlerAtk].maxHP) * 100;
     }
 
     return FALSE;
@@ -1663,7 +1682,10 @@ s32 AI_DecideKnownAbilityForTurn(u32 battlerId)
 
 enum ItemHoldEffect AI_DecideHoldEffectForTurn(u32 battlerId)
 {
-    enum ItemHoldEffect holdEffect;
+    enum ItemHoldEffect holdEffect = HOLD_EFFECT_NONE;
+
+    if (gBattleMons[battlerId].item == ITEM_NONE) // Failsafe for when user recorded an item but it was consumed
+        return holdEffect;
 
     if (!IsAiBattlerAware(battlerId))
         holdEffect = gAiPartyData->mons[GetBattlerSide(battlerId)][gBattlerPartyIndexes[battlerId]].heldEffect;
@@ -2784,7 +2806,7 @@ bool32 IsSwitchOutEffect(enum BattleMoveEffects effect)
     switch (effect)
     {
     case EFFECT_TELEPORT:
-        if (B_TELEPORT_BEHAVIOR >= GEN_8)
+        if (GetGenConfig(GEN_CONFIG_TELEPORT_BEHAVIOR) >= GEN_8)
             return TRUE;
     case EFFECT_HIT_ESCAPE:
     case EFFECT_PARTING_SHOT:
@@ -3167,14 +3189,16 @@ enum AIPivot ShouldPivot(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 mov
     u32 battlerToSwitch;
     u32 predictedMoveSpeedCheck = GetIncomingMoveSpeedCheck(battlerAtk, battlerDef, gAiLogicData);
 
-    battlerToSwitch = gBattleStruct->AI_monToSwitchIntoId[battlerAtk];
-
     // Palafin always wants to activate Zero to Hero
     if (gBattleMons[battlerAtk].species == SPECIES_PALAFIN_ZERO
         && gBattleMons[battlerAtk].ability == ABILITY_ZERO_TO_HERO
         && CountUsablePartyMons(battlerAtk) != 0)
         return SHOULD_PIVOT;
 
+    battlerToSwitch = gAiLogicData->mostSuitableMonId[battlerAtk];
+    // This shouldn't ever happen, but it's there to make sure we don't accidentally read past the gParty array.
+    if (battlerToSwitch >= PARTY_SIZE)
+        battlerToSwitch = 0;
     if (PartyBattlerShouldAvoidHazards(battlerAtk, battlerToSwitch))
         return DONT_PIVOT;
 

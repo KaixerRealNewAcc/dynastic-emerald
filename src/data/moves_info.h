@@ -9091,7 +9091,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "A life-risking tackle that\n"
             "slightly hurts the user."),
         #endif
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_RECOIL,
         .power = 120,
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
@@ -17119,6 +17119,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
+        .argument = { .damagePercentage = 50 },
         .metronomeBanned = B_UPDATED_MOVE_FLAGS >= GEN_8,
         .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
         .contestCategory = CONTEST_CATEGORY_CUTE,
@@ -20191,6 +20192,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
+        .argument = { .damagePercentage = 50 },
         .metronomeBanned = TRUE,
         .battleAnimScript = gBattleAnimMove_Ruination,
     },
