@@ -25,6 +25,7 @@
 #include "constants/items.h"
 
 static bool32 DoesAbilityBenefitFromWeather(u32 ability, u32 weather);
+static bool32 DoesInnateBenefitFromWeather(u32 ability, u32 weather, u32 battler);
 static bool32 DoesAbilityBenefitFromFieldStatus(u32 ability, u32 fieldStatus);
 // A move is light sensitive if it is boosted by Sunny Day and weakened by low light weathers.
 static bool32 IsLightSensitiveMove(u32 move);
@@ -164,6 +165,51 @@ static bool32 DoesAbilityBenefitFromWeather(u32 ability, u32 weather)
     return FALSE;
 }
 
+static bool32 DoesInnateBenefitFromWeather(u32 ability, u32 weather, u32 battler)
+{
+    if(hasInnate(battler, ABILITY_FORECAST))
+    {
+        return (weather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_ICY_ANY));
+    }
+    if((hasInnate(battler,  ABILITY_MAGIC_GUARD))
+    || (hasInnate(battler,  ABILITY_OVERCOAT))
+    || (hasInnate(battler,  ABILITY_IMPENETRABLE)))
+    {
+        return (weather & B_WEATHER_DAMAGING_ANY);
+    }
+    if((hasInnate(battler,  ABILITY_SAND_FORCE))
+    || (hasInnate(battler,  ABILITY_SAND_RUSH))
+    || (hasInnate(battler,  ABILITY_SAND_VEIL)))
+    {
+        return (weather & B_WEATHER_SANDSTORM);
+    }
+    if((hasInnate(battler,  ABILITY_ICE_BODY))
+    || (hasInnate(battler,  ABILITY_ICE_FACE))
+    || (hasInnate(battler,  ABILITY_SNOW_CLOAK))
+    || (hasInnate(battler,  ABILITY_SLUSH_RUSH)))
+    {
+        return (weather & B_WEATHER_SNOW);
+    }
+    if((hasInnate(battler,  ABILITY_DRY_SKIN))
+    || (hasInnate(battler,  ABILITY_HYDRATION))
+    || (hasInnate(battler,  ABILITY_RAIN_DISH))
+    || (hasInnate(battler,  ABILITY_SWIFT_SWIM)))
+    {
+        return (weather & B_WEATHER_RAIN);
+    }
+    if((hasInnate(battler,  ABILITY_CHLOROPHYLL))
+    || (hasInnate(battler,  ABILITY_FLOWER_GIFT))
+    || (hasInnate(battler,  ABILITY_HARVEST))
+    || (hasInnate(battler,  ABILITY_LEAF_GUARD))
+    || (hasInnate(battler,  ABILITY_ORICHALCUM_PULSE))
+    || (hasInnate(battler,  ABILITY_PROTOSYNTHESIS))
+    || (hasInnate(battler,  ABILITY_SOLAR_POWER)))
+    {
+        return (weather & B_WEATHER_SUN);
+    }
+    return FALSE;
+}
+
 static bool32 DoesAbilityBenefitFromFieldStatus(u32 ability, u32 fieldStatus)
 {
     switch (ability)
@@ -222,19 +268,20 @@ static enum FieldEffectOutcome BenefitsFromSun(u32 battler)
 
     if (gAiLogicData->holdEffects[battler] == HOLD_EFFECT_UTILITY_UMBRELLA)
     {
-        if (ability == ABILITY_ORICHALCUM_PULSE || ability == ABILITY_PROTOSYNTHESIS)
+        if (hasAbilityOrInnateAI(battler, ABILITY_ORICHALCUM_PULSE) || hasAbilityOrInnateAI(battler, ABILITY_PROTOSYNTHESIS))
             return FIELD_EFFECT_POSITIVE;
         else
             return FIELD_EFFECT_NEUTRAL;
     }
 
     if (DoesAbilityBenefitFromWeather(ability, B_WEATHER_SUN)
+    || DoesInnateBenefitFromWeather(ability, B_WEATHER_SUN, battler)
     || HasLightSensitiveMove(battler)
     || HasDamagingMoveOfType(battler, TYPE_FIRE)
     || HasMoveWithEffect(battler, EFFECT_HYDRO_STEAM))
         return FIELD_EFFECT_POSITIVE;
 
-    if (HasMoveWithFlag(battler, MoveHas50AccuracyInSun) || HasDamagingMoveOfType(battler, TYPE_WATER) || gAiLogicData->abilities[battler] == ABILITY_DRY_SKIN)
+    if (HasMoveWithFlag(battler, MoveHas50AccuracyInSun) || HasDamagingMoveOfType(battler, TYPE_WATER) || hasAbilityOrInnateAI(battler, ABILITY_DRY_SKIN))
         return FIELD_EFFECT_NEGATIVE;
 
     return FIELD_EFFECT_NEUTRAL;
@@ -244,6 +291,7 @@ static enum FieldEffectOutcome BenefitsFromSun(u32 battler)
 static enum FieldEffectOutcome BenefitsFromSandstorm(u32 battler)
 {
     if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], B_WEATHER_SANDSTORM)
+     || DoesInnateBenefitFromWeather(gAiLogicData->abilities[battler], B_WEATHER_SANDSTORM, battler)
      || IS_BATTLER_OF_TYPE(battler, TYPE_ROCK))
         return FIELD_EFFECT_POSITIVE;
 
@@ -251,7 +299,8 @@ static enum FieldEffectOutcome BenefitsFromSandstorm(u32 battler)
     {
         if (!(IS_BATTLER_ANY_TYPE(FOE(battler), TYPE_ROCK, TYPE_GROUND, TYPE_STEEL))
          || gAiLogicData->holdEffects[FOE(battler)] == HOLD_EFFECT_SAFETY_GOGGLES
-         || DoesAbilityBenefitFromWeather(gAiLogicData->abilities[FOE(battler)], B_WEATHER_SANDSTORM))
+         || DoesAbilityBenefitFromWeather(gAiLogicData->abilities[FOE(battler)], B_WEATHER_SANDSTORM)
+         || DoesInnateBenefitFromWeather(gAiLogicData->abilities[FOE(battler)], B_WEATHER_SANDSTORM, FOE(battler)))
             return FIELD_EFFECT_POSITIVE;
         else
             return FIELD_EFFECT_NEUTRAL;
@@ -264,6 +313,7 @@ static enum FieldEffectOutcome BenefitsFromSandstorm(u32 battler)
 static enum FieldEffectOutcome BenefitsFromHailOrSnow(u32 battler, u32 weather)
 {
     if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], weather)
+     || DoesInnateBenefitFromWeather(gAiLogicData->abilities[battler], weather, battler)
      || IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
      || HasMoveWithFlag(battler, MoveAlwaysHitsInHailSnow)
      || HasBattlerSideMoveWithEffect(battler, EFFECT_AURORA_VEIL))
@@ -288,6 +338,7 @@ static enum FieldEffectOutcome BenefitsFromRain(u32 battler)
         return FIELD_EFFECT_NEUTRAL;
 
     if (DoesAbilityBenefitFromWeather(gAiLogicData->abilities[battler], B_WEATHER_RAIN)
+    || DoesInnateBenefitFromWeather(gAiLogicData->abilities[battler], B_WEATHER_RAIN, battler)
       || HasMoveWithFlag(battler, MoveAlwaysHitsInRain)
       || HasDamagingMoveOfType(battler, TYPE_WATER))
         return FIELD_EFFECT_POSITIVE;

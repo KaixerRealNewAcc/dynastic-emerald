@@ -166,8 +166,8 @@ static bool32 AI_DoesChoiceEffectBlockMove(u32 battler, u32 move)
     // Choice locked into something else
     if (gAiLogicData->lastUsedMove[battler] != MOVE_NONE && gAiLogicData->lastUsedMove[battler] != move
     && (((IsHoldEffectChoice(GetBattlerHoldEffect(battler, FALSE)) && IsBattlerItemEnabled(battler))
-        || gBattleMons[battler].ability == ABILITY_GORILLA_TACTICS)
-        || HAS_ABILITY_OR_INNATE(battler, ABILITY_FELINE_PROWESS)))
+        || (hasAbilityOrInnate(battler, ABILITY_GORILLA_TACTICS)))
+        || (hasAbilityOrInnate(battler, ABILITY_FELINE_PROWESS))))
         return TRUE;
     return FALSE;
 }
@@ -300,7 +300,7 @@ static bool32 ShouldSwitchIfHasBadOdds(u32 battler)
 
     // Check if mon gets one shot
     if (maxDamageTaken > gBattleMons[battler].hp
-        && !(gItemsInfo[gBattleMons[battler].item].holdEffect == HOLD_EFFECT_FOCUS_SASH || (!IsMoldBreakerTypeAbility(opposingBattler, gAiLogicData->abilities[opposingBattler]) && B_STURDY >= GEN_5 && aiAbility == ABILITY_STURDY)))
+        && !(gItemsInfo[gBattleMons[battler].item].holdEffect == HOLD_EFFECT_FOCUS_SASH || (!IsMoldBreakerTypeAbility(opposingBattler, gAiLogicData->abilities[opposingBattler]) && B_STURDY >= GEN_5 && hasAbilityOrInnateAI(battler, ABILITY_STURDY))))
     {
         getsOneShot = TRUE;
     }
@@ -316,7 +316,7 @@ static bool32 ShouldSwitchIfHasBadOdds(u32 battler)
     // Start assessing whether or not mon has bad odds
     // Jump straight to switching out in cases where mon gets OHKO'd
     if ((getsOneShot && !canBattlerWin1v1) && (gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 2 // And the current mon has at least 1/2 their HP, or 1/4 HP and Regenerator
-            || (aiAbility == ABILITY_REGENERATOR && gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 4)))
+            || (hasAbilityOrInnateAI(battler, ABILITY_REGENERATOR) && gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 4)))
     {
         // 50% chance to stay in regardless
         if (RandomPercentage(RNG_AI_SWITCH_HASBADODDS, (100 - GetSwitchChance(SHOULD_SWITCH_HASBADODDS))) && !gAiLogicData->aiPredictionInProgress)
@@ -331,7 +331,7 @@ static bool32 ShouldSwitchIfHasBadOdds(u32 battler)
     {
         if (!hasSuperEffectiveMove // If the AI doesn't have a super effective move
         && (gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 2 // And the current mon has at least 1/2 their HP, or 1/4 HP and Regenerator
-            || (aiAbility == ABILITY_REGENERATOR
+            || (hasAbilityOrInnateAI(battler, ABILITY_REGENERATOR)
             && gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 4)))
         {
             // Then check if they have an important status move, which is worth using even in a bad matchup
@@ -352,7 +352,7 @@ static bool32 ShouldSwitchIfHasBadOdds(u32 battler)
 static bool32 ShouldSwitchIfTruant(u32 battler)
 {
     // Switch if mon with truant is bodied by Protect or invulnerability spam
-    if (gAiLogicData->abilities[battler] == ABILITY_TRUANT
+    if (hasAbilityOrInnateAI(battler, ABILITY_TRUANT)
         && IsTruantMonVulnerable(battler, gBattlerTarget)
         && gDisableStructs[battler].truantCounter
         && gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 2
@@ -1826,6 +1826,8 @@ static u32 GetSwitchinStatusDamage(u32 battler)
     return statusDamage;
 }
 
+#define opposingAbilityOrInnate(opposingBattler, ability) (hasAbilityOrInnateAI(opposingBattler, ability))
+
 // Gets number of hits to KO factoring in hazards, healing held items, status, and weather
 static u32 GetSwitchinHitsToKO(s32 damageTaken, u32 battler)
 {
@@ -1870,7 +1872,7 @@ static u32 GetSwitchinHitsToKO(s32 damageTaken, u32 battler)
 
         // Check if we're at a single use healing item threshold
         if (currentHP > 0 && gAiLogicData->switchinCandidate.battleMon.ability != ABILITY_KLUTZ && usedSingleUseHealingItem == FALSE
-         && !(opposingAbility == ABILITY_UNNERVE && GetItemPocket(item) == POCKET_BERRIES))
+         && !(opposingAbilityOrInnate(opposingBattler, ABILITY_UNNERVE) && GetItemPocket(item) == POCKET_BERRIES))
         {
             switch (heldItemEffect)
             {
@@ -2044,20 +2046,22 @@ static bool32 CanAbilityTrapOpponent(u16 ability, u32 opponent)
 {
     if ((B_GHOSTS_ESCAPE >= GEN_6 && IS_BATTLER_OF_TYPE(opponent, TYPE_GHOST)))
         return FALSE;
-    else if (ability == ABILITY_SHADOW_TAG)
+    else if (hasAbilityOrInnate(opponent, ABILITY_SHADOW_TAG))
     {
-        if (B_SHADOW_TAG_ESCAPE >= GEN_4 && gAiLogicData->abilities[opponent] == ABILITY_SHADOW_TAG) // Check if ability exists in species
+        if (B_SHADOW_TAG_ESCAPE >= GEN_4 && hasAbilityOrInnateAI(opponent, ABILITY_SHADOW_TAG)) // Check if ability exists in species
             return FALSE;
         else
             return TRUE;
     }
-    else if (ability == ABILITY_ARENA_TRAP && IsBattlerGrounded(opponent))
+    else if (hasAbilityOrInnate(opponent, ABILITY_ARENA_TRAP) && IsBattlerGrounded(opponent))
         return TRUE;
-    else if (ability == ABILITY_MAGNET_PULL && IS_BATTLER_OF_TYPE(opponent, TYPE_STEEL))
+    else if (hasAbilityOrInnate(opponent, ABILITY_MAGNET_PULL) && IS_BATTLER_OF_TYPE(opponent, TYPE_STEEL))
         return TRUE;
     else
         return FALSE;
 }
+
+#define opposingInnate(opposingBattler, ability) (GetBattlerInnateIgnoreMoldBreaker(opposingBattler, ability))
 
 static inline bool32 IsFreeSwitch(enum SwitchType switchType, u32 battlerSwitchingOut, u32 opposingBattler)
 {
@@ -2074,7 +2078,8 @@ static inline bool32 IsFreeSwitch(enum SwitchType switchType, u32 battlerSwitchi
         {
             u32 opposingAbility = GetBattlerAbilityIgnoreMoldBreaker(opposingBattler);
             // If faster, not a free switch; likely lowered own stats
-            if (!movedSecond && opposingAbility != ABILITY_INTIMIDATE && opposingAbility != ABILITY_SUPERSWEET_SYRUP) // Intimidate triggers switches before turn starts
+            if ((!movedSecond && (opposingAbility != ABILITY_INTIMIDATE && opposingAbility != ABILITY_SUPERSWEET_SYRUP)) 
+            || (!opposingInnate(opposingBattler, ABILITY_INTIMIDATE && !opposingInnate(opposingBattler, ABILITY_SUPERSWEET_SYRUP)))) // Intimidate triggers switches before turn starts
                 return FALSE;
             // Otherwise, free switch
             return TRUE;
@@ -2264,10 +2269,10 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
                 }
 
                 // If mon can trap
-                if ((CanAbilityTrapOpponent(gAiLogicData->switchinCandidate.battleMon.ability, opposingBattler)
-                    || (CanAbilityTrapOpponent(gAiLogicData->abilities[opposingBattler], opposingBattler) && gAiLogicData->switchinCandidate.battleMon.ability == ABILITY_TRACE))
+                if (((CanAbilityTrapOpponent(gAiLogicData->switchinCandidate.battleMon.ability, opposingBattler)
+                    || (CanAbilityTrapOpponent(gAiLogicData->abilities[opposingBattler], opposingBattler) && gAiLogicData->switchinCandidate.battleMon.ability == ABILITY_TRACE))//gAiLogicData->switchinCandidate.battleMon.ability == ABILITY_TRACE))
                     && CountUsablePartyMons(opposingBattler) > 0
-                    && canSwitchinWin1v1)
+                    && canSwitchinWin1v1))
                     trapperId = i;
             }
         }

@@ -695,6 +695,14 @@ u32 GetPartyMonAbility(struct Pokemon *mon)
     return ability;
 }
 
+u32 GetPartyMonInnate(struct Pokemon *mon)
+{
+    //  Doesn't have any special handling yet
+    u32 species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 ability = GetInnateBySpecies(species, GetMonData(mon, MON_DATA_ABILITY_NUM));
+    return ability;
+}
+
 static u32 PpStallReduction(u32 move, u32 battlerAtk)
 {
     if (move == MOVE_NONE)
@@ -713,9 +721,11 @@ static u32 PpStallReduction(u32 move, u32 battlerAtk)
         u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES);
         u32 abilityAtk = ABILITY_NONE;
         u32 abilityDef = GetPartyMonAbility(&gPlayerParty[partyIndex]);
+        u32 innateDef = GetPartyMonInnate(&gPlayerParty[partyIndex]);
         u32 moveType = GetBattleMoveType(move); //  Probably doesn't handle dynamic types right now
         if (CanAbilityAbsorbMove(battlerAtk, tempBattleMonIndex, abilityDef, move, moveType, CHECK_TRIGGER)
          || CanAbilityBlockMove(battlerAtk, tempBattleMonIndex, abilityAtk, abilityDef, move, CHECK_TRIGGER)
+         || CanAbilityBlockMove(battlerAtk, tempBattleMonIndex, abilityAtk, innateDef, move, CHECK_TRIGGER)
          || (CalcPartyMonTypeEffectivenessMultiplier(move, species, abilityDef) == 0))
         {
             totalStallValue += currentStallValue;
@@ -1147,6 +1157,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         if (CanAbilityAbsorbMove(battlerAtk, battlerDef, abilityDef, move, moveType, AI_CHECK))
             RETURN_SCORE_MINUS(20);
 
+        //KAIDO: Change this to works with innates.
         switch (abilityDef)
         {
         case ABILITY_MAGIC_GUARD:
@@ -1224,6 +1235,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             break;
         } // def ability checks
 
+        //KAIDO: Change this to works with innates.
         // target partner ability checks & not attacking partner
         if (hasTwoOpponents)
         {
@@ -1258,7 +1270,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 
         // gen7+ dark type mons immune to priority->elevated moves from prankster
         if (B_PRANKSTER_DARK_TYPES >= GEN_7 && IS_BATTLER_OF_TYPE(battlerDef, TYPE_DARK)
-          && aiData->abilities[battlerAtk] == ABILITY_PRANKSTER && IsBattleMoveStatus(move)
+          && hasAbilityOrInnateAI(battlerDef, ABILITY_PRANKSTER) && IsBattleMoveStatus(move)
           && !(moveTarget & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_USER)))
             RETURN_SCORE_MINUS(10);
 
@@ -1425,7 +1437,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-6);
             break;
         case EFFECT_ATTACK_ACCURACY_UP: //hone claws
-            if (aiData->abilities[battlerAtk] != ABILITY_CONTRARY)
+            if (!hasAbilityOrInnateAI(battlerAtk, ABILITY_CONTRARY))
             {
                 if (gBattleMons[battlerAtk].statStages[STAT_ATK] >= MAX_STAT_STAGE
                   && (gBattleMons[battlerAtk].statStages[STAT_ACC] >= MAX_STAT_STAGE || !HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_PHYSICAL)))
@@ -1472,7 +1484,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_SHELL_SMASH:
-            if (aiData->abilities[battlerAtk] == ABILITY_CONTRARY)
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_CONTRARY))
             {
                 if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_DEF))
                     ADJUST_SCORE(-10);
@@ -1503,7 +1515,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                   && (BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_ATK) || BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_SPATK)))
                   && !(IS_BATTLER_OF_TYPE(BATTLE_PARTNER(battlerAtk), TYPE_GRASS)
                   && IsBattlerGrounded(BATTLE_PARTNER(battlerAtk))
-                  && aiData->abilities[BATTLE_PARTNER(battlerAtk)] != ABILITY_CONTRARY
+                  && !hasAbilityOrInnateAI(BATTLE_PARTNER(battlerAtk), ABILITY_CONTRARY)
                   && (BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_ATK)
                    || BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_SPATK))))
                 {
@@ -1551,7 +1563,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_MAGNETIC_FLUX:
-            if (aiData->abilities[battlerAtk] == ABILITY_PLUS || aiData->abilities[battlerAtk] == ABILITY_MINUS)
+            if (hasAbilityOrInnateAI(battlerAtk, ABILITY_PLUS) || hasAbilityOrInnateAI(battlerAtk, ABILITY_MINUS))
             {
                 if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_DEF))
                     ADJUST_SCORE(-10);
@@ -1565,14 +1577,14 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 
             if (hasPartner)
             {
-                if (aiData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_PLUS || aiData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_MINUS)
+                if (hasAbilityOrInnateAI(BATTLE_PARTNER(battlerAtk), ABILITY_PLUS) || hasAbilityOrInnateAI(BATTLE_PARTNER(battlerAtk), ABILITY_MINUS))
                 {
                     if (!BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_DEF))
                         ADJUST_SCORE(-10);
                     else if (!BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_SPDEF))
                         ADJUST_SCORE(-8);
                 }
-                else if (aiData->abilities[battlerAtk] != ABILITY_PLUS && aiData->abilities[battlerAtk] != ABILITY_MINUS)
+                else if (!hasAbilityOrInnateAI(battlerAtk, ABILITY_PLUS) && !hasAbilityOrInnateAI(battlerAtk, ABILITY_MINUS))
                 {
                     ADJUST_SCORE(-10);    // nor our or our partner's ability is plus/minus
                 }
@@ -1666,7 +1678,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_FIXED_HP_DAMAGE:
         case EFFECT_FOCUS_PUNCH:
             // AI_CBM_HighRiskForDamage
-            if (aiData->abilities[battlerDef] == ABILITY_WONDER_GUARD && effectiveness < UQ_4_12(2.0))
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_WONDER_GUARD) && effectiveness < UQ_4_12(2.0))
                 ADJUST_SCORE(-10);
             if (HasDamagingMove(battlerDef) && !(gBattleMons[battlerAtk].volatiles.substitute
              || IsBattlerIncapacitated(battlerDef, abilityDef)
@@ -1693,7 +1705,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_ROAR:
             if (CountUsablePartyMons(battlerDef) == 0)
                 ADJUST_SCORE(-10);
-            else if (aiData->abilities[battlerDef] == ABILITY_SUCTION_CUPS)
+            else if (hasAbilityOrInnateAI(battlerDef, ABILITY_SUCTION_CUPS))
                 ADJUST_SCORE(-10);
             else if (GetActiveGimmick(battlerDef) == GIMMICK_DYNAMAX)
                 ADJUST_SCORE(-10);
@@ -1749,7 +1761,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_SUBSTITUTE:
-            if (gBattleMons[battlerAtk].volatiles.substitute || aiData->abilities[battlerDef] == ABILITY_INFILTRATOR)
+            if (gBattleMons[battlerAtk].volatiles.substitute || hasAbilityOrInnateAI(battlerDef, ABILITY_INFILTRATOR))
                 ADJUST_SCORE(-8);
             else if (aiData->hpPercents[battlerAtk] <= 25)
                 ADJUST_SCORE(-10);
@@ -1759,7 +1771,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_SHED_TAIL:
             if (CountUsablePartyMons(battlerAtk) == 0)
                 ADJUST_SCORE(-10);
-            if (gBattleMons[battlerAtk].volatiles.substitute || aiData->abilities[battlerDef] == ABILITY_INFILTRATOR)
+            if (gBattleMons[battlerAtk].volatiles.substitute || hasAbilityOrInnateAI(battlerDef, ABILITY_INFILTRATOR))
                 ADJUST_SCORE(-8);
             else if (aiData->hpPercents[battlerAtk] <= 50)
                 ADJUST_SCORE(-10);
@@ -1771,7 +1783,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
              || IS_BATTLER_OF_TYPE(battlerDef, TYPE_GRASS)
              || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
-            else if (aiData->abilities[battlerDef] == ABILITY_LIQUID_OOZE)
+            else if (hasAbilityOrInnateAI(battlerDef, ABILITY_LIQUID_OOZE))
                 ADJUST_SCORE(-3);
             break;
         case EFFECT_DISABLE:
@@ -1890,15 +1902,15 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             if (!isBattle1v1)
             {
                 if (CountUsablePartyMons(battlerAtk) == 0
-                  && aiData->abilities[battlerAtk] != ABILITY_SOUNDPROOF
-                  && aiData->abilities[BATTLE_PARTNER(battlerAtk)] != ABILITY_SOUNDPROOF
+                  && !hasAbilityOrInnateAI(battlerAtk, ABILITY_SOUNDPROOF)
+                  && !hasAbilityOrInnateAI(BATTLE_PARTNER(battlerAtk), ABILITY_SOUNDPROOF)
                   && CountUsablePartyMons(FOE(battlerAtk)) >= 1)
                 {
                     ADJUST_SCORE(-10); //Don't wipe your team if you're going to lose
                 }
-                else if ((!IsBattlerAlive(FOE(battlerAtk)) || aiData->abilities[FOE(battlerAtk)] == ABILITY_SOUNDPROOF
+                else if ((!IsBattlerAlive(FOE(battlerAtk)) || hasAbilityOrInnateAI(FOE(battlerDef), ABILITY_SOUNDPROOF)
                   || gBattleMons[FOE(battlerAtk)].volatiles.perishSong)
-                  && (!IsBattlerAlive(BATTLE_PARTNER(FOE(battlerAtk))) || aiData->abilities[BATTLE_PARTNER(FOE(battlerAtk))] == ABILITY_SOUNDPROOF
+                  && (!IsBattlerAlive(BATTLE_PARTNER(FOE(battlerAtk))) || hasAbilityOrInnateAI(BATTLE_PARTNER(FOE(battlerDef)), ABILITY_SOUNDPROOF)
                   || gBattleMons[BATTLE_PARTNER(FOE(battlerAtk))].volatiles.perishSong))
                 {
                     ADJUST_SCORE(-10); //Both enemies are perish songed
@@ -1910,11 +1922,11 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             }
             else
             {
-                if (CountUsablePartyMons(battlerAtk) == 0 && aiData->abilities[battlerAtk] != ABILITY_SOUNDPROOF
+                if (CountUsablePartyMons(battlerAtk) == 0 && !hasAbilityOrInnateAI(battlerAtk, ABILITY_SOUNDPROOF)
                   && CountUsablePartyMons(battlerDef) >= 1)
                     ADJUST_SCORE(-10);
 
-                if (gBattleMons[FOE(battlerAtk)].volatiles.perishSong || aiData->abilities[FOE(battlerAtk)] == ABILITY_SOUNDPROOF)
+                if (gBattleMons[FOE(battlerAtk)].volatiles.perishSong || hasAbilityOrInnateAI(FOE(battlerDef), ABILITY_SOUNDPROOF))
                     ADJUST_SCORE(-10);
             }
             break;
@@ -1949,7 +1961,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_MAGNITUDE:
-            if (aiData->abilities[battlerDef] == ABILITY_LEVITATE)
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_LEVITATE))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_PARTING_SHOT:
@@ -1982,7 +1994,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_FILLET_AWAY:
             if (HasBattlerSideAbility(battlerDef, ABILITY_UNAWARE, aiData))
                 ADJUST_SCORE(-10);
-            if (aiData->abilities[battlerAtk] == ABILITY_CONTRARY)
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_CONTRARY))
                 ADJUST_SCORE(-10);
             else if (aiData->hpPercents[battlerAtk] <= 60)
                 ADJUST_SCORE(-10);
@@ -2049,7 +2061,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_TRICK:
         case EFFECT_KNOCK_OFF:
         case EFFECT_CORROSIVE_GAS:
-            if (aiData->abilities[battlerDef] == ABILITY_STICKY_HOLD)
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_STICKY_HOLD))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_INGRAIN:
@@ -2101,11 +2113,11 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_ABSORB:
-            if (aiData->abilities[battlerDef] == ABILITY_LIQUID_OOZE)
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_LIQUID_OOZE))
                 ADJUST_SCORE(-6);
             break;
         case EFFECT_STRENGTH_SAP:
-            if (aiData->abilities[battlerDef] == ABILITY_CONTRARY)
+            if (hasAbilityOrInnateAI(battlerDef, ABILITY_CONTRARY))
                 ADJUST_SCORE(-10);
             else if (!CanLowerStat(battlerAtk, battlerDef, aiData, STAT_ATK))
                 ADJUST_SCORE(-10);
@@ -2178,7 +2190,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-8); //No point in healing, but should at least do it if nothing better
             break;
         case EFFECT_RECOIL_IF_MISS:
-            if (aiData->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && gAiLogicData->moveAccuracy[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] < 75
+            if (!hasAbilityOrInnateAI(battlerAtk, ABILITY_MAGIC_GUARD) && gAiLogicData->moveAccuracy[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] < 75
             && !(gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_RISKY))
                 ADJUST_SCORE(-6);
             break;
@@ -2210,15 +2222,15 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             break;
         case EFFECT_LOCK_ON:
             if (gBattleMons[battlerDef].volatiles.lockOn
-              || aiData->abilities[battlerAtk] == ABILITY_NO_GUARD
-              || aiData->abilities[battlerDef] == ABILITY_NO_GUARD
+              || hasAbilityOrInnateAI(battlerAtk, ABILITY_NO_GUARD)
+              || hasAbilityOrInnateAI(battlerDef, ABILITY_NO_GUARD)
               || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_LASER_FOCUS:
             if (gBattleMons[battlerDef].volatiles.laserFocus)
                 ADJUST_SCORE(-10);
-            else if (aiData->abilities[battlerDef] == ABILITY_SHELL_ARMOR || aiData->abilities[battlerDef] == ABILITY_BATTLE_ARMOR)
+            else if (hasAbilityOrInnateAI(battlerDef, ABILITY_SHELL_ARMOR) || hasAbilityOrInnateAI(battlerDef, ABILITY_BATTLE_ARMOR))
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_SKETCH:
@@ -2291,8 +2303,9 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                  && protectMethod != PROTECT_WIDE_GUARD
                  && protectMethod != PROTECT_CRAFTY_SHIELD) //These moves have infinite usage
                 {
-                    if (GetBattlerSecondaryDamage(battlerAtk) >= gBattleMons[battlerAtk].hp
-                      && !(IsMoxieTypeAbility(aiData->abilities[battlerDef])))
+                    if((((GetBattlerSecondaryDamage(battlerAtk) >= gBattleMons[battlerAtk].hp)))
+                      && ((!(IsMoxieTypeAbility(aiData->abilities[battlerDef])))
+                      || (IsMoxieTypeInnates(aiData->abilities[battlerDef], battlerDef))))
                     {
                         ADJUST_SCORE(-10); //Don't protect if you're going to faint after protecting
                     }
@@ -2375,7 +2388,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 
             // evasion check
             if (gBattleMons[battlerDef].statStages[STAT_EVASION] == MIN_STAT_STAGE
-              || ((aiData->abilities[battlerDef] == ABILITY_CONTRARY) && !IsTargetingPartner(battlerAtk, battlerDef))) // don't want to raise target stats unless its your partner
+              || ((hasAbilityOrInnateAI(battlerDef, ABILITY_CONTRARY)) && !IsTargetingPartner(battlerAtk, battlerDef))) // don't want to raise target stats unless its your partner
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_PSYCH_UP:   // haze stats check
@@ -3074,7 +3087,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     } // check partner move effect
 
     // Adjust for always crit moves
-    if (MoveAlwaysCrits(aiData->partnerMove) && aiData->abilities[battlerAtk] == ABILITY_ANGER_POINT)
+    if (MoveAlwaysCrits(aiData->partnerMove) && hasAbilityOrInnateAI(battlerAtk, ABILITY_ANGER_POINT))
     {
         if (AI_IsSlower(battlerAtk, battlerAtkPartner, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY))   // Partner moving first
         {
@@ -3229,6 +3242,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 {
                     ADJUST_SCORE(GOOD_EFFECT);
                 }
+                if (IsMoxieTypeInnates(aiData->abilities[battlerAtk], battlerAtk))
                 if ((aiData->abilities[battlerAtk] == ABILITY_RECEIVER) && !partnerHasBadAbility)
                 {
                     ADJUST_SCORE(GOOD_EFFECT);
@@ -3341,7 +3355,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                     isMoveAffectedByPartnerAbility = FALSE;
                 }
                 break;
-            case ABILITY_EARTH_EATER:
+            /*case ABILITY_EARTH_EATER:
             case ABILITY_LEVITATE:
                 if (moveType == TYPE_GROUND)
                 {
@@ -3358,7 +3372,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 {
                     isMoveAffectedByPartnerAbility = FALSE;
                 }
-                break;  // handled in AI_HPAware
+                break;  // handled in AI_HPAware*/
             case ABILITY_DRY_SKIN:
             case ABILITY_WATER_ABSORB:
             case ABILITY_STORM_DRAIN:
@@ -3535,6 +3549,26 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 break;
             }
         } // ability checks
+
+            if(hasAbilityOrInnate(battlerDef, ABILITY_LEVITATE)
+            || hasAbilityOrInnate(battlerDef, ABILITY_EARTH_EATER))
+            {
+                if (moveType == TYPE_GROUND)
+                {
+                    if (moveTarget == MOVE_TARGET_FOES_AND_ALLY)
+                    {
+                        ADJUST_SCORE(DECENT_EFFECT);
+                    }
+                    else if (atkPartnerAbility == ABILITY_EARTH_EATER && !(gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_HP_AWARE))
+                    {
+                        RETURN_SCORE_MINUS(10);
+                    }
+                }
+                else
+                {
+                    isMoveAffectedByPartnerAbility = FALSE;
+                }
+            }
 
         // attacker move effects specifically targeting partner
         if (!partnerProtecting)

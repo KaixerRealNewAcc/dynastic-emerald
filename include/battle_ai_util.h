@@ -236,7 +236,9 @@ bool32 AI_IsBattlerAsleepOrComatose(u32 battlerId);
 
 // ability logic
 bool32 IsMoxieTypeAbility(u32 ability);
+bool32 IsMoxieTypeInnates(u32 ability, u32 battlerAI);
 bool32 DoesAbilityRaiseStatsWhenLowered(u32 ability);
+bool32 DoesInnatesRaiseStatsWhenLowered(u32 ability, u32 battlerAI);
 bool32 ShouldTriggerAbility(u32 battlerAtk, u32 battlerDef, u32 ability);
 bool32 CanEffectChangeAbility(u32 battlerAtk, u32 battlerDef, u32 effect, struct AiLogicData *aiData);
 void AbilityChangeScore(u32 battlerAtk, u32 battlerDef, u32 effect, s32 *score, struct AiLogicData *aiData);
