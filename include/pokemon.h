@@ -929,4 +929,6 @@ u8 *GetSavedPlayerPartyCount(void);
 void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
 u32 IsSpeciesOfType(u32 species, u32 type);
 
+#define monAbilityOrInnate(mon, ability) (GetMonAbility(mon) == ability || GetMonInnate(mon) == ability)
+
 #endif // GUARD_POKEMON_H

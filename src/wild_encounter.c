@@ -644,26 +644,27 @@ static bool8 WildEncounterCheck(u32 encounterRate, bool8 ignoreAbility)
     if (!ignoreAbility && !GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
     {
         u32 ability = GetMonAbility(&gPlayerParty[0]);
+       // u32 innate  = GetMonInnate(&gPlayerParty[0]);
 
-        if (ability == ABILITY_STENCH && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+        if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_STENCH) && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
             encounterRate = encounterRate * 3 / 4;
-        else if (ability == ABILITY_STENCH)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_STENCH))
             encounterRate /= 2;
-        else if (ability == ABILITY_ILLUMINATE)
+        else if (monAbilityOrInnate(&gPlayerParty[0],  ABILITY_ILLUMINATE))
             encounterRate *= 2;
-        else if (ability == ABILITY_WHITE_SMOKE)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_WHITE_SMOKE))
             encounterRate /= 2;
-        else if (ability == ABILITY_ARENA_TRAP)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_ARENA_TRAP))
             encounterRate *= 2;
-        else if (ability == ABILITY_SAND_VEIL && gSaveBlock1Ptr->weather == WEATHER_SANDSTORM)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_SAND_VEIL) && gSaveBlock1Ptr->weather == WEATHER_SANDSTORM)
             encounterRate /= 2;
-        else if (ability == ABILITY_SNOW_CLOAK && gSaveBlock1Ptr->weather == WEATHER_SNOW)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_SNOW_CLOAK) && gSaveBlock1Ptr->weather == WEATHER_SNOW)
             encounterRate /= 2;
-        else if (ability == ABILITY_QUICK_FEET)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_QUICK_FEET))
             encounterRate /= 2;
-        else if (ability == ABILITY_INFILTRATOR && OW_INFILTRATOR >= GEN_8)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_INFILTRATOR) && OW_INFILTRATOR >= GEN_8)
             encounterRate /= 2;
-        else if (ability == ABILITY_NO_GUARD)
+        else if (monAbilityOrInnate(&gPlayerParty[0], ABILITY_NO_GUARD))
             encounterRate *= 2;
     }
     if (encounterRate > MAX_ENCOUNTER_RATE)

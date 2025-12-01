@@ -5371,6 +5371,656 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         }
+
+        if(abilityEffect && caseID == ABILITYEFFECT_MOVE_END)
+        {
+            if(hasInnate(battler,  ABILITY_STICKY_HOLD))
+            {
+                if (gBattleStruct->battlerState[gBattlerTarget].itemCanBeKnockedOff && IsBattlerAlive(gBattlerTarget))
+                {
+                    gBattleStruct->battlerState[gBattlerTarget].itemCanBeKnockedOff = FALSE;
+                    gBattlerAbility = gBattlerTarget;
+                    BattleScriptPushCursor();
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STICKY_HOLD;
+                    gBattlescriptCurrInstr = BattleScript_StickyHoldActivates;
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,   ABILITY_JUSTIFIED))
+            {
+                if (IsBattlerTurnDamaged(battler)
+                && IsBattlerAlive(battler)
+                && moveType == TYPE_DARK
+                && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_JUSTIFIED))
+                {
+                    gEffectBattler = battler;
+                    SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_JUSTIFIED;
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,   ABILITY_RATTLED))
+            {
+                if (IsBattlerTurnDamaged(battler)
+                && IsBattlerAlive(battler)
+                && (moveType == TYPE_DARK || moveType == TYPE_BUG || moveType == TYPE_GHOST)
+                && CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_RATTLED))
+                {
+                    gEffectBattler = battler;
+                    SET_STATCHANGER(STAT_SPEED, 1, FALSE);
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_RATTLED;
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,   ABILITY_WATER_COMPACTION))
+            {
+                if (IsBattlerTurnDamaged(battler)
+                && IsBattlerAlive(battler)
+                && moveType == TYPE_WATER
+                && CompareStat(battler, STAT_DEF, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility))
+                {
+                    gEffectBattler = battler;
+                    SET_STATCHANGER(STAT_DEF, 2, FALSE);
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_WATER_COMPACTION;
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,   ABILITY_STAMINA))
+            {
+                if (gBattlerAttacker != gBattlerTarget
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(battler)
+                && CompareStat(battler, STAT_DEF, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_STAMINA))
+                {
+                    gEffectBattler = battler;
+                    SET_STATCHANGER(STAT_DEF, 1, FALSE);
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STAMINA;
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_BERSERK))
+            {
+                if (IsBattlerTurnDamaged(battler)
+                && IsBattlerAlive(battler)
+                && HadMoreThanHalfHpNowDoesnt(battler)
+                && (gMultiHitCounter == 0 || gMultiHitCounter == 1)
+                && !(TestIfSheerForceAffected(gBattlerAttacker, gCurrentMove))
+                && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_BERSERK))
+                {
+                    gEffectBattler = battler;
+                    SET_STATCHANGER(STAT_SPATK, 1, FALSE);
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_BERSERK;
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_WEAK_ARMOR))
+            {
+                if (IsBattlerTurnDamaged(battler)
+                && IsBattlerAlive(battler)
+                && IsBattleMovePhysical(gCurrentMove)
+                && (CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_WEAK_ARMOR) // Don't activate if both Speed and Defense cannot be raised.
+                || CompareStat(battler, STAT_DEF, MIN_STAT_STAGE, CMP_GREATER_THAN, ABILITY_WEAK_ARMOR)))
+                {
+                    if (GetMoveEffect(gCurrentMove) == EFFECT_HIT_ESCAPE && CanBattlerSwitch(gBattlerAttacker))
+                        gProtectStructs[battler].disableEjectPack = TRUE;  // Set flag for target
+
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_WEAK_ARMOR;
+                    BattleScriptCall(BattleScript_WeakArmorActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_CURSED_BODY))
+            {
+                if (IsBattlerTurnDamaged(gBattlerTarget)
+                && gDisableStructs[gBattlerAttacker].disabledMove == MOVE_NONE
+                && IsBattlerAlive(gBattlerAttacker)
+                && !IsAbilityOnSide(gBattlerAttacker, ABILITY_AROMA_VEIL)
+                && gChosenMove != MOVE_STRUGGLE
+                && RandomPercentage(RNG_CURSED_BODY, 30))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_CURSED_BODY;
+                    gDisableStructs[gBattlerAttacker].disabledMove = gChosenMove;
+                    gDisableStructs[gBattlerAttacker].disableTimer = 4;
+                    PREPARE_MOVE_BUFFER(gBattleTextBuff1, gChosenMove);
+                    BattleScriptCall(BattleScript_CursedBodyActivates);
+                    effect++;
+                }
+            }
+            if((hasInnate(battler, ABILITY_LINGERING_AROMA))
+            || (hasInnate(battler, ABILITY_MUMMY)))
+            {
+                if (IsBattlerAlive(gBattlerAttacker)
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && gDisableStructs[gBattlerAttacker].overwrittenAbility != GetBattlerAbility(gBattlerTarget)
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_MUMMY
+                && gBattleMons[gBattlerAttacker].ability != ABILITY_LINGERING_AROMA
+                && !gAbilitiesInfo[gBattleMons[gBattlerAttacker].ability].cantBeSuppressed)
+                {
+                    if (GetBattlerHoldEffectIgnoreAbility(gBattlerAttacker, TRUE) == HOLD_EFFECT_ABILITY_SHIELD)
+                    {
+                        RecordItemEffectBattle(gBattlerAttacker, HOLD_EFFECT_ABILITY_SHIELD);
+                        break;
+                    }
+
+                    gLastUsedAbility = gBattleMons[gBattlerAttacker].ability;
+                    gBattleMons[gBattlerAttacker].ability = gDisableStructs[gBattlerAttacker].overwrittenAbility = gBattleMons[gBattlerTarget].ability;
+                    BattleScriptCall(BattleScript_MummyActivates);
+                    effect++;
+                    break;
+                }
+            }
+            if(hasInnate(battler, ABILITY_WANDERING_SPIRIT))
+            {
+                if (IsBattlerAlive(gBattlerAttacker)
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && !(GetActiveGimmick(gBattlerTarget) == GIMMICK_DYNAMAX)
+                && !gAbilitiesInfo[gBattleMons[gBattlerAttacker].ability].cantBeSwapped)
+                {
+                    if (GetBattlerHoldEffectIgnoreAbility(gBattlerAttacker, TRUE) == HOLD_EFFECT_ABILITY_SHIELD)
+                    {
+                        RecordItemEffectBattle(gBattlerAttacker, HOLD_EFFECT_ABILITY_SHIELD);
+                        break;
+                    }
+                    if (GetBattlerHoldEffectIgnoreAbility(gBattlerTarget, TRUE) == HOLD_EFFECT_ABILITY_SHIELD)
+                    {
+                        RecordItemEffectBattle(gBattlerTarget, HOLD_EFFECT_ABILITY_SHIELD);
+                        break;
+                    }
+
+                    gLastUsedAbility = gBattleMons[gBattlerAttacker].ability;
+                    gBattleMons[gBattlerAttacker].ability = gDisableStructs[gBattlerAttacker].overwrittenAbility = gBattleMons[gBattlerTarget].ability;
+                    gBattleMons[gBattlerTarget].ability = gDisableStructs[gBattlerTarget].overwrittenAbility = gLastUsedAbility;
+                    BattleScriptCall(BattleScript_WanderingSpiritActivates);
+                    effect++;
+                    break;
+                }
+            }
+            if(hasInnate(battler, ABILITY_ANGER_POINT))
+            {
+                if (gSpecialStatuses[battler].criticalHit
+                && IsBattlerTurnDamaged(battler)
+                && IsBattlerAlive(battler)
+                && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, ABILITY_ANGER_POINT))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ANGER_POINT;
+                    SET_STATCHANGER(STAT_ATK, MAX_STAT_STAGE - gBattleMons[battler].statStages[STAT_ATK], FALSE);
+                    BattleScriptCall(BattleScript_TargetsStatWasMaxedOut);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_COLOR_CHANGE))
+            {
+                if (move != MOVE_STRUGGLE
+                && !IsBattleMoveStatus(move)
+                && IsBattlerTurnDamaged(battler)
+                && !IS_BATTLER_OF_TYPE(battler, moveType)
+                && moveType != TYPE_STELLAR
+                && moveType != TYPE_MYSTERY
+                && IsBattlerAlive(battler))
+                {
+                    SET_BATTLER_TYPE(battler, moveType);
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_COLOR_CHANGE;
+                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
+                    BattleScriptCall(BattleScript_ColorChangeActivates);
+                    effect++;
+                }
+            }
+            if((hasInnate(battler, ABILITY_GOOEY))
+            || (hasInnate(battler, ABILITY_TANGLING_HAIR)))
+            {
+                if (IsBattlerAlive(gBattlerAttacker)
+                && (CompareStat(gBattlerAttacker, STAT_SPEED, MIN_STAT_STAGE, CMP_GREATER_THAN, gLastUsedAbility) || GetBattlerAbility(gBattlerAttacker) == ABILITY_MIRROR_ARMOR)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move))
+                {
+                    SET_STATCHANGER(STAT_SPEED, 1, TRUE);
+
+                    if(hasInnate(battler, ABILITY_GOOEY))
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GOOEY;
+                    else if(hasInnate(battler, ABILITY_TANGLING_HAIR))
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TANGLING_HAIR;
+
+                    PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                    BattleScriptCall(BattleScript_GooeyActivates);
+                    gHitMarker |= HITMARKER_STATUS_ABILITY_EFFECT;
+                    effect++;
+                }
+            }
+            if((hasInnate(battler, ABILITY_ROUGH_SKIN))
+            || (hasInnate(battler, ABILITY_IRON_BARBS))
+            || (hasInnate(battler, ABILITY_SPIKY_THORNS)))
+            {
+                if (IsBattlerAlive(gBattlerAttacker
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)))
+                {
+                    gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / (B_ROUGH_SKIN_DMG >= GEN_4 ? 8 : 16);
+                    if (gBattleStruct->moveDamage[gBattlerAttacker] == 0)
+                        gBattleStruct->moveDamage[gBattlerAttacker] = 1;
+
+                    if(hasInnate(battler, ABILITY_ROUGH_SKIN))
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ROUGH_SKIN;
+                    else if (hasInnate(battler, ABILITY_IRON_BARBS))
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_IRON_BARBS;
+                    else if (hasInnate(battler, ABILITY_SPIKY_THORNS))
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SPIKY_THORNS;
+
+                    PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                    BattleScriptCall(BattleScript_RoughSkinActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_AFTERMATH))
+            {
+                if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
+                && !IsBattlerAlive(gBattlerTarget)
+                && IsBattlerAlive(gBattlerAttacker)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_AFTERMATH;
+
+                    if ((battler = IsAbilityOnField(ABILITY_DAMP)))
+                    {
+                        gBattleScripting.battler = battler - 1;
+                        BattleScriptCall(BattleScript_DampPreventsAftermath);
+                    }
+                    else
+                    {
+                        gBattleScripting.battler = gBattlerTarget;
+                        gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
+                        if (gBattleStruct->moveDamage[gBattlerAttacker] == 0)
+                            gBattleStruct->moveDamage[gBattlerAttacker] = 1;
+                        BattleScriptCall(BattleScript_AftermathDmg);
+                    }
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_INNARDS_OUT))
+            {
+                if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
+                && !IsBattlerAlive(gBattlerTarget)
+                && IsBattlerAlive(gBattlerAttacker))
+                {
+                    // Prevent Innards Out effect if Future Sight user is currently not on field
+                    if (IsFutureSightAttackerInParty(gBattlerAttacker, gBattlerTarget, gCurrentMove))
+                        break;
+
+                    gBattleScripting.battler = gBattlerTarget;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_INNARDS_OUT;
+                    gBattleStruct->moveDamage[gBattlerAttacker] = gBattleStruct->moveDamage[gBattlerTarget];
+                    BattleScriptCall(BattleScript_AftermathDmg);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_EFFECT_SPORE))
+            {
+                u32 abilityAtk = GetBattlerAbility(gBattlerAttacker);
+                if ((GetGenConfig(GEN_CONFIG_POWDER_GRASS) < GEN_6 || !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GRASS))
+                && abilityAtk != ABILITY_OVERCOAT
+                && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
+                {
+                    u32 poison, paralysis, sleep;
+
+                    if (B_ABILITY_TRIGGER_CHANCE >= GEN_5)
+                    {
+                        poison = 9;
+                        paralysis = 19;
+                    }
+                    else
+                    {
+                        poison = 10;
+                        paralysis = 20;
+                    }
+                    sleep = 30;
+
+                    i = RandomUniform(RNG_EFFECT_SPORE, 0, B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? 99 : 299);
+                    if (i < poison)
+                        goto POISON_POINT;
+                    if (i < paralysis)
+                        goto STATIC;
+                    // Sleep
+                    if (i < sleep
+                    && IsBattlerAlive(gBattlerAttacker)
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && IsBattlerTurnDamaged(gBattlerTarget)
+                    && CanBeSlept(gBattlerTarget, gBattlerAttacker, abilityAtk, NOT_BLOCKED_BY_SLEEP_CLAUSE)
+                    && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move))
+                    {
+                        if (IsSleepClauseEnabled())
+                            gBattleStruct->battlerState[gBattlerAttacker].sleepClauseEffectExempt = TRUE;
+                        gEffectBattler = gBattlerAttacker;
+                        gBattleScripting.battler = gBattlerTarget;
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_EFFECT_SPORE;
+                        gBattleScripting.moveEffect = MOVE_EFFECT_SLEEP;
+                        PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                        BattleScriptCall(BattleScript_AbilityStatusEffect);
+                        effect++;
+                    }
+                }
+            }
+            if(hasInnate(battler, ABILITY_POISON_POINT))
+            {
+                if (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_POISON_POINT, 30) : RandomChance(RNG_POISON_POINT, 1, 3))
+                {
+                    u32 abilityAtk = GetBattlerAbility(gBattlerAttacker);
+                    if (IsBattlerAlive(gBattlerAttacker)
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && IsBattlerTurnDamaged(gBattlerTarget)
+                    && CanBePoisoned(gBattlerTarget, gBattlerAttacker, gLastUsedAbility, abilityAtk)
+                    && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, abilityAtk, GetBattlerHoldEffect(gBattlerAttacker, TRUE), move))
+                    {
+                        gEffectBattler = gBattlerAttacker;
+                        gBattleScripting.battler = gBattlerTarget;
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_POISON_POINT;
+                        gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
+                        PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                        BattleScriptCall(BattleScript_AbilityStatusEffect);
+                        effect++;
+                    }
+                }
+            }
+            if(hasInnate(battler, ABILITY_STATIC))
+            {
+                if (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_STATIC, 30) : RandomChance(RNG_STATIC, 1, 3))
+                {
+                    u32 abilityAtk = GetBattlerAbility(gBattlerAttacker);
+                    if (IsBattlerAlive(gBattlerAttacker)
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && IsBattlerTurnDamaged(gBattlerTarget)
+                    && CanBeParalyzed(gBattlerTarget, gBattlerAttacker, abilityAtk)
+                    && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, abilityAtk, GetBattlerHoldEffect(gBattlerAttacker, TRUE), move))
+                    {
+                        gEffectBattler = gBattlerAttacker;
+                        gBattleScripting.battler = gBattlerTarget;
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STATIC;
+                        gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
+                        PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                        BattleScriptCall(BattleScript_AbilityStatusEffect);
+                        effect++;
+                    }
+                }
+            }
+            if(hasInnate(battler,  ABILITY_FLAME_BODY))
+            {
+                if (IsBattlerAlive(gBattlerAttacker)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && CanBeBurned(gBattlerTarget, gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))
+                && (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_FLAME_BODY, 30) : RandomChance(RNG_FLAME_BODY, 1, 3)))
+                {
+                    gEffectBattler = gBattlerAttacker;
+                    gBattleScripting.battler = gBattlerTarget;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_FLAME_BODY;
+                    gBattleScripting.moveEffect = MOVE_EFFECT_BURN;
+                    PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                    BattleScriptCall(BattleScript_AbilityStatusEffect);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler,  ABILITY_CUTE_CHARM))
+            {
+                if (IsBattlerAlive(gBattlerAttacker)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(gBattlerTarget)
+                && (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_CUTE_CHARM, 30) : RandomChance(RNG_CUTE_CHARM, 1, 3))
+                && !(gBattleMons[gBattlerAttacker].volatiles.infatuation)
+                && AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget)
+                && !IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_OBLIVIOUS)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && !IsAbilityOnSide(gBattlerAttacker, ABILITY_AROMA_VEIL))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_CUTE_CHARM;
+                    gBattleMons[gBattlerAttacker].volatiles.infatuation = INFATUATED_WITH(gBattlerTarget);
+                    BattleScriptCall(BattleScript_CuteCharmActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_ILLUSION))
+            {
+                if (gBattleStruct->illusion[gBattlerTarget].state == ILLUSION_ON && IsBattlerTurnDamaged(gBattlerTarget))
+                {
+                    gBattleScripting.battler = gBattlerTarget;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ILLUSION;
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_IllusionOff;
+                    effect++;
+                }
+            }  
+            if(hasInnate(battler, ABILITY_COTTON_DOWN))
+            {
+                if (IsBattlerAlive(gBattlerAttacker)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget))
+                {
+                    gEffectBattler = gBattlerTarget;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_COTTON_DOWN;
+                    BattleScriptCall(BattleScript_CottonDownActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_STEAM_ENGINE))
+            {
+                if (IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(battler)
+                && CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility)
+                && (moveType == TYPE_FIRE || moveType == TYPE_WATER))
+                {
+                    gEffectBattler = battler;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STEAM_ENGINE;
+                    SET_STATCHANGER(STAT_SPEED, 6, FALSE);
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_SAND_SPIT))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !(gBattleWeather & B_WEATHER_SANDSTORM && HasWeatherEffect()))
+                {
+                    if (gBattleWeather & B_WEATHER_PRIMAL_ANY && HasWeatherEffect())
+                    {
+                        BattleScriptCall(BattleScript_BlockedByPrimalWeatherRet);
+                        effect++;
+                    }
+                    else if (TryChangeBattleWeather(battler, BATTLE_WEATHER_SANDSTORM, gLastUsedAbility))
+                    {
+                        gBattleScripting.battler = battler;
+                        gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SAND_SPIT;
+                        BattleScriptCall(BattleScript_SandSpitActivates);
+                        effect++;
+                    }
+                }
+            }
+            if(hasInnate(battler, ABILITY_PERISH_BODY))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(battler)
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && !gBattleMons[gBattlerAttacker].volatiles.perishSong)
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_PERISH_BODY;
+                    if (!gBattleMons[battler].volatiles.perishSong)
+                    {
+                        gBattleMons[battler].volatiles.perishSong = TRUE;
+                        gDisableStructs[battler].perishSongTimer = 3;
+                    }
+                    gBattleMons[gBattlerAttacker].volatiles.perishSong = TRUE;
+                    gDisableStructs[gBattlerAttacker].perishSongTimer = 3;
+                    BattleScriptCall(BattleScript_PerishBodyActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_GULP_MISSILE))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(gBattlerAttacker)
+                && gBattleMons[gBattlerTarget].species != SPECIES_CRAMORANT)
+                {
+
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GULP_MISSILE;
+
+                    if (GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
+                    {
+                        gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
+                        if (gBattleStruct->moveDamage[gBattlerAttacker] == 0)
+                            gBattleStruct->moveDamage[gBattlerAttacker] = 1;
+                    }
+
+                    switch(gBattleMons[gBattlerTarget].species)
+                    {
+                        case SPECIES_CRAMORANT_GORGING:
+                            TryBattleFormChange(battler, FORM_CHANGE_HIT_BY_MOVE);
+                            BattleScriptCall(BattleScript_GulpMissileGorging);
+                            effect++;
+                            break;
+                        case SPECIES_CRAMORANT_GULPING:
+                            TryBattleFormChange(battler, FORM_CHANGE_HIT_BY_MOVE);
+                            BattleScriptCall(BattleScript_GulpMissileGulping);
+                            effect++;
+                            break;
+                    }
+                }         
+            }
+            if(hasInnate(battler,ABILITY_SEED_SOWER))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(gBattlerTarget)
+                && TryChangeBattleTerrain(gBattlerTarget, STATUS_FIELD_GRASSY_TERRAIN))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_SEED_SOWER;
+                    BattleScriptCall(BattleScript_SeedSowerActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_THERMAL_EXCHANGE))
+            {
+                if (IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(gBattlerTarget)
+                && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility)
+                && moveType == TYPE_FIRE)
+                {
+                    gEffectBattler = gBattlerTarget;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_THERMAL_EXCHANGE;
+                    SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                    BattleScriptCall(BattleScript_TargetAbilityStatRaiseRet);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_ANGER_SHELL))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && (gMultiHitCounter == 0 || gMultiHitCounter == 1) // Activates after all hits from a multi-hit move.
+                && IsBattlerAlive(gBattlerTarget)
+                && HadMoreThanHalfHpNowDoesnt(gBattlerTarget)
+                && !(TestIfSheerForceAffected(gBattlerAttacker, gCurrentMove)))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ANGER_SHELL;
+                    BattleScriptCall(BattleScript_AngerShellActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_WIND_POWER))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(gBattlerTarget))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_WIND_POWER;
+                    BattleScriptCall(BattleScript_WindPowerActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_ELECTROMORPHOSIS))
+            {
+                if (!gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && IsBattlerAlive(gBattlerTarget))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ELECTROMORPHOSIS;
+                    BattleScriptCall(BattleScript_WindPowerActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_TOXIC_DEBRIS))
+            {
+                if (!gBattleStruct->isSkyBattle
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattleMovePhysical(gCurrentMove)
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && (gSideTimers[GetBattlerSide(gBattlerAttacker)].toxicSpikesAmount != 2))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TOXIC_DEBRIS;
+                    SaveBattlerTarget(gBattlerTarget);
+                    SaveBattlerAttacker(gBattlerAttacker);
+                    gBattlerAttacker = gBattlerTarget;
+                    gBattlerTarget = BATTLE_OPPOSITE(gBattlerAttacker);
+                    BattleScriptCall(BattleScript_ToxicDebrisActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_LOOSE_ROCKS))
+            {
+                if (!gBattleStruct->isSkyBattle
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !IsHazardOnSide(GetBattlerSide(gEffectBattler), HAZARDS_STEALTH_ROCK))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_LOOSE_ROCKS;
+                    SWAP(gBattlerAttacker, gBattlerTarget, i);
+                    BattleScriptCall(BattleScript_LooseRocksActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_WEB_SPINNER))
+            {
+                if (!gBattleStruct->isSkyBattle
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && IsBattlerAlive(gBattlerTarget)
+                && HadMoreThanThirdHpNowDoesnt(gBattlerTarget)
+                && !IsHazardOnSide(GetBattlerSide(gEffectBattler), HAZARDS_STICKY_WEB))
+                { 
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_WEB_SPINNER;
+                    SWAP(gBattlerAttacker, gBattlerTarget, i);
+                    BattleScriptCall(BattleScript_WebSpinnerActivates);
+                    effect++;
+                }
+            }
+            if(hasInnate(battler, ABILITY_LOOSE_QUILLS))
+            {
+                if (!gBattleStruct->isSkyBattle
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move) 
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && (gSideTimers[GetBattlerSide(gBattlerAttacker)].spikesAmount != 2))
+                {
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_LOOSE_QUILLS;
+                    SWAP(gBattlerAttacker, gBattlerTarget, i);
+                    BattleScriptCall(BattleScript_LooseQuillsActivates);
+                    effect++;
+                }
+            }
+        }
         break;
     case ABILITYEFFECT_MOVE_END_ATTACKER: // Same as above, but for attacker
         switch (gLastUsedAbility)
@@ -5448,17 +6098,89 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
 
         if(abilityEffect && caseID == ABILITYEFFECT_MOVE_END_ATTACKER)
         {
-            if(hasInnate(battler, ABILITY_ILLUSION))
+            if(hasInnate(battler, ABILITY_POISON_TOUCH))
             {
-                if (gBattleStruct->illusion[gBattlerTarget].state == ILLUSION_ON && IsBattlerTurnDamaged(gBattlerTarget))
+                if (IsBattlerAlive(gBattlerTarget)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && CanBePoisoned(gBattlerAttacker, gBattlerTarget, gLastUsedAbility, GetBattlerAbility(gBattlerTarget))
+                && !CanBattlerAvoidContactEffects(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), GetBattlerHoldEffect(gBattlerAttacker, TRUE), move)
+                && IsBattlerTurnDamaged(gBattlerTarget) // Need to actually hit the target
+                && RandomPercentage(RNG_POISON_TOUCH, 30))
                 {
-                    gBattleScripting.battler = gBattlerTarget;
-                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ILLUSION;
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_IllusionOff;
+                    gEffectBattler = gBattlerTarget;
+                    gBattleScripting.battler = gBattlerAttacker;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_POISON_TOUCH;
+                    gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
+                    PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                    BattleScriptCall(BattleScript_AbilityStatusEffect);
                     effect++;
                 }
-            }   
+            }
+            
+            if(hasInnate(battler, ABILITY_TOXIC_CHAIN))
+            {
+                if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
+                && IsBattlerAlive(gBattlerTarget)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && CanBePoisoned(gBattlerAttacker, gBattlerTarget, gLastUsedAbility, GetBattlerAbility(gBattlerTarget))
+                && IsBattlerTurnDamaged(gBattlerTarget) // Need to actually hit the target
+                && RandomWeighted(RNG_TOXIC_CHAIN, 7, 3))
+                {
+                    gEffectBattler = gBattlerTarget;
+                    gBattleScripting.battler = gBattlerAttacker;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TOXIC_CHAIN;
+                    gBattleScripting.moveEffect = MOVE_EFFECT_TOXIC;
+                    PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                    BattleScriptCall(BattleScript_AbilityStatusEffect);
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,  ABILITY_STENCH))
+            {
+                if (IsBattlerAlive(gBattlerTarget)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && RandomChance(RNG_STENCH, 1, 20)
+                && IsBattlerTurnDamaged(gBattlerTarget)
+                && !MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_FLINCH))
+                {
+                    gBattleScripting.moveEffect = MOVE_EFFECT_FLINCH;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STENCH;
+                    BattleScriptPushCursor();
+                    SetMoveEffect(gBattlerAttacker, gBattlerTarget, FALSE, FALSE);
+                    BattleScriptPop();
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,   ABILITY_GULP_MISSILE))
+            {
+                if ((gBattleMons[gBattlerAttacker].species == ABILITY_GULP_MISSILE)
+                && ((gCurrentMove == MOVE_SURF && IsBattlerTurnDamaged(gBattlerTarget)) || gBattleMons[gBattlerAttacker].volatiles.semiInvulnerable == STATE_UNDERWATER)
+                && TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_HP_PERCENT))
+                {
+                    gBattleScripting.battler = gBattlerAttacker;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_STENCH;
+                    BattleScriptCall(BattleScript_BattlerFormChange);
+                    effect++;
+                }
+            }
+
+            if(hasInnate(battler,   ABILITY_POISON_PUPPETEER))
+            {
+                if (gBattleMons[gBattlerAttacker].species == SPECIES_PECHARUNT
+                && gBattleStruct->poisonPuppeteerConfusion == TRUE
+                && CanBeConfused(gBattlerTarget))
+                {
+                    gBattleStruct->poisonPuppeteerConfusion = FALSE;
+                    gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_POISON_PUPPETEER;
+                    PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                    BattleScriptCall(BattleScript_AbilityStatusEffect);
+                    gHitMarker |= HITMARKER_STATUS_ABILITY_EFFECT;
+                    effect++;
+                }
+            }
 
             if(hasAbilityOrInnate(battler, ABILITY_FLAMING_JAWS))
             {
@@ -11235,16 +11957,21 @@ u32 GetIllusionMonPartyId(struct Pokemon *party, struct Pokemon *mon, struct Pok
     return PARTY_SIZE;
 }
 
+#include "pokemon.h"
+
 bool32 SetIllusionMon(struct Pokemon *mon, u32 battler)
 {
     struct Pokemon *party, *partnerMon;
     u32 id;
 
     gBattleStruct->illusion[battler].state = ILLUSION_OFF;
-    if (GetMonAbility(mon) != ABILITY_ILLUSION)
+    /*if (GetMonAbility(mon) != ABILITY_ILLUSION)
         return FALSE;
-    /*if (!GetMonInnate(mon, ABILITY_ILLUSION))    
+    if (!GetMonInnate(mon) == ABILITY_ILLUSION)    
         return FALSE;*/
+
+    if(!monAbilityOrInnate(mon, ABILITY_ILLUSION))
+        return FALSE;
 
     party = GetBattlerParty(battler);
 
