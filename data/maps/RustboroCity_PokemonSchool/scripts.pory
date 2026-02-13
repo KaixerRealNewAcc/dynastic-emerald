@@ -1,4 +1,4 @@
-
+raw`
 RustboroCity_PokemonSchool_MapScripts::
 	.byte 0
 
@@ -337,34 +337,32 @@ RustboroCity_PokemonSchool_Text_ScottMetAlreadyStoneBadge:
 	.string "you in battle.\p"
 	.string "It's hard to tell what you're like as\n"
 	.string "a TRAINER from a LEAGUE BADGE.$"
+`
 
-RustboroCity_PokemonSchool_EventScript_Lass::
-	msgbox RustboroCity_PokemonSchool_EventScript_Lass_Text_0, MSGBOX_NPC
+script RustboroCity_PokemonSchool_EventScript_Lass {
+	msgbox(	
+    "Ever since the government, made it\n"
+    "legal for gym leaders to have teams\p"
+    "of 6 instead of the normal amount,\n"
+    "Roxanne has gotten really cocky i\p"
+    "have too relearn everything cause of\n"
+    "her. its outrages!", 
+    MSGBOX_NPC)
 	end
+}
 
-
-RustboroCity_PokemonSchool_EventScript_GameboyKid1::
-	msgbox RustboroCity_PokemonSchool_EventScript_GameboyKid1_Text_0, MSGBOX_NPC
+script RustboroCity_PokemonSchool_EventScript_GameboyKid1 {
+	msgbox (
+	"Im trading with my friend to help him,\n"
+	"get his favorate pokemon Alakazam!", 
+	MSGBOX_NPC)
 	end
+}
 
-
-RustboroCity_PokemonSchool_EventScript_GameboyKid2::
-	msgbox RustboroCity_PokemonSchool_EventScript_GameboyKid2_Text_0, MSGBOX_NPC
+script RustboroCity_PokemonSchool_EventScript_GameboyKid2 {
+	msgbox (
+	"Thanks to my friend, i now have a\n"
+	"Alakazam, im so happy!", 
+	MSGBOX_NPC)
 	end
-
-
-RustboroCity_PokemonSchool_EventScript_Lass_Text_0:
-	.string "Ever since the government, made it\n"
-	.string "legal for gym leaders to have teams\p"
-	.string "of 6 instead of the normal amount,\n"
-	.string "Roxanne has gotten really cocky i\p"
-	.string "have too relearn everything cause of\n"
-	.string "her. its outrages!$"
-
-RustboroCity_PokemonSchool_EventScript_GameboyKid1_Text_0:
-	.string "Im trading with my friend to help him,\n"
-	.string "get his favorate pokemon Alakazam!$"
-
-RustboroCity_PokemonSchool_EventScript_GameboyKid2_Text_0:
-	.string "Thanks to my friend, i now have a\n"
-	.string "Alakazam, im so happy!$"
+}

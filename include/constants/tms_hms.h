@@ -51,7 +51,10 @@
     F(STEEL_WING) \
     F(SKILL_SWAP) \
     F(SNATCH) \
-    F(OVERHEAT)
+    F(OVERHEAT) \
+    F(CLOSE_COMBAT) \
+    F(ROOST) \
+    F(AQUA_TAIL) \
 
 #define FOREACH_HM(F) \
     F(CUT) \

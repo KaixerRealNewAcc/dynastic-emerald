@@ -663,6 +663,7 @@ extern const u8 gBattleAnimMove_AuroraVeil[];
 extern const u8 gBattleAnimMove_ShellTrap[];
 extern const u8 gBattleAnimMove_FleurCannon[];
 extern const u8 gBattleAnimMove_PsychicFangs[];
+extern const u8 gBattleAnimMove_AquaFangs[];
 extern const u8 gBattleAnimMove_StompingTantrum[];
 extern const u8 gBattleAnimMove_ShadowBone[];
 extern const u8 gBattleAnimMove_Accelerock[];

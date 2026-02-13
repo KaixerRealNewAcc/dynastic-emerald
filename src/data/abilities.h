@@ -843,7 +843,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_SCRAPPY] =
         {
             .name = _("Scrappy"),
-            .description = COMPOUND_STRING("The user can hit Ghost-type Pokemon with Normal-type and Fighting-type moves, the user also becomes unaffected by Intimidate."),
+            .description = COMPOUND_STRING("The user can hit Ghost-type Pokemon with Normal-type and Fighting-type moves. Immune to Intimidate"),
             .aiRating = 6,
         },
 
@@ -1088,7 +1088,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_BIG_PECKS] =
         {
             .name = _("Big Pecks"),
-            .description = COMPOUND_STRING("Protects the user from Defense lowering effects.\nBoosts flying-type moves by 10%"),
+            .description = COMPOUND_STRING("Protects the user from Defense lowering effects."),
             .aiRating = 1,
             .breakable = TRUE,
         },
@@ -2468,7 +2468,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_PHANTOM_PAIN] =
         {
             .name = _("Phantom Pain"),
-            .description = COMPOUND_STRING("The user can hit Normal-type Pokemon with Ghost-type moves, the user also becomes unaffected by Intimidate."),
+            .description = COMPOUND_STRING("The user can hit Normal-type Pokemon with Ghost-type moves. Immune to Intimidate"),
             .aiRating = 6,
         },
 

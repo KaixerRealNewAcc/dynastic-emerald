@@ -15,7 +15,7 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_BRAWLY",
+      "graphics_id": "OBJ_EVENT_GFX_WHITNEY",
       "x": 4,
       "y": 3,
       "elevation": 0,
@@ -24,13 +24,13 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "DewfordTown_Gym_EventScript_Brawly",
+      "script": "DewfordTown_Gym_EventScript_Whitney",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
-      "x": 2,
-      "y": 18,
+      "x": 20,
+      "y": 0,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -42,8 +42,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
-      "x": 15,
-      "y": 3,
+      "x": 33,
+      "y": -15,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -55,8 +55,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
-      "x": 12,
-      "y": 25,
+      "x": 30,
+      "y": 7,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -68,8 +68,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
-      "x": 5,
-      "y": 24,
+      "x": 3,
+      "y": 12,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -81,8 +81,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
-      "x": 7,
-      "y": 8,
+      "x": 25,
+      "y": -11,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 1,
@@ -94,8 +94,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
-      "x": 16,
-      "y": 9,
+      "x": 34,
+      "y": -9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -107,8 +107,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
-      "x": 14,
-      "y": 12,
+      "x": 32,
+      "y": -7,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 1,
@@ -117,19 +117,32 @@
       "trainer_sight_or_berry_tree_id": "2",
       "script": "DewfordTown_Gym_EventScript_Brenden",
       "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(MILTANK)",
+      "x": 3,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Ow_Mons_EventScript_WhitneysMiltank",
+      "flag": "0"
     }
   ],
   "warp_events": [
     {
-      "x": 5,
-      "y": 27,
+      "x": 3,
+      "y": 15,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN",
       "dest_warp_id": "2"
     },
     {
-      "x": 6,
-      "y": 27,
+      "x": 4,
+      "y": 15,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN",
       "dest_warp_id": "2"
@@ -139,32 +152,32 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 4,
-      "y": 23,
+      "x": 2,
+      "y": 11,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "DewfordTown_Gym_EventScript_LeftGymStatue"
     },
     {
       "type": "sign",
-      "x": 7,
-      "y": 23,
+      "x": 5,
+      "y": 11,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "DewfordTown_Gym_EventScript_RightGymStatue"
     },
     {
       "type": "sign",
-      "x": 4,
-      "y": 24,
+      "x": 2,
+      "y": 12,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "DewfordTown_Gym_EventScript_LeftGymStatue"
     },
     {
       "type": "sign",
-      "x": 7,
-      "y": 24,
+      "x": 5,
+      "y": 12,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "DewfordTown_Gym_EventScript_RightGymStatue"

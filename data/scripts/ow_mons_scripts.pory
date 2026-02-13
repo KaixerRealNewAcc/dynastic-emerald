@@ -1,0 +1,60 @@
+script Ow_Mons_EventScript_Example {
+    showmonpic(SPECIES_NONE, 10, 3)
+    playmoncry (SPECIES_NONE, CRY_MODE_NORMAL)
+    message("None:")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+    release
+    end
+}
+
+script Ow_Mons_EventScript_WhitneysMiltank {
+    showmonpic(SPECIES_MILTANK, 10, 3)
+    playmoncry (SPECIES_MILTANK, CRY_MODE_NORMAL)
+    message("Miltank: Moo! Moo!")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+    release
+    end
+}
+
+script Ow_Mons_EventScript_Electrike {
+    showmonpic(SPECIES_ELECTRIKE, 10, 3)
+    playmoncry (SPECIES_ELECTRIKE, CRY_MODE_NORMAL)
+    message("Electrike: Elec! Trike!")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+    release
+    end
+}
+
+script Ow_Mons_EventScript_Rillaboom {
+    showmonpic(SPECIES_RILLABOOM, 10, 3)
+    playmoncry (SPECIES_RILLABOOM, CRY_MODE_NORMAL)
+    message("Rillaboom: Rilla! Boom!")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+    release
+    end
+}
+
+script Ow_Mons_EventScript_Anorith {
+    showmonpic(SPECIES_ANORITH, 10, 3)
+    playmoncry (SPECIES_ANORITH, CRY_MODE_NORMAL)
+    message("Anorith: Anorith!")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+    release
+    end
+}
+

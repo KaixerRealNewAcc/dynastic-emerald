@@ -1,4 +1,4 @@
-
+raw`
 DewfordTown_Gym_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, DewfordTown_Gym_OnTransition
 	.byte 0
@@ -457,101 +457,122 @@ DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons:
 	.string "that can battle.\p"
 	.string "I'm sorry, but I'd like you to come back\n"
 	.string "with at least two POKéMON.$"
+`
 
-DewfordTown_Gym_EventScript_Whitney::
-	msgbox DewfordTown_Gym_EventScript_Whitney_Text_0, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_BRAWLY_2, DewfordTown_Gym_EventScript_Whitney_Text_1
-	checktrainerflag TRAINER_BRAWLY_2
-	goto_if 1, DewfordTown_Gym_EventScript_Whitney_1
-	goto_if_unset FLAG_RECEIVED_TM_FACADE, DewfordTown_Gym_EventScript_GiveFacade2
-	msgbox DewfordTown_Gym_Text_WhitneyPostBattle, MSGBOX_DEFAULT
+script DewfordTown_Gym_EventScript_Whitney{
+	msgbox(
+	"I'm Whitney!\n"
+	"Dewford's Gym Leader!\p"
+	"The old gym leader retired, so I took\n"
+	"over! Don't let my looks deceive you!\p"
+	"My miltank and i used to terrorize\n" 
+	"Johto! Enough talking, let's battle!",
+	MSGBOX_DEFAULT)
+	trainerbattle_no_intro (TRAINER_BRAWLY_2,  //TRAINER_WHITNEY.
+	"Whoah, wow! You're stronger than\n"
+	"i expected, i must've lost my touch...\p"
+	"You're good, a promise is a promise!\p"
+	"sniffles, fine here take this badge\n"
+	"i didn't even want it anyways!\p"
+	"{PLAYER} received the Plain Badge\n"
+	"from Whitney.")
+	if(defeated(TRAINER_BRAWLY_2)){
+		call (Common_EventScript_PlayGymBadgeFanfare)
+		msgbox (DewfordTown_Gym_Text_PlainBadgeInfoTakeThis, MSGBOX_DEFAULT)
+		setflag (FLAG_DEFEATED_DEWFORD_GYM)
+		setflag (FLAG_BADGE02_GET)
+		addvar (VAR_PETALBURG_GYM_STATE, 1)
+		call_if_eq (VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle)
+		setvar (VAR_0x8008, 2)
+		call (Common_EventScript_SetGymTrainers)
+		call (DewfordTown_Gym_EventScript_GiveFacade)
+		closemessage
+		delay (30)
+		delay (30)
+		setvar (VAR_ROXANNE_CALL_STEP_COUNTER, 0)
+		setflag (FLAG_ENABLE_ROXANNE_FIRST_CALL)
+		release
+		end
+	}else{
+	goto_if_unset (FLAG_RECEIVED_TM_FACADE, DewfordTown_Gym_EventScript_GiveFacade2)
+	msgbox (DewfordTown_Gym_Text_WhitneyPostBattle, MSGBOX_DEFAULT)
 	release
 	end
+	}
+}
 
-DewfordTown_Gym_EventScript_Whitney_1:
-	call Common_EventScript_PlayGymBadgeFanfare
-	msgbox DewfordTown_Gym_Text_PlainBadgeInfoTakeThis, MSGBOX_DEFAULT
-	setflag FLAG_DEFEATED_DEWFORD_GYM
-	setflag FLAG_BADGE02_GET
-	addvar VAR_PETALBURG_GYM_STATE, 1
-	call_if_eq VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle
-	setvar VAR_0x8008, 2
-	call Common_EventScript_SetGymTrainers
-	call DewfordTown_Gym_EventScript_GiveFacade
-	closemessage
-	delay 30
-	delay 30
-	setvar VAR_ROXANNE_CALL_STEP_COUNTER, 0
-	setflag FLAG_ENABLE_ROXANNE_FIRST_CALL
-	release
-	end
+//script DewfordTown_Gym_EventScript_WhitneyDefeated{
+//	call (Common_EventScript_PlayGymBadgeFanfare)
+//	msgbox (DewfordTown_Gym_Text_PlainBadgeInfoTakeThis, MSGBOX_DEFAULT)
+//	setflag (FLAG_DEFEATED_DEWFORD_GYM)
+//	setflag (FLAG_BADGE02_GET)
+//	addvar (VAR_PETALBURG_GYM_STATE, 1)
+//	call_if_eq (VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle)
+//	setvar (VAR_0x8008, 2)
+//	call (Common_EventScript_SetGymTrainers)
+//	call (DewfordTown_Gym_EventScript_GiveFacade)
+//	closemessage
+//	delay (30)
+//	delay (30)
+//	setvar (VAR_ROXANNE_CALL_STEP_COUNTER, 0)
+//	setflag (FLAG_ENABLE_ROXANNE_FIRST_CALL)
+//	release
+//	end
+//}
 
-
-DewfordTown_Gym_EventScript_GiveFacade::
-	giveitem ITEM_TM_FACADE
-	goto_if_eq VAR_RESULT, 0, Common_EventScript_BagIsFull
-	msgbox DewfordTown_Gym_Text_ExplainFacade, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM_FACADE
+script DewfordTown_Gym_EventScript_GiveFacade{
+	giveitem (ITEM_TM_FACADE)
+	goto_if_eq (VAR_RESULT, 0, Common_EventScript_BagIsFull)
+	msgbox (DewfordTown_Gym_Text_ExplainFacade, MSGBOX_DEFAULT)
+	setflag (FLAG_RECEIVED_TM_FACADE)
 	return
+}
 
-
-DewfordTown_Gym_EventScript_GiveFacade2::
-	giveitem ITEM_TM_FACADE
-	goto_if_eq VAR_RESULT, 0, Common_EventScript_ShowBagIsFull
-	msgbox DewfordTown_Gym_Text_ExplainFacade, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM_FACADE
+script DewfordTown_Gym_EventScript_GiveFacade2{
+	giveitem (ITEM_TM_FACADE)
+	goto_if_eq (VAR_RESULT, 0, Common_EventScript_ShowBagIsFull)
+	msgbox (DewfordTown_Gym_Text_ExplainFacade, MSGBOX_DEFAULT)
+	setflag (FLAG_RECEIVED_TM_FACADE)
 	release
 	end
+}
 
+text DewfordTown_Gym_Text_WhitneyIntro{
+	"I'm Whitney!\n"
+	"Dewford's Gym Leader!\p"
+	"The old gym leader retired, so I took over!\p"
+	"Don't let my looks deceive you!\n"
+	"My miltank and i used to terrorize Johto!\p"
+	"Enough talking, let's battle!$"
+}
 
-DewfordTown_Gym_EventScript_Whitney_Text_0:
-	.string "I'm Whitney!\n"
-	.string "Dewford's Gym Leader!\p"
-	.string "The old gym leader retired, so I took\n"
-	.string "over! Don't let my looks deceive you!\p"
-	.string "My miltank and i used to terrorize\n"
-	.string "Johto! Enough talking, let's battle!$"
+text DewfordTown_Gym_Text_WhitneyDefeat{
+	"Whoah, wow! You're stronger than\n"
+	"i expected, i must've lost my touch...\p"
+	"You're good, a promise is a promise!\p"
+	"sniffles, fine here take this badge\n"
+	"i didn't even want it anyways!\p"
+	"{PLAYER} received the Plain Badge\n"
+	"from Whitney.$"
+}
 
-DewfordTown_Gym_EventScript_Whitney_Text_1:
-	.string "Whoah, wow! You're stronger than\n"
-	.string "i expected, i must've lost my touch...\p"
-	.string "You're good, a promise is a promise!\p"
-	.string "sniffles, fine here take this badge\n"
-	.string "i didn't even want it anyways!\p"
-	.string "{PLAYER} received the Plain Badge\n"
-	.string "from Whitney.$"
+text DewfordTown_Gym_Text_PlainBadgeInfoTakeThis{
+	"The Plain Badge makes all Pokemon\n"
+	"up to Level 30, even those you get in\l"
+	"trades, obey without question.\p"
+	"And, you'll be able to use the HM move\n"
+	"Flash outside of battle.\p"
+	"If you'd like, use this Technicial\n"
+	"Machine, too.$"
+}
 
-DewfordTown_Gym_Text_WhitneyIntro::
-	.string "I'm Whitney!\n"
-	.string "Dewford's Gym Leader!\p"
-	.string "The old gym leader retired, so I took over!\p"
-	.string "Don't let my looks deceive you!\n"
-	.string "My miltank and i used to terrorize Johto!\p"
-	.string "Enough talking, let's battle!$"
+text DewfordTown_Gym_Text_ExplainFacade{
+	"That TM42 contains Facade.\p"
+	"It's a move that doubles its BP\n"
+	"when the user is affected by a status\n"
+	"condition like burn, paralysis, or poison!$"
+}
 
-DewfordTown_Gym_Text_WhitneyDefeat::
-	.string "Whoah, wow! You're stronger than\n"
-	.string "i expected, i must've lost my touch...\p"
-	.string "You're good, a promise is a promise!\p"
-	.string "sniffles, fine here take this badge\n"
-	.string "i didn't even want it anyways!\p"
-	.string "{PLAYER} received the Plain Badge\n"
-	.string "from Whitney.$"
-
-DewfordTown_Gym_Text_PlainBadgeInfoTakeThis::
-	.string "The Plain Badge makes all Pokemon\n"
-	.string "up to Level 30, even those you get in\l"
-	.string "trades, obey without question.\p"
-	.string "And, you'll be able to use the HM move\n"
-	.string "Flash outside of battle.\p"
-	.string "If you'd like, use this Technicial\n"
-	.string "Machine, too.$"
-
-DewfordTown_Gym_Text_ExplainFacade::
-	.string "That TM42 contains Facade.\p"
-	.string "It's a move that doubles its BP\n"
-	.string "when the user is affected by a status\n"
-	.string "condition like burn, paralysis, or poison!$"
-
-DewfordTown_Gym_Text_WhitneyPostBattle::
-	.string "sniffles Next t-time i'll beat y-you!$"
+text DewfordTown_Gym_Text_WhitneyPostBattle{
+	"sniffles Next t-time i'll beat y-you!$"
+}

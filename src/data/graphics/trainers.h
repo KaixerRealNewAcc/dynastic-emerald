@@ -124,6 +124,9 @@ const u16 gTrainerPalette_EliteFourDrake[] = INCBIN_U16("graphics/trainers/front
 const u32 gTrainerFrontPic_LeaderRoxanne[] = INCBIN_U32("graphics/trainers/front_pics/leader_roxanne.4bpp.smol");
 const u16 gTrainerPalette_LeaderRoxanne[] = INCBIN_U16("graphics/trainers/front_pics/leader_roxanne.gbapal");
 
+const u32 gTrainerFrontPic_LeaderWhitney[] = INCBIN_U32("graphics/trainers/front_pics/whitney.4bpp.smol");
+const u16 gTrainerPalette_LeaderWhitney[] = INCBIN_U16("graphics/trainers/front_pics/whitney.gbapal");
+
 const u32 gTrainerFrontPic_LeaderBrawly[] = INCBIN_U32("graphics/trainers/front_pics/leader_brawly.4bpp.smol");
 const u16 gTrainerPalette_LeaderBrawly[] = INCBIN_U16("graphics/trainers/front_pics/leader_brawly.gbapal");
 
@@ -350,6 +353,7 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(TRAINER_PIC_ELITE_FOUR_DRAKE, gTrainerFrontPic_EliteFourDrake, gTrainerPalette_EliteFourDrake, 0, 5, 0x1A0),
     TRAINER_SPRITE(TRAINER_PIC_LEADER_ROXANNE, gTrainerFrontPic_LeaderRoxanne, gTrainerPalette_LeaderRoxanne),
     TRAINER_SPRITE(TRAINER_PIC_LEADER_BRAWLY, gTrainerFrontPic_LeaderBrawly, gTrainerPalette_LeaderBrawly),
+    TRAINER_SPRITE(TRAINER_PIC_LEADER_WHITNEY, gTrainerFrontPic_LeaderWhitney, gTrainerPalette_LeaderWhitney),
     TRAINER_SPRITE(TRAINER_PIC_LEADER_WATTSON, gTrainerFrontPic_LeaderWattson, gTrainerPalette_LeaderWattson),
     TRAINER_SPRITE(TRAINER_PIC_LEADER_FLANNERY, gTrainerFrontPic_LeaderFlannery, gTrainerPalette_LeaderFlannery),
     TRAINER_SPRITE(TRAINER_PIC_LEADER_NORMAN, gTrainerFrontPic_LeaderNorman, gTrainerPalette_LeaderNorman),

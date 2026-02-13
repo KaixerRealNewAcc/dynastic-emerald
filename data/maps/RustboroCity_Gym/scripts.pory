@@ -1,4 +1,4 @@
-
+raw`
 RustboroCity_Gym_MapScripts::
 	.byte 0
 
@@ -273,24 +273,24 @@ RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "You only have one POKéMON with you?\p"
 	.string "Please return with at least one more\n"
 	.string "POKéMON.$"
+`
 
-RustboroCity_Gym_EventScript_Roxanne::
-	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_EventScript_Roxanne_Text_0, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch
-	goto_if_unset FLAG_RECEIVED_TM_ROCK_TOMB, RustboroCity_Gym_EventScript_GiveRockTomb
-	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
+script RustboroCity_Gym_EventScript_Roxanne{
+	trainerbattle_single (TRAINER_ROXANNE_1, 	
+	// Intro
+	"Hello, I am Roxanne, the Rustboro\n"
+	"Pokémon Gym Leader.\p"
+	"I became a Gym Leader so that I might..\n"
+	"blah blah blah, this is getting old.\p"
+	"there is no fricking way, someone\n"
+	"like you can beat me. Roxanne.\p"
+	"well you can try but you can't win!\n"
+	"ugh, enough talking lets see what\p"
+	"you are made of!", RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC)
+	specialvar (VAR_RESULT, ShouldTryRematchBattle)
+	goto_if_eq (VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch)
+	goto_if_unset (FLAG_RECEIVED_TM_ROCK_TOMB, RustboroCity_Gym_EventScript_GiveRockTomb)
+	msgbox (RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT)
 	release
 	end
-
-
-RustboroCity_Gym_EventScript_Roxanne_Text_0:
-	.string "Hello, I am Roxanne, the Rustboro\n"
-	.string "Pokémon Gym Leader.\p"
-	.string "I became a Gym Leader so that I might..\n"
-	.string "blah blah blah, this is getting old.\p"
-	.string "there is no fricking way, someone\n"
-	.string "like you can beat me. Roxanne.\p"
-	.string "well you can try but you can't win!\n"
-	.string "ugh, enough talking lets see what\p"
-	.string "you are made of!$"
+}

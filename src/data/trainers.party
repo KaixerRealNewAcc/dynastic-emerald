@@ -4183,7 +4183,7 @@ Level: 26
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_JOSHUA ===
-Name: JOSHUA
+Name: Joshua
 Class: Psychic
 Pic: Psychic M
 Gender: Male
@@ -4809,65 +4809,65 @@ AI: Smart Trainer
 Mugshot: Blue
 
 Hippopotas @ Smooth Rock  
-Ability: Sand Stream
-Level: 13  
+Ability: Sand Stream  
+Level: 15  
 Tera Type: Ground  
-Impish Nature  
-- Stealth Rock  
+Careful Nature  
 - Bulldoze  
-- Toxic  
+- Rock Tomb  
 - Slack Off  
+- Stealth Rock  
 
-Anorith @ Muscle Band  
-Ability: Battle Armor  
-Level: 13  
-Tera Type: Rock  
+Cacnea @ Berry Juice  
+Ability: Sand Rush  
+Level: 15  
+Tera Type: Grass  
 Jolly Nature  
-- Bug Bite  
+- Bullet Seed  
+- Bulldoze  
+- Thunder Punch  
+- Power-Up Punch  
+
+Larvitar @ Flame Orb  
+Ability: Guts  
+Level: 15  
+Tera Type: Rock  
+Adamant Nature  
 - Rock Tomb  
 - Bulldoze  
-- Rapid Spin  
+- Bite  
+- Protect  
 
-Frillish @ Leftovers  
-Ability: Water Absorb  
-Level: 13  
+Shellos-East @ Berry Juice  
+Ability: Storm Drain  
+Level: 15  
 Tera Type: Water  
-Calm Nature  
+Bold Nature  
 IVs: 0 Atk  
-- Will-O-Wisp  
-- Brine  
-- Hex  
+- Water Pulse  
+- Icy Wind  
 - Recover  
+- Yawn  
 
-Growlithe-Hisui @ Focus Sash  
-Ability: Intimidate  
-Level: 14
-Tera Type: Fire  
-Jolly Nature  
-- Sandstorm  
-- Rock Tomb  
-- Fire Fang  
-- Thunder Fang  
-
-Sandshrew @ Muscle Band  
-Ability: Sand Rush  
-Level: 13  
+Diglett @ Expert Belt  
+Ability: Sand Force  
+Level: 15  
 Tera Type: Ground  
-Jolly Nature  
+Adamant Nature  
 - Aerial Ace  
-- Rock Tomb  
+- Rock Blast  
 - Bulldoze  
 - Hone Claws  
 
-Nosepass @ Leftovers  
-Ability: Sand Force  
-Level: 14  
+Anorith @ Muscle Band  
+Ability: Battle Armor  
+Level: 15  
 Tera Type: Rock  
-Adamant Nature  
-- Spark  
+Jolly Nature  
+- Aerial Ace  
 - Rock Tomb  
-- Bulldoze  
-- Protect  
+- Bug Bite  
+- Rapid Spin  
 
 === TRAINER_BRAWLY_1 ===
 Name: BRAWLY
@@ -4948,75 +4948,74 @@ Music: Male
 Double Battle: No
 AI: Smart Trainer
 
-Pachirisu @ Terrain Extender  
+Pincurchin @ Terrain Extender  
 Ability: Electric Surge  
-Level: 33  
+Level: 34  
 Tera Type: Electric  
-EVs: 52 Spe  
+Bold Nature  
+IVs: 0 Atk  
+- Rising Voltage  
+- Scald  
+- Recover  
+- Spikes  
+
+Toxtricity @ Air Balloon  
+Ability: Punk Rock  
+Level: 34  
+Tera Type: Electric  
 Timid Nature  
 IVs: 0 Atk  
-- Grass Knot  
-- Alluring Voice  
-- Volt Switch  
-- Charm  
-
-Magneton @ Occa Berry  
-Ability: Magnet Pull  
-Level: 33  
-Tera Type: Electric  
-IVs: 0 Atk / 30 SpA  
-Timid Nature  
-- Flash Cannon  
-- Hidden Power  
-- Volt Switch  
-- Self-Destruct  
-
-Toxtricity @ Shuca Berry  
-Ability: Punk Rock  
-Level: 33  
-Tera Type: Electric  
-IVs: 30 Atk / 30 SpA  
-Hasty Nature  
 - Overdrive  
-- Hidden Power
+- Sludge Bomb  
 - Hyper Voice  
-- Fire Punch  
+- Shift Gear  
+
+Bellibolt @ Shuca Berry  
+Ability: Electromorphosis  
+Level: 35  
+Tera Type: Electric  
+Bold Nature  
+IVs: 0 Atk  
+- Volt Switch  
+- Muddy Water  
+- Slack Off  
+- Soak 
 
 Raichu-Alola @ Focus Sash  
 Ability: Surge Surfer  
-Level: 33  
+Level: 34  
 Tera Type: Electric  
-Timid Nature  
+Modest Nature  
 IVs: 0 Atk  
+- Rising Voltage  
 - Surf  
 - Psyshock  
-- Volt Switch  
 - Nasty Plot  
 
-Zapdos (Kilowattrel) @ Sharp Beak  
-Ability: Wind Power  
+Lucario (F) @ Expert Belt  
+Ability: Inner Focus  
 Level: 34  
-Tera Type: Electric  
+Tera Type: Fighting  
 Timid Nature  
-IVs: 0 Atk / 30 Def / 30 SpA  
-- Air Slash  
-- Volt Switch  
-- Hidden Power 
-- Roost  
+IVs: 0 Atk  
+- Aura Sphere  
+- Terrain Pulse  
+- Shadow Ball  
+- Flash Cannon  
 
 Manectric @ Manectite  
-Ability: Intimidate  
-Level: 34  
+Ability: Static  
+Level: 35  
 Tera Type: Electric  
 Timid Nature  
-IVs: 0 Atk / 30 SpA  
-- Flame Burst  
-- Hidden Power
+IVs: 0 Atk / 30 Def  
 - Volt Switch  
-- Charge Beam  
+- Flame Burst
+- Hidden Power
+- Sleep Talk  
 
 === TRAINER_FLANNERY_1 ===
-Name: FLANNERY
+Name: Flannery
 Class: Leader
 Pic: Leader Flannery
 Gender: Female
@@ -5031,68 +5030,68 @@ Tera Type: Fire
 EVs: 252 SpA / 4 SpD / 252 Spe  
 Timid Nature  
 IVs: 0 Atk  
-- Flamethrower  
+- Weather Ball  
+- Solar Beam  
 - Psyshock  
-- Energy Ball  
 - Healing Wish  
 
-Tauros-Paldea-Blaze @ Muscle Band  
-Ability: Intimidate  
-Level: 45  
-Tera Type: Fighting  
-EVs: 252 Atk / 4 SpD / 252 Spe  
-Jolly Nature  
-- Raging Bull  
-- Submission  
-- Wild Charge  
-- Zen Headbutt  
-
-Vileplume @ Leftovers  
-Ability: Chlorophyll  
-Level: 45  
-Tera Type: Grass  
-EVs: 4 Def / 252 SpA / 252 Spe  
-Modest Nature  
-IVs: 0 Atk  
-- Sludge Bomb  
-- Giga Drain  
-- Weather Ball  
-- Growth  
-
-Oricorio @ Heavy-Duty Boots  
-Ability: Dancer  
-Level: 46  
+Infernape @ Life Orb  
+Ability: Iron Fist  
+Level: 47  
 Tera Type: Fire  
-EVs: 252 HP / 240 Def / 16 Spe  
-Timid Nature  
-IVs: 0 Atk  
-- Revelation Dance  
-- Air Slash  
-- Roost  
-- Quiver Dance  
+EVs: 196 Atk / 60 SpA / 252 Spe  
+Hasty Nature  
+- Overheat  
+- Close Combat  
+- Earthquake  
+- Knock Off  
 
-Heliolisk @ Magnet  
+Heliolisk @ Focus Sash  
 Ability: Solar Power  
-Level: 46  
+Level: 47  
 Tera Type: Electric  
 EVs: 252 SpA / 4 SpD / 252 Spe  
 Timid Nature  
 IVs: 0 Atk  
-- Weather Ball  
-- Hyper Voice  
 - Thunderbolt  
-- Volt Switch  
+- Hyper Voice  
+- Dragon Pulse  
+- Weather Ball  
 
-Coalossal @ Coalossite  
-Ability: Steam Engine  
+Scovillain @ Life Orb  
+Ability: Chlorophyll  
 Level: 47  
-Tera Type: Rock  
+Tera Type: Grass  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Energy Ball  
+- Flamethrower  
+- Overheat  
+- Leaf Storm  
+
+Excadrill @ Shuca Berry  
+Ability: Mold Breaker  
+Level: 47  
+Tera Type: Ground  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Earthquake  
+- Stone Edge  
+- Rapid Spin  
+- Swords Dance  
+
+Charizard-Mega-Y @ Charizardite Y  
+Ability: Drought  
+Level: 47  
+Tera Type: Fire  
 EVs: 252 SpA / 4 SpD / 252 Spe  
 Timid Nature  
-- Flamethrower  
-- Hydro Steam  
-- Earth Power  
-- Rapid Spin  
+IVs: 0 Atk  
+- Weather Ball  
+- Solar Beam  
+- Air Slash  
+- Roost  
 
 === TRAINER_NORMAN_1 ===
 Name: NORMAN
@@ -5179,77 +5178,77 @@ Class: Leader
 Pic: Leader Winona
 Gender: Female
 Music: Female
-Double Battle: No
+Double Battle: Yes
 AI: Smart Trainer
 
-Skarmory @ Custap Berry  
-Ability: Sturdy  
-Level: 65  
-Tera Type: Steel  
-EVs: 252 HP / 252 Def / 4 SpD  
-Impish Nature  
-- Spikes  
-- Drill Peck  
-- Body Press  
-- Roost  
-
-Frosmoth @ Heavy-Duty Boots  
-Ability: Ice Scales  
-Level: 65  
-Tera Type: Ice  
-EVs: 252 SpA / 4 SpD / 252 Spe  
-Timid Nature  
+Whimsicott @ Focus Sash  
+Ability: Prankster  
+Level: 62  
+Tera Type: Grass  
+EVs: 248 HP / 248 Def / 12 SpA  
+Bold Nature  
 IVs: 0 Atk  
-- Quiver Dance  
-- Ice Beam  
-- Giga Drain  
-- Roost  
+- Moonblast  
+- Encore  
+- Tailwind  
+- Taunt  
 
-Thundurus-Therian @ Leftovers  
-Ability: Volt Absorb  
-Level: 65  
-Tera Type: Electric  
-EVs: 252 SpA / 4 SpD / 252 Spe  
-IVs: 0 Atk
-Timid Nature  
-- Thunderbolt  
-- Grass Knot  
-- Sludge Wave  
-- Hidden Power
-
-Gyarados @ Wacan Berry  
-Ability: Moxie  
-Level: 65  
-Tera Type: Water  
+Scizor @ Life Orb  
+Ability: Technician  
+Level: 62  
+Tera Type: Bug  
 EVs: 252 Atk / 4 SpD / 252 Spe  
 Adamant Nature  
-- Dragon Dance  
-- Waterfall  
-- Power Whip  
-- Earthquake  
+- Bullet Punch  
+- Bug Bite  
+- Dual Wingbeat  
+- Roost  
 
-Gengar @ Focus Sash  
-Ability: Cursed Body  
-Level: 65  
-Tera Type: Ghost  
-EVs: 252 SpA / 4 SpD / 252 Spe  
-Timid Nature  
+Dragonite @ Weakness Policy  
+Ability: Multiscale  
+Level: 62  
+Tera Type: Dragon  
+EVs: 252 SpA / 252 Spe  
+Modest Nature  
 IVs: 0 Atk  
-- Nasty Plot  
-- Shadow Ball  
-- Sludge Wave  
-- Aura Sphere  
+- Draco Meteor  
+- Hurricane  
+- Heat Wave  
+- Roost  
+
+Fezandipiti @ Shuca Berry  
+Ability: Toxic Chain  
+Level: 62  
+Tera Type: Poison  
+EVs: 252 SpA / 252 Spe  
+Timid Nature  
+- Moonblast  
+- U-turn  
+- Roost  
+- Tailwind  
+
+Braviary-Hisui @ Life Orb  
+Ability: Tinted Lens  
+Level: 62  
+Tera Type: Psychic  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Air Slash  
+- Heat Wave  
+- Esper Wing  
+- Roost  
 
 Altaria @ Altarianite  
 Ability: Natural Cure  
-Level: 66  
+Level: 62  
 Tera Type: Dragon  
-EVs: 252 Atk / 4 Def / 252 Spe  
-Jolly Nature  
-- Dragon Dance  
-- Return  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Play Rough  
 - Earthquake  
 - Roost  
+- Dragon Dance
 
 === TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
@@ -6220,7 +6219,7 @@ Level: 39
 IVs: 29 HP / 29 Atk / 29 Def / 29 SpA / 29 SpD / 29 Spe
 
 === TRAINER_CALVIN_1 ===
-Name: CALVIN
+Name: Calvin
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6228,12 +6227,16 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move
 
-Poochyena
+Skwovet
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+Patrat
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_BILLY ===
-Name: BILLY
+Name: Billy
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6250,7 +6253,7 @@ Level: 7
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_JOSH ===
-Name: JOSH
+Name: Josh
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6397,7 +6400,7 @@ Level: 19
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_CALVIN_2 ===
-Name: CALVIN
+Name: Calvin
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6410,7 +6413,7 @@ Level: 27
 IVs: 1 HP / 1 Atk / 1 Def / 1 SpA / 1 SpD / 1 Spe
 
 === TRAINER_CALVIN_3 ===
-Name: CALVIN
+Name: Calvin
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6427,7 +6430,7 @@ Level: 30
 IVs: 2 HP / 2 Atk / 2 Def / 2 SpA / 2 SpD / 2 Spe
 
 === TRAINER_CALVIN_4 ===
-Name: CALVIN
+Name: Calvin
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6448,7 +6451,7 @@ Level: 33
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 === TRAINER_CALVIN_5 ===
-Name: CALVIN
+Name: Calvin
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6486,7 +6489,7 @@ Level: 16
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_ALLEN ===
-Name: ALLEN
+Name: Allen
 Class: Youngster
 Pic: Youngster
 Gender: Male
@@ -6494,11 +6497,11 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move
 
-Zigzagoon
+Azurill
 Level: 4
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-Taillow
+Starly
 Level: 3
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
@@ -9781,7 +9784,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Future Sight
 
 === TRAINER_BRENDAN_ROUTE_103_MUDKIP ===
-Name: BRENDAN
+Name: Brendan
 Class: Rival
 Pic: Brendan
 Gender: Male
@@ -9796,13 +9799,13 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Leer
 
 === TRAINER_BRENDAN_ROUTE_110_MUDKIP ===
-Name: BRENDAN
+Name: Brendan
 Class: Rival
 Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
 Slugma
 Level: 18
@@ -11541,7 +11544,7 @@ Level: 39
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_RICK ===
-Name: RICK
+Name: Rick
 Class: Bug Catcher
 Pic: Bug Catcher
 Gender: Male
@@ -11549,11 +11552,11 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move
 
-Wurmple
+Kricketot
 Level: 4
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-Wurmple
+Weedle
 Level: 4
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
@@ -14445,97 +14448,78 @@ Mudkip
 Level: 15
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
-=== TRAINER_ROXANNE_2 ===
-Name: ROXANNE
+=== LEADER_ROXIE ===
+Name: Roxie
 Class: Leader
 Pic: Leader Roxanne
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Double Battle: Yes
-AI: Basic Trainer
+Double Battle: No
+AI: Smart Trainer
+Mugshot: Purple
 
-Golem
-Level: 32
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Protect
-- Rollout
-- Magnitude
-- Explosion
+Trubbish @ Leftovers  
+Ability: Toxic Debris  
+Level: 14  
+Tera Type: Poison  
+Impish Nature  
+- Drain Punch  
+- Toxic  
+- Protect  
+- Pain Split  
 
-Kabuto @ Sitrus Berry
-Level: 35
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Swords Dance
-- Ice Beam
-- Surf
-- Rock Slide
+Noibat @ Berry Juice  
+Ability: Nocturnal  
+Level: 14  
+Shiny: Yes  
+Tera Type: Flying  
+Timid Nature  
+IVs: 0 Atk  
+- Dragon Breath  
+- Air Cutter  
+- Snarl  
+- Roost  
 
-Onix
-Level: 35
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Iron Tail
-- Explosion
-- Roar
-- Rock Slide
+Skrelp @ Oran Berry  
+Ability: Adaptability  
+Level: 14  
+Tera Type: Poison  
+Quiet Nature  
+- Sludge  
+- Water Pulse  
+- Icy Wind  
+- Flip Turn  
 
-Nosepass @ Sitrus Berry
-Level: 37
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Double Team
-- Explosion
-- Protect
-- Rock Slide
+Grimer-Alola @ Berry Juice  
+Ability: Poison Touch  
+Level: 14  
+Tera Type: Poison  
+Adamant Nature  
+- Poison Fang  
+- Thief  
+- Rock Tomb  
+- Pursuit  
 
-=== TRAINER_ROXANNE_3 ===
-Name: ROXANNE
-Class: Leader
-Pic: Leader Roxanne
-Gender: Female
-Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Double Battle: Yes
-AI: Basic Trainer
+Gastly @ Wise Glasses  
+Ability: Cursed Body  
+Level: 14  
+Tera Type: Ghost  
+Timid Nature  
+IVs: 0 Atk  
+- Sludge  
+- Ominous Wind  
+- Icy Wind  
+- Hypnosis  
 
-Omanyte
-Level: 37
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Protect
-- Ice Beam
-- Rock Slide
-- Surf
-
-Golem
-Level: 37
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Protect
-- Rollout
-- Magnitude
-- Explosion
-
-Kabutops @ Sitrus Berry
-Level: 40
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Swords Dance
-- Ice Beam
-- Surf
-- Rock Slide
-
-Onix
-Level: 40
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Iron Tail
-- Explosion
-- Roar
-- Rock Slide
-
-Nosepass @ Sitrus Berry
-Level: 42
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Double Team
-- Explosion
-- Protect
-- Rock Slide
+Venipede @ Eviolite  
+Ability: Speed Boost  
+Level: 15  
+Tera Type: Bug  
+Adamant Nature  
+- Poison Tail  
+- Bug Bite  
+- Bulldoze  
+- Work Up  
 
 === TRAINER_ROXANNE_4 ===
 Name: ROXANNE
@@ -14646,46 +14630,73 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Rock Slide
 
 === TRAINER_BRAWLY_2 ===
-Name: BRAWLY
+Name: Whitney
 Class: Leader
-Pic: Leader Brawly
-Gender: Male
-Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Double Battle: Yes
-AI: Basic Trainer
+Pic: Leader Whitney
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Smart Trainer
 
-Machamp @ Sitrus Berry
-Level: 33
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Karate Chop
-- Rock Slide
-- Focus Punch
-- Bulk Up
+Kecleon @ Leftovers  
+Ability: Protean  
+Level: 26  
+Tera Type: Normal  
+Jolly Nature  
+- Facade  
+- Drain Punch  
+- Knock Off  
+- Recover  
 
-Meditite
-Level: 33
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Light Screen
-- Reflect
-- Focus Punch
+Vigoroth @ Muscle Band  
+Ability: Vital Spirit  
+Level: 26  
+Tera Type: Normal  
+Jolly Nature  
+- Facade  
+- Drain Punch  
+- Knock Off  
+- Bulk Up  
 
-Hitmontop
-Level: 35
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Pursuit
-- Counter
-- Protect
-- Triple Kick
+Pidgeot @ Wise Glasses  
+Ability: Big Pecks  
+Level: 26  
+Tera Type: Normal  
+Timid Nature  
+- Air Slash  
+- Hidden Power
+- U-turn  
+- Roost  
 
-Hariyama @ Sitrus Berry
-Level: 37
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Fake Out
-- Focus Punch
-- Belly Drum
-- Earthquake
+Furret @ Silk Scarf  
+Ability: Adaptability  
+Level: 26  
+Tera Type: Normal  
+Jolly Nature  
+- Facade  
+- Bulldoze  
+- Thunder Punch  
+- Quick Attack  
+
+Lopunny @ Chople Berry  
+Ability: Cute Charm  
+Level: 26  
+Tera Type: Normal  
+Jolly Nature  
+- Facade  
+- Drain Punch  
+- Acrobatics  
+- U-turn  
+
+Miltank @ Leftovers  
+Ability: Scrappy  
+Level: 26  
+Tera Type: Normal  
+Jolly Nature  
+- Facade  
+- Fire Punch  
+- Rollout  
+- Milk Drink  
 
 === TRAINER_BRAWLY_3 ===
 Name: BRAWLY
@@ -17365,7 +17376,7 @@ Level: 1
 - Memento
 
 === TRAINER_LEAF_RUSTBORO ===
-Name: LEAF
+Name: Leaf
 Class: Pkmn Trainer 1
 Pic: Leaf
 Gender: Female
@@ -17373,33 +17384,39 @@ Music: Female
 Double Battle: No
 AI: Smart Trainer
 
-Eevee @ Oran Berry   
-Ability: Adaptability
+Eevee @ Oran Berry  
+Ability: Adaptability  
 Level: 12  
 Tera Type: Normal  
-Serious Nature  
 - Quick Attack  
 - Bite  
 - Tail Whip  
 - Covet  
 
+Goldeen @ Oran Berry  
+Ability: Lightning Rod  
+Level: 13  
+Tera Type: Water  
+- Horn Attack  
+- Aqua Jet  
+- Peck  
+- Supersonic  
+
 Cleffa @ Oran Berry  
-Ability: Magic Guard
+Ability: Magic Guard  
 Level: 12  
 Tera Type: Fairy  
 IVs: 0 Atk  
-Serious Nature
 - Disarming Voice  
 - Magical Leaf  
 - Charm  
-- Sing
+- Sing  
 
 Bulbasaur @ Oran Berry  
 Ability: Effect Spore  
-Level: 13
+Level: 13  
 Tera Type: Grass  
 IVs: 0 Atk  
-Serious Nature
 - Magical Leaf  
 - Clear Smog  
 - Leech Seed  

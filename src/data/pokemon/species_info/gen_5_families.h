@@ -3688,7 +3688,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
-        .abilities = { ABILITY_SWARM, ABILITY_CHLOROPHYLL, ABILITY_SHARPNESS },
+        .abilities = { ABILITY_WEB_SPINNER, ABILITY_CHLOROPHYLL, ABILITY_SHARPNESS },
         .innateAbility = ABILITY_STICKY_HOLD,
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Leavanny"),
@@ -5298,12 +5298,12 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
 #if P_FAMILY_MARACTUS
     [SPECIES_MARACTUS] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 106,
-        .baseDefense   = 77,
+        .baseHP        = 80,
+        .baseAttack    = 116,
+        .baseDefense   = 87,
         .baseSpeed     = 55,
-        .baseSpAttack  = 86,
-        .baseSpDefense = 77,
+        .baseSpAttack  = 76, 
+        .baseSpDefense = 87,
         .types = MON_TYPES(TYPE_GRASS, TYPE_WATER),
         .catchRate = 255,
         .expYield = 161,

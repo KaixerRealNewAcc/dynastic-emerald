@@ -66654,7 +66654,8 @@
       "MOVE_BURNING_JEALOUSY",
       "MOVE_PAIN_SPLIT",
       "MOVE_PSYCH_UP",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+      "MOVE_CLOSE_COMBAT"
     ],
     "EggMoves": [
       "MOVE_CURSE",
