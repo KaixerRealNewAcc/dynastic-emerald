@@ -1,4 +1,6 @@
 script Ow_Mons_EventScript_Example {
+	lock
+	faceplayer
     showmonpic(SPECIES_NONE, 10, 3)
     playmoncry (SPECIES_NONE, CRY_MODE_NORMAL)
     message("None:")
@@ -10,7 +12,23 @@ script Ow_Mons_EventScript_Example {
     end
 }
 
+script Ow_Mons_EventScript_Machop {
+	lock
+	faceplayer
+    showmonpic(SPECIES_MACHOP, 10, 3)
+    playmoncry (SPECIES_MACHOP, CRY_MODE_NORMAL)
+    message("Machop: MAAACHOPP!")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+    release
+    end
+}
+
 script Ow_Mons_EventScript_WhitneysMiltank {
+	lock
+	faceplayer
     showmonpic(SPECIES_MILTANK, 10, 3)
     playmoncry (SPECIES_MILTANK, CRY_MODE_NORMAL)
     message("Miltank: Moo! Moo!")
@@ -23,6 +41,8 @@ script Ow_Mons_EventScript_WhitneysMiltank {
 }
 
 script Ow_Mons_EventScript_Electrike {
+	lock
+	faceplayer
     showmonpic(SPECIES_ELECTRIKE, 10, 3)
     playmoncry (SPECIES_ELECTRIKE, CRY_MODE_NORMAL)
     message("Electrike: Elec! Trike!")
@@ -35,6 +55,8 @@ script Ow_Mons_EventScript_Electrike {
 }
 
 script Ow_Mons_EventScript_Rillaboom {
+	lock
+	faceplayer
     showmonpic(SPECIES_RILLABOOM, 10, 3)
     playmoncry (SPECIES_RILLABOOM, CRY_MODE_NORMAL)
     message("Rillaboom: Rilla! Boom!")
@@ -47,6 +69,8 @@ script Ow_Mons_EventScript_Rillaboom {
 }
 
 script Ow_Mons_EventScript_Anorith {
+	lock
+	faceplayer
     showmonpic(SPECIES_ANORITH, 10, 3)
     playmoncry (SPECIES_ANORITH, CRY_MODE_NORMAL)
     message("Anorith: Anorith!")
@@ -56,5 +80,36 @@ script Ow_Mons_EventScript_Anorith {
     closemessage
     release
     end
+}
+
+script RustboroCity_Flat2_1F_EventScript_Skitty{
+	lock
+	faceplayer
+	waitse
+    showmonpic(SPECIES_SKITTY, 10, 3)
+	playmoncry (SPECIES_SKITTY, CRY_MODE_NORMAL)
+	message ("Skitty: Skitty!")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+	release
+	end
+}
+
+//Misspelling on purpose, see nickname
+script RustboroCity_House3_EventScript_Pekachu{
+	lock
+	faceplayer
+	waitse
+    showmonpic(SPECIES_PIKACHU, 10, 3)
+	playmoncry (SPECIES_PIKACHU, CRY_MODE_NORMAL)
+	message ("Pekachu: Pika, Pika.")
+    waitmoncry
+    waitbuttonpress
+    hidemonpic
+    closemessage
+	release
+	end
 }
 

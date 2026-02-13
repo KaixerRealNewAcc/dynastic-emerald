@@ -295,7 +295,7 @@ script RustboroCity_Gym_EventScript_Roxanne{
 //School Kid.
 script RustboroCity_Gym_EventScript_Tommy{
 	trainerbattle_single (TRAINER_TOMMY, 
-	"Ever since roxanne showed me some\n"
+	"Ever since Roxanne showed me her\n"
 	"fossils, i've been invested in them.\p"
 	"and now i have a team made of only\n"
 	"fossils. i promise you i'll make sure\l"

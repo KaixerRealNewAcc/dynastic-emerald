@@ -362,9 +362,9 @@ RustboroCity_PokemonSchool_EventScript_Lass_Text_0:
 	.string "her. its outrages!$"
 
 RustboroCity_PokemonSchool_EventScript_GameboyKid1_Text_0:
-	.string "Im trading with my friend to help him,\n"
+	.string "Im trading with my friend to help him\n"
 	.string "get his favorate pokemon Alakazam!$"
 
 RustboroCity_PokemonSchool_EventScript_GameboyKid2_Text_0:
-	.string "Thanks to my friend, i now have a\n"
+	.string "Thanks to my friend i now have a\n"
 	.string "Alakazam, im so happy!$"

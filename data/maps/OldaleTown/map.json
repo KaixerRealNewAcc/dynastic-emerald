@@ -31,11 +31,12 @@
   ],
   "object_events": [
     {
+      "local_id": "LOCALID_RANDOM_GIRL",
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
-      "x": 16,
+      "x": 15,
       "y": 11,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -84,6 +85,19 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "OldaleTown_EventScript_Rival",
       "flag": "FLAG_HIDE_OLDALE_TOWN_RIVAL"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(MACHOP)",
+      "x": 16,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Ow_Mons_EventScript_Machop",
+      "flag": "0"
     }
   ],
   "warp_events": [

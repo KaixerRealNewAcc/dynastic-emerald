@@ -30,10 +30,6 @@ OldaleTown_EventScript_TownSign::
 	msgbox OldaleTown_Text_TownSign, MSGBOX_SIGN
 	end
 
-OldaleTown_EventScript_Girl::
-	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
-	end
-
 OldaleTown_EventScript_MartEmployee::
 	lock
 	faceplayer
@@ -395,3 +391,20 @@ OldaleTown_Text_BrendanLetsGoBack:
 OldaleTown_Text_TownSign:
 	.string "OLDALE TOWN\n"
 	.string "“Where things start off scarce.”$"
+
+OldaleTown_EventScript_Girl::
+	lock
+	applymovement LOCALID_RANDOM_GIRL, randomGirl
+	msgbox OldaleTown_EventScript_Girl_Text_0
+	waitmovement
+	call Ow_Mons_EventScript_Machop
+	end
+
+
+randomGirl:
+	face_right
+	step_end
+
+OldaleTown_EventScript_Girl_Text_0:
+	.string "You did great machop, we'll get em\n"
+	.string "next time!$"

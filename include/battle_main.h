@@ -5,6 +5,12 @@
 #include "data.h"
 #include "constants/hold_effects.h"
 
+#define PLAYER_MAX 101
+#define ONE_BELOW_PLAYER_MAX 102
+#define TWO_BELOW_PLAYER_MAX 103
+#define THREE_BELOW_PLAYER_MAX 104
+#define FOUR_BELOW_PLAYER_MAX 105
+
 // For displaying a multi battle partner's Pokémon in the party menu
 struct MultiPartnerMenuPokemon
 {
@@ -117,6 +123,7 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
 bool32 CanPlayerForfeitNormalTrainerBattle(void);
 bool32 DidPlayerForfeitNormalTrainerBattle(void);
 void BattleDebug_WonBattle(void);
+s32 GetHighestLevelInPlayerParty(void);
 
 extern struct MultiPartnerMenuPokemon gMultiPartnerParty[MULTI_PARTY_SIZE];
 

@@ -353,7 +353,7 @@ script RustboroCity_PokemonSchool_EventScript_Lass {
 
 script RustboroCity_PokemonSchool_EventScript_GameboyKid1 {
 	msgbox (
-	"Im trading with my friend to help him,\n"
+	"Im trading with my friend to help him\n"
 	"get his favorate pokemon Alakazam!", 
 	MSGBOX_NPC)
 	end
@@ -361,7 +361,7 @@ script RustboroCity_PokemonSchool_EventScript_GameboyKid1 {
 
 script RustboroCity_PokemonSchool_EventScript_GameboyKid2 {
 	msgbox (
-	"Thanks to my friend, i now have a\n"
+	"Thanks to my friend i now have a\n"
 	"Alakazam, im so happy!", 
 	MSGBOX_NPC)
 	end

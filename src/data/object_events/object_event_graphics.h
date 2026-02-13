@@ -67,6 +67,7 @@ const u16 gObjectEventPal_Npc2Reflection[] = INCBIN_U16("graphics/object_events/
 const u16 gObjectEventPal_Npc3Reflection[] = INCBIN_U16("graphics/object_events/palettes/npc_3_reflection.gbapal");
 const u16 gObjectEventPal_Npc4Reflection[] = INCBIN_U16("graphics/object_events/palettes/npc_4_reflection.gbapal");
 const u16  gObjectEventPal_Whitney[] = INCBIN_U16("graphics/object_events/palettes/whitney.gbapal");
+const u16  gObjectEventPal_Youngster[] = INCBIN_U16("graphics/object_events/palettes/youngster.gbapal");
 const u32 gObjectEventPic_NinjaBoy[] = INCBIN_U32("graphics/object_events/pics/people/ninja_boy.4bpp");
 const u32 gObjectEventPic_Twin[] = INCBIN_U32("graphics/object_events/pics/people/twin.4bpp");
 const u32 gObjectEventPic_Boy1[] = INCBIN_U32("graphics/object_events/pics/people/boy_1.4bpp");

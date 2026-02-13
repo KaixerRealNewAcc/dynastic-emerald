@@ -2,14 +2,6 @@ raw `
 RustboroCity_Flat2_3F_MapScripts::
 	.byte 0
 
-RustboroCity_Flat2_3F_EventScript_DevonEmployee::
-	msgbox RustboroCity_Flat2_3F_Text_PresidentCollectsRareStones, MSGBOX_NPC
-	end
-
-RustboroCity_Flat2_3F_EventScript_Woman::
-	msgbox RustboroCity_Flat2_3F_Text_PresidentsSonAlsoCollectsRareStones, MSGBOX_NPC
-	end
-
 RustboroCity_Flat2_3F_Text_PresidentCollectsRareStones:
 	.string "DEVON's PRESIDENT likes to collect\n"
 	.string "rare stones.$"
@@ -19,3 +11,22 @@ RustboroCity_Flat2_3F_Text_PresidentsSonAlsoCollectsRareStones:
 	.string "collects rare stones.$"
 
 `
+
+script RustboroCity_Flat2_3F_EventScript_Woman{
+	msgbox(
+	"I heard that the President's son\n"
+	"collects some rare stones.\p"
+	"he says it will give some pokemon\n"
+	"immense power, yea right! pffttt.\p",
+	MSGBOX_NPC)
+	end
+}
+
+script RustboroCity_Flat2_3F_EventScript_DevonEmployee{
+	msgbox(
+	"I've been working for devon corps for\n"
+	"two years now and haven't gotten a\l"
+	"raise yet, they will hear from me!", 
+	MSGBOX_NPC)
+	end
+}

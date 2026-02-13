@@ -297,7 +297,7 @@ RustboroCity_Gym_EventScript_Roxanne_Text_0:
 	.string "you are made of!$"
 
 RustboroCity_Gym_EventScript_Tommy_Text_0:
-	.string "Ever since roxanne showed me some\n"
+	.string "Ever since Roxanne showed me her\n"
 	.string "fossils, i've been invested in them.\p"
 	.string "and now i have a team made of only\n"
 	.string "fossils. i promise you i'll make sure\l"
