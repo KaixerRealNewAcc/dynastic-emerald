@@ -35,11 +35,6 @@ RustboroCity_Gym_EventScript_Josh::
 	msgbox RustboroCity_Gym_Text_JoshPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-RustboroCity_Gym_EventScript_Tommy::
-	trainerbattle_single TRAINER_TOMMY, RustboroCity_Gym_Text_TommyIntro, RustboroCity_Gym_Text_TommyDefeat
-	msgbox RustboroCity_Gym_Text_TommyPostBattle, MSGBOX_AUTOCLOSE
-	end
-
 RustboroCity_Gym_EventScript_Marc::
 	trainerbattle_single TRAINER_MARC, RustboroCity_Gym_Text_MarcIntro, RustboroCity_Gym_Text_MarcDefeat
 	msgbox RustboroCity_Gym_Text_MarcPostBattle, MSGBOX_AUTOCLOSE
@@ -275,12 +270,18 @@ RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "POKéMON.$"
 
 RustboroCity_Gym_EventScript_Roxanne::
-	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_EventScript_Roxanne_Text_0, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
+	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_EventScript_Roxanne_Text_0, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch
 	goto_if_unset FLAG_RECEIVED_TM_ROCK_TOMB, RustboroCity_Gym_EventScript_GiveRockTomb
 	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
 	release
+	end
+
+
+RustboroCity_Gym_EventScript_Tommy::
+	trainerbattle_single TRAINER_TOMMY, RustboroCity_Gym_EventScript_Tommy_Text_0, RustboroCity_Gym_Text_TommyDefeat
+	msgbox RustboroCity_Gym_Text_TommyPostBattle, MSGBOX_DEFAULT
 	end
 
 
@@ -294,3 +295,10 @@ RustboroCity_Gym_EventScript_Roxanne_Text_0:
 	.string "well you can try but you can't win!\n"
 	.string "ugh, enough talking lets see what\p"
 	.string "you are made of!$"
+
+RustboroCity_Gym_EventScript_Tommy_Text_0:
+	.string "Ever since roxanne showed me some\n"
+	.string "fossils, i've been invested in them.\p"
+	.string "and now i have a team made of only\n"
+	.string "fossils. i promise you i'll make sure\l"
+	.string "this battle is worth ur time!$"

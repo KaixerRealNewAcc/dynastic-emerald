@@ -1,2 +1,3 @@
+
 PetalburgWoodsExtended_MapScripts::
 	.byte 0

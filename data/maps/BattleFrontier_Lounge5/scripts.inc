@@ -1,3 +1,4 @@
+
 BattleFrontier_Lounge5_MapScripts::
 	.byte 0
 
@@ -122,4 +123,3 @@ BattleFrontier_Lounge5_Text_GirlPlaysAtRedHouseALot::
 	.string "I know something!\p"
 	.string "That little girl plays at the red house\n"
 	.string "a lot!$"
-
