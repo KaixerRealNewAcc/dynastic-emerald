@@ -6267,21 +6267,44 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Tackle
 
 === TRAINER_TOMMY ===
-Name: TOMMY
-Class: Youngster
-Pic: Youngster
+Name: Tommy
+Class: School Kid
+Pic: School Kid M
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Check Bad Move
+AI: Semi Smart Trainer
 
-Geodude
-Level: 8
-IVs: 13 HP / 13 Atk / 13 Def / 13 SpA / 13 SpD / 13 Spe
+Archen @ Focus Sash  
+Ability: Defeatist  
+Level: 13  
+Tera Type: Rock  
+Jolly Nature  
+- Stealth Rock  
+- Wing Attack  
+- Rock Tomb  
+- Roost  
 
-Geodude
-Level: 8
-IVs: 14 HP / 14 Atk / 14 Def / 14 SpA / 14 SpD / 14 Spe
+Amaura @ Never-Melt Ice  
+Ability: Refrigerate  
+Level: 13  
+Tera Type: Rock  
+Timid Nature  
+IVs: 0 Atk  
+- Icy Wind  
+- Charge Beam  
+- Ancient Power  
+- Substitute  
+
+Cranidos @ Muscle Band  
+Ability: Sheer Force  
+Level: 13  
+Tera Type: Rock  
+Jolly Nature  
+- Rock Tomb  
+- Bite  
+- Bulldoze  
+- Whirlwind  
 
 === TRAINER_JOEY ===
 Name: JOEY
