@@ -1068,6 +1068,13 @@ static const struct SpriteFrameImage sPicTable_Leaf[] = {
     overworld_ascending_frames(gObjectEventPic_Leaf, 2, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_Ritchie[] = {
+    overworld_ascending_frames(gObjectEventPic_Ritchie, 2, 4),
+    overworld_frame(gObjectEventPic_Ritchie, 2, 4, 6),
+    overworld_frame(gObjectEventPic_Ritchie, 2, 4, 7),
+    overworld_frame(gObjectEventPic_Ritchie, 2, 4, 8),
+};
+
 static const struct SpriteFrameImage sPicTable_SudowoodoTree[] = {
     overworld_frame(gObjectEventPic_SudowoodoTree, 2, 4, 0),
     overworld_frame(gObjectEventPic_SudowoodoTree, 2, 4, 0),

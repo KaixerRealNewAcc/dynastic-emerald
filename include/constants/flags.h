@@ -45,12 +45,12 @@
 
 #define FLAG_DN_SEARCHING    0x20 
 #define FLAG_DN_DETECTOR_MODE 0x21
-#define FLAG_HIDE_RUSTBORO_LEAF 0x22
+#define FLAG_HIDE_RUSTBORO_RITCHIE 0x22
 #define FLAG_INVERSE_BATTLE    0x23
 #define FLAG_NUZLOCKE_MODE    0x24
 #define FLAG_EXP_SHARE       0x25 
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
+#define FLAG_HIDE_WHITNEY    0x26
+#define FLAG_GYM_GUIDE_HIDE_DEWFORD    0x27
 #define FLAG_UNUSED_0x028    0x28 // Unused Flag
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag

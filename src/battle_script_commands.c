@@ -4606,6 +4606,9 @@ static void Cmd_getexp(void)
             if (B_TRAINER_EXP_MULTIPLIER <= GEN_7 && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                 calculatedExp = (calculatedExp * 150) / 100;
 
+            if (FlagGet(EZLEVELING_CODE))
+                calculatedExp = (calculatedExp * 350) / 100;
+
             if (B_SPLIT_EXP < GEN_6)
             {
                 if (viaExpShare) // at least one mon is getting exp via exp share

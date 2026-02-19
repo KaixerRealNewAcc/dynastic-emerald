@@ -4799,7 +4799,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Crunch
 
 === TRAINER_ROXANNE_1 ===
-Name: ROXANNE
+Name: Roxanne
 Class: Leader
 Pic: Leader Roxanne
 Gender: Female
@@ -4817,16 +4817,6 @@ Careful Nature
 - Rock Tomb  
 - Slack Off  
 - Stealth Rock  
-
-Cacnea @ Berry Juice  
-Ability: Sand Rush  
-Level: 15  
-Tera Type: Grass  
-Jolly Nature  
-- Bullet Seed  
-- Bulldoze  
-- Thunder Punch  
-- Power-Up Punch  
 
 Larvitar @ Flame Orb  
 Ability: Guts  
@@ -4849,16 +4839,6 @@ IVs: 0 Atk
 - Recover  
 - Yawn  
 
-Diglett @ Expert Belt  
-Ability: Sand Force  
-Level: 15  
-Tera Type: Ground  
-Adamant Nature  
-- Aerial Ace  
-- Rock Blast  
-- Bulldoze  
-- Hone Claws  
-
 Anorith @ Muscle Band  
 Ability: Battle Armor  
 Level: 15  
@@ -4870,7 +4850,7 @@ Jolly Nature
 - Rapid Spin  
 
 === TRAINER_BRAWLY_1 ===
-Name: BRAWLY
+Name: Brawly
 Class: Leader
 Pic: Leader Brawly
 Gender: Male
@@ -4940,7 +4920,7 @@ Jolly Nature
 - Rock Tomb
 
 === TRAINER_WATTSON_1 ===
-Name: WATTSON
+Name: Wattson
 Class: Leader
 Pic: Leader Wattson
 Gender: Male
@@ -4979,18 +4959,7 @@ IVs: 0 Atk
 - Volt Switch  
 - Muddy Water  
 - Slack Off  
-- Soak 
-
-Raichu-Alola @ Focus Sash  
-Ability: Surge Surfer  
-Level: 34  
-Tera Type: Electric  
-Modest Nature  
-IVs: 0 Atk  
-- Rising Voltage  
-- Surf  
-- Psyshock  
-- Nasty Plot  
+- Soak  
 
 Lucario (F) @ Expert Belt  
 Ability: Inner Focus  
@@ -5003,16 +4972,16 @@ IVs: 0 Atk
 - Shadow Ball  
 - Flash Cannon  
 
-Manectric @ Manectite  
-Ability: Static  
+Raichu-Alola @ Focus Sash  
+Ability: Surge Surfer  
 Level: 35  
 Tera Type: Electric  
-Timid Nature  
-IVs: 0 Atk / 30 Def  
-- Volt Switch  
-- Flame Burst
-- Hidden Power
-- Sleep Talk  
+Modest Nature  
+IVs: 0 Atk  
+- Rising Voltage  
+- Surf  
+- Psyshock  
+- Nasty Plot 
 
 === TRAINER_FLANNERY_1 ===
 Name: Flannery
@@ -5326,80 +5295,80 @@ IVs: 0 Atk
 - Trick Room  
 
 === TRAINER_JUAN_1 ===
-Name: JUAN
+Name: Juan
 Class: Leader
 Pic: Leader Juan
 Gender: Male
 Music: Male
-Items: Hyper Potion / Hyper Potion
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Politoed @ Damp Rock  
+Pelipper @ Damp Rock  
 Ability: Drizzle  
-Level: 81  
+Tera Type: Water  
+EVs: 248 HP / 252 Def / 8 SpA  
+Bold Nature  
+- Hurricane  
+- Scald  
+- U-turn  
+- Roost  
+
+Empoleon @ Leftovers  
+Ability: Competitive  
+Level: 82  
 Tera Type: Water  
 EVs: 252 SpA / 252 Spe  
-Timid Nature  
+Modest Nature  
+IVs: 0 Atk  
 - Scald  
-- Dazzling Gleam  
+- Flash Cannon  
 - Ice Beam  
-- Flip Turn  
+- Roost  
+
+Overqwil @ Life Orb  
+Ability: Swift Swim  
+Level: 81  
+Tera Type: Dark  
+EVs: 252 Atk / 252 Spe  
+Adamant Nature  
+- Gunk Shot  
+- Liquidation  
+- Crunch  
+- Swords Dance  
+
+Archaludon @ Assault Vest  
+Ability: Stamina  
+Level: 82  
+Tera Type: Steel  
+EVs: 252 SpA / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Flash Cannon  
+- Draco Meteor  
+- Aura Sphere  
+- Electro Shot  
 
 Greninja @ Life Orb  
 Ability: Protean  
 Level: 81  
 Tera Type: Water  
-EVs: 252 SpA / 4 SpD / 252 Spe  
+EVs: 4 HP / 252 SpA / 252 Spe  
 Timid Nature  
 IVs: 0 Atk  
-- Scald  
+- Surf  
 - Dark Pulse  
-- Sludge Wave  
 - Ice Beam  
-
-Beartic @ Focus Sash  
-Ability: Swift Swim  
-Level: 81  
-Tera Type: Ice  
-EVs: 252 Atk / 4 SpD / 252 Spe  
-Adamant Nature  
-- Icicle Crash  
-- Liquidation  
-- Close Combat  
-- Swords Dance  
-
-Metagross @ Assault Vest  
-Ability: Tough Claws  
-Level: 81  
-Tera Type: Steel  
-EVs: 252 Atk / 4 SpD / 252 Spe  
-Jolly Nature  
-- Meteor Mash  
-- Ice Punch  
-- Knock Off  
-- Bullet Punch  
-
-Vaporeon @ Damp Rock  
-Ability: Drizzle  
-Level: 81  
-Tera Type: Water  
-EVs: 252 HP / 252 Def / 4 SpD  
-Bold Nature  
-- Scald  
-- Ice Beam  
-- Flip Turn  
-- Rest  
+- Water Shuriken  
 
 Swampert @ Swampertite  
-Ability: Damp  
-Level: 81  
+Ability: Torrent  
+Level: 82  
 Tera Type: Water  
-EVs: 252 Atk / 4 SpD / 252 Spe  
-Adamant Nature  
+EVs: 252 Atk / 252 Spe  
+Jolly Nature  
 - Liquidation  
-- Ice Punch  
 - Earthquake  
+- Ice Punch  
 - Flip Turn  
 
 === TRAINER_JERRY_1 ===
@@ -9757,12 +9726,11 @@ Level: 35
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_WALLY_VR_1 ===
-Name: WALLY
-Class: Rival
+Name: Wally
+Class: Pkmn Trainer
 Pic: Wally
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore
 Double Battle: No
 AI: Basic Trainer
 
@@ -12351,25 +12319,63 @@ Level: 27
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_WALLY_MAUVILLE ===
-Name: WALLY
-Class: Rival
+Name: Wally
+Class: Pkmn Trainer
 Pic: Wally
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Ralts
-Level: 16
-IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+Altaria @ Yache Berry  
+Ability: Natural Cure  
+Level: 33  
+Tera Type: Dragon  
+Timid Nature  
+IVs: 0 Atk  
+- Air Slash  
+- Dragon Pulse  
+- Will-O-Wisp  
+- Roost  
+
+Magneton @ Air Balloon  
+Ability: Analytic  
+Level: 32  
+Tera Type: Electric  
+Timid Nature  
+IVs: 0 Atk / 30 Def  
+- Thunderbolt  
+- Flash Cannon  
+- Hidden Power 
+- Volt Switch  
+
+Roselia @ Eviolite  
+Ability: Natural Cure  
+Level: 34  
+Tera Type: Grass  
+Mild Nature  
+IVs: 0 Atk / 30 SpA / 30 Spe  
+- Giga Drain  
+- Sludge Bomb  
+- Hidden Power 
+- Synthesis  
+
+Gallade @ Clear Amulet  
+Ability: Sharpness  
+Level: 34  
+Tera Type: Psychic  
+Jolly Nature  
+- Sacred Sword  
+- Psycho Cut  
+- Knock Off  
+- Shadow Sneak  
 
 === TRAINER_WALLY_VR_2 ===
-Name: WALLY
-Class: Rival
+Name: Wally
+Class: Pkmn Trainer
 Pic: Wally
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore
 Double Battle: No
 AI: Basic Trainer
 
@@ -12414,12 +12420,11 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Future Sight
 
 === TRAINER_WALLY_VR_3 ===
-Name: WALLY
-Class: Rival
+Name: Wally
+Class: Pkmn Trainer
 Pic: Wally
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore
 Double Battle: No
 AI: Basic Trainer
 
@@ -12464,7 +12469,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Future Sight
 
 === TRAINER_WALLY_VR_4 ===
-Name: WALLY
+Name: Wally
 Class: Rival
 Pic: Wally
 Gender: Male
@@ -12514,7 +12519,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Future Sight
 
 === TRAINER_WALLY_VR_5 ===
-Name: WALLY
+Name: Wally
 Class: Rival
 Pic: Wally
 Gender: Male
@@ -14680,26 +14685,6 @@ Jolly Nature
 - Drain Punch  
 - Knock Off  
 - Bulk Up  
-
-Pidgeot @ Wise Glasses  
-Ability: Big Pecks  
-Level: 26  
-Tera Type: Normal  
-Timid Nature  
-- Air Slash  
-- Hidden Power
-- U-turn  
-- Roost  
-
-Furret @ Silk Scarf  
-Ability: Adaptability  
-Level: 26  
-Tera Type: Normal  
-Jolly Nature  
-- Facade  
-- Bulldoze  
-- Thunder Punch  
-- Quick Attack  
 
 Lopunny @ Chople Berry  
 Ability: Cute Charm  
@@ -17398,52 +17383,54 @@ Scolipede @ Quick Claw
 Level: 1
 - Memento
 
-=== TRAINER_LEAF_RUSTBORO ===
-Name: Leaf
+=== TRAINER_RITCHIE_RUSTBORO ===
+Name: Ritchie
 Class: Pkmn Trainer
-Pic: Leaf
+Pic: Ritchie
 Gender: Female
 Music: Female
 Double Battle: No
 AI: Smart Trainer
 
-Eevee @ Oran Berry  
-Ability: Adaptability  
+Axew @ Oran Berry  
+Ability: Mold Breaker  
 Level: 12  
-Tera Type: Normal  
-- Quick Attack  
+Tera Type: Dragon  
+Jolly Nature  
+- Breaking Swipe  
+- Rock Tomb  
 - Bite  
-- Tail Whip  
-- Covet  
+- Cut  
 
-Goldeen @ Oran Berry  
-Ability: Lightning Rod  
+Taillow @ Oran Berry  
+Ability: Guts  
 Level: 13  
-Tera Type: Water  
-- Horn Attack  
-- Aqua Jet  
-- Peck  
-- Supersonic  
+Tera Type: Normal  
+Jolly Nature  
+- Quick Attack  
+- Wing Attack  
+- Pursuit  
+- Roost  
 
-Cleffa @ Oran Berry  
-Ability: Magic Guard  
+Charmander @ Oran Berry  
+Ability: Blaze  
 Level: 12  
-Tera Type: Fairy  
-IVs: 0 Atk  
-- Disarming Voice  
-- Magical Leaf  
-- Charm  
-- Sing  
+Tera Type: Fire  
+Hasty Nature  
+- Incinerate  
+- Ancient Power  
+- Brick Break  
+- Quick Attack  
 
-Bulbasaur @ Oran Berry  
-Ability: Effect Spore  
-Level: 13  
-Tera Type: Grass  
-IVs: 0 Atk  
-- Magical Leaf  
-- Clear Smog  
-- Leech Seed  
-- Growl  
+Pikachu @ Oran Berry  
+Ability: Static  
+Level: 14  
+Tera Type: Electric  
+Naive Nature  
+- Shock Wave  
+- Knock Off  
+- Draining Kiss  
+- Nuzzle    
 
 === TRAINER_MEGA_GYARADOS ===
 Name: Cole

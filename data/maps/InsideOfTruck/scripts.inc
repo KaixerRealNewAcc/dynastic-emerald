@@ -542,13 +542,10 @@ InsideOfTruck_EventScript_SaveSettingsDone_2_Continue::
 
 
 InsideOfTruck_EventScript_StartSettingsMenu_Text_0:
-	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}: Please stop smashing {A_BUTTON} and\n"
-	.string "properly answer the following\l"
-	.string "questions.$"
+	.string "Please stop smashing {A_BUTTON} and properly\nanswer the following questions.$"
 
 InsideOfTruck_EventScript_StartSettingsMenu_Text_1:
-	.string "Would you like to play with the\n"
-	.string "{COLOR GREEN}{SHADOW LIGHT_GREEN}Nuzlock Challenge enabled{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}?$"
+	.string "Would you like to play with the \n{COLOR GREEN}{SHADOW LIGHT_GREEN}Nuzlock Challenge enabled{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}?$"
 
 InsideOfTruck_EventScript_StartSettingsMenu_Text_2:
 	.string "Nuzlocke Mode is {COLOR GREEN}{SHADOW LIGHT_GREEN}Enabled.$"

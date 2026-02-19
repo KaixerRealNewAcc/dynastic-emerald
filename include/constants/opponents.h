@@ -864,7 +864,7 @@
 #define EV_TRAINER_SPA                      858
 #define EV_TRAINER_SPD                      859
 #define EV_TRAINER_SPEED                    860
-#define TRAINER_LEAF_RUSTBORO               861
+#define TRAINER_RITCHIE_RUSTBORO               861
 #define TRAINER_MEGA_GYARADOS               862
 
 

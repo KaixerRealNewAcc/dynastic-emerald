@@ -1238,6 +1238,10 @@
     {
       "id": "MAPSEC_PETALBURG_WOODS_EXTENDED",
       "name": "Petalburg Woods Extended"
+    },
+    {
+      "id": "MAPSEC_SLATEPORT_FANCLUB",
+      "name": "Slateport Fanclub"
     }
   ]
 }

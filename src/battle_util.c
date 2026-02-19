@@ -3048,41 +3048,42 @@ bool32 CanAbilityBlockMove(u32 battlerAtk, u32 battlerDef, u32 abilityAtk, u32 a
     else
         atkPriority = GetChosenMovePriority(battlerAtk, abilityAtk);
 
-    switch (abilityDef)
+    if(hasAbilityOrInnate(battlerDef, ABILITY_SOUNDPROOF))
     {
-    case ABILITY_SOUNDPROOF:
         if (IsSoundMove(move) && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
         {
             if (gBattleMons[battlerAtk].volatiles.multipleTurns)
                 gHitMarker |= HITMARKER_NO_PPDEDUCT;
             battleScriptBlocksMove = BattleScript_SoundproofProtected;
         }
-        break;
-    case ABILITY_BULLETPROOF:
+    }
+    if(hasAbilityOrInnate(battlerDef, ABILITY_BULLETPROOF))
+    {
         if (IsBallisticMove(move))
         {
             if (gBattleMons[battlerAtk].volatiles.multipleTurns)
                 gHitMarker |= HITMARKER_NO_PPDEDUCT;
             battleScriptBlocksMove = BattleScript_SoundproofProtected;
         }
-        break;
-    case ABILITY_DAZZLING:
-    case ABILITY_QUEENLY_MAJESTY:
-    case ABILITY_ARMOR_TAIL:
+    }
+    if((hasAbilityOrInnate(battlerDef, ABILITY_DAZZLING)
+    || hasAbilityOrInnate(battlerDef, ABILITY_QUEENLY_MAJESTY)
+    || hasAbilityOrInnate(battlerDef,  ABILITY_ARMOR_TAIL)))
+    {
         if (atkPriority > 0 && !IsBattlerAlly(battlerAtk, battlerDef))
         {
             if (gBattleMons[battlerAtk].volatiles.multipleTurns)
                 gHitMarker |= HITMARKER_NO_PPDEDUCT;
             battleScriptBlocksMove = BattleScript_DazzlingProtected;
         }
-        break;
-    case ABILITY_GOOD_AS_GOLD:
+    }
+    if(hasAbilityOrInnate(battlerDef, ABILITY_GOOD_AS_GOLD))
+    {
         if (IsBattleMoveStatus(move))
         {
             if (!(GetBattlerMoveTargetType(battlerAtk, move) & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_ALL_BATTLERS)))
                 battleScriptBlocksMove = BattleScript_GoodAsGoldActivates;
         }
-        break;
     }
 
     if (atkPriority > 0)
@@ -3436,6 +3437,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     u32 partner = 0;
     struct Pokemon *mon;
     bool8 abilityEffect = FALSE;
+    u32 HeldItem = gBattleMons[battler].item;
 
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
         return 0;
@@ -4766,7 +4768,21 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
                 break;
             case ABILITY_BALL_FETCH:
-                if (gBattleMons[battler].item == ITEM_NONE
+                if (gBattleMons[battler].item != ITEM_NONE 
+                    && !gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    for (i = 0; i < ARRAY_COUNT(BallItems); i++)
+                    {
+                        if (HeldItem == BallItems[i]){
+                            gBattlerAttacker = battler;
+                            gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                            BattleScriptPushCursor();
+                            BattleScriptPushCursorAndCallback(BattleScript_BallFetch2);
+                            effect++;
+                        }
+                    }
+                } 
+                else if (gBattleMons[battler].item == ITEM_NONE
                     && gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedBall)] >= 1
                     && !gHasFetchedBall)
                 {

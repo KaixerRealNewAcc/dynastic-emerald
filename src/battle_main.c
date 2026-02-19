@@ -211,7 +211,7 @@ EWRAM_DATA struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct BattleScripting gBattleScripting = {0};
 EWRAM_DATA struct BattleStruct *gBattleStruct = NULL;
 
-EWRAM_DATA u8 gNuzlockeIsActivated = 0; // Nuzlocke mode is not activated by default
+EWRAM_DATA u8 gNuzlockeIsActivated = FALSE; // Nuzlocke mode is not activated by default
 
 EWRAM_DATA struct AiThinkingStruct *gAiThinkingStruct = NULL;
 EWRAM_DATA struct AiLogicData *gAiLogicData = NULL;
@@ -4763,10 +4763,24 @@ void SwapTurnOrder(u8 id1, u8 id2)
     SWAP(gBattlerByTurnOrder[id1], gBattlerByTurnOrder[id2], temp);
 }
 
+static const u32 BallItems[] = 
+{
+    ITEM_LIGHT_BALL,
+    ITEM_IRON_BALL,
+    ITEM_SMOKE_BALL,
+    ITEM_SNOWBALL,
+    ITEM_FLAME_ORB,
+};
+
 // For AI, so it doesn't 'cheat' by knowing player's ability
 u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect holdEffect)
 {
+    u8 i = 0;
+    u32 HeldItem = gBattleMons[battler].item;
     u32 speed = gBattleMons[battler].speed;
+    u32 move;
+
+    u32 innateAbility = hasInnate(battler, ability);
 
     // stat stages
     speed *= gStatStageRatios[gBattleMons[battler].statStages[STAT_SPEED]][0];
@@ -4775,28 +4789,37 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
     // weather abilities
     if (HasWeatherEffect())
     {
-        if (ability == ABILITY_SWIFT_SWIM       && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
+        if ((ability == ABILITY_SWIFT_SWIM || innateAbility == ABILITY_SWIFT_SWIM) && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
             speed *= 2;
-        else if (ability == ABILITY_CHLOROPHYLL && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+        else if ((ability == ABILITY_CHLOROPHYLL || innateAbility == ABILITY_CHLOROPHYLL) && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
             speed *= 2;
-        else if (ability == ABILITY_SAND_RUSH   && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && gBattleWeather & B_WEATHER_SANDSTORM)
+        else if ((ability == ABILITY_SAND_RUSH || innateAbility == ABILITY_SAND_RUSH)   && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && gBattleWeather & B_WEATHER_SANDSTORM)
             speed *= 2;
-        else if (ability == ABILITY_SLUSH_RUSH  && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+        else if ((ability == ABILITY_SLUSH_RUSH || innateAbility ==  ABILITY_SLUSH_RUSH)  && !hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL) && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
             speed *= 2;
     }
 
     // other abilities
-    if (ability == ABILITY_QUICK_FEET && gBattleMons[battler].status1 & STATUS1_ANY)
+    if (ability == ABILITY_BALL_FETCH || innateAbility ==  ABILITY_BALL_FETCH)
+    {
+        for (i = 0; i < ARRAY_COUNT(BallItems); i++)
+        {
+            if (HeldItem == BallItems[i]){
+                speed = (speed * 130) / 100;
+            }
+        }
+    }
+    else if ((ability == ABILITY_QUICK_FEET || innateAbility ==  ABILITY_QUICK_FEET) && gBattleMons[battler].status1 & STATUS1_ANY)
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
+    else if ((ability == ABILITY_SURGE_SURFER || innateAbility ==  ABILITY_SURGE_SURFER) && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
-    else if (ability == ABILITY_SLOW_START && gDisableStructs[battler].slowStartTimer != 0)
+    else if ((ability == ABILITY_SLOW_START || innateAbility ==  ABILITY_SLOW_START) && gDisableStructs[battler].slowStartTimer != 0)
         speed /= (speed * 150) / 100;
-    else if (ability == ABILITY_PROTOSYNTHESIS && !(gBattleMons[battler].volatiles.transformed) && ((gBattleWeather & B_WEATHER_SUN && HasWeatherEffect()) || gDisableStructs[battler].boosterEnergyActivated))
+    else if ((ability == ABILITY_PROTOSYNTHESIS || innateAbility ==  ABILITY_PROTOSYNTHESIS)  && !(gBattleMons[battler].volatiles.transformed) && ((gBattleWeather & B_WEATHER_SUN && HasWeatherEffect()) || gDisableStructs[battler].boosterEnergyActivated))
         speed = (GetHighestStatId(battler) == STAT_SPEED) ? (speed * 150) / 100 : speed;
-    else if (ability == ABILITY_QUARK_DRIVE && !(gBattleMons[battler].volatiles.transformed) && (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gDisableStructs[battler].boosterEnergyActivated))
+    else if ((ability == ABILITY_QUARK_DRIVE || innateAbility ==  ABILITY_QUARK_DRIVE) && !(gBattleMons[battler].volatiles.transformed) && (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gDisableStructs[battler].boosterEnergyActivated))
         speed = (GetHighestStatId(battler) == STAT_SPEED) ? (speed * 150) / 100 : speed;
-    else if (ability == ABILITY_UNBURDEN && gDisableStructs[battler].unburdenActive)
+    else if ((ability == ABILITY_UNBURDEN || innateAbility ==  ABILITY_UNBURDEN) && gDisableStructs[battler].unburdenActive)
         speed *= 2;
 
     // player's badge boost
@@ -4822,7 +4845,7 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
         speed *= 2;
 
     // paralysis drop
-    if (gBattleMons[battler].status1 & STATUS1_PARALYSIS && ability != ABILITY_QUICK_FEET)
+    if (gBattleMons[battler].status1 & STATUS1_PARALYSIS && (ability != ABILITY_QUICK_FEET || innateAbility !=  ABILITY_QUICK_FEET))
         speed /= GetGenConfig(GEN_CONFIG_PARALYSIS_SPEED) >= GEN_7 ? 2 : 4;
 
     if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SWAMP)

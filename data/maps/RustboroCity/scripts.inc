@@ -1102,16 +1102,16 @@ RustboroCity_Text_ShadyCharacterTookOffTowardsTunnel:
 
 RustboroCity_Text_YouGotItThankYou:
 	.string "Oh! How did it go?\n"
-	.string "The DEVON GOODS?\p"
+	.string "The Devon Goods?\p"
 	.string "You did!\n"
 	.string "You got them back!\p"
-	.string "You really are a great TRAINER!\p"
+	.string "You really are a great Trainer!\p"
 	.string "I know! As my thanks, I'll give you\n"
-	.string "another GREAT BALL!$"
+	.string "another Great Ball!$"
 
 RustboroCity_Text_YoureLoadedWithItems:
 	.string "You're loaded with items.\n"
-	.string "I can't give you this GREAT BALL.$"
+	.string "I can't give you this Great Ball.$"
 
 RustboroCity_Text_PleaseComeWithMe:
 	.string "Excuse me, please!\n"
@@ -1140,17 +1140,17 @@ RustboroCity_Text_MayPassedBrineyWantToBattle:
 	.string "How about a little battle?$"
 
 RustboroCity_Text_MayOhHaventRaisedPokemonEnough:
-	.string "MAY: Oh, what's the matter?\p"
+	.string "May: Oh, what's the matter?\p"
 	.string "Haven't you caught or raised your\n"
 	.string "Pokémon very much?\p"
-	.string "That's not very good for a TRAINER!$"
+	.string "That's not very good for a Trainer!$"
 
 RustboroCity_Text_MayWantToBattle:
-	.string "MAY: So, what do you think?\n"
+	.string "May: So, what do you think?\n"
 	.string "How about a little battle here?$"
 
 RustboroCity_Text_MayImNotGoingToLose:
-	.string "MAY: You just became a TRAINER,\n"
+	.string "May: You just became a TRAINER,\n"
 	.string "{PLAYER}{KUN}. I'm not going to lose!$"
 
 RustboroCity_Text_MayDefeat:
@@ -1158,7 +1158,7 @@ RustboroCity_Text_MayDefeat:
 	.string "You're better than I expected!$"
 
 RustboroCity_Text_MayMrBrineyHint:
-	.string "MAY: Oh, by the way, MR. BRINEY, who\n"
+	.string "May: Oh, by the way, MR. BRINEY, who\n"
 	.string "I just passed…\p"
 	.string "{PLAYER}{KUN}, you just moved here so you\n"
 	.string "might not know this, but MR. BRINEY\l"
@@ -1288,33 +1288,27 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer::
 	playbgm MUS_RG_ENCOUNTER_RIVAL, TRUE
 	opendoor 27, 19
 	waitdooranim
-	addobject LOCALID_LEAF
-	applymovement LOCALID_LEAF, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_1
-	waitmovement LOCALID_LEAF
+	addobject Ritchie
+	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_1
+	waitmovement Ritchie
 	delay 32
-	message RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0
-	waitbuttonpress
-	closemessage
 	clearflag FLAG_SAFE_FOLLOWER_MOVEMENT
 	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_2
 	waitmovement OBJ_EVENT_ID_PLAYER
-	applymovement LOCALID_LEAF, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_3
-	waitmovement LOCALID_LEAF
+	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_3
+	waitmovement Ritchie
 	closedoor 27, 19
 	waitdooranim
-	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1, MSGBOX_DEFAULT
-	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_2, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_LEAF_RUSTBORO, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_3
-	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_4, MSGBOX_DEFAULT
-	giveitem ITEM_EXP_ALL, 1
-	message RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_5
-	waitbuttonpress
-	closemessage
-	applymovement LOCALID_LEAF, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4
-	waitmovement LOCALID_LEAF
-	removeobject LOCALID_LEAF
+	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4
+	waitmovement Ritchie
+	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_RITCHIE_RUSTBORO, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1
+	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_5
+	waitmovement Ritchie
+	removeobject Ritchie
 	setvar VAR_BATTLED_LEAF, 1
 	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	setflag FLAG_HIDE_RUSTBORO_RITCHIE
 	release
 	end
 
@@ -1345,6 +1339,10 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_3:
 	step_end
 
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4:
+	emote_question_mark
+	step_end
+
+RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_5:
 	walk_left
 	walk_left
 	walk_left
@@ -1360,45 +1358,23 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4:
 	step_end
 
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0:
-	.string "Excuse me.$"
+	.string "Oh... Sorry didn't see you there!\p"
+	.string "I assume you also want to challenge\n"
+	.string "the gym leader? shes a thuff one.\p"
+	.string "wait I didn't even introduce myself\n"
+	.string "yet, the names Richie!\p"
+	.string "Me and my partner Sparky, got our asses\n"
+	.string "kicked by Roxanne.\p"
+	.string "But next time we will be victorious!\p"
+	.string "oh i know how about a little battle,\n"
+	.string "you know to help me with my bad mood.\p"
+	.string "Prepare to lose!$"
 
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1:
-	.string "Err... Hi, are you a Trainer who's looking\n"
-	.string "to battle this Gym?$"
-
-RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_2:
-	.string "Okay!\n"
-	.string "Well, I'm Leaf.\p"
-	.string "A Trainer from the Kanto region, and\n"
-	.string "also the granddaughter of the\l"
-	.string "world-famous Professor Oak.\p"
-	.string "Oh this gym?\n"
-	.string "I just got done battling Roxanne, she\l"
-	.string "was hard to defeat.\p"
-	.string "How about a little battle.\n"
-	.string "I won't take no for an answer!$"
-
-RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_3:
-	.string "Ugh...\nThought I had you for sure.\pWell, back to training for me, I suppose.$"
-
-RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_4:
-	.string "Well done! That was a great battle, I\n"
-	.string "hope we can meet again some other time.\p"
-	.string "Here's a little gift from me,\n"
-	.string "to make your training sessions easier!$"
-
-RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_5:
-	.string "If you enable this, then all the Pokémon\n"
-	.string "in your party will get Exp. Points after\l"
-	.string "a battle, even if they didn't take part\l"
-	.string "in that fight.\p"
-	.string "Don't worry about me! I have a few more\n"
-	.string "of these.\p"
-	.string "Well, good luck for your Gym battles.\n"
-	.string "Byeeee!$"
+	.string "I geuss its faith to lose to Roxanne...\nGreat battle tho!$"
 
 RustboroCity_EventScript_Woman_Text_0:
 	.string "I challenged Roxanne, but…\n"
-	.string "my poor litleo and ponyta, don't\l"
+	.string "my poor Litleo and Ponyta, don't\l"
 	.string "stand a chance against her sand team,\l"
-	.string "her hippopoptas is way too bulky!$"
+	.string "her Hippopoptas is way too bulky!$"

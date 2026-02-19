@@ -790,3 +790,30 @@ DewfordTown_Text_YeahDefinitionOfInRightNow:
 	.string "Yeah, absolutely right!\p"
 	.string "“{STR_VAR_1}” is the\n"
 	.string "definition of “in” right now.$"
+
+DewfordTown_EventScript_RetiredFisherman::
+	lock
+	faceplayer
+	msgbox DewfordTown_EventScript_RetiredFisherman_Text_0, MSGBOX_NPC
+	end
+
+
+DewfordTown_EventScript_GymIsClosed::
+	lock
+	faceplayer
+	msgbox DewfordTown_EventScript_GymIsClosed_Text_0, MSGBOX_NPC
+	end
+
+
+DewfordTown_EventScript_RetiredFisherman_Text_0:
+	.string "I love hiking, its too much fun!\n"
+	.string "oh... you're asking for the old rod?\p"
+	.string "Sorry but I gave up on fishing after\n"
+	.string "all i found were those damn magikarps.\p"
+	.string "I think my friend over at Route 103\n"
+	.string "might have a spare.$"
+
+DewfordTown_EventScript_GymIsClosed_Text_0:
+	.string "I'm sorry but the gym leader is out\n"
+	.string "at the moment, please come back later\l"
+	.string "if you would like to battle her.$"

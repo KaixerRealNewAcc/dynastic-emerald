@@ -1353,3 +1353,16 @@ SlateportCity_Text_TakingBattleTentChallenge:
 	.string "After all, a tough TRAINER is\n"
 	.string "the perfect fit for the BATTLE TENT!\p"
 	.string "Give it your best effort!$"
+
+SlateportCity_EventScript_WhitneyWaitingInLine::
+	lock
+	msgbox SlateportCity_EventScript_WhitneyWaitingInLine_Text_0, MSGBOX_DEFAULT
+	release
+	end
+
+
+SlateportCity_EventScript_WhitneyWaitingInLine_Text_0:
+	.string "Ugh, why the line so long all i wanted\n"
+	.string "was too visit the museum before\l"
+	.string "opening my gym...\p"
+	.string "Those poor people all trapped inside.$"

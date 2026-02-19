@@ -791,3 +791,24 @@ DewfordTown_Text_YeahDefinitionOfInRightNow:
 	.string "“{STR_VAR_1}” is the\n"
 	.string "definition of “in” right now.$"
 `
+
+script DewfordTown_EventScript_RetiredFisherman{	
+	lock
+	faceplayer
+	 msgbox("I love hiking, its too much fun!\n"
+			"oh... you're asking for the old rod?\p"
+			"Sorry but I gave up on fishing after\n"
+			"all i found were those damn magikarps.\p"
+			"I think my friend over at Route 103\n"
+			"might have a spare.", MSGBOX_NPC)
+	end
+}
+
+script DewfordTown_EventScript_GymIsClosed{	
+	lock
+	faceplayer
+	 msgbox("I'm sorry but the gym leader is out\n"
+			"at the moment, please come back later\l"
+			"if you would like to battle her.", MSGBOX_NPC)
+	end
+}

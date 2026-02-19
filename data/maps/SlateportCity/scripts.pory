@@ -1354,3 +1354,15 @@ SlateportCity_Text_TakingBattleTentChallenge:
 	.string "the perfect fit for the BATTLE TENT!\p"
 	.string "Give it your best effort!$"
 `
+
+script SlateportCity_EventScript_WhitneyWaitingInLine{
+	lock
+	msgbox (
+	"Ugh, why the line so long all i wanted\n"
+	"was too visit the museum before\l"
+	"opening my gym...\p"
+	"Those poor people all trapped inside.",
+	MSGBOX_DEFAULT)
+	release
+	end
+}

@@ -6661,6 +6661,12 @@ BattleScript_BallFetch::
 	waitmessage B_WAIT_TIME_LONG
 	end3
 
+BattleScript_BallFetch2::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_FETCHEDPOKEBALL2
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_CudChewActivates::
 	pause B_WAIT_TIME_SHORTEST
 	call BattleScript_AbilityPopUp

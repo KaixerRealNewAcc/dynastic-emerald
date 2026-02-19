@@ -404,6 +404,7 @@ extern const u8 BattleScript_ActivateTeraformZero[];
 extern const u8 BattleScript_BattlerAbilityStatRaiseOnSwitchIn[];
 extern const u8 BattleScript_CottonDownActivates[];
 extern const u8 BattleScript_BallFetch[];
+extern const u8 BattleScript_BallFetch2[];
 extern const u8 BattleScript_SandSpitActivates[];
 extern const u8 BattleScript_PerishBodyActivates[];
 extern const u8 BattleScript_ActivateAsOne[];

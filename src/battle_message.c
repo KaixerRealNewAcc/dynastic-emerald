@@ -909,6 +909,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_LOOSEROCKSSCATTERED]                  = COMPOUND_STRING("Stealth Rocks from {B_ATK_NAME_WITH_PREFIX}'s body scattered around the battlefield!"),
     [STRINGID_USERSPUNAWEB]                         = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} feels threatend and covered the battlefield in its webs!"),
     [STRINGID_LOOSESQUILSSCATTERED]                 = COMPOUND_STRING("Spikes from {B_ATK_NAME_WITH_PREFIX}'s body scattered around the battlefield!"),
+    [STRINGID_FETCHEDPOKEBALL2]                     = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} Wants to play!"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =
