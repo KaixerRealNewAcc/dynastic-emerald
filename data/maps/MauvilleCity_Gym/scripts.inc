@@ -74,16 +74,6 @@ MauvilleCity_Gym_EventScript_DeactivatePuzzle::
 	special MauvilleGymDeactivatePuzzle
 	end
 
-MauvilleCity_Gym_EventScript_Wattson::
-	trainerbattle_single TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonIntro, MauvilleCity_Gym_Text_WattsonDefeat, MauvilleCity_Gym_EventScript_WattsonDefeated, NO_MUSIC
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_Gym_EventScript_WattsonRematch
-	goto_if_unset FLAG_RECEIVED_TM_SHOCK_WAVE, MauvilleCity_Gym_EventScript_GiveShockWave2
-	goto_if_eq VAR_NEW_MAUVILLE_STATE, 2, MauvilleCity_Gym_EventScript_CompletedNewMauville
-	msgbox MauvilleCity_Gym_Text_WattsonPostBattle, MSGBOX_DEFAULT
-	release
-	end
-
 MauvilleCity_Gym_EventScript_WattsonDefeated::
 	message MauvilleCity_Gym_Text_ReceivedDynamoBadge
 	waitmessage
@@ -113,7 +103,7 @@ MauvilleCity_Gym_EventScript_WattsonDefeated::
 	end
 
 MauvilleCity_Gym_EventScript_GiveShockWave2::
-	giveitem ITEM_TM_SHOCK_WAVE
+	giveitem ITEM_TM_VOLT_SWITCH
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox MauvilleCity_Gym_Text_ExplainShockWave, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_SHOCK_WAVE
@@ -121,7 +111,7 @@ MauvilleCity_Gym_EventScript_GiveShockWave2::
 	end
 
 MauvilleCity_Gym_EventScript_GiveShockWave::
-	giveitem ITEM_TM_SHOCK_WAVE
+	giveitem ITEM_TM_VOLT_SWITCH
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
 	msgbox MauvilleCity_Gym_Text_ExplainShockWave, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_SHOCK_WAVE
@@ -215,11 +205,6 @@ MauvilleCity_Gym_EventScript_Ben::
 MauvilleCity_Gym_EventScript_Vivian::
 	trainerbattle_single TRAINER_VIVIAN, MauvilleCity_Gym_Text_VivianIntro, MauvilleCity_Gym_Text_VivianDefeat
 	msgbox MauvilleCity_Gym_Text_VivianPostBattle, MSGBOX_AUTOCLOSE
-	end
-
-MauvilleCity_Gym_EventScript_Angelo::
-	trainerbattle_single TRAINER_ANGELO, MauvilleCity_Gym_Text_AngeloIntro, MauvilleCity_Gym_Text_AngeloDefeat
-	msgbox MauvilleCity_Gym_Text_AngeloPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 MauvilleCity_Gym_EventScript_GymGuide::
@@ -333,19 +318,6 @@ MauvilleCity_Gym_Text_AngeloPostBattle:
 	.string "MAUVILLE GYM's WATTSON has a shiny\n"
 	.string "forehead. It makes me happy!$"
 
-MauvilleCity_Gym_Text_WattsonIntro:
-	.string "I've given up on my plans to convert\n"
-	.string "the city, I have.\p"
-	.string "And so, I put my time into making\n"
-	.string "door traps in my GYM.\p"
-	.string "Oh? Now, what are you doing here?\p"
-	.string "What's that? You say you've gotten\n"
-	.string "past all my rigged doors?\p"
-	.string "Wahahahah!\n"
-	.string "Now, that is amusing!\p"
-	.string "Then, I, WATTSON, the LEADER of\n"
-	.string "MAUVILLE GYM, shall electrify you!$"
-
 MauvilleCity_Gym_Text_WattsonDefeat:
 	.string "Wahahahah!\n"
 	.string "Fine, I lost!\p"
@@ -357,9 +329,9 @@ MauvilleCity_Gym_Text_ReceivedDynamoBadge:
 	.string "from WATTSON.$"
 
 MauvilleCity_Gym_Text_ExplainDynamoBadgeTakeThis:
-	.string "With the DYNAMO BADGE, POKéMON can\n"
-	.string "use ROCK SMASH out of battle.\p"
-	.string "And, it will make your POKéMON a little\n"
+	.string "With the Dynamo Badge, Pokémon can\n"
+	.string "use Rock Smash out of battle.\p"
+	.string "And, it will make your Pokémon a little\n"
 	.string "bit faster, too.\p"
 	.string "Hmm…\n"
 	.string "You should take this, too!$"
@@ -419,3 +391,82 @@ MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons:
 	.string "You've only one POKéMON with you!\p"
 	.string "Come see me with two or more\n"
 	.string "POKéMON, all right?$"
+
+MauvilleCity_Gym_EventScript_Wattson::
+	checktrainerflag TRAINER_WATTSON_1
+	goto_if 0, MauvilleCity_Gym_EventScript_Wattson_1
+	msgbox MauvilleCity_Gym_Text_WattsonPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Gym_EventScript_Wattson_1:
+	lock
+	msgbox MauvilleCity_Gym_EventScript_Wattson_Text_0
+	trainerbattle_no_intro TRAINER_WATTSON_1, MauvilleCity_Gym_EventScript_Wattson_Text_2
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_Gym_EventScript_WattsonRematch
+	goto_if_unset FLAG_RECEIVED_TM_SHOCK_WAVE, MauvilleCity_Gym_EventScript_GiveShockWave2
+	goto_if_eq VAR_NEW_MAUVILLE_STATE, 2, MauvilleCity_Gym_EventScript_CompletedNewMauville
+	call Common_EventScript_PlayGymBadgeFanfare
+	msgbox MauvilleCity_Gym_Text_ExplainDynamoBadgeTakeThis, MSGBOX_DEFAULT
+	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 3
+	clearflag FLAG_HIDE_VERDANTURF_TOWN_SCOTT
+	setflag FLAG_DEFEATED_MAUVILLE_GYM
+	setflag FLAG_BADGE03_GET
+	addvar VAR_PETALBURG_GYM_STATE, 1
+	call_if_eq VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle
+	setvar VAR_0x8008, 3
+	call Common_EventScript_SetGymTrainers
+	special MauvilleGymDeactivatePuzzle
+	special DrawWholeMapView
+	playse SE_UNLOCK
+	call MauvilleCity_Gym_EventScript_GiveShockWave
+	closemessage
+	delay 30
+	playfanfare MUS_REGISTER_MATCH_CALL
+	msgbox MauvilleCity_Gym_Text_RegisteredWattson, MSGBOX_DEFAULT
+	waitfanfare
+	closemessage
+	delay 30
+	setflag FLAG_ENABLE_WATTSON_MATCH_CALL
+	release
+	end
+
+
+MauvilleCity_Gym_EventScript_Angelo::
+	trainerbattle_single TRAINER_ANGELO, MauvilleCity_Gym_EventScript_Angelo_Text_0, MauvilleCity_Gym_EventScript_Angelo_Text_1
+	msgbox MauvilleCity_Gym_EventScript_Angelo_Text_2, MSGBOX_AUTOCLOSE
+	end
+
+
+MauvilleCity_Gym_EventScript_Wattson_Text_0:
+	.string "I've given up on my plans to convert\n"
+	.string "the city, I have.\p"
+	.string "And so, I put my time into making\n"
+	.string "door traps in my Gym.\p"
+	.string "Oh? Now, what are you doing here?\p"
+	.string "What's that? You say you've gotten\n"
+	.string "past all my rigged doors?\p"
+	.string "Wahahahah!\n"
+	.string "Now, that is amusing!\p"
+	.string "Then, I, Wattson, the Leader of\n"
+	.string "Mauville, shall electrify you!$"
+
+MauvilleCity_Gym_EventScript_Wattson_Text_1:
+	.string "Wahahahah!\n$"
+
+MauvilleCity_Gym_EventScript_Wattson_Text_2:
+	.string "Fine, I lost!\p"
+	.string "You ended up giving me a thrill!\n"
+	.string "Take this Badge!\p"
+	.string "{PLAYER} received the Dynamo Badge\n"
+	.string "from Wattson.$"
+
+MauvilleCity_Gym_EventScript_Angelo_Text_0:
+	.string "Electric Types have beauty inside them,\nlet me show you with a battle.$"
+
+MauvilleCity_Gym_EventScript_Angelo_Text_1:
+	.string "Ah no matter, atleast I'm still\nbeautiful!$"
+
+MauvilleCity_Gym_EventScript_Angelo_Text_2:
+	.string "My togedemaru is so shockingly cute!$"

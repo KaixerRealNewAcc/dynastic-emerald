@@ -1979,7 +1979,14 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 SetMonData(&party[i], MON_DATA_SPATK_EV, &(partyData[monIndex].ev[3]));
                 SetMonData(&party[i], MON_DATA_SPDEF_EV, &(partyData[monIndex].ev[4]));
                 SetMonData(&party[i], MON_DATA_SPEED_EV, &(partyData[monIndex].ev[5]));
-            }
+            } else if(FlagGet(FLAG_MINIMAL_GRINDING_MODE)) {
+                SetMonData(&party[i], MON_DATA_HP_EV, 0);
+                SetMonData(&party[i], MON_DATA_ATK_EV, 0);
+                SetMonData(&party[i], MON_DATA_DEF_EV, 0);
+                SetMonData(&party[i], MON_DATA_SPATK_EV, 0);
+                SetMonData(&party[i], MON_DATA_SPDEF_EV, 0);
+                SetMonData(&party[i], MON_DATA_SPEED_EV, 0); }
+
             if (partyData[monIndex].ability != ABILITY_NONE)
             {
                 const struct SpeciesInfo *speciesInfo = &gSpeciesInfo[partyData[monIndex].species];

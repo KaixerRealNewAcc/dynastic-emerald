@@ -1,4 +1,4 @@
-
+raw`
 SlateportCity_PokemonFanClub_EventScript_SwaggerTutor::
 	lock
 	faceplayer
@@ -269,123 +269,59 @@ MoveTutor_EventScript_OpenPartyMenu::
 MoveTutor_EventScript_CanOnlyBeLearnedOnce::
 	msgbox MoveTutor_Text_ThisMoveCanOnlyBeLearnedOnce, MSGBOX_YESNO
 	return
+`
 
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor::
+script SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor{ //Kaixer Todo: Make this compatible with the Alakazam so Alakazam give the players Pokémon Hidden Power.
 	lock
 	faceplayer
-	msgbox SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_0, MSGBOX_DEFAULT
-	msgbox SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_1, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_2
-	compare VAR_RESULT, NO
-	goto_if_eq SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_3
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_1:
+
+	msgbox(format("Every Pokémon can learn one of these two coverage moves. These moves are called Hidden Power and Secret Power. While Hidden Power is a Special Move; Secret Power is a Physical Move."), MSGBOX_DEFAULT) //Text
+	
+	msgbox("... ....\n"
+		   "... ....\p"
+		   "Oh me?\l"
+		   "I am the tutor who tutors these moves\l"
+		   "to Pokémon trainers have!\p"
+		   "would you like to teach one of these\n"
+		   "moves to you're Pokémon?", MSGBOX_YESNO) //Text
+
+	if(var(VAR_RESULT) == YES){
+		msgbox("Well then Trainer wich Pokémon do you\n"
+			   "want to teach one of these moves or\n"
+			   "both, whatever you want!", MSGBOX_DEFAULT) //Text
+
+		dynmultichoice(0,0,FALSE,4,0,DYN_MULTICHOICE_CB_NONE, "Hidden Power", "Secret Power", "Cancel")
+		switch (var(VAR_RESULT)){
+			case 0: lock faceplayer setvar (VAR_0x8005, MOVE_HIDDEN_POWER) special (ChooseMonForMoveTutor) waitstate if(var(VAR_RESULT) == 0) { return } goto (HiddenTutor_EventScript_HiddenSecretPowerTaught)
+			case 1: lock faceplayer setvar (VAR_0x8005, MOVE_SECRET_POWER) special (ChooseMonForMoveTutor) waitstate if(var(VAR_RESULT) == 0) { return } goto (HiddenTutor_EventScript_HiddenSecretPowerTaught)
+			case 2: msgbox(format("That's fine take you're time, you can come back anytime!"), MSGBOX_DEFAULT) release end
+		}
+	}
+	elif(var(VAR_RESULT) == NO){
+		msgbox(format("That's fine take you're time, you can come back anytime!"), MSGBOX_DEFAULT) //Text
+		release
+		end
+	}
+
 	release
 	end
+}
 
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_2:
-	msgbox SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_2, MSGBOX_DEFAULT
-	dynmultichoice 0, 0, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_3, SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_4, SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_5
-	switch VAR_RESULT
-	case 0, SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_7
-	case 1, SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_8
-	case 2, SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_9
-	goto SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_1
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_3:
-	msgbox SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_6, MSGBOX_DEFAULT
-	release
-	end
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_7:
+script SlateportCity_MonScript_Alakazam{
 	lock
 	faceplayer
-	setvar VAR_0x8005, MOVE_HIDDEN_POWER
-	special ChooseMonForMoveTutor
-	waitstate
-	compare VAR_RESULT, 0
-	goto_if_eq SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_11
-	goto HiddenTutor_EventScript_HiddenSecretPowerTaught
-	goto SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_1
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_8:
-	lock
-	faceplayer
-	setvar VAR_0x8005, MOVE_SECRET_POWER
-	special ChooseMonForMoveTutor
-	waitstate
-	compare VAR_RESULT, 0
-	goto_if_eq SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_14
-	goto HiddenTutor_EventScript_HiddenSecretPowerTaught
-	goto SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_1
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_9:
-	msgbox SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_6, MSGBOX_DEFAULT
-	release
-	end
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_11:
-	return
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_14:
-	return
-
-
-SlateportCity_MonScript_Alakazam::
-	lock
-	faceplayer
-	playmoncry SPECIES_ALAKAZAM, CRY_MODE_NORMAL
-	msgbox SlateportCity_MonScript_Alakazam_Text_0, MSGBOX_DEFAULT
+	playmoncry(SPECIES_ALAKAZAM, CRY_MODE_NORMAL)
+	msgbox(format("Alakazam: Alaka. Zam!"), MSGBOX_DEFAULT)
 	waitmoncry
 	release
 	end
+}
 
-
-HiddenTutor_EventScript_HiddenSecretPowerTaught::
-	lock
+script HiddenTutor_EventScript_HiddenSecretPowerTaught{
+    lock
 	faceplayer
-	msgbox HiddenTutor_EventScript_HiddenSecretPowerTaught_Text_0, MSGBOX_DEFAULT
-	release
+	msgbox("Thank you for this amazing experience\n"
+		   "Hope to see you again soon!", MSGBOX_DEFAULT) //Text
+    release
 	end
-
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_0:
-	.string "Every Pokémon can learn one of these\n"
-	.string "two coverage moves. These moves are\l"
-	.string "called Hidden Power and Secret Power.\l"
-	.string "While Hidden Power is a Special Move;\l"
-	.string "Secret Power is a Physical Move.$"
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_1:
-	.string "... ....\n"
-	.string "... ....\p"
-	.string "Oh me?\l"
-	.string "I am the tutor who tutors these moves\l"
-	.string "to Pokémon trainers have!\p"
-	.string "would you like to teach one of these\n"
-	.string "moves to you're Pokémon?$"
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_2:
-	.string "Well then Trainer wich Pokémon do you\n"
-	.string "want to teach one of these moves or\n"
-	.string "both, whatever you want!$"
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_3:
-	.string "Hidden Power$"
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_4:
-	.string "Secret Power$"
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_5:
-	.string "Cancel$"
-
-SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_6:
-	.string "That's fine take you're time, you can\n"
-	.string "come back anytime!$"
-
-SlateportCity_MonScript_Alakazam_Text_0:
-	.string "Alakazam: Alaka. Zam!$"
-
-HiddenTutor_EventScript_HiddenSecretPowerTaught_Text_0:
-	.string "Thank you for this amazing experience\n"
-	.string "Hope to see you again soon!$"
+}

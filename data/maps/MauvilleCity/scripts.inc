@@ -82,7 +82,6 @@ MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	applymovement LOCALID_MAUVILLE_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitNorth2
 	applymovement LOCALID_MAUVILLE_WALLY, MauvilleCity_Movement_WallyExitNorth2
 	waitmovement 0
-	goto MauvilleCity_EventScript_DefeatedWally
 	end
 
 MauvilleCity_EventScript_WallyAndUncleExitEast::
@@ -101,10 +100,13 @@ MauvilleCity_EventScript_WallyAndUncleExitEast::
 	applymovement LOCALID_MAUVILLE_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitEast2
 	applymovement LOCALID_MAUVILLE_WALLY, MauvilleCity_Movement_WallyExitEast2
 	waitmovement 0
-	goto MauvilleCity_EventScript_DefeatedWally
 	end
 
 MauvilleCity_EventScript_DefeatedWally::
+	call_if_eq VAR_FACING, DIR_NORTH, MauvilleCity_EventScript_WallyAndUncleExitNorth
+	call_if_eq VAR_FACING, DIR_EAST, MauvilleCity_EventScript_WallyAndUncleExitEast
+	setflag FLAG_HIDE_MAUVILLE_CITY_WALLY
+	setflag FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE
 	removeobject LOCALID_MAUVILLE_WALLY
 	removeobject LOCALID_MAUVILLE_WALLYS_UNCLE
 	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WALLY
@@ -162,7 +164,7 @@ MauvilleCity_EventScript_BattleWally::
 	applymovement LOCALID_MAUVILLE_WALLY, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox MauvilleCity_Text_UncleNoNeedToBeDown, MSGBOX_DEFAULT
-	return
+	goto MauvilleCity_EventScript_DefeatedWally
 
 MauvilleCity_EventScript_DeclineWallyBattle::
 	setflag FLAG_DECLINED_WALLY_BATTLE_MAUVILLE
@@ -621,6 +623,14 @@ MauvilleCity_EventScript_UncleAskPlayerToBattleWally::
 
 MauvilleCity_EventScript_Wally::
 	lockall
+	checktrainerflag TRAINER_WALLY_MAUVILLE
+	goto_if 0, MauvilleCity_EventScript_Wally_1
+	switch VAR_RESULT
+	case DIR_NORTH, MauvilleCity_EventScript_Wally_5
+	case DIR_EAST, MauvilleCity_EventScript_Wally_6
+	return
+
+MauvilleCity_EventScript_Wally_1:
 	applymovement LOCALID_MAUVILLE_WALLY, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox MauvilleCity_EventScript_Wally_Text_0, MSGBOX_DEFAULT
@@ -636,6 +646,14 @@ MauvilleCity_EventScript_Wally::
 	msgbox MauvilleCity_EventScript_Wally_Text_3, MSGBOX_DEFAULT
 	goto MauvilleCity_EventScript_BattleWally
 	end
+
+MauvilleCity_EventScript_Wally_5:
+	goto MauvilleCity_EventScript_WallyAndUncleExitNorth
+	return
+
+MauvilleCity_EventScript_Wally_6:
+	goto MauvilleCity_EventScript_WallyAndUncleExitEast
+	return
 
 
 MauvilleCity_EventScript_BattleWallyPrompt::

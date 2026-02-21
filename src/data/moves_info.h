@@ -495,8 +495,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Cuts the foe with sharp\n"
             "scythes, claws, etc."),
         .effect = EFFECT_HIT,
-        .power = 50,
-        .type = TYPE_NORMAL,
+        .power = 60,
+        .type = TYPE_GRASS,
         .accuracy = 100,
         .pp = 30,
         .target = MOVE_TARGET_SELECTED,
@@ -3967,8 +3967,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Looses a powerful blast of\n"
             "light that cuts accuracy."),
         .effect = EFFECT_ACCURACY_DOWN,
-        .power = 0,
-        .type = TYPE_NORMAL,
+        .power = 60,
+        .type = TYPE_ELECTRIC,
         .accuracy = B_UPDATED_MOVE_DATA >= GEN_4 ? 100 : 70,
         .pp = 20,
         .target = MOVE_TARGET_SELECTED,

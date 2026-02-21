@@ -4767,22 +4767,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     effect++;
                 }
                 break;
-            case ABILITY_BALL_FETCH:
-                if (gBattleMons[battler].item != ITEM_NONE 
-                    && !gSpecialStatuses[battler].switchInAbilityDone)
-                {
-                    for (i = 0; i < ARRAY_COUNT(BallItems); i++)
-                    {
-                        if (HeldItem == BallItems[i]){
-                            gBattlerAttacker = battler;
-                            gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                            BattleScriptPushCursor();
-                            BattleScriptPushCursorAndCallback(BattleScript_BallFetch2);
-                            effect++;
-                        }
-                    }
-                } 
-                else if (gBattleMons[battler].item == ITEM_NONE
+            case ABILITY_BALL_FETCH: 
+                if (gBattleMons[battler].item == ITEM_NONE
                     && gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedBall)] >= 1
                     && !gHasFetchedBall)
                 {
@@ -8770,6 +8756,11 @@ bool32 CanBattlerAvoidContactEffects(u32 battlerAtk, u32 battlerDef, u32 ability
         return TRUE;
     }
 
+    if (hasAbilityOrInnate(battlerAtk, ABILITY_PROTECTIVE_HIDE))
+    {
+        return TRUE;
+    }
+
     return !IsMoveMakingContact(battlerAtk, battlerDef, abilityAtk, holdEffectAtk, move);
 }
 
@@ -10172,6 +10163,16 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
     if(hasInnate(battlerAtk, ABILITY_PSYCHIC_MIND))
     {
         if(moveType == TYPE_PSYCHIC)
+        {
+            if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+            else
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+        }
+    }
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_FIGHTER))
+    {
+        if(moveType == TYPE_FIGHTING)
         {
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
@@ -13478,29 +13479,25 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN) && MoveHas50AccuracyInSun(move))
         moveAcc = 50;
     // Check Wonder Skin.
-    if (hasAbilityOrInnate(battlerAtk, ABILITY_WONDER_SKIN) && IsBattleMoveStatus(move) && moveAcc > 50)
+    if (hasAbilityOrInnateFast(battlerAtk, ABILITY_WONDER_SKIN, atkAbility) && IsBattleMoveStatus(move) && moveAcc > 50)
         moveAcc = 50;
-    if ((hasAbilityOrInnate(battlerAtk, ABILITY_SIGHTING_SYSTEM) || hasAbilityOrInnate(battlerAtk, ABILITY_FATAL_PRECISION)) && moveAcc < 60)
+    if ((hasAbilityOrInnateFast(battlerAtk, ABILITY_SIGHTING_SYSTEM, atkAbility) || hasAbilityOrInnateFast(battlerAtk, ABILITY_FATAL_PRECISION, atkAbility)) && moveAcc < 60)
         moveAcc = 100; // Sighting System and Fatal Precision boost super effective move accuracy to 100%
-    if (hasAbilityOrInnate(battlerAtk, ABILITY_MIGHTY_TUSKS) && IsHornMove(move) && moveAcc < 100)
+    if (hasAbilityOrInnateFast(battlerAtk, ABILITY_MIGHTY_TUSKS, atkAbility) && IsHornMove(move) && moveAcc < 100)
         moveAcc = 100; // Mighty Tusk boosts Horn move accuracy to 100%
 
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;
     calc /= gAccuracyStageRatios[buff].divisor;
 
     // Attacker's ability
-    switch (atkAbility)
-    {
-    case ABILITY_COMPOUND_EYES:
+    if(hasAbilityOrInnateFast(battlerAtk, ABILITY_COMPOUND_EYES, atkAbility))
         calc = (calc * 130) / 100; // 1.3 compound eyes boost
-        break;
-    case ABILITY_VICTORY_STAR:
+    if(hasAbilityOrInnateFast(battlerAtk, ABILITY_VICTORY_STAR, atkAbility))
         calc = (calc * 110) / 100; // 1.1 victory star boost
-        break;
-    case ABILITY_HUSTLE:
+    if(hasAbilityOrInnateFast(battlerAtk, ABILITY_HUSTLE, atkAbility))
+    {
         if (IsBattleMovePhysical(move))
             calc = (calc * 80) / 100; // 1.2 hustle loss
-        break;
     }
 
     // Target's ability
@@ -13514,10 +13511,12 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         if (HasWeatherEffect() && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
             calc = (calc * 80) / 100; // 1.2 snow cloak loss
         break;
-    case ABILITY_TANGLED_FEET:
+    }
+
+    if(hasAbilityOrInnateFast(battlerAtk, ABILITY_TANGLED_FEET, atkAbility))
+    {
         if (gBattleMons[battlerDef].volatiles.confusionTurns)
-            calc = (calc * 50) / 100; // 1.5 tangled feet loss
-        break;
+            calc = (calc * 50) / 100; // 1.5 tangled feet loss 
     }
 
     // Attacker's ally's ability

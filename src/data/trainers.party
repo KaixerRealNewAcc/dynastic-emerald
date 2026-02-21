@@ -16129,27 +16129,54 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Rest
 
 === TRAINER_ANGELO ===
-Name: ANGELO
-Class: Bug Maniac
-Pic: Bug Maniac
-Gender: Male
-Music: Suspicious
-Double Battle: No
-AI: Basic Trainer
+Name: Angelina
+Class: Beauty
+Pic: Beauty
+Gender: Female
+Music: Female
+Double Battle: Yes
+AI: Semi Smart Trainer
 
-Illumise
-Level: 17
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Shock Wave
-- Quick Attack
-- Charm
+Togedemaru @ Rocky Helmet  
+Ability: Iron Barbs  
+Level: 31  
+Tera Type: Electric  
+- Zing Zap  
+- Fake Out  
+- Spiky Shield  
+- Spikes  
 
-Volbeat
-Level: 17
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Shock Wave
-- Quick Attack
-- Confuse Ray
+Vikavolt @ Occa Berry  
+Ability: Levitate  
+Level: 31  
+Tera Type: Bug  
+Modest Nature  
+IVs: 0 Atk  
+- Discharge  
+- Air Slash  
+- Signal Beam  
+- Roost  
+
+Boltund @ Expert Belt  
+Ability: Strong Jaw  
+Level: 31  
+Tera Type: Electric  
+Jolly Nature  
+- Thunder Fang  
+- Ice Fang  
+- Fire Fang  
+- Psychic Fangs  
+
+Ampharos @ Leftovers  
+Ability: Static  
+Level: 31  
+Tera Type: Electric  
+Mild Nature  
+IVs: 0 Atk  
+- Discharge  
+- Dazzling Gleam  
+- Dragon Pulse  
+- Signal Beam  
 
 === TRAINER_DARIUS ===
 Name: DARIUS

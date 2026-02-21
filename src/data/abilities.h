@@ -2681,4 +2681,31 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .aiRating = 6,
         },
 
+        [ABILITY_FIGHTER] =
+        {
+            .name = _("Fighter"),
+            .description = COMPOUND_STRING("Increases Psychic moves by 50% when the user's HP is under 1/3 HP."),
+            .aiRating = 5,
+        },
+
+        [ABILITY_ADRENALINE_RUSH] =
+        {
+            .name = _("Adrenaline Rush"),
+            .description = COMPOUND_STRING("The user's Speed is increased by one stage whenever it knocks out another Pokemon."),
+            .aiRating = 7,
+        },
+
+        [ABILITY_PROTECTIVE_HIDE] = 
+        {
+            .name = _("Protective Hide"),
+            .description = COMPOUND_STRING("The user's hide safes it from Ability Effects."),
+            .aiRating = 7,
+        },
+
+        [NO_INNATE_YET] = 
+        {
+            .name = _("No Innate Yet"),
+            .description = COMPOUND_STRING("This pokemon doesn't have a Innate yet, if you have any ideas please drop them in the discord!"),
+        },   
+
     };

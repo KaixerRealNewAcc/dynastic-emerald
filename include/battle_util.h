@@ -91,10 +91,12 @@ enum {
     BATTLER_INNATE,   
 }; 
 
+#define hasAbilityOrInnateFast(battler, ability, battlerAbility) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)))
 #define hasAbilityOrInnate(battler, ability) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
-#define hasAbilityOrInnateAI(battler, ability) ((gAiLogicData->abilities[battler] == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
-#define hasAbilityOrInnateAISwitchIn(battler, ability) ((gAiLogicData->switchinCandidate.battleMon.ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
+#define hasAbilityOrInnateAI(battler, ability) ((gAiLogicData->abilities[battler] == ability || BattlerHasInnate(battler, ability)))
+#define hasAbilityOrInnateAISwitchIn(battler, ability) ((gAiLogicData->switchinCandidate.battleMon.ability || BattlerHasInnate(battler, ability)))
 #define hasInnate(battler, ability)    (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
+#define hasInnateFast(battler, ability, battlerAbility)    (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
 #define SPECIES_INNATE(species, ability) (GetInnateBySpecies(species, ability))
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))

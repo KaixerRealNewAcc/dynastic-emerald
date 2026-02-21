@@ -5354,6 +5354,7 @@ bool32 IsMoxieTypeAbility(u32 ability)
     case ABILITY_AS_ONE_ICE_RIDER:
     case ABILITY_GRIM_NEIGH:
     case ABILITY_AS_ONE_SHADOW_RIDER:
+    case ABILITY_ADRENALINE_RUSH:
         return TRUE;
     default:
         return FALSE;
@@ -5367,7 +5368,8 @@ bool32 IsMoxieTypeInnates(u32 ability, u32 battlerAI)
     || (hasInnate(battlerAI, ABILITY_CHILLING_NEIGH))
     || (hasInnate(battlerAI, ABILITY_AS_ONE_ICE_RIDER))
     || (hasInnate(battlerAI, ABILITY_GRIM_NEIGH))
-    || (hasInnate(battlerAI, ABILITY_AS_ONE_SHADOW_RIDER)))
+    || (hasInnate(battlerAI, ABILITY_AS_ONE_SHADOW_RIDER))
+    || (hasInnate(battlerAI, ABILITY_ADRENALINE_RUSH)))
         return TRUE;
     else
         return FALSE;
@@ -5448,6 +5450,9 @@ bool32 ShouldTriggerAbility(u32 battlerAtk, u32 battlerDef, u32 ability)
         case ABILITY_COMPETITIVE:
             return (BattlerStatCanRise(battlerDef, ability, STAT_SPATK) && HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL));
 
+        case ABILITY_ADRENALINE_RUSH:
+             return (BattlerStatCanRise(battlerDef, ability, STAT_SPEED));
+
         // TODO: logic for when to trigger Contrary
         case ABILITY_CONTRARY:
             return TRUE;
@@ -5494,6 +5499,11 @@ bool32 ShouldTriggerAbility(u32 battlerAtk, u32 battlerDef, u32 ability)
         if(hasInnate(battlerDef, ABILITY_COMPETITIVE))
         {
             return (BattlerStatCanRise(battlerDef, ability, STAT_SPATK) && HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL));
+        }
+
+        if(hasInnate(battlerDef, ABILITY_ADRENALINE_RUSH))
+        {
+            return (BattlerStatCanRise(battlerDef, ability, STAT_SPEED));
         }
 
         // TODO: logic for when to trigger Contrary

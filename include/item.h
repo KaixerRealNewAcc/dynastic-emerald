@@ -12,7 +12,7 @@
 /* Expands to:
  * enum
  * {
- *   ITEM_TM_FOCUS_PUNCH = ITEM_TM01,
+ *   ITEM_TM_FALSE_SWIPE = ITEM_TM01,
  *   ...
  *   ITEM_HM_CUT = ITM_HM01,
  *   ...
@@ -136,7 +136,7 @@ static inline enum TMHMIndex GetItemTMHMIndex(u16 item)
     switch (item)
     {
         /* Expands to:
-         * case ITEM_TM_FOCUS_PUNCH:
+         * case ITEM_TM_FALSE_SWIPE:
          *     return 1;
          * case ITEM_TM_DRAGON_CLAW:
          *      return 2;
@@ -153,7 +153,7 @@ static inline u16 GetItemTMHMMoveId(u16 item)
     switch (item)
     {
         /* Expands to:
-         * case ITEM_TM_FOCUS_PUNCH:
+         * case ITEM_TM_FALSE_SWIPE:
          *     return MOVE_FOCUS_PUNCH;
          * case ITEM_TM_DRAGON_CLAW:
          *      return MOVE_DRAGON_CLAW;

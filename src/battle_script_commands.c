@@ -5624,7 +5624,7 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
          && !gSpecialStatuses[battlerAtk].gemBoost   // In base game, gems are consumed after magician would activate.
          && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(battlerDef)] & (1u << gBattlerPartyIndexes[battlerDef]))
          && !DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
-         && (GetBattlerAbility(battlerDef) != ABILITY_STICKY_HOLD || !IsBattlerAlive(battlerDef)))
+         && (!hasAbilityOrInnate(battlerDef, ABILITY_STICKY_HOLD) || !IsBattlerAlive(battlerDef)))
         {
             StealTargetItem(battlerAtk, battlerDef);
             gBattleScripting.battler = gBattlerAbility = battlerAtk;
@@ -5639,6 +5639,7 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
     case ABILITY_GRIM_NEIGH:
     case ABILITY_AS_ONE_SHADOW_RIDER:
     case ABILITY_BEAST_BOOST:
+    case ABILITY_ADRENALINE_RUSH:
         {
             if (!IsBattlerAlive(battlerAtk) || NoAliveMonsForEitherParty())
                 break;
@@ -5650,6 +5651,8 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
                 stat = GetHighestStatId(battlerAtk);
             else if (abilityAtk == ABILITY_GRIM_NEIGH || abilityAtk == ABILITY_AS_ONE_SHADOW_RIDER)
                 stat = STAT_SPATK;
+            else if (abilityAtk == ABILITY_ADRENALINE_RUSH)
+                stat = STAT_SPEED;
 
             if (numMonsFainted && CompareStat(battlerAtk, stat, MAX_STAT_STAGE, CMP_LESS_THAN, abilityAtk))
             {
@@ -5723,6 +5726,129 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
         break;
     }
 
+    if(hasInnate(battlerAtk, ABILITY_MAGICIAN))
+    {
+        if (move != MOVE_FLING && move != MOVE_NATURAL_GIFT
+         && gBattleMons[battlerAtk].item == ITEM_NONE
+         && gBattleMons[battlerDef].item != ITEM_NONE
+         && IsBattlerAlive(battlerAtk)
+         && IsBattlerTurnDamaged(battlerDef)
+         && CanStealItem(battlerAtk, battlerDef, gBattleMons[battlerDef].item)
+         && !gSpecialStatuses[battlerAtk].gemBoost   // In base game, gems are consumed after magician would activate.
+         && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(battlerDef)] & (1u << gBattlerPartyIndexes[battlerDef]))
+         && !DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
+         && (!hasAbilityOrInnate(battlerDef, ABILITY_STICKY_HOLD) || !IsBattlerAlive(battlerDef)))
+        {
+            StealTargetItem(battlerAtk, battlerDef);
+            gBattleScripting.battler = gBattlerAbility = battlerAtk;
+            gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_MAGICIAN;
+            gEffectBattler = battlerDef;
+            BattleScriptCall(BattleScript_MagicianActivates);
+            effect = TRUE;
+        }
+    }
+
+    if(hasInnate(battlerAtk, ABILITY_MOXIE)
+    || hasInnate(battlerAtk, ABILITY_CHILLING_NEIGH)
+    || hasInnate(battlerAtk, ABILITY_AS_ONE_ICE_RIDER)
+    || hasInnate(battlerAtk, ABILITY_GRIM_NEIGH)
+    || hasInnate(battlerAtk, ABILITY_AS_ONE_SHADOW_RIDER)
+    || hasInnate(battlerAtk, ABILITY_BEAST_BOOST)
+    || hasInnate(battlerAtk, ABILITY_ADRENALINE_RUSH))
+    {
+        if (!IsBattlerAlive(battlerAtk) || NoAliveMonsForEitherParty())
+            return FALSE;
+
+        u32 stat = STAT_ATK;
+        u32 numMonsFainted = NumFaintedBattlersByAttacker(battlerAtk);
+
+        if (abilityAtk == ABILITY_BEAST_BOOST)
+            stat = GetHighestStatId(battlerAtk);
+        else if (abilityAtk == ABILITY_GRIM_NEIGH || abilityAtk == ABILITY_AS_ONE_SHADOW_RIDER)
+            stat = STAT_SPATK;
+        else if (abilityAtk == ABILITY_ADRENALINE_RUSH)
+            stat = STAT_SPEED;
+
+        if (numMonsFainted && CompareStat(battlerAtk, stat, MAX_STAT_STAGE, CMP_LESS_THAN, abilityAtk))
+        {
+            gLastUsedAbility = abilityAtk;
+            if (abilityAtk == ABILITY_MOXIE)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_MOXIE;
+            else if (abilityAtk == ABILITY_CHILLING_NEIGH)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_CHILLING_NEIGH;
+            else if (abilityAtk == ABILITY_AS_ONE_ICE_RIDER)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_AS_ONE_ICE_RIDER;
+            else if (abilityAtk == ABILITY_GRIM_NEIGH)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_GRIM_NEIGH;
+            else if (abilityAtk == ABILITY_AS_ONE_SHADOW_RIDER)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_AS_ONE_SHADOW_RIDER;
+            else if (abilityAtk == ABILITY_BEAST_BOOST)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_BEAST_BOOST;
+            else if (abilityAtk == ABILITY_ADRENALINE_RUSH)
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ADRENALINE_RUSH;
+
+            SET_STATCHANGER(stat, numMonsFainted, FALSE);
+            PREPARE_STAT_BUFFER(gBattleTextBuff1, stat);
+            gBattleScripting.animArg1 = GET_STAT_BUFF_ID(stat) + (numMonsFainted > 1 ? STAT_ANIM_PLUS2 : STAT_ANIM_PLUS1);
+            BattleScriptCall(BattleScript_RaiseStatOnFaintingTarget);
+            effect = TRUE;
+        }
+    }
+
+    if (hasInnate(battlerAtk, ABILITY_BATTLE_BOND))
+    {
+        if (!IsBattlerAlive(battlerAtk)
+          || NoAliveMonsForEitherParty()
+          || NumFaintedBattlersByAttacker(battlerAtk) == 0)
+            return FALSE;
+
+        if (GetBattlerPartyState(battlerAtk)->battleBondBoost)
+            return FALSE;
+
+        if (GetGenConfig(GEN_CONFIG_BATTLE_BOND) < GEN_9 && gBattleMons[battlerAtk].species == SPECIES_GRENINJA_BATTLE_BOND)
+        {
+            // TODO: Convert this to a proper FORM_CHANGE type.
+            gLastUsedAbility = abilityAtk;
+            GetBattlerPartyState(battlerAtk)->battleBondBoost = TRUE;
+            PREPARE_SPECIES_BUFFER(gBattleTextBuff1, gBattleMons[battlerAtk].species);
+            GetBattlerPartyState(battlerAtk)->changedSpecies = gBattleMons[battlerAtk].species;
+            gBattleMons[battlerAtk].species = SPECIES_GRENINJA_ASH;
+            BattleScriptCall(BattleScript_BattleBondActivatesOnMoveEndAttacker);
+            effect = TRUE;
+        }
+        else
+        {
+            u32 numStatBuffs = 0;
+            if (CompareStat(battlerAtk, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, abilityAtk))
+            {
+                gBattleScripting.animArg1 = GET_STAT_BUFF_ID(STAT_ATK) + STAT_ANIM_PLUS1;
+                numStatBuffs++;
+            }
+            if (CompareStat(battlerAtk, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN, abilityAtk))
+            {
+                gBattleScripting.animArg1 = GET_STAT_BUFF_ID(STAT_SPATK) + STAT_ANIM_PLUS1;
+                numStatBuffs++;
+            }
+            if (CompareStat(battlerAtk, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN, abilityAtk))
+            {
+                gBattleScripting.animArg1 = GET_STAT_BUFF_ID(STAT_SPEED) + STAT_ANIM_PLUS1;
+                numStatBuffs++;
+            }
+
+            if (numStatBuffs > 0)
+            {
+                if (numStatBuffs > 1)
+                    gBattleScripting.animArg1 = STAT_ANIM_MULTIPLE_PLUS1;
+
+                gLastUsedAbility = abilityAtk;
+                gBattlerAbility = battlerAtk;
+                gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_BATTLE_BOND;
+                GetBattlerPartyState(battlerAtk)->battleBondBoost = TRUE;
+                BattleScriptCall(BattleScript_EffectBattleBondStatIncrease);
+                effect = TRUE;
+            }
+        }
+    }
     return effect;
 }
 
