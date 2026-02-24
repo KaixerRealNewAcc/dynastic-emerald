@@ -1168,3 +1168,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/PetalburgWoodsExtended/scripts.inc"
 
 	.include "data/scripts/ow_mons_scripts.inc"
+
+	.include "data/maps/TestMapForPoryTiles/scripts.inc"

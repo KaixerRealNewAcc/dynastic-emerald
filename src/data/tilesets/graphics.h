@@ -1634,3 +1634,136 @@ const u16 gTilesetPalettes_UnionRoom[][16] =
 };
 
 const u32 gTilesetTiles_UnionRoom[] = INCBIN_U32("data/tilesets/secondary/union_room/tiles.4bpp.fastSmol");
+
+const u16 gTilesetPalettes_PorytilesTest[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/porytiles_test/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_PorytilesTest[] = INCBIN_U32("data/tilesets/primary/porytiles_test/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_PorytilesSecTest[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_PorytilesSecTest[] = INCBIN_U32("data/tilesets/secondary/porytiles_sec_test/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_LittlerootTownTest[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_town_test/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_LittlerootTownTest[] = INCBIN_U32("data/tilesets/primary/littleroot_town_test/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_LittlerootNew[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_new/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_LittlerootNew[] = INCBIN_U32("data/tilesets/secondary/littleroot_new/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_General_New[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/general_new/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_General_New[] = INCBIN_U32("data/tilesets/primary/general_new/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Littleroot_New[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/littleroot_new/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_Littleroot_New[] = INCBIN_U32("data/tilesets/primary/littleroot_new/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Littleroot[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_Littleroot[] = INCBIN_U32("data/tilesets/secondary/littleroot/tiles.4bpp.lz");

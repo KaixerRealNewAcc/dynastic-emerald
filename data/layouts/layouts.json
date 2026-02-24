@@ -4430,6 +4430,16 @@
       "secondary_tileset": "gTileset_Rustboro",
       "border_filepath": "data/layouts/PetalburgWoodsExtended/border.bin",
       "blockdata_filepath": "data/layouts/PetalburgWoodsExtended/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEST_MAP_FOR_PORY_TILES",
+      "name": "TestMapForPoryTiles_Layout",
+      "width": 34,
+      "height": 34,
+      "primary_tileset": "gTileset_General_New",
+      "secondary_tileset": "gTileset_Littleroot",
+      "border_filepath": "data/layouts/TestMapForPoryTiles/border.bin",
+      "blockdata_filepath": "data/layouts/TestMapForPoryTiles/map.bin"
     }
   ]
 }

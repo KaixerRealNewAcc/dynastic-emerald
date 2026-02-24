@@ -150,7 +150,7 @@ const u8 gMenuText_Give2[] = _("GIVE");
 const u8 gText_xVar1[] = _("×{STR_VAR_1}");
 const u8 gText_Berry2[] = _(" BERRY"); // Unused
 const u8 gText_Coins[] = _("{STR_VAR_1} COINS");
-const u8 gText_CloseBag[] = _("Close Bag");
+const u8 gText_CloseBag[] = _("{COLOR WHITE}{SHADOW DARK_GRAY}Close Bag");
 const u8 gText_Var1IsSelected[] = _("{STR_VAR_1}\nis selected.");
 const u8 gText_CantWriteMail[] = _("You can't write\nMAIL here.");
 const u8 gText_NoPokemon[] = _("There is no\nPOKéMON.");
@@ -199,21 +199,21 @@ const u8 gText_ReturnToVar1[] = _("Return to\n{STR_VAR_1}.");
 
 const u8 *const gPocketNamesStringsTable[] =
 {
-    [POCKET_ITEMS] =        COMPOUND_STRING("ITEMS"),
-    [POCKET_POKE_BALLS] =   COMPOUND_STRING("POKé BALLS"),
-    [POCKET_TM_HM]  =       COMPOUND_STRING("TMs & HMs"),
-    [POCKET_BERRIES] =      COMPOUND_STRING("BERRIES"),
-    [POCKET_KEY_ITEMS] =    COMPOUND_STRING("KEY ITEMS")
+    [POCKET_ITEMS] =        COMPOUND_STRING("{COLOR WHITE}{SHADOW DARK_GRAY}Items"),
+    [POCKET_POKE_BALLS] =   COMPOUND_STRING("{COLOR WHITE}{SHADOW DARK_GRAY}Poké Balls"),
+    [POCKET_TM_HM]  =       COMPOUND_STRING("{COLOR WHITE}{SHADOW DARK_GRAY}TMs & HMs"),
+    [POCKET_BERRIES] =      COMPOUND_STRING("{COLOR WHITE}{SHADOW DARK_GRAY}Berries"),
+    [POCKET_KEY_ITEMS] =    COMPOUND_STRING("{COLOR WHITE}{SHADOW DARK_GRAY}Key Items")
 };
 
 const u8 gText_NumberItem_TMBerry[] = _("{NO}{STR_VAR_1}{CLEAR 0x07}{STR_VAR_2}");
 const u8 gText_NumberItem_HM[] = _("{CLEAR_TO 0x11}{STR_VAR_1}{CLEAR 0x05}{STR_VAR_2}");
 
-const u8 gText_ShopBuy[] = _("BUY");
-const u8 gText_ShopSell[] = _("SELL");
-const u8 gText_ShopQuit[] = _("QUIT");
+const u8 gText_ShopBuy[] = _("Buy");
+const u8 gText_ShopSell[] = _("Sell");
+const u8 gText_ShopQuit[] = _("Quit");
 const u8 gText_ThatItemIsSoldOut[] = _("I'm sorry, but that item is sold out.{PAUSE_UNTIL_PRESS}");
-const u8 gText_SoldOut[] = _("SOLD OUT");
+const u8 gText_SoldOut[] = _("Sold Out");
 const u8 gText_InBagVar1[] = _("IN BAG: {STR_VAR_1}");
 const u8 gText_QuitShopping[] = _("Quit shopping.");
 const u8 gText_Var1CertainlyHowMany[] = _("{STR_VAR_1}? Certainly.\nHow many would you like?");

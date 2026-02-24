@@ -830,3 +830,69 @@ const struct Tileset gTileset_UnionRoom =
     .metatileAttributes = gMetatileAttributes_UnionRoom,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_PorytilesTest =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_PorytilesTest,
+    .palettes = gTilesetPalettes_PorytilesTest,
+    .metatiles = gMetatiles_PorytilesTest,
+    .metatileAttributes = gMetatileAttributes_PorytilesTest,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PorytilesSecTest =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PorytilesSecTest,
+    .palettes = gTilesetPalettes_PorytilesSecTest,
+    .metatiles = gMetatiles_PorytilesSecTest,
+    .metatileAttributes = gMetatileAttributes_PorytilesSecTest,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_LittlerootTownTest =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_LittlerootTownTest,
+    .palettes = gTilesetPalettes_LittlerootTownTest,
+    .metatiles = gMetatiles_LittlerootTownTest,
+    .metatileAttributes = gMetatileAttributes_LittlerootTownTest,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_General_New =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_General_New,
+    .palettes = gTilesetPalettes_General_New,
+    .metatiles = gMetatiles_General_New,
+    .metatileAttributes = gMetatileAttributes_General_New,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_Littleroot_New =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_Littleroot_New,
+    .palettes = gTilesetPalettes_Littleroot_New,
+    .metatiles = gMetatiles_Littleroot_New,
+    .metatileAttributes = gMetatileAttributes_Littleroot_New,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_Littleroot =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Littleroot,
+    .palettes = gTilesetPalettes_Littleroot,
+    .metatiles = gMetatiles_Littleroot,
+    .metatileAttributes = gMetatileAttributes_Littleroot,
+    .callback = NULL,
+};

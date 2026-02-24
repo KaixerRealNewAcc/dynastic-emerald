@@ -5748,13 +5748,13 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
         }
     }
 
-    if(hasInnate(battlerAtk, ABILITY_MOXIE)
-    || hasInnate(battlerAtk, ABILITY_CHILLING_NEIGH)
-    || hasInnate(battlerAtk, ABILITY_AS_ONE_ICE_RIDER)
-    || hasInnate(battlerAtk, ABILITY_GRIM_NEIGH)
-    || hasInnate(battlerAtk, ABILITY_AS_ONE_SHADOW_RIDER)
-    || hasInnate(battlerAtk, ABILITY_BEAST_BOOST)
-    || hasInnate(battlerAtk, ABILITY_ADRENALINE_RUSH))
+    if((hasInnate(battlerAtk, ABILITY_MOXIE))
+    || (hasInnate(battlerAtk, ABILITY_CHILLING_NEIGH))
+    || (hasInnate(battlerAtk, ABILITY_AS_ONE_ICE_RIDER))
+    || (hasInnate(battlerAtk, ABILITY_GRIM_NEIGH))
+    || (hasInnate(battlerAtk, ABILITY_AS_ONE_SHADOW_RIDER))
+    || (hasInnate(battlerAtk, ABILITY_BEAST_BOOST))
+    || (hasInnate(battlerAtk, ABILITY_ADRENALINE_RUSH)))
     {
         if (!IsBattlerAlive(battlerAtk) || NoAliveMonsForEitherParty())
             return FALSE;

@@ -257,7 +257,7 @@
 
 #define FLAG_RECEIVED_FISHING_ROD            0xE9 
 
-#define FLAG_RECEIVED_TM_REST                0xEA
+#define FLAG_RECEIVED_GRASSY_GLIDE                0xEA
 #define FLAG_RECEIVED_TM_ATTRACT             0xEB
 #define FLAG_RECEIVED_GLASS_ORNAMENT         0xEC
 #define FLAG_RECEIVED_SILVER_SHIELD          0xED

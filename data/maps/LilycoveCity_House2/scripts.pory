@@ -2,18 +2,6 @@ raw `
 LilycoveCity_House2_MapScripts::
 	.byte 0
 
-LilycoveCity_House2_EventScript_FatMan::
-	lock
-	faceplayer
-	goto_if_set FLAG_RECEIVED_TM_REST, LilycoveCity_House2_EventScript_ReceivedRest
-	msgbox LilycoveCity_House2_Text_NotAwakeYetHaveThis, MSGBOX_DEFAULT
-	giveitem ITEM_NONE
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_REST
-	msgbox LilycoveCity_House2_Text_SleepIsEssential, MSGBOX_DEFAULT
-	release
-	end
-
 LilycoveCity_House2_EventScript_ReceivedRest::
 	msgbox LilycoveCity_House2_Text_SleepIsEssential, MSGBOX_DEFAULT
 	release
@@ -29,3 +17,31 @@ LilycoveCity_House2_Text_SleepIsEssential:
 	.string "Sleep is essential for good health…\n"
 	.string "Sleep and regain health…$"
 `
+
+script LilycoveCity_House2_EventScript_GrassyGlideWoman{
+	lock
+	faceplayer
+	if(flag(FLAG_RECEIVED_GRASSY_GLIDE))
+	{
+		msgbox ("How's that TM going for you?\n"
+				"Me and Rillaboom had a good fight\l"
+				"yesterday, choice band ain't no joke.", 
+				MSGBOX_NPC)
+		release 
+		end
+	}
+	msgbox ("Hello there, have you ever heard of\n"
+			"the move Grassy Glide?\p"
+			"Me and my Rillaboom use it everyday\n"
+			"to win every battle!\p"
+			"Grassy Glide might only be 55 bp, but\n"
+			"with Grassy Terrain active on the field\l"
+			"it hits like a truck and it has priority!\p"
+			"here take this!", 
+			MSGBOX_DEFAULT)
+	giveitem (ITEM_TM_GRASSY_GLIDE)
+	goto_if_eq (VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull)
+	setflag (FLAG_RECEIVED_GRASSY_GLIDE)
+	release
+	end
+}

@@ -207,3 +207,24 @@ const u16 gMetatileAttributes_MysteryEventsHouse[] = INCBIN_U16("data/tilesets/s
 
 const u16 gMetatiles_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatiles.bin");
 const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatile_attributes.bin");
+
+const u16 gMetatiles_PorytilesTest[] = INCBIN_U16("data/tilesets/primary/porytiles_test/metatiles.bin");
+const u16 gMetatileAttributes_PorytilesTest[] = INCBIN_U16("data/tilesets/primary/porytiles_test/metatile_attributes.bin");
+
+const u16 gMetatiles_PorytilesSecTest[] = INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/metatiles.bin");
+const u16 gMetatileAttributes_PorytilesSecTest[] = INCBIN_U16("data/tilesets/secondary/porytiles_sec_test/metatile_attributes.bin");
+
+const u16 gMetatiles_LittlerootTownTest[] = INCBIN_U16("data/tilesets/primary/littleroot_town_test/metatiles.bin");
+const u16 gMetatileAttributes_LittlerootTownTest[] = INCBIN_U16("data/tilesets/primary/littleroot_town_test/metatile_attributes.bin");
+
+const u16 gMetatiles_LittlerootNew[] = INCBIN_U16("data/tilesets/secondary/littleroot_new/metatiles.bin");
+const u16 gMetatileAttributes_LittlerootNew[] = INCBIN_U16("data/tilesets/secondary/littleroot_new/metatile_attributes.bin");
+
+const u16 gMetatiles_General_New[] = INCBIN_U16("data/tilesets/primary/general_new/metatiles.bin");
+const u16 gMetatileAttributes_General_New[] = INCBIN_U16("data/tilesets/primary/general_new/metatile_attributes.bin");
+
+const u16 gMetatiles_Littleroot_New[] = INCBIN_U16("data/tilesets/primary/littleroot_new/metatiles.bin");
+const u16 gMetatileAttributes_Littleroot_New[] = INCBIN_U16("data/tilesets/primary/littleroot_new/metatile_attributes.bin");
+
+const u16 gMetatiles_Littleroot[] = INCBIN_U16("data/tilesets/secondary/littleroot/metatiles.bin");
+const u16 gMetatileAttributes_Littleroot[] = INCBIN_U16("data/tilesets/secondary/littleroot/metatile_attributes.bin");

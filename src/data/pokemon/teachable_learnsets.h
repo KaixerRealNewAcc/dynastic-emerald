@@ -29953,6 +29953,7 @@ static const u16 sKartanaTeachableLearnset[] = {
     MOVE_FALSE_SWIPE,
     MOVE_FURY_CUTTER,
     MOVE_GIGA_DRAIN,
+    MOVE_GRASSY_GLIDE,
     MOVE_KNOCK_OFF,
     MOVE_PROTECT,
     MOVE_SLEEP_TALK,
