@@ -94,10 +94,10 @@
     {
       "id": "LAYOUT_LITTLEROOT_TOWN",
       "name": "LittlerootTown_Layout",
-      "width": 20,
-      "height": 20,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Petalburg",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_General_New",
+      "secondary_tileset": "gTileset_Littleroot",
       "border_filepath": "data/layouts/LittlerootTown/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown/map.bin"
     },
@@ -166,8 +166,8 @@
       "name": "Route101_Layout",
       "width": 20,
       "height": 20,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Petalburg",
+      "primary_tileset": "gTileset_General_New",
+      "secondary_tileset": "gTileset_Littleroot",
       "border_filepath": "data/layouts/Route101/border.bin",
       "blockdata_filepath": "data/layouts/Route101/map.bin"
     },
@@ -4440,6 +4440,16 @@
       "secondary_tileset": "gTileset_Littleroot",
       "border_filepath": "data/layouts/TestMapForPoryTiles/border.bin",
       "blockdata_filepath": "data/layouts/TestMapForPoryTiles/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITTLEROOT_NEW",
+      "name": "LittlerootNew_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/LittlerootNew/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootNew/map.bin"
     }
   ]
 }

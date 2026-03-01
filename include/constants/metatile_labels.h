@@ -297,8 +297,7 @@
 #define METATILE_LilycoveMuseum_Painting4_Right  0x263
 
 // gTileset_Littleroot
-#define METATILE_Littleroot_Door             0x1B0
-#define METATILE_Littleroot_Littleroot_Door  0x219
+#define METATILE_Littleroot_Door  0x1B0
 
 // gTileset_Mauville
 #define METATILE_Mauville_DeepSand_BottomMid  0x259

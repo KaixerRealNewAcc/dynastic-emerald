@@ -1043,6 +1043,43 @@ LittlerootTown_Norman_Test_BattleEnd::
 	end
 
 
+LittlerootTown_SignScripts_MaysHouse::
+	checkplayergender
+	lock
+	compare VAR_RESULT, MALE
+	goto_if_eq LittlerootTown_SignScripts_MaysHouse_2
+	msgbox LittlerootTown_SignScripts_MaysHouse_Text_1
+	return
+
+	release
+	end
+
+LittlerootTown_SignScripts_MaysHouse_2:
+	msgbox LittlerootTown_SignScripts_MaysHouse_Text_0
+	return
+
+
+LittlerootTown_SignScripts_BrendansHouse::
+	lock
+	checkplayergender
+	compare VAR_RESULT, FEMALE
+	goto_if_eq LittlerootTown_SignScripts_BrendansHouse_2
+	msgbox LittlerootTown_SignScripts_MaysHouse_Text_1
+LittlerootTown_SignScripts_BrendansHouse_1:
+	release
+	end
+
+LittlerootTown_SignScripts_BrendansHouse_2:
+	msgbox LittlerootTown_SignScripts_MaysHouse_Text_0
+	goto LittlerootTown_SignScripts_BrendansHouse_1
+
+
+LittlerootTown_SignScripts_MaysHouse_Text_0:
+	.string "Prof. Birch's Home.$"
+
+LittlerootTown_SignScripts_MaysHouse_Text_1:
+	.string "Norman's Home.$"
+
 LittlerootTown_Text_ExplainRunningShoes::
 	.string "MOM: {PLAYER}, the exp share allows\n"
 	.string "your pokemon to share exp earned in\l"

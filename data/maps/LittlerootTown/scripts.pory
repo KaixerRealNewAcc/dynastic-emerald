@@ -1044,3 +1044,33 @@ script LittlerootTown_Norman_Test_BattleEnd
 text LittlerootTown_Text_ExplainRunningShoes{
 	format("MOM: {PLAYER}, the exp share allows\nyour pokemon to share exp earned in\lbattle, handy for a trainer like you son.")
 }
+
+script LittlerootTown_SignScripts_MaysHouse {
+	checkplayergender
+	lock
+	if(var(VAR_RESULT) == MALE)
+	{
+		msgbox("Prof. Birch's Home.")
+		return
+	}
+	else
+	{
+		msgbox("Norman's Home.")
+		return
+	}
+	release end
+}
+
+script LittlerootTown_SignScripts_BrendansHouse {
+	lock
+	checkplayergender
+	if(var(VAR_RESULT) == FEMALE)
+	{
+		msgbox("Prof. Birch's Home.")
+	}
+	else
+	{
+		msgbox("Norman's Home.")
+	}
+	release end
+}
