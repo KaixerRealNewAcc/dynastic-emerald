@@ -10,45 +10,45 @@
 #include "constants/songs.h"
 
 // this file's functions
-static void MovePlayerOnMachBike(u8, u16, u16);
-static u8 GetMachBikeTransition(u8 *);
-static void MachBikeTransition_FaceDirection(u8);
-static void MachBikeTransition_TurnDirection(u8);
-static void MachBikeTransition_TrySpeedUp(u8);
-static void MachBikeTransition_TrySlowDown(u8);
-static void MovePlayerOnAcroBike(u8, u16, u16);
-static u8 CheckMovementInputAcroBike(u8 *, u16, u16);
-static u8 AcroBikeHandleInputNormal(u8 *, u16, u16);
-static u8 AcroBikeHandleInputTurning(u8 *, u16, u16);
-static u8 AcroBikeHandleInputWheelieStanding(u8 *, u16, u16);
-static u8 AcroBikeHandleInputBunnyHop(u8 *, u16, u16);
-static u8 AcroBikeHandleInputWheelieMoving(u8 *, u16, u16);
-static u8 AcroBikeHandleInputSidewaysJump(u8 *, u16, u16);
-static u8 AcroBikeHandleInputTurnJump(u8 *, u16, u16);
-static void AcroBikeTransition_FaceDirection(u8);
-static void AcroBikeTransition_TurnDirection(u8);
-static void AcroBikeTransition_Moving(u8);
-static void AcroBikeTransition_NormalToWheelie(u8);
-static void AcroBikeTransition_WheelieToNormal(u8);
-static void AcroBikeTransition_WheelieIdle(u8);
-static void AcroBikeTransition_WheelieHoppingStanding(u8);
-static void AcroBikeTransition_WheelieHoppingMoving(u8);
-static void AcroBikeTransition_SideJump(u8);
-static void AcroBikeTransition_TurnJump(u8);
-static void AcroBikeTransition_WheelieMoving(u8);
-static void AcroBikeTransition_WheelieRisingMoving(u8);
-static void AcroBikeTransition_WheelieLoweringMoving(u8);
+static void MovePlayerOnMachBike(enum Direction, u16, u16);
+static enum MachTransition GetMachBikeTransition(enum Direction *);
+static void MachBikeTransition_FaceDirection(enum Direction);
+static void MachBikeTransition_TurnDirection(enum Direction);
+static void MachBikeTransition_TrySpeedUp(enum Direction);
+static void MachBikeTransition_TrySlowDown(enum Direction);
+static void MovePlayerOnAcroBike(enum Direction, u16, u16);
+static enum AcroTransition CheckMovementInputAcroBike(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputNormal(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputTurning(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputWheelieStanding(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputBunnyHop(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputWheelieMoving(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputSidewaysJump(enum Direction *, u16, u16);
+static enum AcroTransition AcroBikeHandleInputTurnJump(enum Direction *, u16, u16);
+static void AcroBikeTransition_FaceDirection(enum Direction);
+static void AcroBikeTransition_TurnDirection(enum Direction);
+static void AcroBikeTransition_Moving(enum Direction);
+static void AcroBikeTransition_NormalToWheelie(enum Direction);
+static void AcroBikeTransition_WheelieToNormal(enum Direction);
+static void AcroBikeTransition_WheelieIdle(enum Direction);
+static void AcroBikeTransition_WheelieHoppingStanding(enum Direction);
+static void AcroBikeTransition_WheelieHoppingMoving(enum Direction);
+static void AcroBikeTransition_SideJump(enum Direction);
+static void AcroBikeTransition_TurnJump(enum Direction);
+static void AcroBikeTransition_WheelieMoving(enum Direction);
+static void AcroBikeTransition_WheelieRisingMoving(enum Direction);
+static void AcroBikeTransition_WheelieLoweringMoving(enum Direction);
 static void AcroBike_TryHistoryUpdate(u16, u16);
 static u8 AcroBike_GetJumpDirection(void);
-static void Bike_UpdateDirTimerHistory(u8);
+static void Bike_UpdateDirTimerHistory(enum Direction);
 static void Bike_UpdateABStartSelectHistory(u8);
-static u8 Bike_DPadToDirection(u16);
-static u8 GetBikeCollision(u8);
-static u8 GetBikeCollisionAt(struct ObjectEvent *, s16, s16, u8, u8);
+static enum Direction Bike_DPadToDirection(u16);
+static enum Collision GetBikeCollision(enum Direction);
+static enum Collision GetBikeCollisionAt(struct ObjectEvent *, s16, s16, enum Direction, u8);
 static bool8 IsRunningDisallowedByMetatile(u8);
 static void Bike_TryAdvanceCyclingRoadCollisions();
-static u8 CanBikeFaceDirOnMetatile(u8, u8);
-static bool8 WillPlayerCollideWithCollision(u8, u8);
+static u8 CanBikeFaceDirOnMetatile(enum Direction, u8);
+static bool8 WillPlayerCollideWithCollision(enum Collision, enum Direction);
 static void Bike_SetBikeStill(void);
 
 // const rom data
@@ -62,7 +62,7 @@ static void Bike_SetBikeStill(void);
     for its complex tricks and actions.
 */
 
-static void (*const sMachBikeTransitions[])(u8) =
+static void (*const sMachBikeTransitions[])(enum Direction) =
 {
     MachBikeTransition_FaceDirection, // Face vs Turn: Face has no anim while Turn does. Turn checks for collision because if you turn right as opposed to face right, if there is a wall there, turn will make a bonk sound effect while face will not.
     MachBikeTransition_TurnDirection,
@@ -71,14 +71,14 @@ static void (*const sMachBikeTransitions[])(u8) =
 };
 
 // bikeFrameCounter is input which is represented by sMachBikeSpeeds in order
-static void (*const sMachBikeSpeedCallbacks[])(u8) =
+static void (*const sMachBikeSpeedCallbacks[])(enum Direction) =
 {
     PlayerWalkNormal,
     PlayerWalkFast,
     PlayerWalkFaster,
 };
 
-static void (*const sAcroBikeTransitions[])(u8) =
+static void (*const sAcroBikeTransitions[])(enum Direction) =
 {
     AcroBikeTransition_FaceDirection,
     AcroBikeTransition_TurnDirection,
@@ -95,7 +95,7 @@ static void (*const sAcroBikeTransitions[])(u8) =
     AcroBikeTransition_WheelieLoweringMoving,
 };
 
-static u8 (*const sAcroBikeInputHandlers[])(u8 *, u16, u16) =
+static enum AcroTransition (*const sAcroBikeInputHandlers[])(enum Direction *, u16, u16) =
 {
     AcroBikeHandleInputNormal,
     AcroBikeHandleInputTurning,
@@ -107,7 +107,7 @@ static u8 (*const sAcroBikeInputHandlers[])(u8 *, u16, u16) =
 };
 
 // used with bikeFrameCounter from mach bike
-static const u16 sMachBikeSpeeds[] = {PLAYER_SPEED_NORMAL, PLAYER_SPEED_FAST, PLAYER_SPEED_FASTEST};
+static const enum PlayerSpeed sMachBikeSpeeds[] = {PLAYER_SPEED_NORMAL, PLAYER_SPEED_FAST, PLAYER_SPEED_FASTEST};
 
 // this is a list of timers to compare against later, terminated with 0. the only timer being compared against is 4 frames in this list.
 static const u8 sAcroBikeJumpTimerList[] = {4, 0};
@@ -123,7 +123,7 @@ static const struct BikeHistoryInputInfo sAcroBikeTricksList[] =
 };
 
 // code
-void MovePlayerOnBike(u8 direction, u16 newKeys, u16 heldKeys)
+void MovePlayerOnBike(enum Direction direction, u16 newKeys, u16 heldKeys)
 {
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
         MovePlayerOnMachBike(direction, newKeys, heldKeys);
@@ -131,16 +131,16 @@ void MovePlayerOnBike(u8 direction, u16 newKeys, u16 heldKeys)
         MovePlayerOnAcroBike(direction, newKeys, heldKeys);
 }
 
-static void MovePlayerOnMachBike(u8 direction, u16 newKeys, u16 heldKeys)
+static void MovePlayerOnMachBike(enum Direction direction, u16 newKeys, u16 heldKeys)
 {
     sMachBikeTransitions[GetMachBikeTransition(&direction)](direction);
 }
 
-// dirTraveling is a variable that is 0 when the player is standing still.
-static u8 GetMachBikeTransition(u8 *dirTraveling)
+// dirTraveling is a variable that is DIR_NONE when the player is standing still.
+static enum MachTransition GetMachBikeTransition(enum Direction *dirTraveling)
 {
     // if the dir updated before this function, get the relevent new direction to check later.
-    u8 direction = GetPlayerMovementDirection();
+    enum Direction direction = GetPlayerMovementDirection();
 
     // fix direction when moving on sideways stairs
     switch (direction)
@@ -152,6 +152,8 @@ static u8 GetMachBikeTransition(u8 *dirTraveling)
     case DIR_SOUTHEAST:
     case DIR_NORTHEAST:
         direction = DIR_EAST;
+        break;
+    default:
         break;
     }
 
@@ -189,13 +191,13 @@ static u8 GetMachBikeTransition(u8 *dirTraveling)
 }
 
 // the difference between face direction and turn direction is that one changes direction while the other does the animation of turning as well as changing direction.
-static void MachBikeTransition_FaceDirection(u8 direction)
+static void MachBikeTransition_FaceDirection(enum Direction direction)
 {
     PlayerFaceDirection(direction);
     Bike_SetBikeStill();
 }
 
-static void MachBikeTransition_TurnDirection(u8 direction)
+static void MachBikeTransition_TurnDirection(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -210,10 +212,10 @@ static void MachBikeTransition_TurnDirection(u8 direction)
     }
 }
 
-static void MachBikeTransition_TrySpeedUp(u8 direction)
+static void MachBikeTransition_TrySpeedUp(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-    u8 collision;
+    enum Collision collision;
 
     if (CanBikeFaceDirOnMetatile(direction, playerObjEvent->currentMetatileBehavior) == FALSE)
     {
@@ -226,7 +228,7 @@ static void MachBikeTransition_TrySpeedUp(u8 direction)
     else
     {
         collision = GetBikeCollision(direction);
-        if (collision > 0 && collision < COLLISION_VERTICAL_RAIL)
+        if (collision > COLLISION_NONE && collision < COLLISION_VERTICAL_RAIL)
         {
             // we hit a solid object, but check to see if its a ledge and then jump.
             if (collision == COLLISION_LEDGE_JUMP)
@@ -257,9 +259,9 @@ static void MachBikeTransition_TrySpeedUp(u8 direction)
     }
 }
 
-static void MachBikeTransition_TrySlowDown(u8 direction)
+static void MachBikeTransition_TrySlowDown(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
 
     if (gPlayerAvatar.bikeSpeed != PLAYER_SPEED_STANDING)
         gPlayerAvatar.bikeFrameCounter = --gPlayerAvatar.bikeSpeed;
@@ -288,19 +290,19 @@ static void MachBikeTransition_TrySlowDown(u8 direction)
 }
 
 // the acro bike requires the input handler to be executed before the transition can.
-static void MovePlayerOnAcroBike(u8 newDirection, u16 newKeys, u16 heldKeys)
+static void MovePlayerOnAcroBike(enum Direction newDirection, u16 newKeys, u16 heldKeys)
 {
     sAcroBikeTransitions[CheckMovementInputAcroBike(&newDirection, newKeys, heldKeys)](newDirection);
 }
 
-static u8 CheckMovementInputAcroBike(u8 *newDirection, u16 newKeys, u16 heldKeys)
+static enum AcroTransition CheckMovementInputAcroBike(enum Direction *newDirection, u16 newKeys, u16 heldKeys)
 {
     return sAcroBikeInputHandlers[gPlayerAvatar.acroBikeState](newDirection, newKeys, heldKeys);
 }
 
-static u8 AcroBikeHandleInputNormal(u8 *newDirection, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputNormal(enum Direction *newDirection, u16 newKeys, u16 heldKeys)
 {
-    u8 direction = GetPlayerMovementDirection();
+    enum Direction direction = GetPlayerMovementDirection();
 
     gPlayerAvatar.bikeFrameCounter = 0;
     if (*newDirection == DIR_NONE)
@@ -338,9 +340,9 @@ static u8 AcroBikeHandleInputNormal(u8 *newDirection, u16 newKeys, u16 heldKeys)
     return ACRO_TRANS_MOVING;
 }
 
-static u8 AcroBikeHandleInputTurning(u8 *newDirection, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputTurning(enum Direction *newDirection, u16 newKeys, u16 heldKeys)
 {
-    u8 direction;
+    enum Direction direction;
 
     *newDirection = gPlayerAvatar.newDirBackup;
     gPlayerAvatar.bikeFrameCounter++;
@@ -377,9 +379,9 @@ static u8 AcroBikeHandleInputTurning(u8 *newDirection, u16 newKeys, u16 heldKeys
     return ACRO_TRANS_FACE_DIRECTION;
 }
 
-static u8 AcroBikeHandleInputWheelieStanding(u8 *newDirection, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputWheelieStanding(enum Direction *newDirection, u16 newKeys, u16 heldKeys)
 {
-    u8 direction;
+    enum Direction direction;
     struct ObjectEvent *playerObjEvent;
 
     direction = GetPlayerMovementDirection();
@@ -427,9 +429,9 @@ static u8 AcroBikeHandleInputWheelieStanding(u8 *newDirection, u16 newKeys, u16 
     return ACRO_TRANS_WHEELIE_IDLE;
 }
 
-static u8 AcroBikeHandleInputBunnyHop(u8 *newDirection, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputBunnyHop(enum Direction *newDirection, u16 newKeys, u16 heldKeys)
 {
-    u8 direction;
+    enum Direction direction;
     struct ObjectEvent *playerObjEvent;
 
     direction = GetPlayerMovementDirection();
@@ -474,9 +476,9 @@ static u8 AcroBikeHandleInputBunnyHop(u8 *newDirection, u16 newKeys, u16 heldKey
     return ACRO_TRANS_WHEELIE_HOPPING_MOVING;
 }
 
-static u8 AcroBikeHandleInputWheelieMoving(u8 *newDirection, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputWheelieMoving(enum Direction *newDirection, u16 newKeys, u16 heldKeys)
 {
-    u8 direction;
+    enum Direction direction;
     struct ObjectEvent *playerObjEvent;
 
     direction = GetPlayerFacingDirection();
@@ -529,7 +531,7 @@ static u8 AcroBikeHandleInputWheelieMoving(u8 *newDirection, u16 newKeys, u16 he
     return ACRO_TRANS_WHEELIE_MOVING;
 }
 
-static u8 AcroBikeHandleInputSidewaysJump(u8 *ptr, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputSidewaysJump(enum Direction *ptr, u16 newKeys, u16 heldKeys)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -539,18 +541,18 @@ static u8 AcroBikeHandleInputSidewaysJump(u8 *ptr, u16 newKeys, u16 heldKeys)
     return CheckMovementInputAcroBike(ptr, newKeys, heldKeys);
 }
 
-static u8 AcroBikeHandleInputTurnJump(u8 *ptr, u16 newKeys, u16 heldKeys)
+static enum AcroTransition AcroBikeHandleInputTurnJump(enum Direction *ptr, u16 newKeys, u16 heldKeys)
 {
     gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
     return CheckMovementInputAcroBike(ptr, newKeys, heldKeys);
 }
 
-static void AcroBikeTransition_FaceDirection(u8 direction)
+static void AcroBikeTransition_FaceDirection(enum Direction direction)
 {
     PlayerFaceDirection(direction);
 }
 
-static void AcroBikeTransition_TurnDirection(u8 direction)
+static void AcroBikeTransition_TurnDirection(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -559,9 +561,9 @@ static void AcroBikeTransition_TurnDirection(u8 direction)
     PlayerFaceDirection(direction);
 }
 
-static void AcroBikeTransition_Moving(u8 direction)
+static void AcroBikeTransition_Moving(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (CanBikeFaceDirOnMetatile(direction, playerObjEvent->currentMetatileBehavior) == 0)
@@ -570,7 +572,7 @@ static void AcroBikeTransition_Moving(u8 direction)
         return;
     }
     collision = GetBikeCollision(direction);
-    if (collision > 0 && collision < COLLISION_VERTICAL_RAIL)
+    if (collision > COLLISION_NONE && collision < COLLISION_VERTICAL_RAIL)
     {
         if (collision == COLLISION_LEDGE_JUMP)
             PlayerJumpLedge(direction);
@@ -588,7 +590,7 @@ static void AcroBikeTransition_Moving(u8 direction)
     }
 }
 
-static void AcroBikeTransition_NormalToWheelie(u8 direction)
+static void AcroBikeTransition_NormalToWheelie(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -597,7 +599,7 @@ static void AcroBikeTransition_NormalToWheelie(u8 direction)
     PlayerStartWheelie(direction);
 }
 
-static void AcroBikeTransition_WheelieToNormal(u8 direction)
+static void AcroBikeTransition_WheelieToNormal(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -606,7 +608,7 @@ static void AcroBikeTransition_WheelieToNormal(u8 direction)
     PlayerEndWheelie(direction);
 }
 
-static void AcroBikeTransition_WheelieIdle(u8 direction)
+static void AcroBikeTransition_WheelieIdle(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -615,7 +617,7 @@ static void AcroBikeTransition_WheelieIdle(u8 direction)
     PlayerIdleWheelie(direction);
 }
 
-static void AcroBikeTransition_WheelieHoppingStanding(u8 direction)
+static void AcroBikeTransition_WheelieHoppingStanding(enum Direction direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -624,9 +626,9 @@ static void AcroBikeTransition_WheelieHoppingStanding(u8 direction)
     PlayerStandingHoppingWheelie(direction);
 }
 
-static void AcroBikeTransition_WheelieHoppingMoving(u8 direction)
+static void AcroBikeTransition_WheelieHoppingMoving(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (CanBikeFaceDirOnMetatile(direction, playerObjEvent->currentMetatileBehavior) == 0)
@@ -655,9 +657,9 @@ static void AcroBikeTransition_WheelieHoppingMoving(u8 direction)
     PlayerMovingHoppingWheelie(direction);
 }
 
-static void AcroBikeTransition_SideJump(u8 direction)
+static void AcroBikeTransition_SideJump(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
     struct ObjectEvent *playerObjEvent;
 
     collision = GetBikeCollision(direction);
@@ -682,14 +684,14 @@ static void AcroBikeTransition_SideJump(u8 direction)
     PlayerSetAnimId(GetJumpMovementAction(direction), COPY_MOVE_WALK);
 }
 
-static void AcroBikeTransition_TurnJump(u8 direction)
+static void AcroBikeTransition_TurnJump(enum Direction direction)
 {
     PlayerAcroTurnJump(direction);
 }
 
-static void AcroBikeTransition_WheelieMoving(u8 direction)
+static void AcroBikeTransition_WheelieMoving(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (CanBikeFaceDirOnMetatile(direction, playerObjEvent->currentMetatileBehavior) == 0)
@@ -698,7 +700,7 @@ static void AcroBikeTransition_WheelieMoving(u8 direction)
         return;
     }
     collision = GetBikeCollision(direction);
-    if (collision > 0 && collision < COLLISION_VERTICAL_RAIL)
+    if (collision > COLLISION_NONE && collision < COLLISION_VERTICAL_RAIL)
     {
         if (collision == COLLISION_LEDGE_JUMP)
         {
@@ -722,9 +724,9 @@ static void AcroBikeTransition_WheelieMoving(u8 direction)
     gPlayerAvatar.runningState = MOVING;
 }
 
-static void AcroBikeTransition_WheelieRisingMoving(u8 direction)
+static void AcroBikeTransition_WheelieRisingMoving(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (CanBikeFaceDirOnMetatile(direction, playerObjEvent->currentMetatileBehavior) == 0)
@@ -733,7 +735,7 @@ static void AcroBikeTransition_WheelieRisingMoving(u8 direction)
         return;
     }
     collision = GetBikeCollision(direction);
-    if (collision > 0 && collision < COLLISION_VERTICAL_RAIL)
+    if (collision > COLLISION_NONE && collision < COLLISION_VERTICAL_RAIL)
     {
         if (collision == COLLISION_LEDGE_JUMP)
         {
@@ -757,9 +759,9 @@ static void AcroBikeTransition_WheelieRisingMoving(u8 direction)
     gPlayerAvatar.runningState = MOVING;
 }
 
-static void AcroBikeTransition_WheelieLoweringMoving(u8 direction)
+static void AcroBikeTransition_WheelieLoweringMoving(enum Direction direction)
 {
-    u8 collision;
+    enum Collision collision;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (CanBikeFaceDirOnMetatile(direction, playerObjEvent->currentMetatileBehavior) == 0)
@@ -768,7 +770,7 @@ static void AcroBikeTransition_WheelieLoweringMoving(u8 direction)
         return;
     }
     collision = GetBikeCollision(direction);
-    if (collision > 0 && collision < COLLISION_VERTICAL_RAIL)
+    if (collision > COLLISION_NONE && collision < COLLISION_VERTICAL_RAIL)
     {
         if (collision == COLLISION_LEDGE_JUMP)
             PlayerJumpLedge(direction);
@@ -788,7 +790,7 @@ void Bike_TryAcroBikeHistoryUpdate(u16 newKeys, u16 heldKeys)
 
 static void AcroBike_TryHistoryUpdate(u16 newKeys, u16 heldKeys) // newKeys is unused
 {
-    u8 direction = Bike_DPadToDirection(heldKeys);
+    enum Direction direction = Bike_DPadToDirection(heldKeys);
 
     if (direction == (gPlayerAvatar.directionHistory & 0xF))
     {
@@ -850,7 +852,7 @@ static u8 AcroBike_GetJumpDirection(void)
     return 0;
 }
 
-static void Bike_UpdateDirTimerHistory(u8 dir)
+static void Bike_UpdateDirTimerHistory(enum Direction dir)
 {
     u8 i;
 
@@ -872,7 +874,7 @@ static void Bike_UpdateABStartSelectHistory(u8 input)
     gPlayerAvatar.abStartSelectTimerHistory[0] = 1;
 }
 
-static u8 Bike_DPadToDirection(u16 heldKeys)
+static enum Direction Bike_DPadToDirection(u16 heldKeys)
 {
     if (heldKeys & DPAD_UP)
         return DIR_NORTH;
@@ -885,7 +887,7 @@ static u8 Bike_DPadToDirection(u16 heldKeys)
     return DIR_NONE;
 }
 
-static u8 GetBikeCollision(u8 direction)
+static enum Collision GetBikeCollision(enum Direction direction)
 {
     u8 metatileBehavior;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
@@ -896,9 +898,9 @@ static u8 GetBikeCollision(u8 direction)
     return GetBikeCollisionAt(playerObjEvent, x, y, direction, metatileBehavior);
 }
 
-static u8 GetBikeCollisionAt(struct ObjectEvent *objectEvent, s16 x, s16 y, u8 direction, u8 metatileBehavior)
+static enum Collision GetBikeCollisionAt(struct ObjectEvent *objectEvent, s16 x, s16 y, enum Direction direction, u8 metatileBehavior)
 {
-    u8 collision = CheckForObjectEventCollision(objectEvent, x, y, direction, metatileBehavior);
+    enum Collision collision = CheckForObjectEventCollision(objectEvent, x, y, direction, metatileBehavior);
 
     if (collision > COLLISION_OBJECT_EVENT)
         return collision;
@@ -935,7 +937,7 @@ static void Bike_TryAdvanceCyclingRoadCollisions(void)
         gBikeCollisions++;
 }
 
-static bool8 CanBikeFaceDirOnMetatile(u8 direction, u8 tile)
+static bool8 CanBikeFaceDirOnMetatile(enum Direction direction, u8 tile)
 {
     if (direction == DIR_EAST || direction == DIR_WEST)
     {
@@ -954,7 +956,7 @@ static bool8 CanBikeFaceDirOnMetatile(u8 direction, u8 tile)
     return TRUE;
 }
 
-static bool8 WillPlayerCollideWithCollision(u8 newTileCollision, u8 direction)
+static bool8 WillPlayerCollideWithCollision(enum Collision newTileCollision, enum Direction direction)
 {
     if (direction == DIR_NORTH || direction == DIR_SOUTH)
     {
@@ -1039,10 +1041,10 @@ static void Bike_SetBikeStill(void)
     gPlayerAvatar.bikeSpeed = PLAYER_SPEED_STANDING;
 }
 
-s16 GetPlayerSpeed(void)
+enum PlayerSpeed GetPlayerSpeed(void)
 {
     // because the player pressed a direction, it won't ever return a speed of 0 since this function returns the player's current speed.
-    s16 machSpeeds[3];
+    enum PlayerSpeed machSpeeds[3];
 
     memcpy(machSpeeds, sMachBikeSpeeds, sizeof(machSpeeds));
 

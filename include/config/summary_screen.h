@@ -39,6 +39,10 @@ Info taken from https://bulbapedia.bulbagarden.net/wiki/Stats_judge.
 #define BLACK_PAL 1
 #define DEFAULT_PAL 2
 
+// TM Relearner
+#define P_TM_MOVES_RELEARNER             FALSE   // If TRUE, enables machine move relearner.
+#define P_ENABLE_ALL_TM_MOVES            FALSE   // If TRUE, it enables the Pokémon to learn all TMs its compatible with, regardless of it being in the bag.
+
 //Shadow Settings
 #define P_SUMMARY_SCREEN_MON_SHADOWS TRUE //If TRUE, the mon sprite will have a shadow loaded behind it.
 #define MON_SHADOWS_PALLETE DEFAULT_PAL //Changes the palette of the shadow sprite.

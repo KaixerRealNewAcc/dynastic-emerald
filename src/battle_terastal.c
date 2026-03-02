@@ -18,7 +18,7 @@
 #include "constants/rgb.h"
 
 // Sets flags and variables upon a battler's Terastallization.
-void ActivateTera(u32 battler)
+void ActivateTera(enum BattlerId battler)
 {
     // Set appropriate flags.
     SetActiveGimmick(battler, GIMMICK_TERA);
@@ -36,16 +36,16 @@ void ActivateTera(u32 battler)
     // Execute battle script.
     PREPARE_TYPE_BUFFER(gBattleTextBuff1, GetBattlerTeraType(battler));
     if (TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_TERASTALLIZATION))
-        BattleScriptExecute(BattleScript_TeraFormChange);
+        BattleScriptPushCursorAndCallback(BattleScript_TeraFormChange);
     else if (gBattleStruct->illusion[gBattlerAttacker].state == ILLUSION_ON
           && DoesSpeciesHaveFormChangeMethod(GetIllusionMonSpecies(gBattlerAttacker), FORM_CHANGE_BATTLE_TERASTALLIZATION))
-        BattleScriptExecute(BattleScript_IllusionOffAndTerastallization);
+        BattleScriptPushCursorAndCallback(BattleScript_IllusionOffAndTerastallization);
     else
-        BattleScriptExecute(BattleScript_Terastallization);
+        BattleScriptPushCursorAndCallback(BattleScript_Terastallization);
 }
 
 // Applies palette blend and enables UI indicator after animation has played
-void ApplyBattlerVisualsForTeraAnim(u32 battler)
+void ApplyBattlerVisualsForTeraAnim(enum BattlerId battler)
 {
     struct Pokemon *party = GetBattlerParty(battler);
     u32 index = gBattlerPartyIndexes[battler];
@@ -60,7 +60,7 @@ void ApplyBattlerVisualsForTeraAnim(u32 battler)
 }
 
 // Returns whether a battler can Terastallize.
-bool32 CanTerastallize(u32 battler)
+bool32 CanTerastallize(enum BattlerId battler)
 {
     enum ItemHoldEffect holdEffect = GetBattlerHoldEffect(battler, FALSE);
 
@@ -109,20 +109,20 @@ bool32 CanTerastallize(u32 battler)
 }
 
 // Returns a battler's Tera type.
-u32 GetBattlerTeraType(u32 battler)
+enum Type GetBattlerTeraType(enum BattlerId battler)
 {
     return GetMonData(GetBattlerMon(battler), MON_DATA_TERA_TYPE);
 }
 
 // Uses up a type's Stellar boost.
-void ExpendTypeStellarBoost(u32 battler, u32 type)
+void ExpendTypeStellarBoost(enum BattlerId battler, enum Type type)
 {
     if (type < 32 && gBattleMons[battler].species != SPECIES_TERAPAGOS_STELLAR) // avoid OOB access
         gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] |= 1u << type;
 }
 
 // Checks whether a type's Stellar boost has been expended.
-bool32 IsTypeStellarBoosted(u32 battler, u32 type)
+bool32 IsTypeStellarBoosted(enum BattlerId battler, enum Type type)
 {
     if (type < 32) // avoid OOB access
         return !(gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] & (1u << type));
@@ -132,7 +132,7 @@ bool32 IsTypeStellarBoosted(u32 battler, u32 type)
 
 // Returns the STAB power multiplier to use when Terastallized.
 // Power multipliers from Smogon Research thread.
-uq4_12_t GetTeraMultiplier(u32 battler, u32 type)
+uq4_12_t GetTeraMultiplier(struct BattleContext *ctx)
 {
     u32 teraType = GetBattlerTeraType(battler);
     bool32 hasAdaptability = (GetBattlerAbility(battler) == ABILITY_ADAPTABILITY);

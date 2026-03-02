@@ -2,6 +2,7 @@
 BattleFrontier_Lounge7_MapScripts::
 	.byte 0
 
+@special ChooseMonForMoveTutor
 BattleFrontier_Lounge7_EventScript_LeftMoveTutor::
 	lock
 	faceplayer
@@ -277,12 +278,13 @@ BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection::
 	goto BattleFrontier_Lounge7_EventScript_ChooseNewMove
 	end
 
+
 BattleFrontier_Lounge7_EventScript_TeachTutorMove::
 	msgbox BattleFrontier_Lounge7_Text_TeachMoveToWhichMon, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
 	special CloseBattlePointsWindow
 	special CloseBattleFrontierTutorWindow
-	special ChooseMonForMoveTutor
+	chooseboxmon SELECT_PC_MON_MOVE_TUTOR
 	waitstate
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge7_EventScript_CancelChooseMon
 	msgbox BattleFrontier_Lounge7_Text_IllTakeBattlePoints, MSGBOX_DEFAULT

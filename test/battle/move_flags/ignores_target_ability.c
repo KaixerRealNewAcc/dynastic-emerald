@@ -10,7 +10,8 @@ ASSUMPTIONS
 
 SINGLE_BATTLE_TEST("ignoresTargetAbility moves do not ignore the attacker's own ability", s16 damage)
 {
-    u32 ability, move;
+    enum Ability ability;
+    enum Move move;
 
     PARAMETRIZE { move = MOVE_SUNSTEEL_STRIKE; ability = ABILITY_MAGIC_GUARD; }
     PARAMETRIZE { move = MOVE_SUNSTEEL_STRIKE; ability = ABILITY_UNAWARE; }
@@ -47,7 +48,8 @@ SINGLE_BATTLE_TEST("ignoresTargetAbility moves do not ignore the attacker's own 
 
 SINGLE_BATTLE_TEST("ignoresTargetAbility moves do ignore target's abilities", s16 damage)
 {
-    u32 ability, move;
+    enum Ability ability;
+    enum Move move;
 
     PARAMETRIZE { move = MOVE_SUNSTEEL_STRIKE; ability = ABILITY_INNER_FOCUS; }
     PARAMETRIZE { move = MOVE_SUNSTEEL_STRIKE; ability = ABILITY_MULTISCALE; }

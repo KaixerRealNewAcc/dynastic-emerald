@@ -54,7 +54,7 @@ def GetWildEncounterFile():
                 if tempSuffix in map["base_label"]:
                     editMap = False
                     break
-                else: 
+                else:
                     editMap = True
 
             if editMap:

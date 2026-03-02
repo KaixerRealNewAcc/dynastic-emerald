@@ -394,3 +394,7 @@ gFieldEffectScript_RockClimbDust:: @ 82DBB28
 	field_eff_loadfadedpal_callnative gSpritePalette_BigDust, FldEff_RockClimbDust
 	field_eff_end
 
+gFieldEffectScript_ORASDowse::
+	field_eff_callnative FldEff_ORASDowsing
+	field_eff_end
+

@@ -58,38 +58,111 @@ static void ParametrizeMovesAndSpecies(u32 j, u32 *pMove, u32 *pSpecies)
     }
 }
 
-static bool32 TargetHasToMove(u32 move) // Opponent needs to hit the player first
+static u32 ParametrizeFriendship(enum Move move, u32 variation)
 {
-    if (gMovesInfo[move].effect == EFFECT_COUNTER
-     || gMovesInfo[move].effect == EFFECT_MIRROR_MOVE
-     || gMovesInfo[move].effect == EFFECT_CONVERSION_2
-     || gMovesInfo[move].effect == EFFECT_MIRROR_COAT
-     || gMovesInfo[move].effect == EFFECT_METAL_BURST
-     || gMovesInfo[move].effect == EFFECT_COPYCAT
-     || gMovesInfo[move].effect == EFFECT_SUCKER_PUNCH
-     || gMovesInfo[move].effect == EFFECT_INSTRUCT)
+    if (gMovesInfo[move].effect == EFFECT_FRUSTRATION
+        || gMovesInfo[move].effect == EFFECT_RETURN
+        )
+    {
+        if (variation == 0)
+           return 1;
+        else if (variation == 1)
+            return 61;
+        else if (variation == 2)
+            return 101;
+        else if (variation == 3)
+            return 201;
+    }
+    return 0;
+}
+
+static u32 GetParametrizedHP(enum Move move, u32 variation)
+{
+    if (gMovesInfo[move].effect == EFFECT_POWER_BASED_ON_USER_HP && variation > 0)
+    {
+        if (variation == 1)
+            return 6000;
+        else if (variation == 2)
+            return 4000;
+        else if (variation == 3)
+            return 2000;
+    }
+    return 9997;
+}
+
+static u32 GetParametrizedItem(enum Move move, u32 variation)
+{
+    if ((move == MOVE_TECHNO_BLAST) && variation > 0)
+    {
+        if (variation == 1)
+            return ITEM_DOUSE_DRIVE;
+        else if (variation == 2)
+            return ITEM_SHOCK_DRIVE;
+        else if (variation == 3)
+            return ITEM_BURN_DRIVE;
+        else if (variation == 4)
+            return ITEM_CHILL_DRIVE;
+    }
+    return ITEM_ORAN_BERRY;
+}
+
+static u32 GetParametrizedLevel(enum Move move, u32 variation)
+{
+    if (gMovesInfo[move].effect == EFFECT_LEVEL_DAMAGE && variation > 0)
+    {
+        if (variation == 1)
+            return 50;
+        else if (variation == 2)
+            return 20;
+    }
+    return 100;
+}
+
+static bool32 GetParametrizedShinyness(enum Move move, u32 variation)
+{
+    if ((GetMoveAnimationScript(move) == gBattleAnimMove_DragonDarts && variation == 2)
+        || (GetMoveAnimationScript(move) == gBattleAnimMove_SyrupBomb && variation == 1)
+        )
         return TRUE;
     return FALSE;
 }
 
-static bool32 AttackerHasToSwitch(u32 move) // User needs to send out a different team member
+static bool32 TargetHasToMove(enum Move move) // Opponent needs to hit the player first
 {
-    if (gMovesInfo[move].effect == EFFECT_TELEPORT
-     || gMovesInfo[move].effect == EFFECT_EXPLOSION
-     || gMovesInfo[move].effect == EFFECT_MISTY_EXPLOSION
-     || gMovesInfo[move].effect == EFFECT_BATON_PASS
-     || gMovesInfo[move].effect == EFFECT_MEMENTO
-     || gMovesInfo[move].effect == EFFECT_HEALING_WISH
-     || gMovesInfo[move].effect == EFFECT_HIT_ESCAPE
-     || gMovesInfo[move].effect == EFFECT_FINAL_GAMBIT
-     || gMovesInfo[move].effect == EFFECT_PARTING_SHOT
-     || gMovesInfo[move].effect == EFFECT_SHED_TAIL
-     || gMovesInfo[move].effect == EFFECT_CHILLY_RECEPTION)
+    enum BattleMoveEffects effect = GetMoveEffect(move);
+    if (effect == EFFECT_REFLECT_DAMAGE
+     || effect == EFFECT_MIRROR_MOVE
+     || effect == EFFECT_CONVERSION_2
+     || effect == EFFECT_COPYCAT
+     || effect == EFFECT_SUCKER_PUNCH
+     || effect == EFFECT_INSTRUCT
+     || effect == EFFECT_DISABLE
+     || effect == EFFECT_MIMIC
+     || effect == EFFECT_SPITE
+     || effect == EFFECT_ENCORE)
         return TRUE;
     return FALSE;
 }
 
-static bool32 UserHasToGoFirst(u32 move) // Player needs to go first
+static bool32 AttackerHasToSwitch(enum Move move) // User needs to send out a different team member
+{
+    enum BattleMoveEffects effect = GetMoveEffect(move);
+    if (IsExplosionMove(move)
+     || effect == EFFECT_TELEPORT
+     || effect == EFFECT_BATON_PASS
+     || effect == EFFECT_MEMENTO
+     || effect == EFFECT_HEALING_WISH
+     || effect == EFFECT_LUNAR_DANCE
+     || effect == EFFECT_HIT_ESCAPE
+     || effect == EFFECT_FINAL_GAMBIT
+     || effect == EFFECT_PARTING_SHOT
+     || effect == EFFECT_SHED_TAIL
+     || effect == EFFECT_WEATHER_AND_SWITCH)
+        return TRUE;
+    return FALSE;
+}
+
+static bool32 UserHasToGoFirst(enum Move move) // Player needs to go first
 {
     if (gMovesInfo[move].effect == EFFECT_PROTECT
      || gMovesInfo[move].effect == EFFECT_ENDURE
@@ -104,7 +177,37 @@ static bool32 UserHasToGoFirst(u32 move) // Player needs to go first
     return FALSE;
 }
 
-static void WhenSingles(u32 move, struct BattlePokemon *attacker, struct BattlePokemon *defender)
+static u32 GetVariationsNumber(enum Move move, bool8 isDouble)
+{
+    u32 variationsNumber;
+
+    if (gMovesInfo[move].effect == EFFECT_WEATHER_BALL
+     || gMovesInfo[move].effect == EFFECT_TERRAIN_PULSE
+     || move == MOVE_TECHNO_BLAST)
+        variationsNumber = 5;
+    else if (gMovesInfo[move].effect == EFFECT_FRUSTRATION
+          || gMovesInfo[move].effect == EFFECT_RETURN
+          || gMovesInfo[move].effect == EFFECT_IVY_CUDGEL
+          || move == MOVE_WATER_SPOUT) //we don't use the effect because other moves with the water spout effect don't have animation variations
+        variationsNumber = 4;
+    else if (gMovesInfo[move].effect == EFFECT_SPIT_UP
+          || gMovesInfo[move].effect == EFFECT_SWALLOW
+          || GetMoveAnimationScript(move) == gBattleAnimMove_DragonDarts
+          || move == MOVE_SEISMIC_TOSS)
+        variationsNumber = 3;
+    else if (gMovesInfo[move].effect == EFFECT_CURSE
+          || gMovesInfo[move].effect == EFFECT_PRESENT
+          || gMovesInfo[move].effect == EFFECT_SHELL_SIDE_ARM
+          || gMovesInfo[move].effect == EFFECT_FICKLE_BEAM
+          || gMovesInfo[move].effect == EFFECT_MAGNITUDE
+          || (isDouble && gMovesInfo[move].effect == EFFECT_TERA_STARSTORM)
+          || move == MOVE_SYRUP_BOMB)
+        variationsNumber = 2;
+    else
+        variationsNumber = 1;
+    return variationsNumber;
+}
+static void WhenSingles(enum Move move, struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 variation)
 {
     // Setup turn
     if (gMovesInfo[move].effect == EFFECT_SNORE
@@ -159,9 +262,15 @@ static void WhenSingles(u32 move, struct BattlePokemon *attacker, struct BattleP
     }
     // Effective turn
     TURN {
-        if (TargetHasToMove(move))
+        if (effect == EFFECT_REFLECT_DAMAGE)
         {
-            MOVE(defender, gMovesInfo[move].effect == EFFECT_MIRROR_COAT ? MOVE_SWIFT : MOVE_POUND);
+            bool32 useSpecialMove = GetMoveReflectDamage_DamageCategories(move) == 1u << DAMAGE_CATEGORY_SPECIAL;
+            MOVE(defender, useSpecialMove ? MOVE_SWIFT : MOVE_POUND);
+            MOVE(attacker, move);
+        }
+        else if (TargetHasToMove(move))
+        {
+            MOVE(defender, MOVE_POUND);
             MOVE(attacker, move);
         }
         else if (gMovesInfo[move].effect == EFFECT_SNATCH)
@@ -169,7 +278,7 @@ static void WhenSingles(u32 move, struct BattlePokemon *attacker, struct BattleP
             MOVE(attacker, move);
             MOVE(defender, MOVE_SWORDS_DANCE);
         }
-        else if (gMovesInfo[move].effect == EFFECT_OHKO || gMovesInfo[move].effect == EFFECT_SHEER_COLD)
+        else if (effect == EFFECT_OHKO)
         { // defender needs to send out a different team member
             MOVE(attacker, move);
             SEND_OUT(defender, 1);
@@ -204,9 +313,26 @@ static void WhenSingles(u32 move, struct BattlePokemon *attacker, struct BattleP
             MOVE(attacker, move);
         }
     }
+    if (gMovesInfo[move].effect == EFFECT_WISH)
+    {
+        TURN {};
+    }
+    else if (gMovesInfo[move].effect == EFFECT_FUTURE_SIGHT)
+    {
+        TURN {};
+        TURN {};
+    }
+    else if (gMovesInfo[move].effect == EFFECT_ROLLOUT)
+    {
+        TURN { MOVE(attacker, move); }
+        TURN { MOVE(attacker, move); }
+        TURN { MOVE(attacker, move); }
+        TURN { MOVE(attacker, move); }
+        TURN { MOVE(attacker, MOVE_HELPING_HAND); }
+    }
 }
 
-static void SceneSingles(u32 move, struct BattlePokemon *mon)
+static void SceneSingles(enum Move move, struct BattlePokemon *mon)
 {
     if (gMovesInfo[move].effect == EFFECT_FOLLOW_ME
      || gMovesInfo[move].effect == EFFECT_HELPING_HAND
@@ -233,7 +359,7 @@ static void SceneSingles(u32 move, struct BattlePokemon *mon)
     }
 }
 
-static void DoublesWhen(u32 move, struct BattlePokemon *attacker, struct BattlePokemon *target, struct BattlePokemon *ignore1, struct BattlePokemon *ignore2)
+static void DoublesWhen(enum Move move, struct BattlePokemon *attacker, struct BattlePokemon *target, struct BattlePokemon *ignore1, struct BattlePokemon *ignore2, u32 variation)
 {
     // Setup turn
     if (gMovesInfo[move].effect == EFFECT_SNORE
@@ -288,9 +414,15 @@ static void DoublesWhen(u32 move, struct BattlePokemon *attacker, struct BattleP
     }
     // Effective turn
     TURN {
-        if (TargetHasToMove(move))
-        { // Opponent needs to hit the player first
-            MOVE(target, gMovesInfo[move].effect == EFFECT_MIRROR_COAT ? MOVE_SWIFT : MOVE_POUND, target: attacker);
+        if (effect == EFFECT_REFLECT_DAMAGE)
+        {
+            bool32 useSpecialMove = GetMoveReflectDamage_DamageCategories(move) == 1u << DAMAGE_CATEGORY_SPECIAL;
+            MOVE(target, useSpecialMove ? MOVE_SWIFT : MOVE_POUND, target: attacker);
+            MOVE(attacker, move);
+        }
+        else if (TargetHasToMove(move))
+        {
+            MOVE(target, MOVE_POUND, target: attacker);
             MOVE(attacker, move, target: target);
         }
         else if (gMovesInfo[move].effect == EFFECT_SNATCH)
@@ -298,7 +430,7 @@ static void DoublesWhen(u32 move, struct BattlePokemon *attacker, struct BattleP
             MOVE(attacker, move, target: target);
             MOVE(target, MOVE_SWORDS_DANCE);
         }
-        else if (gMovesInfo[move].effect == EFFECT_OHKO || gMovesInfo[move].effect == EFFECT_SHEER_COLD)
+        else if (effect == EFFECT_OHKO)
         { // Opponent needs to send out a different team member
             MOVE(attacker, move, target: target);
             SEND_OUT(target, 2);
@@ -342,9 +474,26 @@ static void DoublesWhen(u32 move, struct BattlePokemon *attacker, struct BattleP
             MOVE(ignore2, MOVE_CELEBRATE);
         }
     }
+    if (gMovesInfo[move].effect == EFFECT_WISH)
+    {
+        TURN {};
+    }
+    else if (gMovesInfo[move].effect == EFFECT_FUTURE_SIGHT)
+    {
+        TURN {};
+        TURN {};
+    }
+    else if (gMovesInfo[move].effect == EFFECT_ROLLOUT)
+    {
+        TURN { MOVE(attacker, move, target: target); }
+        TURN { MOVE(attacker, move, target: target); }
+        TURN { MOVE(attacker, move, target: target); }
+        TURN { MOVE(attacker, move, target: target); }
+        TURN { MOVE(attacker, MOVE_LAST_RESORT, target: attacker); }
+    }
 }
 
-static void DoublesScene(u32 move, struct BattlePokemon *attacker)
+static void DoublesScene(enum Move move, struct BattlePokemon *attacker)
 {
     if (gMovesInfo[move].effect == EFFECT_MAGNETIC_FLUX || gMovesInfo[move].effect == EFFECT_GEAR_UP) // For some reason, Magnetic Flux and Gear Up are failing in Double Battles here
     {
@@ -364,7 +513,7 @@ static void DoublesScene(u32 move, struct BattlePokemon *attacker)
     }
 }
 
-//static void SameSideTargeting(u32 move, struct BattlePokemon *attacker)
+//static void SameSideTargeting(enum Move move, struct BattlePokemon *attacker)
 //{
 //    //  Don't know how to make sure this is correct, some moves don't display
 //}
@@ -375,8 +524,12 @@ SINGLE_BATTLE_TEST("Move Animations don't leak when used - Singles (player to op
     u32 tempMove, tempSpecies;
     FORCE_MOVE_ANIM(TRUE);
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, FALSE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         PLAYER(species) {
@@ -413,8 +566,12 @@ SINGLE_BATTLE_TEST("Move Animations don't leak when used - Singles (opponent to 
     u32 tempMove, tempSpecies;
     FORCE_MOVE_ANIM(TRUE);
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, FALSE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         OPPONENT(species) {
@@ -455,8 +612,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (playerLeft t
     struct BattlePokemon *ignore1 = playerRight;
     struct BattlePokemon *ignore2 = opponentRight;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         PLAYER(species) {
@@ -513,8 +674,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (opponentLeft
     struct BattlePokemon *ignore1 = opponentRight;
     struct BattlePokemon *ignore2 = playerRight;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         OPPONENT(species) {
@@ -572,8 +737,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (playerLeft t
     struct BattlePokemon *ignore1 = playerRight;
     struct BattlePokemon *ignore2 = opponentLeft;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         PLAYER(species) {
@@ -631,8 +800,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (opponentRigh
     struct BattlePokemon *ignore1 = opponentLeft;
     struct BattlePokemon *ignore2 = playerRight;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         OPPONENT(species) {
@@ -690,8 +863,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (playerRight 
     struct BattlePokemon *ignore1 = playerLeft;
     struct BattlePokemon *ignore2 = opponentRight;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         PLAYER(species) {
@@ -749,8 +926,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (opponentLeft
     struct BattlePokemon *ignore1 = playerLeft;
     struct BattlePokemon *ignore2 = opponentRight;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         OPPONENT(species) {
@@ -808,8 +989,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (playerRight 
     struct BattlePokemon *ignore1 = playerLeft;
     struct BattlePokemon *ignore2 = opponentLeft;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         PLAYER(species) {
@@ -867,8 +1052,12 @@ DOUBLE_BATTLE_TEST("Move Animations don't leak when used - Doubles (opponentRigh
     struct BattlePokemon *ignore1 = playerLeft;
     struct BattlePokemon *ignore2 = opponentLeft;
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, TRUE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         OPPONENT(species) {
@@ -1160,8 +1349,12 @@ SINGLE_BATTLE_TEST("Move Animations occur before their stat change animations - 
     u32 tempMove, tempSpecies;
     FORCE_MOVE_ANIM(TRUE);
     for (; j <= ANIM_TEST_END_MOVE; j++) {
-        ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies);
-        PARAMETRIZE { move = tempMove; species = tempSpecies; }
+        variationsNumber = GetVariationsNumber(j, FALSE);
+        for (k = 0; k < variationsNumber; k++) {
+            ParametrizeMovesAndSpecies(j, &tempMove, &tempSpecies, k);
+            tempFriendship = ParametrizeFriendship(j, k);
+            PARAMETRIZE { move = tempMove; species = tempSpecies; variation = k; friendship = tempFriendship; }
+        }
     }
     GIVEN {
         PLAYER(species) {
