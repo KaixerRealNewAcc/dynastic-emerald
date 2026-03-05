@@ -1,7 +1,6 @@
 #include "global.h"
 #include "test/battle.h"
 
-
 ASSUMPTIONS
 {
     ASSUME(GetMovePriority(MOVE_QUICK_ATTACK) > 0);
@@ -96,3 +95,36 @@ SINGLE_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail protect from all mu
         }
     }
 }
+
+SINGLE_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail prevent Protean activation")
+{
+    u32 species, ability;
+
+    PARAMETRIZE { species = SPECIES_BRUXISH; ability = ABILITY_DAZZLING; }
+    PARAMETRIZE { species = SPECIES_FARIGIRAF; ability = ABILITY_ARMOR_TAIL; }
+    PARAMETRIZE { species = SPECIES_TSAREENA; ability = ABILITY_QUEENLY_MAJESTY; }
+
+    GIVEN {
+        PLAYER(SPECIES_KECLEON) { Ability(ABILITY_PROTEAN); }
+        OPPONENT(species) { Ability(ability); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_WATER_SHURIKEN); }
+    } SCENE {
+        NONE_OF {
+            ANIMATION(ANIM_TYPE_MOVE, MOVE_WATER_SHURIKEN, player);
+            ABILITY_POPUP(player, ABILITY_PROTEAN);
+        }
+        ABILITY_POPUP(opponent, ability);
+    }
+}
+
+// Listed on Bulbapedia as "Moves that target all Pokémon (except Perish Song, Flower Shield, and Rototiller),"
+// Despite the fact that there's only 2 remaining moves from that list, being Haze and Teatime
+TO_DO_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block Haze")
+TO_DO_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block Teatime")
+
+TO_DO_BATTLE_TEST("Dazzling, Queenly Majesty and Armor Tail do not block a move's Z-Status effect") // Z-Baby-Doll eyes increases Def but doesn't reduce Atk
+TO_DO_BATTLE_TEST("Mold Breaker ignores Dazzling, Queenly Majesty and Armor Tail")
+TO_DO_BATTLE_TEST("Instruct-called moves keep their priority, which is considered for Dazzling, Queenly Majesty and Armor Tail")
+
+TO_DO_BATTLE_TEST(" Dazzling, Queenly Majesty and Armor Tail do not block high-priority moves called by other moves") // Metronome, Assist, Nature Power, etc.

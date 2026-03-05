@@ -7,7 +7,7 @@ SINGLE_BATTLE_TEST("Overcoat blocks powder and spore moves (Gen6+)")
     PARAMETRIZE { gen = GEN_5; }
     PARAMETRIZE { gen = GEN_6; }
     GIVEN {
-        WITH_CONFIG(GEN_CONFIG_POWDER_GRASS, gen);
+        WITH_CONFIG(CONFIG_POWDER_OVERCOAT, gen);
         ASSUME(IsPowderMove(MOVE_STUN_SPORE));
         PLAYER(SPECIES_WYNAUT);
         OPPONENT(SPECIES_PINECO) { Ability(ABILITY_OVERCOAT); }
@@ -74,6 +74,7 @@ DOUBLE_BATTLE_TEST("Overcoat blocks damage from hail")
 SINGLE_BATTLE_TEST("Overcoat blocks Effect Spore's effect")
 {
     GIVEN {
+        WITH_CONFIG(CONFIG_POWDER_OVERCOAT, config);
         PLAYER(SPECIES_PINECO) {Ability(ABILITY_OVERCOAT);}
         OPPONENT(SPECIES_SHROOMISH) {Ability(ABILITY_EFFECT_SPORE);}
     } WHEN {

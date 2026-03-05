@@ -74,17 +74,19 @@ static bool32 TargetHasToMove(u32 move) // Opponent needs to hit the player firs
 
 static bool32 AttackerHasToSwitch(u32 move) // User needs to send out a different team member
 {
-    if (gMovesInfo[move].effect == EFFECT_TELEPORT
-     || gMovesInfo[move].effect == EFFECT_EXPLOSION
-     || gMovesInfo[move].effect == EFFECT_MISTY_EXPLOSION
-     || gMovesInfo[move].effect == EFFECT_BATON_PASS
-     || gMovesInfo[move].effect == EFFECT_MEMENTO
-     || gMovesInfo[move].effect == EFFECT_HEALING_WISH
-     || gMovesInfo[move].effect == EFFECT_HIT_ESCAPE
-     || gMovesInfo[move].effect == EFFECT_FINAL_GAMBIT
-     || gMovesInfo[move].effect == EFFECT_PARTING_SHOT
-     || gMovesInfo[move].effect == EFFECT_SHED_TAIL
-     || gMovesInfo[move].effect == EFFECT_CHILLY_RECEPTION)
+    enum BattleMoveEffects effect = GetMoveEffect(move);
+    if (effect == EFFECT_TELEPORT
+     || effect == EFFECT_EXPLOSION
+     || effect == EFFECT_MISTY_EXPLOSION
+     || effect == EFFECT_BATON_PASS
+     || effect == EFFECT_MEMENTO
+     || effect == EFFECT_HEALING_WISH
+     || effect == EFFECT_LUNAR_DANCE
+     || effect == EFFECT_HIT_ESCAPE
+     || effect == EFFECT_FINAL_GAMBIT
+     || effect == EFFECT_PARTING_SHOT
+     || effect == EFFECT_SHED_TAIL
+     || effect == EFFECT_CHILLY_RECEPTION)
         return TRUE;
     return FALSE;
 }
