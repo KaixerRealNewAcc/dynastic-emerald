@@ -77,6 +77,10 @@ enum FormChanges
     // Form change that activates when the mon has the defined item.
     // If it's on the player's side, it also requires ITEM_MEGA_RING in the user's bag and for the player to trigger it by pressing START before selecting a move.
     // param1: item to hold.
+    FORM_CHANGE_BATTLE_HP_PERCENT_DURING_MOVE,
+    // Form change that activates when the mon has the defined item.
+    // If it's on the player's side, it also requires ITEM_MEGA_RING in the user's bag and for the player to trigger it by pressing START before selecting a move.
+    // param1: item to hold.
     FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,
     // Form change that activates when the mon has the defined move.
     // If it's on the player's side, it also requires ITEM_MEGA_RING in the user's bag and for the player to trigger it by pressing START before selecting a move.
