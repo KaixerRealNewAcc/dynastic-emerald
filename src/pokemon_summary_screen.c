@@ -1414,7 +1414,6 @@ static const struct SpritePalette sSpritePal_MonShadow =
     #endif
 };
 
-
 // code
 static u8 ShowCategoryIcon(enum DamageCategory category)
 {
