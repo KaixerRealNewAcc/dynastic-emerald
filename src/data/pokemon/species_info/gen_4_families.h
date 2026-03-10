@@ -6153,6 +6153,79 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
     },
+
+    [SPECIES_ROTOM_STEREO] =
+    {
+        .baseHP        = 50,
+        .baseAttack    = 65,
+        .baseDefense   = 107,
+        .baseSpeed     = 86,
+        .baseSpAttack  = 105,
+        .baseSpDefense = 107,
+        .types = MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
+        .catchRate = 45,
+        .expYield = ROTOM_APPLIANCE_EXP_YIELD,
+        .evYield_Speed = 1,
+        .evYield_SpAttack = 1,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+        .abilities = { ABILITY_PHANTOM_PAIN, ABILITY_NONE, ABILITY_PUNK_ROCK },
+        .innateAbility = ABILITY_LEVITATE,
+        .bodyColor = BODY_COLOR_RED,
+        .noFlip = TRUE,
+        .speciesName = _("Rotom"),
+        .cryId = CRY_ROTOM,
+        .natDexNum = NATIONAL_DEX_ROTOM,
+        .categoryName = _("Plasma"),
+        .height = 3,
+        .weight = 3,
+        .description = COMPOUND_STRING(
+            "It enjoys coming up with water-based\n"
+            "pranks. The model of washing machine that\n"
+            "Rotom can inspirit has been discontinued,\n"
+            "so they are now traded at high prices."),
+        .pokemonScale = 530,
+        .pokemonOffset = 13,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_RotomStereo,
+        .frontPicSize = MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 1),
+        ),
+        .frontAnimId = ANIM_V_JUMPS_SMALL,
+        .enemyMonElevation = 6,
+        .backPic = gMonBackPic_RotomStereo,
+        .backPicSize = MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = 11,
+        .backAnimId = BACK_ANIM_V_SHAKE_H_SLIDE,
+        .palette = gMonPalette_RotomStereo,
+        .shinyPalette = gMonShinyPalette_RotomStereo,
+        .iconSprite = gMonIcon_RotomStereo,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(0, 10, SHADOW_SIZE_M)
+        FOOTPRINT(Rotom)
+        OVERWORLD(
+            sPicTable_RotomMow,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_RotomMow,
+            gShinyOverworldPalette_RotomMow
+        )
+        .levelUpLearnset = sRotomLevelUpLearnset,
+        .teachableLearnset = sRotomTeachableLearnset,
+        .formSpeciesIdTable = sRotomFormSpeciesIdTable,
+        .formChangeTable = sRotomFormChangeTable,
+    },
 #endif //P_FAMILY_ROTOM
 
 #if P_FAMILY_UXIE

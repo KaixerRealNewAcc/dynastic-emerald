@@ -1,7 +1,7 @@
 #ifndef GUARD_CONSTANTS_PARTY_MENU_H
 #define GUARD_CONSTANTS_PARTY_MENU_H
 
-#define PARTY_MENU_DYNASTIC                     TRUE
+#define PARTY_MENU_DYNASTIC                     FALSE
 #define PARTY_MENU_DYNASTIC_PC_ACCESS           FALSE
 #define PARTY_MON_DYNASTIC_IDLE_ANIMS           FALSE
 #define PARTY_MON_DYNASTIC_IDLE_ANIMS_FRAMES    300 // Number of frames before mon animation loops

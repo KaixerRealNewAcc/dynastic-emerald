@@ -1,3 +1,33 @@
+
+enum Buttons{
+    BUTTON_START,
+    BUTTON_SELECT,
+    BUTTON_L,
+    BUTTON_R,
+    BUTTON_B,
+    BUTTON_NONE = 0xFF,
+};
+
+static const u8 sButtons_Gfx[][4 * TILE_SIZE_4BPP] = {
+    [BUTTON_START]  = INCBIN_U8("graphics/party_menu/start_button.4bpp"),
+    [BUTTON_SELECT] = INCBIN_U8("graphics/party_menu/select_button.4bpp"),
+    [BUTTON_L]      = INCBIN_U8("graphics/party_menu/l_button.4bpp"),
+    [BUTTON_R]      = INCBIN_U8("graphics/party_menu/r_button.4bpp"),
+    [BUTTON_B]      = INCBIN_U8("graphics/party_menu/b_button.4bpp"),
+};
+
+static const struct OamData sOamData_Button = {
+    .size = SPRITE_SIZE(32x8),
+    .shape = SPRITE_SHAPE(32x8),
+    .priority = 0,
+};
+
+static const u8 sMenuText_Cancel[]                         = _("Cancel");
+static const u8 sMenuText_Confirm[]                         = _("Confirm");
+static const u8 sMenuText_Switch[]                          = _("Switch");
+static const u8 sMenuText_Boxes[]                           = _("Boxes");
+static const u8 sText_SendThisMonToPC[]                     = _("Send {STR_VAR_1} to the PC?");
+
 static const struct BgTemplate sPartyMenuBgTemplates[] =
 {
     {
@@ -36,8 +66,8 @@ static const struct PartyMenuBoxInfoRects sPartyBoxInfoRects[] =
         BlitBitmapToPartyWindow_LeftColumn,
         {
             //The below are the x, y, width, and height for each of the following info
-            24, 11, 40, 13, // Nickname
-            32, 20, 32,  8, // Level
+            24,  7, 40, 13, // Nickname, useless
+            32, 25, 32,  8, // Level
             64, 20,  8,  8, // Gender
             38, 37, 24,  8, // HP
             53, 37, 24,  8, // Max HP
@@ -49,18 +79,34 @@ static const struct PartyMenuBoxInfoRects sPartyBoxInfoRects[] =
     {
         BlitBitmapToPartyWindow_RightColumn,
         {
-             // See above comment
-             22,  3, 40, 13, // Nickname
-             30, 12, 32,  8, // Level
+            //The below are the x, y, width, and height for each of the following info
+             22,  0, 40,  8, // Nickname, useless
+             72, 4, 32,  8, // Level
+             62,  9,  8,  8, // Gender
+             21, 11, 24,  8, // HP
+             36, 11, 24,  8, // Max HP
+             22, 12, 48,  3  // HP bar
+        },
+        77, 4, 64, 16        // Description text
+    },
+    [PARTY_BOX_MON_COLUMN] =
+    {
+        BlitBitmapToPartyWindow_MonsColumn,
+        {
+            //The below are the x, y, width, and height for each of the following info
+             22, 12, 40, 8, // Nickname, useless
+             30, 12, 32, 8, // Level
              62, 12,  8,  8, // Gender
             102, 12, 24,  8, // HP
             117, 12, 24,  8, // Max HP
-             88, 10, 48,  3  // HP bar
+             50, 20, 48,  3  // HP bar
         },
         77, 4, 64, 16        // Description text
     },
 };
 
+static const u32 sHoverCursorGfx[]        = INCBIN_U32("graphics/party_menu/hover_cursor.4bpp.smol");
+static const u32 sSelectFrameGfx[]        = INCBIN_U32("graphics/party_menu/select_frame.4bpp.smol");
 
 // Each layout array has an array for each of the 6 party slots
 // The array for each slot has the sprite coords of its various sprites in the following order
@@ -69,12 +115,12 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
 {
     [PARTY_LAYOUT_SINGLE] =
     {
-        { 16,  40,  20,  50,  50,  52,  16,  34},
-        {104,  18, 108,  28, 136,  27, 102,  25},
-        {104,  42, 108,  52, 136,  51, 102,  49},
-        {104,  66, 108,  76, 136,  75, 102,  73},
-        {104,  90, 108, 100, 136,  99, 102,  97},
-        {104, 114, 108, 124, 136, 123, 102, 121},
+        { 215,  16,  40,  28, 215,  27, 121,  25},
+        { 215,  40,  40,  52, 215,  51, 121,  49},
+        { 215,  64,  40,  76, 215,  75, 121,  73},
+        { 215,  88,  40, 100, 215,  99, 121,  97},
+        { 215, 113,  40, 124, 215, 123, 121,  121},
+        { 215, 137,  40, 148, 215, 147, 121, 145},
     },
     [PARTY_LAYOUT_DOUBLE] =
     {
@@ -124,55 +170,55 @@ static const struct WindowTemplate sSinglePartyMenuWindowTemplate[] =
 {
     { // Party mon 1
         .bg = 0,
-        .tilemapLeft = 1,
-        .tilemapTop = 3,
-        .width = 10,
-        .height = 7,
+        .tilemapLeft = 14,
+        .tilemapTop = 1,
+        .width = 18,
+        .height = 5,
         .paletteNum = 3,
         .baseBlock = 0x63,
     },
     { // Party mon 2
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 1,
+        .tilemapLeft = 14,
+        .tilemapTop = 4,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 4,
         .baseBlock = 0xA9,
     },
     { // Party mon 3
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 4,
+        .tilemapLeft = 14,
+        .tilemapTop = 7,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 5,
         .baseBlock = 0xDF,
     },
     { // Party mon 4
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 7,
+        .tilemapLeft = 14,
+        .tilemapTop = 10,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 6,
         .baseBlock = 0x115,
     },
     { // Party mon 5
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 10,
+        .tilemapLeft = 14,
+        .tilemapTop = 13,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 7,
         .baseBlock = 0x14B,
     },
     { // Party mon 6
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 13,
+        .tilemapLeft = 14,
+        .tilemapTop = 16,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 8,
         .baseBlock = 0x181,
     },
@@ -383,17 +429,6 @@ static const struct WindowTemplate sShowcaseMultiPartyMenuWindowTemplate[] =
     DUMMY_WIN_TEMPLATE
 };
 
-static const struct WindowTemplate sCancelButtonWindowTemplate =
-{
-    .bg = 0,
-    .tilemapLeft = 24,
-    .tilemapTop = 17,
-    .width = 6,
-    .height = 2,
-    .paletteNum = 3,
-    .baseBlock = 0x1C7,
-};
-
 static const struct WindowTemplate sMultiCancelButtonWindowTemplate =
 {
     .bg = 0,
@@ -408,7 +443,7 @@ static const struct WindowTemplate sMultiCancelButtonWindowTemplate =
 static const struct WindowTemplate sConfirmButtonWindowTemplate =
 {
     .bg = 0,
-    .tilemapLeft = 24,
+    .tilemapLeft = 10,
     .tilemapTop = 16,
     .width = 6,
     .height = 2,
@@ -611,7 +646,7 @@ static const u8 sPartyBoxNoMonPalOffsets[] = {1, 11, 12};
 // Palette ids
 static const u8 sGenderMalePalIds[] = {59, 60};
 static const u8 sGenderFemalePalIds[] = {75, 76};
-static const u8 sHPBarGreenPalIds[] = {57, 58};
+static const u8 sHPBarGreenPalIds[] = {58, 59};
 static const u8 sHPBarYellowPalIds[] = {73, 74};
 static const u8 sHPBarRedPalIds[] = {89, 90};
 static const u8 sPartyBoxEmptySlotPalIds1[] = {52, 53, 54};
@@ -858,6 +893,94 @@ static const struct SpriteTemplate sSpriteTemplate_HeldItem =
     .callback = SpriteCallbackDummy
 };
 
+static const struct OamData sOamData_HoverCursor =
+{
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(16x16),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(16x16),
+    .tileNum = 0,
+    .priority = 1,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_HoverCursor =
+{
+    .data = sHoverCursorGfx,
+    .size = (16 * 16) / 2,
+    .tag = TAG_HOVER_CURSOR
+};
+
+static const struct SpriteTemplate sSpriteTemplate_HoverCursor =
+{
+    .tileTag = TAG_HOVER_CURSOR,
+    .paletteTag = TAG_HELD_ITEM,
+    .oam = &sOamData_HoverCursor,
+};
+
+static const struct OamData sOamData_SelectFrame =
+{
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .size = SPRITE_SIZE(16x32),
+    .x = 0,
+    .matrixNum = 0,
+    .shape = SPRITE_SHAPE(16x32),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const union AnimCmd sSpriteAnim_SelectFrameLeft[] = {
+    ANIMCMD_FRAME(0, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SelectFrameRight[] = {
+    ANIMCMD_FRAME(0, 0, TRUE, FALSE),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SelectFrameMiddle[] = {
+    ANIMCMD_FRAME(8, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sSpriteAnimTable_SelectFrame[] = {
+    sSpriteAnim_SelectFrameLeft,
+    sSpriteAnim_SelectFrameRight,
+    sSpriteAnim_SelectFrameMiddle,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_SelectFrame =
+{
+    .data = sSelectFrameGfx,
+    .size = (16 * 32 * 2) / 2,
+    .tag = TAG_SELECT_FRAME,
+};
+
+static const struct SpritePalette sSpritePal_SelectFrame =
+{
+    .data = gHeldItemPalette,
+    .tag = TAG_HELD_ITEM,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_SelectFrame =
+{
+    .tileTag = TAG_SELECT_FRAME ,
+    .paletteTag = TAG_HELD_ITEM,
+    .oam = &sOamData_SelectFrame,
+    .anims = sSpriteAnimTable_SelectFrame,
+};
+
 static const struct OamData sOamData_MenuPokeball =
 {
     .y = 0,
@@ -1094,6 +1217,14 @@ const struct SpriteTemplate gSpriteTemplate_StatusIcons =
     .callback = SpriteCallbackDummy,
 };
 
+static const u16 sMonShadowPalette[]      = INCBIN_U16("graphics/summary_screen/shadow.gbapal");
+
+static const struct SpritePalette sSpritePal_PartyMonShadow =
+{
+    .data = sMonShadowPalette,
+    .tag = TAG_MON_SHADOW
+};
+
 static const u8 *const sUnused_StatStrings[] =
 {
     gText_HP4,
@@ -1104,18 +1235,20 @@ static const u8 *const sUnused_StatStrings[] =
     gText_Speed2
 };
 
-#define ROTOM_BASE_MOVE  MOVE_THUNDER_SHOCK
-#define ROTOM_HEAT_MOVE  MOVE_OVERHEAT
-#define ROTOM_WASH_MOVE  MOVE_HYDRO_PUMP
-#define ROTOM_FROST_MOVE MOVE_BLIZZARD
-#define ROTOM_FAN_MOVE   MOVE_AIR_SLASH
-#define ROTOM_MOW_MOVE   MOVE_LEAF_STORM
+#define ROTOM_BASE_MOVE     MOVE_PARABOLIC_CHARGE
+#define ROTOM_HEAT_MOVE     MOVE_OVERHEAT
+#define ROTOM_WASH_MOVE     MOVE_HYDRO_PUMP
+#define ROTOM_FROST_MOVE    MOVE_BLIZZARD
+#define ROTOM_FAN_MOVE      MOVE_HURRICANE
+#define ROTOM_MOW_MOVE      MOVE_LEAF_STORM
+#define ROTOM_STEREO_MOVE   MOVE_BOOMBURST
 
-static const u16 sRotomFormChangeMoves[5] =
+static const u16 sRotomFormChangeMoves[6] =
 {
     ROTOM_HEAT_MOVE,
     ROTOM_WASH_MOVE,
     ROTOM_FROST_MOVE,
     ROTOM_FAN_MOVE,
     ROTOM_MOW_MOVE,
+    ROTOM_STEREO_MOVE,
 };

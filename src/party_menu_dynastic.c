@@ -800,7 +800,7 @@ static bool8 ShowPartyMenu(void)
         break;
     case 15:
         AnimatePartySlot(gPartyMenu.slotId, 1);
-        CreateHoverSprite(&sPartyMenuBoxes[gPartyMenu.slotId], gPartyMenu.slotId);
+        //CreateHoverSprite(&sPartyMenuBoxes[gPartyMenu.slotId], gPartyMenu.slotId);
         gMain.state++;
         break;
     case 16:
@@ -817,7 +817,7 @@ static bool8 ShowPartyMenu(void)
                 gMain.state++;
         }
         else
-            gMain.state++
+            gMain.state++;
         break;
     case 18:
         sPartyMenuInternal->switchCounter = 0;
@@ -845,10 +845,6 @@ static bool8 ShowPartyMenu(void)
         gMain.state++;
         break;
     case 22:
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
-        gMain.state++;
-        break;
-    case 23:
         BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
         gMain.state++;
         break;
@@ -1516,7 +1512,6 @@ static void CreateCancelConfirmPokeballSprites(void)
         if (sPartyMenuInternal->chooseHalf || sPartyMenuInternal->chooseFour)
         {
             sPartyMenuInternal->spriteIdConfirmPokeball = CreateSmallPokeballButtonSprite(0xBF, 0x88);
-            DrawCancelConfirmButtons();
             sPartyMenuInternal->spriteIdCancelPokeball = CreateSmallPokeballButtonSprite(0xBF, 0x98);
         }
         else
@@ -1606,11 +1601,8 @@ static bool8 PartyBoxPal_ParnterOrDisqualifiedInArena(u8 slot)
     return FALSE;
 }
 
-static void DrawCancelConfirmButtons(void)
+static UNUSED void DrawCancelConfirmButtons(void)
 {
-    CopyToBgTilemapBufferRect_ChangePalette(1, sConfirmButton_Tilemap, 23, 16, 7, 2, 17);
-    CopyToBgTilemapBufferRect_ChangePalette(1, sCancelButton_Tilemap, 23, 18, 7, 2, 17);
-    ScheduleBgCopyTilemapToVram(1);
 }
 
 bool8 IsMultiBattle(void)
@@ -2235,10 +2227,6 @@ static void Task_ReturnToChooseMonAfterText(u8 taskId)
         }
         else
         {
-            if (gPartyMenu.action == PARTY_ACTION_SEND_MON_TO_BOX)
-                DisplayPartyMenuStdMessage(PARTY_MSG_CHOOSE_MON_FOR_BOX);
-            else
-                DisplayPartyMenuStdMessage(PARTY_MSG_CHOOSE_MON);
             gTasks[taskId].func = Task_HandleChooseMonInput;
         }
     }
@@ -2645,7 +2633,7 @@ static void BlitBitmapToPartyWindow_RightColumn(u8 windowId, u8 x, u8 y, u8 widt
     if (width == 0 && height == 0)
     {
         width = 18;
-        height = 3;
+        height = 5;
     }
     if (hideHP == FALSE)
         BlitBitmapToPartyWindow(windowId, sSlotTilemap_Wide, 18, x, y, width, height);

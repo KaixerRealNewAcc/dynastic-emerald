@@ -15445,6 +15445,12 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
     const u16 gMonShinyPalette_RotomMow[] = INCBIN_U16("graphics/pokemon/rotom/mow/shiny.gbapal");
     const u8 gMonIcon_RotomMow[] = INCBIN_U8("graphics/pokemon/rotom/mow/icon.4bpp");
 
+    const u32 gMonFrontPic_RotomStereo[] = INCBIN_U32("graphics/pokemon/rotom/stereo/anim_front.4bpp.smol");
+    const u16 gMonPalette_RotomStereo[] = INCBIN_U16("graphics/pokemon/rotom/stereo/normal.gbapal");
+    const u32 gMonBackPic_RotomStereo[] = INCBIN_U32("graphics/pokemon/rotom/mow/back.4bpp.smol");
+    const u16 gMonShinyPalette_RotomStereo[] = INCBIN_U16("graphics/pokemon/rotom/stereo/shiny.gbapal");
+    const u8 gMonIcon_RotomStereo[] = INCBIN_U8("graphics/pokemon/rotom/stereo/icon.4bpp");
+
 #if OW_POKEMON_OBJECT_EVENTS
     const u32 gObjectEventPic_Rotom[] = INCBIN_COMP("graphics/pokemon/rotom/overworld.4bpp");
     const u32 gObjectEventPic_RotomHeat[] = INCBIN_COMP("graphics/pokemon/rotom/heat/overworld.4bpp");
