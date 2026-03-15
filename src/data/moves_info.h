@@ -14998,8 +14998,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Attacks everything with a\n"
             "destructive sound wave."),
         .effect = EFFECT_HIT,
-        .power = 140,
-        .type = TYPE_NORMAL,
+        .power = 120,
+        .type = TYPE_SOUND,
         .accuracy = 100,
         .pp = 10,
         .target = MOVE_TARGET_FOES_AND_ALLY,

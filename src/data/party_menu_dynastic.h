@@ -1235,18 +1235,18 @@ static const union AnimCmd *const sSpriteAnimTable_HeldItem[] =
 
 const struct SpriteSheet gSpriteSheet_HeldItem =
 {
-    .data = sHeldItemGfx, .size = sizeof(sHeldItemGfx), .tag = TAG_HELD_ITEM
+    .data = sHeldItemGfx, .size = sizeof(sHeldItemGfx), .tag = TAG_HELD_ITEM_ICON_BASE
 };
 
 static const struct SpritePalette sSpritePalette_HeldItem =
 {
-    .data = gHeldItemPalette, .tag = TAG_HELD_ITEM
+    .data = gHeldItemPalette, .tag = TAG_HELD_ITEM_ICON_BASE
 };
 
 static const struct SpriteTemplate sSpriteTemplate_HeldItem =
 {
-    .tileTag = TAG_HELD_ITEM,
-    .paletteTag = TAG_HELD_ITEM,
+    .tileTag = TAG_HELD_ITEM_ICON_BASE,
+    .paletteTag = TAG_HELD_ITEM_ICON_BASE,
     .oam = &sOamData_HeldItem,
     .anims = sSpriteAnimTable_HeldItem,
 };

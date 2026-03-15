@@ -228,6 +228,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         )
         .levelUpLearnset = sMeganiumLevelUpLearnset,
         .teachableLearnset = sMeganiumTeachableLearnset,
+        .formSpeciesIdTable = sMeganiumFormSpeciesIdTable,
+        .formChangeTable = sMeganiumFormChangeTable,
     },
 
 #if P_GEN_9_MEGA_EVOLUTIONS
@@ -250,7 +252,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_GRASS),
         .abilities = { ABILITY_FLOWER_VEIL, ABILITY_NONE, ABILITY_TRIAGE },
-        .innateAbility = ABILITY_FORESTS_RAGE
+        .innateAbility = ABILITY_FORESTS_RAGE,
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Meganium"),
         .cryId = CRY_MEGANIUM, // CRY_MEGANIUM_MEGA,
@@ -795,6 +797,88 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         )
         .levelUpLearnset = sFeraligatrLevelUpLearnset,
         .teachableLearnset = sFeraligatrTeachableLearnset,
+        .formSpeciesIdTable = sFeraligatrFormSpeciesIdTable,
+        .formChangeTable = sFeraligatrFormChangeTable,
+    },
+
+    [SPECIES_FERALIGATR_MEGA] =
+    {
+        .baseHP        = 85,
+        .baseAttack    = 160,
+        .baseDefense   = 125,
+        .baseSpeed     = 88,
+        .baseSpAttack  = 79,
+        .baseSpDefense = 93,
+        .types = MON_TYPES(TYPE_WATER, TYPE_DRAGON),
+        .catchRate = 45,
+    #if P_UPDATED_EXP_YIELDS >= GEN_8
+        .expYield = 265,
+    #elif P_UPDATED_EXP_YIELDS >= GEN_5
+        .expYield = 239,
+    #else
+        .expYield = 210,
+    #endif
+        .evYield_Attack = 2,
+        .evYield_Defense = 1,
+        .genderRatio = PERCENT_FEMALE(12.5),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_WATER_1),
+        .abilities = { ABILITY_SHEER_FORCE, ABILITY_NONE, ABILITY_SHEER_FORCE },
+        .innateAbility = ABILITY_TIDAL_WRATH,
+        .bodyColor = BODY_COLOR_BLUE,
+        .speciesName = _("Feraligatr"),
+        .cryId = CRY_FERALIGATR,
+        .natDexNum = NATIONAL_DEX_FERALIGATR,
+        .categoryName = _("Big Jaw"),
+        .height = 23,
+        .weight = 888,
+        .description = COMPOUND_STRING(
+            "It opens its huge mouth to intimidate\n"
+            "enemies. In battle, it runs using its thick\n"
+            "and powerful hind legs to charge the\n"
+            "foe with incredible speed."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 342,
+        .trainerOffset = 7,
+        .frontPic = gMonFrontPic_FeraligatrMega,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 1,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 40),
+        ),
+        .frontAnimId = ANIM_H_SHAKE,
+        .frontAnimDelay = 5,
+        .backPic = gMonBackPic_FeraligatrMega,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 2,
+        .backAnimId = BACK_ANIM_V_SHAKE,
+        .palette = gMonPalette_FeraligatrMega,
+        .shinyPalette = gMonShinyPalette_FeraligatrMega,
+        .iconSprite = gMonIcon_FeraligatrMega,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 2 : 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(3, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
+        FOOTPRINT(Feraligatr)
+        /*OVERWORLD(
+            sPicTable_Feraligatr,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Feraligatr,
+            gShinyOverworldPalette_Feraligatr
+        )*/
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sFeraligatrLevelUpLearnset,
+        .teachableLearnset = sFeraligatrTeachableLearnset,
+        .formSpeciesIdTable = sFeraligatrFormSpeciesIdTable,
+        .formChangeTable = sFeraligatrFormChangeTable,
     },
 #endif //P_FAMILY_TOTODILE
 

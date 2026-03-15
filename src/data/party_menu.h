@@ -81,8 +81,8 @@ static const struct PartyMenuBoxInfoRects sPartyBoxInfoRects[] =
         {
             //The below are the x, y, width, and height for each of the following info
              22,  0, 40,  8, // Nickname, useless
-             72, 4, 32,  8, // Level
-             62,  9,  8,  8, // Gender
+             65, 11, 32,  8, // Level
+             75, 2,  8,   8, // Gender
              21, 11, 24,  8, // HP
              36, 11, 24,  8, // Max HP
              22, 12, 48,  3  // HP bar
@@ -115,39 +115,39 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
 {
     [PARTY_LAYOUT_SINGLE] =
     {
-        { 215,  16,  40,  28, 215,  27, 121,  25},
-        { 215,  40,  40,  52, 215,  51, 121,  49},
-        { 215,  64,  40,  76, 215,  75, 121,  73},
-        { 215,  88,  40, 100, 215,  99, 121,  97},
-        { 215, 113,  40, 124, 215, 123, 121,  121},
-        { 215, 137,  40, 148, 215, 147, 121, 145},
+        { 220,  16,  206,  28, 215,  27, 121,  25},
+        { 220,  40,  206,  52, 215,  51, 121,  49},
+        { 220,  64,  206,  76, 215,  75, 121,  73},
+        { 220,  88,  206, 100, 215,  99, 121,  97},
+        { 220, 113,  206, 124, 215, 123, 121,  121},
+        { 220, 137,  206, 148, 215, 147, 121, 145},
     },
     [PARTY_LAYOUT_DOUBLE] =
     {
-        {16, 24, 20, 34, 50, 36, 16, 18},
-        {16, 80, 20, 90, 50, 92, 16, 74},
-        {104, 18, 108, 28, 136, 27, 102, 25},
-        {104, 50, 108, 60, 136, 59, 102, 57},
-        {104, 82, 108, 92, 136, 91, 102, 89},
-        {104, 114, 108, 124, 136, 123, 102, 121},
+        { 220,  16,  206,  28, 215,  27, 121,  25},
+        { 220,  40,  206,  52, 215,  51, 121,  49},
+        { 220,  64,  206,  76, 215,  75, 121,  73},
+        { 220,  88,  206, 100, 215,  99, 121,  97},
+        { 220, 113,  206, 124, 215, 123, 121,  121},
+        { 220, 137,  206, 148, 215, 147, 121, 145},
     },
     [PARTY_LAYOUT_MULTI] =
     {
-        {16, 24, 20, 34, 50, 36, 16, 18},
-        {16, 80, 20, 90, 50, 92, 16, 74},
-        {104, 26, 106, 36, 136, 35, 102, 33},
-        {104, 50, 106, 60, 136, 59, 102, 57},
-        {104, 82, 106, 92, 136, 91, 102, 89},
-        {104, 106, 106, 116, 136, 115, 102, 113},
+        { 220,  16,  206,  28, 215,  27, 121,  25},
+        { 220,  40,  206,  52, 215,  51, 121,  49},
+        { 220,  64,  206,  76, 215,  75, 121,  73},
+        { 220,  88,  206, 100, 215,  99, 121,  97},
+        { 220, 113,  206, 124, 215, 123, 121,  121},
+        { 220, 137,  206, 148, 215, 147, 121, 145},
     },
     [PARTY_LAYOUT_MULTI_SHOWCASE] =
     {
-        {16, 32, 20, 42, 50, 44, 16, 26},
-        {104, 34, 106, 44, 136, 43, 102, 41},
-        {104, 58, 106, 68, 136, 67, 102, 65},
-        {16, 104, 20, 114, 50, 116, 16, 98},
-        {104, 106, 106, 116, 136, 115, 102, 113},
-        {104, 130, 106, 140, 136, 139, 102, 137},
+        { 220,  16,  206,  28, 215,  27, 121,  25},
+        { 220,  40,  206,  52, 215,  51, 121,  49},
+        { 220,  64,  206,  76, 215,  75, 121,  73},
+        { 220,  88,  206, 100, 215,  99, 121,  97},
+        { 220, 113,  206, 124, 215, 123, 121,  121},
+        { 220, 137,  206, 148, 215, 147, 121, 145},
     },
 };
 
@@ -238,57 +238,57 @@ static const struct WindowTemplate sDoublePartyMenuWindowTemplate[] =
 {
     { // Party mon 1
         .bg = 0,
-        .tilemapLeft = 1,
+        .tilemapLeft = 14,
         .tilemapTop = 1,
-        .width = 10,
-        .height = 7,
+        .width = 18,
+        .height = 5,
         .paletteNum = 3,
         .baseBlock = 0x63,
     },
     { // Party mon 2
         .bg = 0,
-        .tilemapLeft = 1,
-        .tilemapTop = 8,
-        .width = 10,
-        .height = 7,
+        .tilemapLeft = 14,
+        .tilemapTop = 4,
+        .width = 18,
+        .height = 5,
         .paletteNum = 4,
         .baseBlock = 0xA9,
     },
     { // Party mon 3
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 1,
+        .tilemapLeft = 14,
+        .tilemapTop = 7,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 5,
-        .baseBlock = 0xEF,
+        .baseBlock = 0xDF,
     },
     { // Party mon 4
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 5,
+        .tilemapLeft = 14,
+        .tilemapTop = 10,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 6,
-        .baseBlock = 0x125,
+        .baseBlock = 0x115,
     },
     { // Party mon 5
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 9,
+        .tilemapLeft = 14,
+        .tilemapTop = 13,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 7,
-        .baseBlock = 0x15B,
+        .baseBlock = 0x14B,
     },
     { // Party mon 6
         .bg = 0,
-        .tilemapLeft = 12,
-        .tilemapTop = 13,
+        .tilemapLeft = 14,
+        .tilemapTop = 16,
         .width = 18,
-        .height = 3,
+        .height = 5,
         .paletteNum = 8,
-        .baseBlock = 0x191,
+        .baseBlock = 0x181,
     },
     [WIN_MSG] = {
         .bg = 2,
@@ -644,8 +644,8 @@ static const u8 sPartyBoxPalOffsets2[] = {1, 7, 8};
 static const u8 sPartyBoxNoMonPalOffsets[] = {1, 11, 12};
 
 // Palette ids
-static const u8 sGenderMalePalIds[] = {59, 60};
-static const u8 sGenderFemalePalIds[] = {75, 76};
+static const u8 sGenderMalePalIds[] = {5, 6};
+static const u8 sGenderFemalePalIds[] = {7, 8};
 static const u8 sHPBarGreenPalIds[] = {58, 59};
 static const u8 sHPBarYellowPalIds[] = {73, 74};
 static const u8 sHPBarRedPalIds[] = {89, 90};
@@ -759,6 +759,7 @@ struct
     [MENU_CATALOG_FRIDGE]  = {COMPOUND_STRING("Refrigerator"),    CursorCb_CatalogFridge},
     [MENU_CATALOG_FAN]     = {COMPOUND_STRING("Electric fan"),    CursorCb_CatalogFan},
     [MENU_CATALOG_MOWER]   = {COMPOUND_STRING("Lawn mower"),      CursorCb_CatalogMower},
+    [MENU_BOOM_BOX]        = {COMPOUND_STRING("Boom box"),      CursorCb_CatalogStereo},
     [MENU_CHANGE_FORM]     = {COMPOUND_STRING("Change form"),     CursorCb_ChangeForm},
     [MENU_CHANGE_ABILITY]  = {COMPOUND_STRING("Change Ability"),  CursorCb_ChangeAbility},
 };
@@ -776,7 +777,7 @@ static const u8 sPartyMenuAction_RegisterSummaryCancel[] = {MENU_REGISTER, MENU_
 static const u8 sPartyMenuAction_TradeSummaryCancel1[] = {MENU_TRADE1, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_TradeSummaryCancel2[] = {MENU_TRADE2, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_TakeItemTossCancel[] = {MENU_TAKE_ITEM, MENU_TOSS, MENU_CANCEL1};
-static const u8 sPartyMenuAction_RotomCatalog[] = {MENU_CATALOG_BULB, MENU_CATALOG_OVEN, MENU_CATALOG_WASHING, MENU_CATALOG_FRIDGE, MENU_CATALOG_FAN, MENU_CATALOG_MOWER, MENU_CANCEL1};
+static const u8 sPartyMenuAction_RotomCatalog[] = {MENU_CATALOG_BULB, MENU_CATALOG_OVEN, MENU_CATALOG_WASHING, MENU_CATALOG_FRIDGE, MENU_CATALOG_FAN, MENU_CATALOG_MOWER, MENU_BOOM_BOX ,MENU_CANCEL1};
 static const u8 sPartyMenuAction_ZygardeCube[] = {MENU_CHANGE_FORM, MENU_CHANGE_ABILITY, MENU_CANCEL1};
 
 
@@ -874,18 +875,18 @@ static const union AnimCmd *const sSpriteAnimTable_HeldItem[] =
 
 const struct SpriteSheet gSpriteSheet_HeldItem =
 {
-    .data = sHeldItemGfx, .size = sizeof(sHeldItemGfx), .tag = TAG_HELD_ITEM
+    .data = sHeldItemGfx, .size = sizeof(sHeldItemGfx), .tag = TAG_HELD_ITEM_ICON_BASE
 };
 
 static const struct SpritePalette sSpritePalette_HeldItem =
 {
-    .data = gHeldItemPalette, .tag = TAG_HELD_ITEM
+    .data = gHeldItemPalette, .tag = TAG_HELD_ITEM_ICON_BASE
 };
 
 static const struct SpriteTemplate sSpriteTemplate_HeldItem =
 {
-    .tileTag = TAG_HELD_ITEM,
-    .paletteTag = TAG_HELD_ITEM,
+    .tileTag = TAG_HELD_ITEM_ICON_BASE,
+    .paletteTag = TAG_HELD_ITEM_ICON_BASE,
     .oam = &sOamData_HeldItem,
     .anims = sSpriteAnimTable_HeldItem,
     .images = NULL,
@@ -970,13 +971,13 @@ static const struct CompressedSpriteSheet sSpriteSheet_SelectFrame =
 static const struct SpritePalette sSpritePal_SelectFrame =
 {
     .data = gHeldItemPalette,
-    .tag = TAG_HELD_ITEM,
+    .tag = TAG_HELD_ITEM_ICON_BASE,
 };
 
 static const struct SpriteTemplate sSpriteTemplate_SelectFrame =
 {
     .tileTag = TAG_SELECT_FRAME ,
-    .paletteTag = TAG_HELD_ITEM,
+    .paletteTag = TAG_HELD_ITEM_ICON_BASE,
     .oam = &sOamData_SelectFrame,
     .anims = sSpriteAnimTable_SelectFrame,
 };
@@ -1217,7 +1218,7 @@ const struct SpriteTemplate gSpriteTemplate_StatusIcons =
     .callback = SpriteCallbackDummy,
 };
 
-static const u16 sMonShadowPalette[]      = INCBIN_U16("graphics/summary_screen/shadow.gbapal");
+static const u16 sMonShadowPalette[]      = INCBIN_U16("graphics/party_menu/shadow.gbapal");
 
 static const struct SpritePalette sSpritePal_PartyMonShadow =
 {

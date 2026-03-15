@@ -454,7 +454,7 @@ static const struct WindowTemplate sDefaultBagWindows[] =
     [WIN_ITEM_LIST] = {
         .bg = 0,
         .tilemapLeft = 14,
-        .tilemapTop = 2,
+        .tilemapTop = 4,
         .width = 15,
         .height = 16,
         .paletteNum = 1,
@@ -816,7 +816,7 @@ static bool8 SetupBagMenu(void)
         gMain.state++;
         break;
     case 15:
-        AddBagVisualSprite(gBagPosition.pocket);
+        //AddBagVisualSprite(gBagPosition.pocket);
         gMain.state++;
         break;
     case 16:
@@ -882,10 +882,8 @@ static bool8 LoadBagMenu_Graphics(void)
         }
         break;
     case 2:
-        if (!IsWallysBag() && gSaveBlock2Ptr->playerGender != MALE)
-            LoadPalette(gBagScreenFemale_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
-        else
-            LoadPalette(gBagScreenMale_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
+        if (!IsWallysBag())
+            LoadPalette(gBagScreenMale_Pal, BG_PLTT_ID(0), 3 * PLTT_SIZE_4BPP);
         gBagMenu->graphicsLoadState++;
         break;
     case 3:
