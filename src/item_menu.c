@@ -65,7 +65,7 @@
                                 BAG_POKEBALLS_COUNT))))) + 1)
 
 // Up to 8 item slots can be visible at a time
-#define MAX_ITEMS_SHOWN 8
+#define MAX_ITEMS_SHOWN 7
 
 enum {
     SWITCH_POCKET_NONE,
@@ -340,6 +340,11 @@ static const u8 sContextMenuItems_BallsPocket[] = {
     ACTION_TOSS,        ACTION_CANCEL
 };
 
+static const u8 sContextMenuItems_MegaStonesPocket[] = {
+    ACTION_GIVE,        ACTION_DUMMY,
+    ACTION_TOSS,        ACTION_CANCEL
+};
+
 static const u8 sContextMenuItems_TmHmPocket[] = {
     ACTION_USE,         ACTION_GIVE,
     ACTION_DUMMY,       ACTION_CANCEL
@@ -418,10 +423,10 @@ static const struct YesNoFuncTable sYesNoSellItemFunctions = {ConfirmSell, Cance
 
 static const struct ScrollArrowsTemplate sBagScrollArrowsTemplate = {
     .firstArrowType = SCROLL_ARROW_LEFT,
-    .firstX = 28,
+    .firstX = 140,
     .firstY = 16,
     .secondArrowType = SCROLL_ARROW_RIGHT,
-    .secondX = 100,
+    .secondX = 210,
     .secondY = 16,
     .fullyUpThreshold = -1,
     .fullyDownThreshold = -1,
@@ -431,6 +436,7 @@ static const struct ScrollArrowsTemplate sBagScrollArrowsTemplate = {
 };
 
 static const u8 sRegisteredSelect_Gfx[] = INCBIN_U8("graphics/bag/select_button.4bpp");
+static const u8 sRegisteredSelect_Pal[] = INCBIN_U8("graphics/bag/select.gbapal");
 
 enum {
     COLORID_NORMAL,
@@ -471,7 +477,7 @@ static const struct WindowTemplate sDefaultBagWindows[] =
     },
     [WIN_POCKET_NAME] = {
         .bg = 0,
-        .tilemapLeft = 4,
+        .tilemapLeft = 18,
         .tilemapTop = 1,
         .width = 8,
         .height = 2,
@@ -816,7 +822,7 @@ static bool8 SetupBagMenu(void)
         gMain.state++;
         break;
     case 15:
-        //AddBagVisualSprite(gBagPosition.pocket);
+        AddBagVisualSprite(gBagPosition.pocket);
         gMain.state++;
         break;
     case 16:
@@ -1063,7 +1069,7 @@ static void PrintItemDescription(int itemIndex)
         str = gStringVar4;
     }
     FillWindowPixelBuffer(WIN_DESCRIPTION, PIXEL_FILL(0));
-    BagMenu_Print(WIN_DESCRIPTION, FONT_NORMAL, str, 3, 1, 0, 0, 0, COLORID_NORMAL);
+    BagMenu_Print(WIN_DESCRIPTION, FONT_SMALL, str, 10, 1, 0, 0, 0, COLORID_NORMAL);
 }
 
 static void BagMenu_PrintCursor(u8 listTaskId, u8 colorIndex)
@@ -1086,7 +1092,7 @@ static void CreatePocketScrollArrowPair(void)
         gBagMenu->pocketScrollArrowsTask = AddScrollIndicatorArrowPairParameterized(
             SCROLL_ARROW_UP,
             172,
-            12,
+            30,
             148,
             gBagMenu->numItemStacks[gBagPosition.pocket] - gBagMenu->numShownItems[gBagPosition.pocket],
             TAG_POCKET_SCROLL_ARROW,
@@ -1445,8 +1451,8 @@ static void SwitchBagPocket(u8 taskId, s16 deltaBagPocketId, bool16 skipEraseLis
     }
     DrawPocketIndicatorSquare(gBagPosition.pocket, FALSE);
     DrawPocketIndicatorSquare(newPocket, TRUE);
-    FillBgTilemapBufferRect_Palette0(2, 11, 14, 2, 15, 16);
-    ScheduleBgCopyTilemapToVram(2);
+    //FillBgTilemapBufferRect_Palette0(2, 11, 14, 2, 15, 16);
+    //ScheduleBgCopyTilemapToVram(2);
     SetBagVisualPocketId(newPocket, TRUE);
     RemoveBagSprite(ITEMMENUSPRITE_BALL);
     AddSwitchPocketRotatingBallSprite(deltaBagPocketId);
@@ -1476,7 +1482,7 @@ static void Task_SwitchBagPocket(u8 taskId)
     switch (tPocketSwitchState)
     {
     case 0:
-        DrawItemListBgRow(tPocketSwitchTimer);
+        //DrawItemListBgRow(tPocketSwitchTimer);
         if (!(++tPocketSwitchTimer & 1))
         {
             if (tPocketSwitchDir == MENU_CURSOR_DELTA_RIGHT)
@@ -1510,10 +1516,10 @@ static void DrawItemListBgRow(u8 y)
 
 static void DrawPocketIndicatorSquare(u8 x, bool8 isCurrentPocket)
 {
-    if (!isCurrentPocket)
-        FillBgTilemapBufferRect_Palette0(2, 0x1017, x + 5, 3, 1, 1);
-    else
-        FillBgTilemapBufferRect_Palette0(2, 0x102B, x + 5, 3, 1, 1);
+   // if (!isCurrentPocket)
+        //FillBgTilemapBufferRect_Palette0(2, 0x1017, x + 5, 3, 1, 1);
+    //else
+        //FillBgTilemapBufferRect_Palette0(2, 0x102B, x + 5, 3, 1, 1);
     ScheduleBgCopyTilemapToVram(2);
 }
 
@@ -1758,6 +1764,11 @@ static void OpenContextMenu(u8 taskId)
             case POCKET_POKE_BALLS:
                 gBagMenu->contextMenuItemsPtr = sContextMenuItems_BallsPocket;
                 gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_BallsPocket);
+                break;
+            case POCKET_MEGA_STONES:
+                gBagMenu->contextMenuItemsPtr = gBagMenu->contextMenuItemsBuffer;
+                gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_MegaStonesPocket);
+                memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_MegaStonesPocket, sizeof(sContextMenuItems_MegaStonesPocket));
                 break;
             case POCKET_TM_HM:
                 gBagMenu->contextMenuItemsPtr = sContextMenuItems_TmHmPocket;
@@ -2803,6 +2814,14 @@ static const u8 sBagMenuSortPokeBalls[] =
     ACTION_CANCEL,
 };
 
+static const u8 sBagMenuSortMegaStones[] =
+{
+    ACTION_BY_NAME,
+    ACTION_BY_AMOUNT,
+    ACTION_DUMMY,
+    ACTION_CANCEL,
+};
+
 static const u8 sBagMenuSortBerriesTMsHMs[] =
 {
     ACTION_BY_NAME,
@@ -2824,6 +2843,11 @@ static void AddBagSortSubMenu(void)
         gBagMenu->contextMenuItemsPtr = sBagMenuSortPokeBalls;
         memcpy(&gBagMenu->contextMenuItemsBuffer, &sBagMenuSortPokeBalls, NELEMS(sBagMenuSortPokeBalls));
         gBagMenu->contextMenuNumItems = NELEMS(sBagMenuSortPokeBalls);
+        break;
+    case POCKET_MEGA_STONES:
+        gBagMenu->contextMenuItemsPtr = sBagMenuSortMegaStones;
+        memcpy(&gBagMenu->contextMenuItemsBuffer, &sBagMenuSortMegaStones, NELEMS(sBagMenuSortMegaStones));
+        gBagMenu->contextMenuNumItems = NELEMS(sBagMenuSortMegaStones);
         break;
     case POCKET_BERRIES:
     case POCKET_TM_HM:
