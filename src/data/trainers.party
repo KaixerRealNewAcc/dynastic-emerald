@@ -4595,106 +4595,153 @@ IVs: 4 HP / 4 Atk / 4 Def / 4 SpA / 4 SpD / 4 Spe
 - Roar
 
 === TRAINER_SIDNEY ===
-Name: SIDNEY
+Name: Sidney
 Class: Elite Four
 Pic: Elite Four Sidney
 Gender: Male
 Music: Elite Four
-Items: Full Restore / Full Restore
 Double Battle: No
-AI: Basic Trainer / Force Setup First Turn
-Mugshot: Purple
+AI: Smart Trainer
+Mugshot: Red
 
-Mightyena
-Level: 46
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Roar
-- Double Edge
-- Sand Attack
-- Crunch
+Samurott-Hisui @ Assault Vest  
+Ability: Sharpness  
+Level: 86  
+Tera Type: Water  
+EVs: 196 HP / 204 Atk / 88 SpD / 20 Spe  
+Jolly Nature  
+- Ceaseless Edge  
+- Razor Shell  
+- Sucker Punch  
+- Sacred Sword  
 
-Shiftry
-Level: 48
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Torment
-- Double Team
-- Swagger
-- Extrasensory
+Zarude @ Adrenaline Orb  
+Ability: Leaf Guard  
+Level: 86  
+Tera Type: Dark  
+EVs: 252 Atk / 252 Spe  
+Jolly Nature  
+- Knock Off  
+- Power Whip  
+- Close Combat  
+- Jungle Healing  
 
-Cacturne
-Level: 46
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Leech Seed
-- Feint Attack
-- Needle Arm
-- Cotton Spore
+Tyranitar @ Assault Vest  
+Ability: Intimidate  
+Level: 86  
+Tera Type: Rock  
+EVs: 80 HP / 252 Atk / 8 SpD / 168 Spe  
+Adamant Nature  
+- Knock Off  
+- Stone Edge  
+- Earthquake  
+- Ice Hammer  
 
-Crawdaunt
-Level: 48
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Surf
-- Swords Dance
-- Strength
-- Facade
+Moltres-Galar @ Sitrus Berry  
+Ability: Berserk  
+Level: 86  
+Tera Type: Dark  
+EVs: 252 SpA / 252 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Fiery Wrath  
+- Hurricane  
+- Hyper Voice  
+- Agility  
 
-Absol @ Sitrus Berry
-Level: 49
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Rock Slide
-- Swords Dance
-- Slash
+Roaring Moon @ Booster Energy  
+Ability: Protosynthesis  
+Tera Type: Dragon  
+EVs: 28 HP / 228 Atk / 252 Spe  
+Jolly Nature  
+- Knock Off  
+- Earthquake  
+- Acrobatics  
+- Roost
+
+Houndoom-Mega @ Houndoominite  
+Ability: Dark Aura  
+Level: 86  
+Tera Type: Dark  
+EVs: 252 SpA / 252 Spe  
+Hasty Nature  
+- Fiery Wrath  
+- Fire Blast  
+- Focus Blast  
+- Sucker Punch  
 
 === TRAINER_PHOEBE ===
-Name: PHOEBE
+Name: Phoebe
 Class: Elite Four
 Pic: Elite Four Phoebe
 Gender: Female
 Music: Elite Four
-Items: Full Restore / Full Restore
 Double Battle: No
-AI: Basic Trainer
-Mugshot: Green
+AI: Smart Trainer
+Mugshot: Purple
 
-Dusclops
-Level: 48
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Punch
-- Confuse Ray
-- Curse
-- Protect
+Blacephalon @ Spell Tag  
+Ability: Beast Boost  
+Tera Type: Fire  
+EVs: 4 Atk / 252 SpA / 252 Spe  
+Hasty Nature  
+- Flamethrower  
+- Shadow Ball  
+- Psychic  
+- Explosion  
 
-Banette
-Level: 49
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Ball
-- Grudge
-- Will O Wisp
-- Feint Attack
+Dragapult @ Life Orb  
+Ability: Clear Body  
+Tera Type: Dragon  
+EVs: 48 Atk / 4 Def / 208 SpA / 248 Spe  
+Naive Nature  
+- Dragon Darts  
+- Shadow Ball  
+- Flamethrower  
+- Draco Meteor  
 
-Sableye
-Level: 50
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Ball
-- Double Team
-- Night Shade
-- Feint Attack
+Flutter Mane @ Booster Energy  
+Ability: Protosynthesis  
+Tera Type: Ghost  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Shadow Ball  
+- Moonblast  
+- Mystical Fire  
+- Psyshock  
 
-Banette
-Level: 49
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Ball
-- Psychic
-- Thunderbolt
-- Facade
+Spectrier @ Leftovers  
+Ability: Grim Neigh  
+Tera Type: Ghost  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Shadow Ball  
+- Draining Kiss  
+- Will-O-Wisp  
+- Calm Mind  
 
-Dusclops @ Sitrus Berry
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Shadow Ball
-- Ice Beam
-- Rock Slide
-- Earthquake
+Gholdengo @ Metal Coat  
+Ability: Good as Gold  
+Tera Type: Steel  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Make It Rain  
+- Shadow Ball  
+- Dazzling Gleam  
+- Recover  
+
+Absol-Mega-Z @ Absolite Z  
+Ability: Magic Bounce  
+Tera Type: Dark  
+EVs: 252 Atk / 252 Spe  
+Adamant Nature  
+- Knock Off  
+- Pursuit  
+- Close Combat  
+- Shadow Sneak  
 
 === TRAINER_GLACIA ===
 Name: GLACIA
@@ -14707,46 +14754,81 @@ Jolly Nature
 - Milk Drink  
 
 === TRAINER_BRAWLY_3 ===
-Name: BRAWLY
+Name: Brawly
 Class: Leader
 Pic: Leader Brawly
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Double Battle: Yes
-AI: Basic Trainer
+Double Battle: No
+AI: Smart Trainer
 
-Machamp @ Sitrus Berry
-Level: 38
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Karate Chop
-- Rock Slide
-- Focus Punch
-- Bulk Up
+Keldeo @ Focus Sash  
+Ability: Sharpness  
+Level: 86  
+Tera Type: Water  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Scald  
+- Secret Sword  
+- Ice Beam  
+- Stealth Rock  
 
-Medicham
-Level: 38
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Light Screen
-- Reflect
-- Focus Punch
+Urshifu @ Expert Belt  
+Ability: Unseen Fist  
+Level: 86  
+Tera Type: Fighting  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Wicked Blow  
+- Close Combat  
+- Stone Edge  
+- Poison Jab  
 
-Hitmontop
-Level: 40
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Pursuit
-- Counter
-- Protect
-- Triple Kick
+Great Tusk @ Booster Energy  
+Ability: Protosynthesis  
+Level: 86  
+Tera Type: Ground  
+EVs: 252 HP / 4 Atk / 252 Spe  
+Jolly Nature  
+- Close Combat  
+- Headlong Rush  
+- Knock Off  
+- Rapid Spin  
 
-Hariyama @ Sitrus Berry
-Level: 42
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Fake Out
-- Focus Punch
-- Belly Drum
-- Earthquake
+Iron Valiant @ Life Orb  
+Ability: Quark Drive  
+Level: 86  
+Tera Type: Fairy  
+EVs: 36 Atk / 216 SpA / 252 Spe  
+Naive Nature  
+- Moonblast  
+- Knock Off  
+- Close Combat  
+- Psychic  
+
+Sneasler @ Normal Gem  
+Ability: Unburden  
+Level: 86  
+Tera Type: Fighting  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Fake Out  
+- Close Combat  
+- Dire Claw  
+- Knock Off  
+
+Lucario-Mega-Z @ Lucarionite Z  
+Ability: Mind's Eye  
+Level: 86  
+Tera Type: Fighting  
+EVs: 252 SpA / 252 Spe  
+Mild Nature  
+IVs: 0 Atk  
+- Aura Sphere  
+- Flash Cannon  
+- Dragon Pulse  
+- Hidden Power
 
 === TRAINER_BRAWLY_4 ===
 Name: BRAWLY
