@@ -109,7 +109,7 @@ static const struct WindowTemplate sWindowTemplate_StartClock = {
     .tilemapLeft = 243, 
     .tilemapTop = 1, 
     .width = 10, // If you want to shorten the dates to Sat., Sun., etc., change this to 9
-    .height = 2, 
+    .height = 6, 
     .paletteNum = 15,
     .baseBlock = 0x30
 };
@@ -942,7 +942,11 @@ static bool8 LMenuDexNavCallback(void)
 // If you want to shorten the dates to Sat., Sun., etc., change this to 70
 #define CLOCK_WINDOW_WIDTH2 75
 
-static const u8 gText_ContinueMenuTime[] = _("Time");
+static const u8 gText_ContinueMenuTime[] = _("Time:");
+static const u8 gText_ContinueMenuLevelCap[] = _("Level Cap:");
+static const u8 gText_ContinueMenuCurrentVersion[] = _("Version: 1.0");
+
+#include "caps.h"
 
 static void ShowTimeWindow(void)
 {
@@ -952,6 +956,8 @@ static void ShowTimeWindow(void)
     RtcCalcLocalTime();
     s8 hours = gLocalTime.hours;
     s8 minutes = gLocalTime.minutes;
+
+    u32 levelCap = GetCurrentLevelCap();
 
     // print window
     sStartClockWindowId2 = AddWindow(&sWindowTemplate_StartClock);
@@ -988,6 +994,15 @@ static void ShowTimeWindow(void)
     AddTextPrinterParameterized(sStartClockWindowId2, 1, gStringVar4, GetStringRightAlignXOffset(1, suffix, CLOCK_WINDOW_WIDTH2) - (CLOCK_WINDOW_WIDTH2 - GetStringRightAlignXOffset(1, gStringVar4, CLOCK_WINDOW_WIDTH2) + 3), 1, 0xFF, NULL); // print time
 
     AddTextPrinterParameterized(sStartClockWindowId2, 1, suffix, GetStringRightAlignXOffset(1, suffix, CLOCK_WINDOW_WIDTH2), 1, 0xFF, NULL); // print am/pm
+
+    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuLevelCap);
+    AddTextPrinterParameterized(sStartClockWindowId2, 1, gStringVar4, 0, 16, 0xFF, NULL); 
+
+    ConvertIntToDecimalStringN(gStringVar4, levelCap, STR_CONV_MODE_LEFT_ALIGN, 3);
+    AddTextPrinterParameterized(sStartClockWindowId2, 1, gStringVar4, 55, 16, 0xFF, NULL); // print level cap
+
+    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuCurrentVersion);
+    AddTextPrinterParameterized(sStartClockWindowId2, 1, gStringVar4, 0, 30, 0xFF, NULL); 
 
     CopyWindowToVram(sStartClockWindowId2, COPYWIN_GFX);
 }
