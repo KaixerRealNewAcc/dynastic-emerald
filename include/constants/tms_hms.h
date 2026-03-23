@@ -90,6 +90,7 @@
     F(ACROBATICS) \
     F(POWER_GEM) \
     F(TAILWIND)\
+    F(ECHO_BLADE)\
 
 #define FOREACH_HM(F) \
     F(CUT) \

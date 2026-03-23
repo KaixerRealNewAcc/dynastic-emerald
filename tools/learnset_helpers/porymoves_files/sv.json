@@ -79299,7 +79299,8 @@
       "MOVE_POLTERGEIST",
       "MOVE_PSYCH_UP",
       "MOVE_THROAT_CHOP",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+      "MOVE_ECHO_BLADE"
     ],
     "EggMoves": [
       "MOVE_DESTINY_BOND",

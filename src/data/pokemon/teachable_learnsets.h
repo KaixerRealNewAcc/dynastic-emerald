@@ -92,6 +92,7 @@
 // - MOVE_ACROBATICS                                   //
 // - MOVE_POWER_GEM                                    //
 // - MOVE_TAILWIND                                     //
+// - MOVE_ECHO_BLADE                                   //
 // - MOVE_CUT                                          //
 // - MOVE_FLY                                          //
 // - MOVE_SURF                                         //
@@ -33183,6 +33184,7 @@ static const u16 sCeruledgeTeachableLearnset[] = {
     MOVE_BRICK_BREAK,
     MOVE_BULK_UP,
     MOVE_DRAGON_CLAW,
+    MOVE_ECHO_BLADE,
     MOVE_ENDURE,
     MOVE_FACADE,
     MOVE_FALSE_SWIPE,
