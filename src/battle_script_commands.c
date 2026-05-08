@@ -12623,7 +12623,7 @@ static void Cmd_recoverbasedonsunlight(void)
 
             if (!(gBattleWeather & B_WEATHER_ANY) || !HasWeatherEffect() || GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
                 gBattleStruct->moveDamage[gBattlerAttacker] = healingModifier * GetNonDynamaxMaxHP(gBattlerAttacker) / 4;
-            else if (gBattleWeather & B_WEATHER_SUN)
+            else if (gBattleWeather & B_WEATHER_SUN || hasAbilityOrInnate(gBattlerAttacker, ABILITY_MEGA_SOL))
                 gBattleStruct->moveDamage[gBattlerAttacker] = healingModifier * GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
             else // not sunny weather
                 gBattleStruct->moveDamage[gBattlerAttacker] = healingModifier * GetNonDynamaxMaxHP(gBattlerAttacker) / 8;
@@ -12777,6 +12777,9 @@ static bool32 CheckIfCanFireTwoTurnMoveNow(u8 battler, bool8 checkChargeTurnEffe
         return FALSE;
 
     // Insert custom conditions here
+    if(hasAbilityOrInnate(battler, ABILITY_MEGA_SOL)
+       && GetMoveTwoTurnAttackWeather(gCurrentMove))
+        return TRUE;
 
     // Certain two-turn moves may fire on the first turn in the right weather (Solar Beam, Electro Shot)
     // By default, all two-turn moves have the option of adding weather to their argument

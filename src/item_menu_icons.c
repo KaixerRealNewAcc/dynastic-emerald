@@ -461,8 +461,7 @@ void RemoveBagSprite(u8 id)
 void AddBagVisualSprite(u8 bagPocketId)
 {
     u8 *spriteId = &gBagMenu->spriteIds[ITEMMENUSPRITE_BAG];
-    if(bagPocketId != POCKET_TM_HM)
-        *spriteId = CreateSprite(&sBagSpriteTemplate, 60, 60, 0);
+    *spriteId = CreateSprite(&sBagSpriteTemplate, 60, 60, 0);
     SetBagVisualPocketId(bagPocketId, FALSE);
 }
 

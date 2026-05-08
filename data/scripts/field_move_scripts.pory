@@ -525,8 +525,7 @@ Text_CantRockClimb:
 `
 
 script EventScript_BallChanger{
-		message(format("Which Pokémon's ball would you like to change?"))
-		waitmessage
+		lock
 		special (ChoosePartyMon)
 		waitstate
 		if(var(VAR_RESULT) == PARTY_NOTHING_CHOSEN)
@@ -542,12 +541,6 @@ script EventScript_BallChanger{
 				goto (EventScript_BallChanger)
 			}
 		}
-
-		closemessage
-		message(format("Which Type of Ball would you like to change too?"))
-		waitmessage
-
-		dynmultipush("Strange Ball", ITEM_STRANGE_BALL)
 		dynmultipush("Poké Ball", ITEM_POKE_BALL)
 		dynmultipush("Great Ball", ITEM_GREAT_BALL)
 		dynmultipush("Ultra Ball", ITEM_ULTRA_BALL)
@@ -560,33 +553,28 @@ script EventScript_BallChanger{
 		dynmultipush("Dusk Ball", ITEM_DUSK_BALL)
 		dynmultipush("Timer Ball", ITEM_TIMER_BALL)
 		dynmultipush("Quick Ball", ITEM_QUICK_BALL)
-		dynmultipush("Repeat Ball", ITEM_POKE_BALL)
-		dynmultipush("Luxury Ball", ITEM_POKE_BALL)
-		dynmultipush("Lure Ball", ITEM_POKE_BALL)
-		dynmultipush("Level Ball", ITEM_POKE_BALL)
-		dynmultipush("Moon Ball", ITEM_POKE_BALL)
-		dynmultipush("Friend Ball", ITEM_POKE_BALL)
-		dynmultipush("Love Ball", ITEM_POKE_BALL)
-		dynmultipush("Fast Ball", ITEM_POKE_BALL)
-		dynmultipush("Heavy Ball", ITEM_POKE_BALL)
-		dynmultipush("Dream Ball", ITEM_POKE_BALL)
-		dynmultipush("Safari Ball", ITEM_POKE_BALL)
-		dynmultipush("Sport Ball", ITEM_POKE_BALL)
-		dynmultipush("Park Ball", ITEM_POKE_BALL)
-		dynmultipush("Beast Ball", ITEM_POKE_BALL)
-		dynmultipush("Cherish Ball", ITEM_POKE_BALL)
-		dynmultipush("Exit", 127)
+		dynmultipush("Repeat Ball", ITEM_REPEAT_BALL)
+		dynmultipush("Luxury Ball", ITEM_LUXURY_BALL)
+		dynmultipush("Lure Ball", ITEM_LURE_BALL)
+		dynmultipush("Level Ball", ITEM_LEVEL_BALL)
+		dynmultipush("Moon Ball", ITEM_MOON_BALL)
+		dynmultipush("Friend Ball", ITEM_FRIEND_BALL)
+		dynmultipush("Love Ball", ITEM_LOVE_BALL)
+		dynmultipush("Fast Ball", ITEM_FAST_BALL)
+		dynmultipush("Heavy Ball", ITEM_HEAVY_BALL)
+		dynmultipush("Dream Ball", ITEM_DREAM_BALL)
+		dynmultipush("Safari Ball", ITEM_SAFARI_BALL)
+		dynmultipush("Sport Ball", ITEM_SPORT_BALL)
+		dynmultipush("Park Ball", ITEM_PARK_BALL)
+		dynmultipush("Beast Ball", ITEM_BEAST_BALL)
+		dynmultipush("Cherish Ball", ITEM_CHERISH_BALL)
 		//.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
 		//_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
 		//.endm
 
 		dynmultistack (0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
 		// Choose a Pokémon from the party to change its ball type
-		fadescreen(FADE_TO_BLACK)
 		special (ChangeBallType)
-		waitbuttonpress
-		closemessage
-		fadescreen(FADE_FROM_BLACK)
 		release
 		end
 }

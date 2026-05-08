@@ -1851,7 +1851,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_PUNK_ROCK] =
         {
             .name = _("Punk Rock"),
-            .description = COMPOUND_STRING("Ups and resists sound."),
+            .description = COMPOUND_STRING("Boosts Sound-Type/Based moves by 30%.\nReduces Sound-Type/Based moves by 20%"),
             .aiRating = 2,
             .breakable = TRUE,
         },
@@ -2700,6 +2700,20 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .name = _("Protective Hide"),
             .description = COMPOUND_STRING("The user's hide safes it from Ability Effects."),
             .aiRating = 7,
+        },
+
+        [ABILITY_DRAGONIZE] =
+        {
+            .name = _("Dragonize"),
+            .description = COMPOUND_STRING("Moves become Dragon-type.\n20% Boost to its Moves."),
+            .aiRating = 6,
+        },
+    
+        [ABILITY_MEGA_SOL] =
+        {
+            .name = _("Mega Sol"),
+            .description = COMPOUND_STRING(""),
+            .aiRating = 8,
         },
 
         [NO_INNATE_YET] = 

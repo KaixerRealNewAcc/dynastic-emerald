@@ -349,6 +349,33 @@ HiddenTutor_EventScript_HiddenSecretPowerTaught::
 	end
 
 
+TauntTutor::
+	lock
+	faceplayer
+	msgbox TauntTutor_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq TauntTutor_1
+	msgbox TauntTutor_Text_2
+	releaseall
+	end
+
+TauntTutor_1:
+	msgbox TauntTutor_Text_1
+	setvar VAR_0x8005, MOVE_TAUNT
+	special ChooseMonForMoveTutor
+	waitstate
+	compare VAR_RESULT, 0
+	goto_if_eq TauntTutor_5
+	msgbox TauntTutor_Text_3
+	releaseall
+	end
+
+TauntTutor_5:
+	msgbox TauntTutor_Text_2
+	releaseall
+	end
+
+
 SlateportCity_EventScript_SecretPowerAndHiddenPowerTutor_Text_0:
 	.string "Every Pokémon can learn one of these\n"
 	.string "two coverage moves. These moves are\l"
@@ -389,3 +416,21 @@ SlateportCity_MonScript_Alakazam_Text_0:
 HiddenTutor_EventScript_HiddenSecretPowerTaught_Text_0:
 	.string "Thank you for this amazing experience\n"
 	.string "Hope to see you again soon!$"
+
+TauntTutor_Text_0:
+	.string "My favorite way to win a fight is by\n"
+	.string "taunting my opponents, they get so mad.\p"
+	.string "Would you like to know what im talking\n"
+	.string "about?$"
+
+TauntTutor_Text_1:
+	.string "Oh really, well then i have a secret move\n"
+	.string "i can teach you, its called taunt.\p"
+	.string "Which mon would you like to teach taunt?$"
+
+TauntTutor_Text_2:
+	.string "Ah, well that a bummer!$"
+
+TauntTutor_Text_3:
+	.string "Please come back anytime to make sure you\n"
+	.string "can taunt your opponents!$"

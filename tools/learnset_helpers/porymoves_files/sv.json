@@ -81545,7 +81545,8 @@
       "MOVE_KNOCK_OFF",
       "MOVE_ENDEAVOR",
       "MOVE_SKITTER_SMACK",
-      "MOVE_METAL_SOUND"
+      "MOVE_METAL_SOUND",
+      "MOVE_TAUNT"
     ],
     "EggMoves": [
       "MOVE_FEINT",
@@ -81656,7 +81657,8 @@
       "MOVE_KNOCK_OFF",
       "MOVE_ENDEAVOR",
       "MOVE_SKITTER_SMACK",
-      "MOVE_METAL_SOUND"
+      "MOVE_METAL_SOUND",
+      "MOVE_TAUNT"
     ],
     "EggMoves": [
       "MOVE_FEINT",
@@ -81775,7 +81777,8 @@
       "MOVE_ENDEAVOR",
       "MOVE_SKITTER_SMACK",
       "MOVE_METAL_SOUND",
-      "MOVE_HARD_PRESS"
+      "MOVE_HARD_PRESS",
+      "MOVE_TAUNT"
     ],
     "EggMoves": [
       "MOVE_FEINT",

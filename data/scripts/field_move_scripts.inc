@@ -524,56 +524,46 @@ Text_CantRockClimb:
     .string "A Pokémon may be able to climb it.$"
 
 EventScript_BallChanger::
-	message EventScript_BallChanger_Text_0
-	waitmessage
+	lock
 	special ChoosePartyMon
 	waitstate
 	compare VAR_RESULT, PARTY_NOTHING_CHOSEN
 	goto_if_eq EventScript_BallChanger_2
 EventScript_BallChanger_1:
-	closemessage
-	message EventScript_BallChanger_Text_2
-	waitmessage
-	dynmultipush EventScript_BallChanger_Text_3, ITEM_STRANGE_BALL
-	dynmultipush EventScript_BallChanger_Text_4, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_5, ITEM_GREAT_BALL
-	dynmultipush EventScript_BallChanger_Text_6, ITEM_ULTRA_BALL
-	dynmultipush EventScript_BallChanger_Text_7, ITEM_MASTER_BALL
-	dynmultipush EventScript_BallChanger_Text_8, ITEM_PREMIER_BALL
-	dynmultipush EventScript_BallChanger_Text_9, ITEM_HEAL_BALL
-	dynmultipush EventScript_BallChanger_Text_10, ITEM_NET_BALL
-	dynmultipush EventScript_BallChanger_Text_11, ITEM_NEST_BALL
-	dynmultipush EventScript_BallChanger_Text_12, ITEM_DIVE_BALL
-	dynmultipush EventScript_BallChanger_Text_13, ITEM_DUSK_BALL
-	dynmultipush EventScript_BallChanger_Text_14, ITEM_TIMER_BALL
-	dynmultipush EventScript_BallChanger_Text_15, ITEM_QUICK_BALL
-	dynmultipush EventScript_BallChanger_Text_16, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_17, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_18, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_19, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_20, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_21, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_22, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_23, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_24, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_25, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_26, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_27, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_28, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_29, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_30, ITEM_POKE_BALL
-	dynmultipush EventScript_BallChanger_Text_31, 127
+	dynmultipush EventScript_BallChanger_Text_1, ITEM_POKE_BALL
+	dynmultipush EventScript_BallChanger_Text_2, ITEM_GREAT_BALL
+	dynmultipush EventScript_BallChanger_Text_3, ITEM_ULTRA_BALL
+	dynmultipush EventScript_BallChanger_Text_4, ITEM_MASTER_BALL
+	dynmultipush EventScript_BallChanger_Text_5, ITEM_PREMIER_BALL
+	dynmultipush EventScript_BallChanger_Text_6, ITEM_HEAL_BALL
+	dynmultipush EventScript_BallChanger_Text_7, ITEM_NET_BALL
+	dynmultipush EventScript_BallChanger_Text_8, ITEM_NEST_BALL
+	dynmultipush EventScript_BallChanger_Text_9, ITEM_DIVE_BALL
+	dynmultipush EventScript_BallChanger_Text_10, ITEM_DUSK_BALL
+	dynmultipush EventScript_BallChanger_Text_11, ITEM_TIMER_BALL
+	dynmultipush EventScript_BallChanger_Text_12, ITEM_QUICK_BALL
+	dynmultipush EventScript_BallChanger_Text_13, ITEM_REPEAT_BALL
+	dynmultipush EventScript_BallChanger_Text_14, ITEM_LUXURY_BALL
+	dynmultipush EventScript_BallChanger_Text_15, ITEM_LURE_BALL
+	dynmultipush EventScript_BallChanger_Text_16, ITEM_LEVEL_BALL
+	dynmultipush EventScript_BallChanger_Text_17, ITEM_MOON_BALL
+	dynmultipush EventScript_BallChanger_Text_18, ITEM_FRIEND_BALL
+	dynmultipush EventScript_BallChanger_Text_19, ITEM_LOVE_BALL
+	dynmultipush EventScript_BallChanger_Text_20, ITEM_FAST_BALL
+	dynmultipush EventScript_BallChanger_Text_21, ITEM_HEAVY_BALL
+	dynmultipush EventScript_BallChanger_Text_22, ITEM_DREAM_BALL
+	dynmultipush EventScript_BallChanger_Text_23, ITEM_SAFARI_BALL
+	dynmultipush EventScript_BallChanger_Text_24, ITEM_SPORT_BALL
+	dynmultipush EventScript_BallChanger_Text_25, ITEM_PARK_BALL
+	dynmultipush EventScript_BallChanger_Text_26, ITEM_BEAST_BALL
+	dynmultipush EventScript_BallChanger_Text_27, ITEM_CHERISH_BALL
 	dynmultistack 0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
-	fadescreen FADE_TO_BLACK
 	special ChangeBallType
-	waitbuttonpress
-	closemessage
-	fadescreen FADE_FROM_BLACK
 	release
 	end
 
 EventScript_BallChanger_2:
-	msgbox EventScript_BallChanger_Text_1, MSGBOX_YESNO
+	msgbox EventScript_BallChanger_Text_0, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq EventScript_BallChanger_4
 	goto EventScript_BallChanger
@@ -592,104 +582,90 @@ EventScript_CurrentVersion::
 
 
 EventScript_BallChanger_Text_0:
-	.string "Which Pokémon's ball would you like to\n"
-	.string "change?$"
-
-EventScript_BallChanger_Text_1:
 	.string "You didn't choose a Pokémon.\n"
 	.string "Do you still want to change the ball\l"
 	.string "type?$"
 
-EventScript_BallChanger_Text_2:
-	.string "Which Type of Ball would you like to\n"
-	.string "change too?$"
-
-EventScript_BallChanger_Text_3:
-	.string "Strange Ball$"
-
-EventScript_BallChanger_Text_4:
+EventScript_BallChanger_Text_1:
 	.string "Poké Ball$"
 
-EventScript_BallChanger_Text_5:
+EventScript_BallChanger_Text_2:
 	.string "Great Ball$"
 
-EventScript_BallChanger_Text_6:
+EventScript_BallChanger_Text_3:
 	.string "Ultra Ball$"
 
-EventScript_BallChanger_Text_7:
+EventScript_BallChanger_Text_4:
 	.string "Master Ball$"
 
-EventScript_BallChanger_Text_8:
+EventScript_BallChanger_Text_5:
 	.string "Premier Ball$"
 
-EventScript_BallChanger_Text_9:
+EventScript_BallChanger_Text_6:
 	.string "Heal Ball$"
 
-EventScript_BallChanger_Text_10:
+EventScript_BallChanger_Text_7:
 	.string "Net Ball$"
 
-EventScript_BallChanger_Text_11:
+EventScript_BallChanger_Text_8:
 	.string "Nest Ball$"
 
-EventScript_BallChanger_Text_12:
+EventScript_BallChanger_Text_9:
 	.string "Dive Ball$"
 
-EventScript_BallChanger_Text_13:
+EventScript_BallChanger_Text_10:
 	.string "Dusk Ball$"
 
-EventScript_BallChanger_Text_14:
+EventScript_BallChanger_Text_11:
 	.string "Timer Ball$"
 
-EventScript_BallChanger_Text_15:
+EventScript_BallChanger_Text_12:
 	.string "Quick Ball$"
 
-EventScript_BallChanger_Text_16:
+EventScript_BallChanger_Text_13:
 	.string "Repeat Ball$"
 
-EventScript_BallChanger_Text_17:
+EventScript_BallChanger_Text_14:
 	.string "Luxury Ball$"
 
-EventScript_BallChanger_Text_18:
+EventScript_BallChanger_Text_15:
 	.string "Lure Ball$"
 
-EventScript_BallChanger_Text_19:
+EventScript_BallChanger_Text_16:
 	.string "Level Ball$"
 
-EventScript_BallChanger_Text_20:
+EventScript_BallChanger_Text_17:
 	.string "Moon Ball$"
 
-EventScript_BallChanger_Text_21:
+EventScript_BallChanger_Text_18:
 	.string "Friend Ball$"
 
-EventScript_BallChanger_Text_22:
+EventScript_BallChanger_Text_19:
 	.string "Love Ball$"
 
-EventScript_BallChanger_Text_23:
+EventScript_BallChanger_Text_20:
 	.string "Fast Ball$"
 
-EventScript_BallChanger_Text_24:
+EventScript_BallChanger_Text_21:
 	.string "Heavy Ball$"
 
-EventScript_BallChanger_Text_25:
+EventScript_BallChanger_Text_22:
 	.string "Dream Ball$"
 
-EventScript_BallChanger_Text_26:
+EventScript_BallChanger_Text_23:
 	.string "Safari Ball$"
 
-EventScript_BallChanger_Text_27:
+EventScript_BallChanger_Text_24:
 	.string "Sport Ball$"
 
-EventScript_BallChanger_Text_28:
+EventScript_BallChanger_Text_25:
 	.string "Park Ball$"
 
-EventScript_BallChanger_Text_29:
+EventScript_BallChanger_Text_26:
 	.string "Beast Ball$"
 
-EventScript_BallChanger_Text_30:
+EventScript_BallChanger_Text_27:
 	.string "Cherish Ball$"
-
-EventScript_BallChanger_Text_31:
-	.string "Exit$"
 
 EventScript_CurrentVersion_Text_0:
 	.string "Current Version: Beta 1.1.0\n"

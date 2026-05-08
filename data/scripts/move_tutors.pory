@@ -325,3 +325,37 @@ script HiddenTutor_EventScript_HiddenSecretPowerTaught{
     release
 	end
 }
+
+script TauntTutor{
+	lock
+	faceplayer
+	msgbox("My favorite way to win a fight is by\n"
+		   "taunting my opponents, they get so mad.\p"
+		   "Would you like to know what im talking\n"
+		   "about?", MSGBOX_YESNO)
+	if(var(VAR_RESULT) == YES)
+	{
+		msgbox("Oh really, well then i have a secret move\n"
+			   "i can teach you, its called taunt.\p"
+			   "Which mon would you like to teach taunt?")
+		setvar (VAR_0x8005, MOVE_TAUNT) 
+		special (ChooseMonForMoveTutor)
+		waitstate 
+		if(var(VAR_RESULT) == 0) 
+		{ 
+			msgbox("Ah, well that a bummer!")
+			releaseall
+			end
+		}
+		msgbox("Please come back anytime to make sure you\n"
+			   "can taunt your opponents!")
+		releaseall
+		end
+	}
+	else
+	{
+		msgbox("Ah, well that a bummer!")
+		releaseall
+		end
+	}
+}

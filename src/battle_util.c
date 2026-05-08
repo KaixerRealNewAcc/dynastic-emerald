@@ -9607,7 +9607,7 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_PUNK_ROCK:
-        if (IsSoundMove(move))
+        if (moveType == TYPE_SOUND || IsSoundMove(move))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
     case ABILITY_STEELY_SPIRIT:
@@ -9720,6 +9720,11 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
     }
 
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_DRAGONIZE))
+    {
+        if (moveType == TYPE_DRAGON && gBattleStruct->battlerState[battlerAtk].ateBoost)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+    }
 
     // field abilities
     if ((IsAbilityOnField(ABILITY_DARK_AURA) && moveType == TYPE_DARK)
@@ -10311,8 +10316,14 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         if (gBattleMons[battlerAtk].species == SPECIES_CLAMPERL && IsBattleMoveSpecial(move))
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
         break;
-    case HOLD_EFFECT_LIGHT_BALL:
-        if (atkBaseSpeciesId == SPECIES_PIKACHU && (B_LIGHT_BALL_ATTACK_BOOST >= GEN_4 || IsBattleMoveSpecial(move)))
+    case HOLD_EFFECT_LIGHT_BALL:        
+        if (atkBaseSpeciesId == SPECIES_PIKACHU
+         || atkBaseSpeciesId == SPECIES_PLUSLE 
+         || atkBaseSpeciesId == SPECIES_MINUN 
+         || atkBaseSpeciesId == SPECIES_PACHIRISU 
+         || atkBaseSpeciesId == SPECIES_EMOLGA 
+         || atkBaseSpeciesId == SPECIES_DEDENNE 
+         || atkBaseSpeciesId == SPECIES_MORPEKO)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
         break;
     case HOLD_EFFECT_CHOICE_BAND:
@@ -10727,9 +10738,9 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
         }
         break;
     case ABILITY_PUNK_ROCK:
-        if (IsSoundMove(ctx->move))
+        if (ctx->moveType != TYPE_SOUND || IsSoundMove(ctx->move))
         {
-            modifier = UQ_4_12(0.5);
+            modifier = UQ_4_12(0.8);
             recordAbility = TRUE;
         }
         break;
@@ -10776,9 +10787,9 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
     }
     if(hasInnate(ctx->battlerDef, ABILITY_PUNK_ROCK))
     {
-        if (IsSoundMove(ctx->move))
+        if (ctx->moveType != TYPE_SOUND || IsSoundMove(ctx->move))
         {
-            modifier = UQ_4_12(0.5);
+            modifier = UQ_4_12(0.8);
             recordAbility = TRUE;
         }
     }

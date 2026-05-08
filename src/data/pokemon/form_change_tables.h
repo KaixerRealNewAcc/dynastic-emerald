@@ -246,7 +246,7 @@ static const struct FormChange sMewtwoFormChangeTable[] = {
 #if P_FAMILY_CHIKORITA
 static const struct FormChange sMeganiumFormChangeTable[] =
 {
-#if P_GEN_9_MEGA_EVOLUTIONS
+#if P_MEGA_EVOLUTIONS
     {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_MEGANIUM_MEGA, ITEM_MEGANIUMITE},
 #endif
     {FORM_CHANGE_TERMINATOR},
@@ -256,7 +256,7 @@ static const struct FormChange sMeganiumFormChangeTable[] =
 #if P_FAMILY_CHIKORITA
 static const struct FormChange sFeraligatrFormChangeTable[] =
 {
-#if P_GEN_9_MEGA_EVOLUTIONS
+#if P_MEGA_EVOLUTIONS
     {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_FERALIGATR_MEGA, ITEM_FERALIGITE},
 #endif
     {FORM_CHANGE_TERMINATOR},

@@ -133,6 +133,7 @@
 // - MOVE_SWAGGER                                      //
 // - MOVE_SWIFT                                        //
 // - MOVE_SWORDS_DANCE                                 //
+// - MOVE_TAUNT                                        //
 // - MOVE_THUNDER_PUNCH                                //
 // - MOVE_THUNDER_WAVE                                 //
 // *************************************************** //
@@ -33644,6 +33645,7 @@ static const u16 sTinkatinkTeachableLearnset[] = {
     MOVE_STEEL_BEAM,
     MOVE_STONE_EDGE,
     MOVE_SWORDS_DANCE,
+    MOVE_TAUNT,
     MOVE_THIEF,
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
@@ -33666,6 +33668,7 @@ static const u16 sTinkatuffTeachableLearnset[] = {
     MOVE_STEEL_BEAM,
     MOVE_STONE_EDGE,
     MOVE_SWORDS_DANCE,
+    MOVE_TAUNT,
     MOVE_THIEF,
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
@@ -33689,6 +33692,7 @@ static const u16 sTinkatonTeachableLearnset[] = {
     MOVE_STEEL_BEAM,
     MOVE_STONE_EDGE,
     MOVE_SWORDS_DANCE,
+    MOVE_TAUNT,
     MOVE_THIEF,
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
