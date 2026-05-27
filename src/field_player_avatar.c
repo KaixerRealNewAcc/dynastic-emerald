@@ -863,6 +863,8 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
     {
         if (ObjectMovingOnRockStairs(&gObjectEvents[gPlayerAvatar.objectEventId], direction))
             PlayerRunSlow(direction);
+        else if (gSaveBlock3Ptr->autoRun && heldKeys & B_BUTTON)
+            PlayerWalkNormal(direction);
         else
             PlayerRun(direction);
 

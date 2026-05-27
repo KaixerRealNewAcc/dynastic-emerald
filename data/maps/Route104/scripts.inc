@@ -339,10 +339,6 @@ Route104_EventScript_ReceivedBulletSeed::
 	release
 	end
 
-Route104_EventScript_Girl2::
-	msgbox Route104_Text_ImNotATrainer, MSGBOX_NPC
-	end
-
 Route104_EventScript_SailToDewford::
 	setobjectsubpriority LOCALID_ROUTE104_BRINEY, MAP_ROUTE104, 0
 	setobjectsubpriority LOCALID_PLAYER, MAP_ROUTE104, 0
@@ -1018,12 +1014,11 @@ Route104_Text_OnlyThrowBallAtWildPokemon:
 	.string "You should throw POKé BALLS only at\n"
 	.string "wild POKéMON.$"
 
-Route104_Text_ImNotATrainer:
-	.string "Oh, no, I'm not a TRAINER.\p"
-	.string "But that's right, if TRAINERS lock eyes,\n"
+Route104_Text_ImATrainer:
+	.string "if TRAINERS lock eyes,\n"
 	.string "it's a challenge to battle.\p"
-	.string "If you don't want to battle, stay out\n"
-	.string "of their sight.$"
+	.string "We locked eyes!\n"
+	.string "Let's battle!$"
 
 Route104_Text_LikeFillingMouthWithSeedsTakeThis:
 	.string "I like filling my mouth with seeds,\n"
@@ -1167,3 +1162,23 @@ Route104_Text_BrendanPostBattle:
 	.string "making POKéMON battle.\p"
 	.string "Like MR. BRINEY, it's important to\n"
 	.string "become friends with your POKéMON.$"
+
+Route104_EventScript_RouteSignPetalburgWoods::
+	msgbox Route104_EventScript_RouteSignPetalburgWoods_Text_0, MSGBOX_SIGN
+	end
+
+
+Route104_EventScript_Girl2::
+	trainerbattle_single TRAINER_GIRL_2_ROUTE_104, Route104_Text_ImATrainer, Route104_EventScript_Girl2_Text_0, Route104_EventScript_Girl2_Text_1
+	end
+
+
+Route104_EventScript_RouteSignPetalburgWoods_Text_0:
+	.string "ROUTE 1O4\n"
+	.string "{UP_ARROW} PETALBURG WOODS$"
+
+Route104_EventScript_Girl2_Text_0:
+	.string "Ah damn it i lost!$"
+
+Route104_EventScript_Girl2_Text_1:
+	.string "But i wont lose next time!$"

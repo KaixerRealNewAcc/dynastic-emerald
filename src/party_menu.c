@@ -3439,31 +3439,38 @@ static void SwitchSelectedMons(u8 taskId)
     {
         // Initialize switching party mons slide animation
         windowIds[0] = sPartyMenuBoxes[gPartyMenu.slotId].windowId;
-        tSlot1Left = GetWindowAttribute(windowIds[0], WINDOW_TILEMAP_LEFT);
-        tSlot1Top = GetWindowAttribute(windowIds[0], WINDOW_TILEMAP_TOP);
-        tSlot1Width = GetWindowAttribute(windowIds[0], WINDOW_WIDTH);
-        tSlot1Height = GetWindowAttribute(windowIds[0], WINDOW_HEIGHT);
-        tSlot1Offset = 0;
-        tSlot1SlideDir = -1;
+        //tSlot1Left = GetWindowAttribute(windowIds[0], WINDOW_TILEMAP_LEFT);
+        //tSlot1Top = GetWindowAttribute(windowIds[0], WINDOW_TILEMAP_TOP);
+        //tSlot1Width = GetWindowAttribute(windowIds[0], WINDOW_WIDTH);
+        //tSlot1Height = GetWindowAttribute(windowIds[0], WINDOW_HEIGHT);
+        //tSlot1Offset = 0;
+        //tSlot1SlideDir = 1;
         windowIds[1] = sPartyMenuBoxes[gPartyMenu.slotId2].windowId;
-        tSlot2Left = GetWindowAttribute(windowIds[1], WINDOW_TILEMAP_LEFT);
-        tSlot2Top = GetWindowAttribute(windowIds[1], WINDOW_TILEMAP_TOP);
-        tSlot2Width = GetWindowAttribute(windowIds[1], WINDOW_WIDTH);
-        tSlot2Height = GetWindowAttribute(windowIds[1], WINDOW_HEIGHT);
-        tSlot2Offset = 0;
-        tSlot2SlideDir = -1;
-        sSlot1TilemapBuffer = Alloc(tSlot1Width * (tSlot1Height << 1));
-        sSlot2TilemapBuffer = Alloc(tSlot2Width * (tSlot2Height << 1));
-        CopyToBufferFromBgTilemap(0, sSlot1TilemapBuffer, tSlot1Left, tSlot1Top, tSlot1Width, tSlot1Height);
-        CopyToBufferFromBgTilemap(0, sSlot2TilemapBuffer, tSlot2Left, tSlot2Top, tSlot2Width, tSlot2Height);
+        //tSlot2Left = GetWindowAttribute(windowIds[1], WINDOW_TILEMAP_LEFT);
+        //tSlot2Top = GetWindowAttribute(windowIds[1], WINDOW_TILEMAP_TOP);
+        //tSlot2Width = GetWindowAttribute(windowIds[1], WINDOW_WIDTH);
+        //tSlot2Height = GetWindowAttribute(windowIds[1], WINDOW_HEIGHT);
+        //tSlot2Offset = 0;
+        //tSlot2SlideDir = 1;
+        //sSlot1TilemapBuffer = Alloc(tSlot1Width * (tSlot1Height << 1));
+        //sSlot2TilemapBuffer = Alloc(tSlot2Width * (tSlot2Height << 1));
+        //CopyToBufferFromBgTilemap(0, sSlot1TilemapBuffer, tSlot1Left, tSlot1Top, tSlot1Width, tSlot1Height);
+        //CopyToBufferFromBgTilemap(0, sSlot2TilemapBuffer, tSlot2Left, tSlot2Top, tSlot2Width, tSlot2Height);
         ClearWindowTilemap(windowIds[0]);
         ClearWindowTilemap(windowIds[1]);
-        DestroyMonSprite();
         gPartyMenu.action = PARTY_ACTION_SWITCHING;
-        AnimatePartySlot(gPartyMenu.slotId, 1);
-        AnimatePartySlot(gPartyMenu.slotId2, 1);
-        SlidePartyMenuBoxOneStep(taskId);
-        gTasks[taskId].func = Task_SlideSelectedSlotsOffscreen;
+        //AnimatePartySlot(gPartyMenu.slotId, 1);
+        //AnimatePartySlot(gPartyMenu.slotId2, 1);
+        //SlidePartyMenuBoxOneStep(taskId);
+        SwitchPartyMon();
+        DisplayPartyPokemonData(gPartyMenu.slotId);
+        DisplayPartyPokemonData(gPartyMenu.slotId2);
+        PutWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId].windowId);
+        PutWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId2].windowId);
+        ClearWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId].windowId);
+        ClearWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId2].windowId);
+        //FinishTwoMonAction(taskId);
+        //gTasks[taskId].func = Task_SlideSelectedSlotsOffscreen;
     }
 }
 
@@ -8555,7 +8562,7 @@ static void SlideMultiPartyMenuBoxSpritesOneStep(u8 taskId)
         {
             MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].monSpriteId, tXPos - 8);
             MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].itemSpriteId, tXPos - 8);
-            MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].pokeballSpriteId, tXPos - 8);
+            //MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].pokeballSpriteId, tXPos - 8);
             MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].statusSpriteId, tXPos - 8);
         }
     }

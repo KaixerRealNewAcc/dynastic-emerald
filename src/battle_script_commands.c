@@ -1644,7 +1644,9 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
     }
 
     if (critChance != CRITICAL_HIT_BLOCKED && (hasAbilityOrInnate(battlerDef, ABILITY_BATTLE_ARMOR) || 
-                                               hasAbilityOrInnate(battlerDef, ABILITY_SHELL_ARMOR)))
+                                               hasAbilityOrInnate(battlerDef, ABILITY_SHELL_ARMOR)  || 
+                                               hasAbilityOrInnate(battlerDef, ABILITY_MAGMA_ARMOR)  || 
+                                               hasAbilityOrInnate(battlerDef, ABILITY_LEAF_GUARD)))
     {
         // Record ability only if move had 100% chance to get a crit
         if (recordAbility)
@@ -1699,7 +1701,10 @@ s32 CalcCritChanceStageGen1(u32 battlerAtk, u32 battlerDef, u32 move, bool32 rec
     // Prevented crits
     if (gSideStatuses[battlerDef] & SIDE_STATUS_LUCKY_CHANT)
         critChance = CRITICAL_HIT_BLOCKED;
-    else if (abilityDef == ABILITY_BATTLE_ARMOR || abilityDef == ABILITY_SHELL_ARMOR)
+    else if (hasAbilityOrInnate(battlerDef, ABILITY_BATTLE_ARMOR) || hasAbilityOrInnate(battlerDef, ABILITY_SHELL_ARMOR)
+          || hasAbilityOrInnate(battlerDef, ABILITY_MAGMA_ARMOR)  || hasAbilityOrInnate(battlerDef, ABILITY_LEAF_GUARD)
+          || hasAbilityOrInnate(battlerDef, ABILITY_BATTLE_ARMOR) || hasAbilityOrInnate(battlerDef, ABILITY_SHELL_ARMOR)
+          || hasAbilityOrInnate(battlerDef, ABILITY_MAGMA_ARMOR)  || hasAbilityOrInnate(battlerDef, ABILITY_LEAF_GUARD))
     {
         if (recordAbility)
             RecordAbilityBattle(battlerDef, abilityDef);

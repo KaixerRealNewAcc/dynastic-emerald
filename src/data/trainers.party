@@ -6245,11 +6245,9 @@ AI: Check Bad Move
 
 Skwovet
 Level: 5
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 Patrat
 Level: 5
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_BILLY ===
 Name: Billy
@@ -14523,78 +14521,20 @@ Mudkip
 Level: 15
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
-=== LEADER_ROXIE ===
-Name: Roxie
-Class: Leader
-Pic: Leader Roxanne
-Gender: Female
-Music: Female
+=== TRAINER_SEN ===
+Name: Sen
+Class: School Kid
+Pic: School Kid M
+Gender: Male
+Music: Male
 Double Battle: No
-AI: Smart Trainer
-Mugshot: Purple
+AI: Basic Trainer
 
-Trubbish @ Leftovers  
-Ability: Toxic Debris  
-Level: 14  
-Tera Type: Poison  
-Impish Nature  
-- Drain Punch  
-- Toxic  
-- Protect  
-- Pain Split  
+Mareep
+Level: 5
 
-Noibat @ Berry Juice  
-Ability: Nocturnal  
-Level: 14  
-Shiny: Yes  
-Tera Type: Flying  
-Timid Nature  
-IVs: 0 Atk  
-- Dragon Breath  
-- Air Cutter  
-- Snarl  
-- Roost  
-
-Skrelp @ Oran Berry  
-Ability: Adaptability  
-Level: 14  
-Tera Type: Poison  
-Quiet Nature  
-- Sludge  
-- Water Pulse  
-- Icy Wind  
-- Flip Turn  
-
-Grimer-Alola @ Berry Juice  
-Ability: Poison Touch  
-Level: 14  
-Tera Type: Poison  
-Adamant Nature  
-- Poison Fang  
-- Thief  
-- Rock Tomb  
-- Pursuit  
-
-Gastly @ Wise Glasses  
-Ability: Cursed Body  
-Level: 14  
-Tera Type: Ghost  
-Timid Nature  
-IVs: 0 Atk  
-- Sludge  
-- Ominous Wind  
-- Icy Wind  
-- Hypnosis  
-
-Venipede @ Eviolite  
-Ability: Speed Boost  
-Level: 15  
-Tera Type: Bug  
-Adamant Nature  
-- Poison Tail  
-- Bug Bite  
-- Bulldoze  
-- Work Up  
+Wingull
+Level: 5
 
 === TRAINER_ROXANNE_4 ===
 Name: ROXANNE
@@ -17290,9 +17230,9 @@ Gender: Female
 Music: Male
 Double Battle: No
 
-Kyogre
+Excadrill
 Level: 5
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Earthquake
 
 === EV_TRAINER_HP ===
 Name: Luna
@@ -17618,3 +17558,18 @@ IVs: 0 Atk
 - Soft-Boiled  
 - Calm Mind  
 - Fire Blast  
+
+=== TRAINER_GIRL_2_ROUTE_104 ===
+Name: Laura
+Class: Battle Girl
+Pic: Battle Girl
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Riolu
+Level: 5
+
+Pawmi
+Level: 5

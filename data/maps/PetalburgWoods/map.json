@@ -16,8 +16,8 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
-      "x": 19,
-      "y": 10,
+      "x": 14,
+      "y": -6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -29,8 +29,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
-      "x": 19,
-      "y": 11,
+      "x": 14,
+      "y": -5,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -123,7 +123,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_BUG_CATCHER",
       "x": 7,
-      "y": 32,
+      "y": 31,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_LEFT_AND_RIGHT",
       "movement_range_x": 0,
@@ -174,8 +174,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
-      "x": 33,
-      "y": 5,
+      "x": 34,
+      "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -189,14 +189,14 @@
   "warp_events": [
     {
       "x": 14,
-      "y": 5,
+      "y": 6,
       "elevation": 0,
       "dest_map": "MAP_ROUTE104",
       "dest_warp_id": "2"
     },
     {
       "x": 15,
-      "y": 5,
+      "y": 6,
       "elevation": 0,
       "dest_map": "MAP_ROUTE104",
       "dest_warp_id": "3"
@@ -249,6 +249,20 @@
       "elevation": 0,
       "dest_map": "MAP_PETALBURG_WOODS_EXTENDED",
       "dest_warp_id": "1"
+    },
+    {
+      "x": 42,
+      "y": 15,
+      "elevation": 0,
+      "dest_map": "MAP_PETALBURG_WOODS_EXTENDED",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 43,
+      "y": 15,
+      "elevation": 0,
+      "dest_map": "MAP_PETALBURG_WOODS_EXTENDED",
+      "dest_warp_id": "3"
     }
   ],
   "coord_events": [

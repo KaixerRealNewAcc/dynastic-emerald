@@ -182,7 +182,7 @@
 #define CONNECTION_DIVE     5
 #define CONNECTION_EMERGE   6
 
-//Saveblock Toggle Stuffwdad
+//Saveblock Toggle Stuff
 #define SAVEBLOCK_NUZLOCKE  0
 
 //Nuzlocke Stuff

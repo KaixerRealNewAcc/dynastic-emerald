@@ -153,13 +153,6 @@ void ResetMenuAndMonGlobals(void)
     ResetPokeblockScrollPositions();
 }
 
-static void NewGameKeepNuzlockIfAlreadyActivated(void)
-{
-    if (gNuzlockeIsActivated == TRUE)
-        FlagSet(FLAG_NUZLOCKE_MODE);
-}
-
-
 void NewGameInitData(void)
 {
     if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
@@ -222,7 +215,9 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-    NewGameKeepNuzlockIfAlreadyActivated();
+    
+    if (gNuzlockeIsActivated == TRUE)
+        FlagSet(FLAG_NUZLOCKE_MODE);
 }
 
 static void ResetMiniGamesRecords(void)

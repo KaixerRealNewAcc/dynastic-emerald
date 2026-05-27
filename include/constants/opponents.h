@@ -773,7 +773,7 @@
 #define TRAINER_CRISTIN_1                   767
 #define TRAINER_MAY_RUSTBORO_TREECKO        768
 #define TRAINER_MAY_RUSTBORO_TORCHIC        769
-#define LEADER_ROXIE                   770
+#define TRAINER_SEN                         770
 #define TRAINER_ROXANNE_3                   771
 #define TRAINER_ROXANNE_4                   772
 #define TRAINER_ROXANNE_5                   773
@@ -864,8 +864,9 @@
 #define EV_TRAINER_SPA                      858
 #define EV_TRAINER_SPD                      859
 #define EV_TRAINER_SPEED                    860
-#define TRAINER_RITCHIE_RUSTBORO               861
+#define TRAINER_RITCHIE_RUSTBORO            861
 #define TRAINER_MEGA_GYARADOS               862
+#define TRAINER_GIRL_2_ROUTE_104            863
 
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows

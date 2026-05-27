@@ -28,6 +28,27 @@
       "elevation": 0,
       "dest_map": "MAP_PETALBURG_WOODS",
       "dest_warp_id": "8"
+    },
+    {
+      "x": 89,
+      "y": 23,
+      "elevation": 0,
+      "dest_map": "MAP_PETALBURG_WOODS",
+      "dest_warp_id": "9"
+    },
+    {
+      "x": 24,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_PETALBURG_WOODS",
+      "dest_warp_id": "10"
+    },
+    {
+      "x": 23,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_PETALBURG_WOODS",
+      "dest_warp_id": "9"
     }
   ],
   "coord_events": [],

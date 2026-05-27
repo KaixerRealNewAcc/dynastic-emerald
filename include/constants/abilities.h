@@ -384,6 +384,9 @@
 #define ABILITY_PROTECTIVE_HIDE     (ABILITIES_COUNT_GEN9 + 44)
 #define ABILITY_DRAGONIZE           (ABILITIES_COUNT_GEN9 + 45)
 #define ABILITY_MEGA_SOL            (ABILITIES_COUNT_GEN9 + 46)
+#define ABILITY_GROUND_SHOCK        (ABILITIES_COUNT_GEN9 + 47) //Innate for Regieleki.
+#define ABILITY_DRAGON_CANNON       (ABILITIES_COUNT_GEN9 + 48) //Innate for Regidraco.
+#define ABILITY_ELECTRO_BOOSTER     (ABILITIES_COUNT_GEN9 + 49) //Ability for Mega Raichu X.
 
 #define NO_INNATE_YET               (ABILITIES_COUNT_GEN9 + 79) //Put in here but its actually not an ability.
 

@@ -7562,7 +7562,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .levelUpLearnset = sCacneaLevelUpLearnset,
         .teachableLearnset = sCacneaTeachableLearnset,
         .eggMoveLearnset = sCacneaEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 32, SPECIES_CACTURNE}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 32, SPECIES_CACTURNE, CONDITIONS({IF_KNOWS_MOVE_TYPE, TYPE_DARK})},
+                                {EVO_LEVEL, 32, SPECIES_MARACTUS, CONDITIONS({IF_KNOWS_MOVE, MOVE_PETAL_DANCE})}),
     },
 
     [SPECIES_CACTURNE] =
@@ -7584,7 +7585,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS, EGG_GROUP_HUMAN_LIKE),
-        .abilities = { ABILITY_SAND_RUSH, ABILITY_NONE, ABILITY_WATER_ABSORB },
+        .abilities = { ABILITY_SAND_RUSH, ABILITY_SAND_VEIL, ABILITY_WATER_ABSORB },
         .innateAbility = ABILITY_ROUGH_SKIN,
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Cacturne"),

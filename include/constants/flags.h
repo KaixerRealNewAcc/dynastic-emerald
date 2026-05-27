@@ -658,7 +658,7 @@
 
 #define FLAG_FISHING_1  0x264 // Unused Flag
 #define FLAG_FISHING_2  0x265 // Unused Flag
-#define FLAG_UNUSED_0x266  0x266 // Unused Flag
+#define FLAG_HIDE_RUSTBORO_CITY_DEVON_CORPS_4  0x266
 #define FLAG_UNUSED_0x267  0x267 // Unused Flag
 #define FLAG_UNUSED_0x268  0x268 // Unused Flag
 #define FLAG_UNUSED_0x269  0x269 // Unused Flag

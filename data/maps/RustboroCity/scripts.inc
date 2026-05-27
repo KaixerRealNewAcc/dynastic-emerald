@@ -240,6 +240,8 @@ RustboroCity_EventScript_Man2::
 
 RustboroCity_EventScript_StolenGoodsTrigger0::
 	lockall
+	setobjectxyperm LOCALID_RUSTBORO_GRUNT, 16, 21
+	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
 	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setvar VAR_0x8004, 0
@@ -248,6 +250,8 @@ RustboroCity_EventScript_StolenGoodsTrigger0::
 
 RustboroCity_EventScript_StolenGoodsTrigger1::
 	lockall
+	setobjectxyperm LOCALID_RUSTBORO_GRUNT, 16, 21
+	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
 	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setvar VAR_0x8004, 1
@@ -256,6 +260,8 @@ RustboroCity_EventScript_StolenGoodsTrigger1::
 
 RustboroCity_EventScript_StolenGoodsTrigger2::
 	lockall
+	setobjectxyperm LOCALID_RUSTBORO_GRUNT, 16, 21
+	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
 	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setvar VAR_0x8004, 2
@@ -264,6 +270,8 @@ RustboroCity_EventScript_StolenGoodsTrigger2::
 
 RustboroCity_EventScript_StolenGoodsTrigger3::
 	lockall
+	setobjectxyperm LOCALID_RUSTBORO_GRUNT, 16, 21
+	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
 	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setvar VAR_0x8004, 3
@@ -272,6 +280,8 @@ RustboroCity_EventScript_StolenGoodsTrigger3::
 
 RustboroCity_EventScript_StolenGoodsTrigger4::
 	lockall
+	setobjectxyperm LOCALID_RUSTBORO_GRUNT, 16, 21
+	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
 	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setvar VAR_0x8004, 4
@@ -282,20 +292,26 @@ RustboroCity_EventScript_StolenGoodsScene::
 	msgbox RustboroCity_Text_OutOfTheWay, MSGBOX_DEFAULT
 	closemessage
 	playbgm MUS_ENCOUNTER_AQUA, FALSE
+	clearflag FLAG_HIDE_RUSTBORO_CITY_AQUA_GRUNT
+	clearflag FLAG_HIDE_RUSTBORO_CITY_DEVON_CORPS_4
 	addobject LOCALID_RUSTBORO_GRUNT
-	addobject LOCALID_RUSTBORO_DEVON_EMPLOYEE
+	addobject LOCALID_RUSTBORO_DEVON_EMPLOYEE2
+	special SpawnCameraObject
+	applymovement LOCALID_CAMERA, RustboroCity_Movement_CameraMovementForward
+	waitmovement LOCALID_CAMERA
+	special RemoveCameraObject
 	applymovement LOCALID_RUSTBORO_GRUNT, RustboroCity_Movement_GruntEscape
 	waitmovement 0
 	removeobject LOCALID_RUSTBORO_GRUNT
-	applymovement LOCALID_RUSTBORO_DEVON_EMPLOYEE, RustboroCity_Movement_EmployeeChaseGrunt1
+	applymovement LOCALID_RUSTBORO_DEVON_EMPLOYEE2, RustboroCity_Movement_EmployeeChaseGrunt1
 	waitmovement 0
 	msgbox RustboroCity_Text_WaitDontTakeMyGoods, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_RUSTBORO_DEVON_EMPLOYEE, RustboroCity_Movement_EmployeeChaseGrunt2
+	applymovement LOCALID_RUSTBORO_DEVON_EMPLOYEE2, RustboroCity_Movement_EmployeeChaseGrunt2
 	waitmovement 0
 	fadedefaultbgm
-	removeobject LOCALID_RUSTBORO_DEVON_EMPLOYEE
-	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 30, 10
+	removeobject LOCALID_RUSTBORO_DEVON_EMPLOYEE2
+	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 29, 22
 	clearflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
 	setflag FLAG_DEVON_GOODS_STOLEN
 	setvar VAR_RUSTBORO_CITY_STATE, 2
@@ -306,6 +322,12 @@ RustboroCity_EventScript_StolenGoodsScene::
 	clearflag FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT
 	setflag FLAG_HIDE_BRINEYS_HOUSE_MR_BRINEY
 	setflag FLAG_HIDE_BRINEYS_HOUSE_PEEKO
+	special SpawnCameraObject
+	applymovement LOCALID_CAMERA, RustboroCity_Movement_CameraMovementBackward
+	waitmovement LOCALID_CAMERA
+	special RemoveCameraObject
+	setflag FLAG_HIDE_RUSTBORO_CITY_AQUA_GRUNT
+	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_CORPS_4
 	releaseall
 	end
 
@@ -357,19 +379,17 @@ RustboroCity_Movement_GruntEscapeExtended:
 	walk_faster_right
 	walk_fast_right
 	walk_fast_right
+	walk_fast_down
 	walk_fast_right
 	walk_fast_right
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
 	step_end
 
 RustboroCity_Movement_GruntEscape:
@@ -377,18 +397,20 @@ RustboroCity_Movement_GruntEscape:
 	walk_faster_right
 	walk_fast_right
 	walk_fast_right
+	walk_fast_down
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
 	step_end
 
 RustboroCity_Movement_EmployeeChaseGrunt1:
@@ -398,17 +420,18 @@ RustboroCity_Movement_EmployeeChaseGrunt1:
 	walk_right
 	walk_right
 	walk_right
-	walk_in_place_faster_up
+	walk_down
+	walk_right
 	step_end
 
 RustboroCity_Movement_EmployeeChaseGrunt2:
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
 	step_end
 
 @ Functionally unused
@@ -1318,6 +1341,52 @@ RustboroCity_EventScript_Woman::
 	end
 
 
+RustboroCity_EventScript_StolenGoodsSceneLoad::
+	applymovement OBJ_EVENT_ID_CAMERA, RustboroCity_EventScript_StolenGoodsSceneLoad_Movement_0
+	waitmovement OBJ_EVENT_ID_CAMERA
+	return
+
+
+RustboroCity_Movement_CameraMovementForward:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+RustboroCity_Movement_CameraMovementBackward:
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_0:
 	face_up
 	step_end
@@ -1357,6 +1426,27 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_5:
 	walk_up
 	step_end
 
+RustboroCity_EventScript_StolenGoodsSceneLoad_Movement_0:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0:
 	.string "Oh... Sorry didn't see you there!\p"
 	.string "I assume you also want to challenge\n"
@@ -1376,5 +1466,5 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1:
 RustboroCity_EventScript_Woman_Text_0:
 	.string "I challenged Roxanne, but…\n"
 	.string "my poor Litleo and Ponyta, don't\l"
-	.string "stand a chance against her sand team,\l"
-	.string "her Hippopoptas is way too bulky!$"
+	.string "stand a chance against her Rock-Type\l"
+	.string "team, her Nosepass is way too bulky!$"

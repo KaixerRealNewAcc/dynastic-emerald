@@ -110,6 +110,13 @@ Route102_EventScript_Calvin::
 	end
 
 
+Route102_EventScript_Sen::
+	trainerbattle_single TRAINER_SEN, Route102_EventScript_Sen_Text_0, Route102_EventScript_Sen_Text_1
+	msgbox Route102_EventScript_Sen_Text_2, MSGBOX_DEFAULT
+	release
+	end
+
+
 Route102_EventScript_Calvin_Text_0:
 	.string "If you have pokémon with you, then\n"
 	.string "you're an official pokémon trainer!\l"
@@ -118,3 +125,16 @@ Route102_EventScript_Calvin_Text_0:
 Route102_EventScript_Calvin_Text_1:
 	.string "Arrgh, I lost…\n"
 	.string "I should have trained mine more…$"
+
+Route102_EventScript_Sen_Text_0:
+	.string "I'm suppose to be in school, but i'm\n"
+	.string "skipping class!\l"
+	.string "Don't tell my parents!$"
+
+Route102_EventScript_Sen_Text_1:
+	.string "Arrgh, I lost…\n"
+	.string "Fine I'll go to back to school…$"
+
+Route102_EventScript_Sen_Text_2:
+	.string "Ha, I lied school is losers,\n"
+	.string "I'm too smart for school!$"

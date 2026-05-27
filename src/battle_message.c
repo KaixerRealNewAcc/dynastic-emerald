@@ -910,6 +910,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_USERSPUNAWEB]                         = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} feels threatend and covered the battlefield in its webs!"),
     [STRINGID_LOOSESQUILSSCATTERED]                 = COMPOUND_STRING("Spikes from {B_ATK_NAME_WITH_PREFIX}'s body scattered around the battlefield!"),
     [STRINGID_FETCHEDPOKEBALL2]                     = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} Wants to play!"),
+    [STRINGID_ELECTROBOOSTERENTERS]                 = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} Uses its Electric powers to Rise Up!"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =
@@ -1007,6 +1008,7 @@ const u16 gSwitchInAbilityStringIds[] =
     [B_MSG_SWITCHIN_CURIOUS_MEDICINE] = STRINGID_CURIOUSMEDICINEENTERS,
     [B_MSG_SWITCHIN_PASTEL_VEIL] = STRINGID_PASTELVEILENTERS,
     [B_MSG_SWITCHIN_NEUTRALIZING_GAS] = STRINGID_NEUTRALIZINGGASENTERS,
+    [B_MSG_SWITCHIN_ELECTRO_BOOSTER] = STRINGID_ELECTROBOOSTERENTERS,
 };
 
 const u16 gMissStringIds[] =

@@ -629,6 +629,7 @@ static bool32 HandleEndTurnPoison(u32 battler)
 
     if ((gBattleMons[battler].status1 & STATUS1_POISON || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON)
      && IsBattlerAlive(battler)
+     && !IS_BATTLER_OF_TYPE(battler, TYPE_POISON)
      && !IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD))
     {
         if (ability == ABILITY_POISON_HEAL)
@@ -677,6 +678,7 @@ static bool32 HandleEndTurnBurn(u32 battler)
 
     if (gBattleMons[battler].status1 & STATUS1_BURN
      && IsBattlerAlive(battler)
+     && !IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)
      && !IsAbilityAndRecord(battler, ability, ABILITY_MAGIC_GUARD))
     {
         gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / (B_BURN_DAMAGE >= GEN_7 ? 16 : 8);
@@ -703,6 +705,7 @@ static bool32 HandleEndTurnFrostbite(u32 battler)
 
     if (gBattleMons[battler].status1 & STATUS1_FROSTBITE
      && IsBattlerAlive(battler)
+     && !IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
      && !IsAbilityAndRecord(battler, GetBattlerAbility(battler), ABILITY_MAGIC_GUARD))
     {
         gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / (B_BURN_DAMAGE >= GEN_7 ? 16 : 8);

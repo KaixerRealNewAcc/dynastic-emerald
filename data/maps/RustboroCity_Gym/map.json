@@ -18,7 +18,7 @@
       "graphics_id": "OBJ_EVENT_GFX_ROXANNE",
       "x": 5,
       "y": 2,
-      "elevation": 3,
+      "elevation": 4,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
@@ -30,33 +30,33 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
       "x": 5,
-      "y": 13,
+      "y": 12,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "2",
+      "trainer_sight_or_berry_tree_id": "5",
       "script": "RustboroCity_Gym_EventScript_Josh",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SCHOOL_KID_M",
-      "x": 1,
-      "y": 6,
+      "x": 3,
+      "y": 5,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "3",
+      "trainer_sight_or_berry_tree_id": "1",
       "script": "RustboroCity_Gym_EventScript_Tommy",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
-      "x": 3,
-      "y": 18,
+      "x": 4,
+      "y": 16,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -80,10 +80,10 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(ANORITH)",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(NOSEPASS)",
       "x": 4,
       "y": 2,
-      "elevation": 3,
+      "elevation": 4,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
@@ -95,6 +95,13 @@
   ],
   "warp_events": [
     {
+      "x": 6,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_RUSTBORO_CITY",
+      "dest_warp_id": "0"
+    },
+    {
       "x": 5,
       "y": 19,
       "elevation": 0,
@@ -102,7 +109,7 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 6,
+      "x": 4,
       "y": 19,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY",
@@ -113,7 +120,7 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 2,
+      "x": 3,
       "y": 18,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
@@ -121,7 +128,7 @@
     },
     {
       "type": "sign",
-      "x": 8,
+      "x": 7,
       "y": 18,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",

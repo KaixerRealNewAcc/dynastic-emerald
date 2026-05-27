@@ -4562,6 +4562,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     effect++;
                 }
             }
+
             if(hasInnate(battler, ABILITY_TURBOBLAZE))
             {
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
@@ -4569,6 +4570,19 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_TURBOBLAZE;
                     gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_TURBOBLAZE;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    effect++;
+                }
+            }
+
+            if(hasAbilityOrInnate(battler, ABILITY_ELECTRO_BOOSTER))
+            {
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_ELECTRO_BOOSTER;
+                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ELECTRO_BOOSTER;
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    SetMonVolatile(battler, VOLATILE_MAGNET_RISE, TRUE);
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                     effect++;
                 }
@@ -6570,7 +6584,7 @@ u32 GetBattlerInnateIgnoreMoldBreaker(u32 battler, u32 ability)
 
 bool32 BattlerHasInnateInternal(u32 battler, u32 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield)
 {
-    bool32 hasAbilityShield = GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
+    bool32 hasAbilityShield = !noAbilityShield && GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
     bool32 innateCantBeSuppressed = gAbilitiesInfo[ability].cantBeSuppressed;
 
     if (innateCantBeSuppressed)
@@ -6658,7 +6672,7 @@ u32 IsAbilityPreventingEscape(u32 battler)
 
         // u32 ability = GetBattlerAbility(battlerDef);
 
-        if (hasAbilityOrInnate(battlerDef, ABILITY_SHADOW_TAG) && (B_SHADOW_TAG_ESCAPE <= GEN_3 || GetBattlerAbility(battler) != ABILITY_SHADOW_TAG))
+        if (hasAbilityOrInnate(battlerDef, ABILITY_SHADOW_TAG) && (B_SHADOW_TAG_ESCAPE <= GEN_3 || !hasAbilityOrInnate(battlerDef, ABILITY_SHADOW_TAG)))
             return battlerDef + 1;
 
         if (hasAbilityOrInnate(battlerDef, ABILITY_ARENA_TRAP) && IsBattlerGrounded(battler))
@@ -8902,6 +8916,8 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, u32 ability, enum Inver
         return FALSE;
     if (hasAbilityOrInnate(battler, ABILITY_LEVITATE))
         return FALSE;
+    if (hasAbilityOrInnate(battler, ABILITY_ELECTRO_BOOSTER))
+        return FALSE;
     if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && (!(checkInverse == INVERSE_BATTLE) || !FlagGet(B_FLAG_INVERSE_BATTLE)))
         return FALSE;
     return TRUE;
@@ -10175,6 +10191,19 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
+
+    if(hasInnate(battlerAtk,  ABILITY_TRANSISTOR))
+    {
+        if (moveType == TYPE_ELECTRIC)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+    }
+
+    if(hasInnate(battlerAtk,  ABILITY_DRAGONS_MAW))
+    {
+        if (moveType == TYPE_DRAGON)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+    }
+
     if(hasAbilityOrInnate(battlerAtk, ABILITY_FIGHTER))
     {
         if(moveType == TYPE_FIGHTING)
@@ -10245,6 +10274,8 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         }
     }
+
+
 
     // target's abilities
     switch (ctx->abilityDef)
@@ -11166,6 +11197,22 @@ static inline void MulByTypeEffectiveness(struct DamageContext *ctx, uq4_12_t *m
         if (ctx->updateFlags)
             RecordAbilityBattle(ctx->battlerAtk, ctx->abilityAtk);
     }
+    else if ((ctx->moveType == TYPE_ELECTRIC) && defType == TYPE_GROUND
+        && (ctx->abilityDef == ABILITY_GROUND_SHOCK)
+        && mod == UQ_4_12(0.0))
+    {
+        mod = UQ_4_12(0.5);
+        if (ctx->updateFlags)
+            RecordAbilityBattle(ctx->battlerDef, ctx->abilityDef);
+    }
+    else if ((ctx->moveType == TYPE_DRAGON) && defType == TYPE_FAIRY
+        && (ctx->abilityDef == ABILITY_DRAGON_CANNON)
+        && mod == UQ_4_12(0.0))
+    {
+        mod = UQ_4_12(0.5);
+        if (ctx->updateFlags)
+            RecordAbilityBattle(ctx->battlerDef, ctx->abilityDef);
+    }
     else if ((ctx->moveType == TYPE_GHOST) && defType == TYPE_NORMAL
         && (ctx->abilityAtk == ABILITY_PHANTOM_PAIN)
         && mod == UQ_4_12(0.0))
@@ -11286,6 +11333,15 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
             gLastLandedMoves[ctx->battlerDef] = 0;
             gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
+        }
+
+        if (ctx->updateFlags && hasAbilityOrInnate(ctx->battlerDef, ABILITY_ELECTRO_BOOSTER))
+        {
+            gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_ELECTRO_BOOSTER;
+            gLastLandedMoves[ctx->battlerDef] = 0;
+            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
+            RecordAbilityBattle(ctx->battlerDef, ABILITY_ELECTRO_BOOSTER);
         }
     }
     else if (GetGenConfig(GEN_CONFIG_SHEER_COLD_IMMUNITY) >= GEN_7 && GetMoveEffect(ctx->move) == EFFECT_SHEER_COLD && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_ICE))

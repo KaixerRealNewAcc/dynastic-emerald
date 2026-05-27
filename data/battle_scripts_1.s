@@ -2521,6 +2521,17 @@ BattleScript_EffectMagnetRise::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+BattleScript_ElectroBoosterActivate::
+	attackcanceler
+	attackstring
+	trysetvolatile BS_ATTACKER, VOLATILE_MAGNET_RISE, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	call BattleScript_AbilityPopUp
+	printfromtable gSwitchInAbilityStringIds
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_EffectTrickRoom::
 	attackcanceler
 	attackstring

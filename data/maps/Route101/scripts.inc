@@ -298,3 +298,12 @@ Route101_Text_WildPokemonInTallGrass:
 Route101_Text_RouteSign:
 	.string "ROUTE 101\n"
 	.string "{UP_ARROW} OLDALE TOWN$"
+
+Route101_EventScript_Boy2::
+	msgbox Route101_EventScript_Boy2_Text_0, MSGBOX_NPC
+	end
+
+
+Route101_EventScript_Boy2_Text_0:
+	.string "Make sure to buy REPELS, that way\n"
+	.string "POKéMON don't attack you in the wild!$"

@@ -119,3 +119,20 @@ script Route102_EventScript_Calvin{
 	release
 	end
 }
+
+script Route102_EventScript_Sen{
+	trainerbattle_single(
+	TRAINER_SEN, 
+	//Intro
+	"I'm suppose to be in school, but i'm\n"
+	"skipping class!\l"
+	"Don't tell my parents!",
+	//Defeated
+	"Arrgh, I lost…\n"
+	"Fine I'll go to back to school…")
+	msgbox(
+	"Ha, I lied school is losers,\n"
+	"I'm too smart for school!", MSGBOX_DEFAULT)
+	release
+	end
+}

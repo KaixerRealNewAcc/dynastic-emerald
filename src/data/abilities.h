@@ -2716,6 +2716,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .aiRating = 8,
         },
 
+        [ABILITY_ELECTRO_BOOSTER] = 
+        {
+            .name = _("Electro Booster"),
+            .description = COMPOUND_STRING("Uses Magnet Rise on entry."),
+            .aiRating = 7,
+        },
+
         [NO_INNATE_YET] = 
         {
             .name = _("No Innate Yet"),
