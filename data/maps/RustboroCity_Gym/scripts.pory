@@ -270,26 +270,71 @@ RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "POKéMON.$"
 `
 
+//		"I became a Gym Leader so that I might..\n"
+//		"blah blah blah, this is getting old.\p"
+//		"there is no fricking way, someone\n"
+//		"like you can beat me. Roxanne.\p"
+//		"well you can try but you can't win!\n"
+//		"ugh, enough talking lets see what\p"
+//		"you are made of!"
+
 script RustboroCity_Gym_EventScript_Roxanne{
-	trainerbattle_single (TRAINER_ROXANNE_1, 	
-	// Intro
-	"Hello, I am Roxanne, the Rustboro\n"
-	"Pokémon Gym Leader.\p"
-	"I became a Gym Leader so that I might..\n"
-	"blah blah blah, this is getting old.\p"
-	"there is no fricking way, someone\n"
-	"like you can beat me. Roxanne.\p"
-	"well you can try but you can't win!\n"
-	"ugh, enough talking lets see what\p"
-	"you are made of!", 
-	RustboroCity_Gym_Text_RoxanneDefeat, 
-	RustboroCity_Gym_EventScript_RoxanneDefeated)
-	specialvar (VAR_RESULT, ShouldTryRematchBattle)
-	goto_if_eq (VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch)
-	goto_if_unset (FLAG_RECEIVED_TM_ROCK_TOMB, RustboroCity_Gym_EventScript_GiveRockTomb)
-	msgbox (RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT)
-	release
-	end
+	if(!defeated(TRAINER_ROXANNE_1)){
+		message(
+		"Roxxane: Hello, I am Roxanne, the\n"
+		"Rustboro Pokémon Gym Leader.\p"
+		"And this is my partner Nosepass.")
+		waitmessage
+		applymovement(Roxanne, moves(face_left))
+		waitmovement(Roxanne)
+		delay(60)
+		msgbox(
+		"Nosepass: Pass! Nose!\n"
+		, MSGBOX_DEFAULT)
+		delay(60)
+		applymovement(Nosepass, moves(jump_in_place_down, jump_in_place_down))
+		waitmovement(Nosepass)
+		applymovement(Roxanne, moves(face_down))
+		waitmovement(Roxanne)
+		delay(30)
+		msgbox(
+		"Roxanne: I became a GYM LEADER so that\n"
+		"I might apply what I learned at the\l"
+		"POKéMON TRAINER'S SCHOOL in battle.\p"
+		"Would you kindly demonstrate how you\n"
+		"battle, and with which POKéMON?"
+		, MSGBOX_DEFAULT)
+		trainerbattle_no_intro (TRAINER_ROXANNE_1, 	
+		"So…\n"
+		"I lost…\p"
+		"It seems that I still have much more\n"
+		"to learn…\p"
+		"I understand.\p"
+		"The POKéMON LEAGUE's rules state\n"
+		"that TRAINERS are to be given this\l"
+		"if they defeat a GYM LEADER.\p"
+		"Please accept the official POKéMON\n"
+		"LEAGUE STONE BADGE.\p"
+		"{PLAYER} received the {COLOR RED}STONE BADGE\n"
+		"from ROXANNE.")
+		msgbox(RustboroCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT)
+		setflag (FLAG_DEFEATED_RUSTBORO_GYM)
+		setflag (FLAG_BADGE01_GET)
+		setvar (VAR_RUSTBORO_CITY_STATE, 1)
+		addvar (VAR_PETALBURG_GYM_STATE, 1)
+		setvar (VAR_0x8008, 1)
+		call (Common_EventScript_SetGymTrainers)
+		call_if_eq (VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle)
+		goto (RustboroCity_Gym_EventScript_GiveRockTomb)
+		release
+		end
+	}
+	else
+	{
+		msgbox(RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT)
+		release
+		end
+	}
 }
 
 //School Kid.

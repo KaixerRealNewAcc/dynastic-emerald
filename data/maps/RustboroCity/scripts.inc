@@ -1309,8 +1309,6 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer::
 	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_0
 	waitmovement OBJ_EVENT_ID_PLAYER
 	playbgm MUS_RG_ENCOUNTER_RIVAL, TRUE
-	opendoor 27, 19
-	waitdooranim
 	addobject Ritchie
 	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_1
 	waitmovement Ritchie
@@ -1320,8 +1318,6 @@ RustboroCity_Trigger_RivalLeaf_MeetsPlayer::
 	waitmovement OBJ_EVENT_ID_PLAYER
 	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_3
 	waitmovement Ritchie
-	closedoor 27, 19
-	waitdooranim
 	applymovement Ritchie, RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Movement_4
 	waitmovement Ritchie
 	msgbox RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0, MSGBOX_DEFAULT

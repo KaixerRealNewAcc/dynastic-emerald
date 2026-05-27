@@ -270,11 +270,36 @@ RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "POKéMON.$"
 
 RustboroCity_Gym_EventScript_Roxanne::
-	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_EventScript_Roxanne_Text_0, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch
-	goto_if_unset FLAG_RECEIVED_TM_ROCK_TOMB, RustboroCity_Gym_EventScript_GiveRockTomb
+	checktrainerflag TRAINER_ROXANNE_1
+	goto_if 0, RustboroCity_Gym_EventScript_Roxanne_1
 	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_Gym_EventScript_Roxanne_1:
+	message RustboroCity_Gym_EventScript_Roxanne_Text_0
+	waitmessage
+	applymovement Roxanne, RustboroCity_Gym_EventScript_Roxanne_Movement_0
+	waitmovement Roxanne
+	delay 60
+	msgbox RustboroCity_Gym_EventScript_Roxanne_Text_1, MSGBOX_DEFAULT
+	delay 60
+	applymovement Nosepass, RustboroCity_Gym_EventScript_Roxanne_Movement_1
+	waitmovement Nosepass
+	applymovement Roxanne, RustboroCity_Gym_EventScript_Roxanne_Movement_2
+	waitmovement Roxanne
+	delay 30
+	msgbox RustboroCity_Gym_EventScript_Roxanne_Text_2, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_ROXANNE_1, RustboroCity_Gym_EventScript_Roxanne_Text_3
+	msgbox RustboroCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
+	setflag FLAG_DEFEATED_RUSTBORO_GYM
+	setflag FLAG_BADGE01_GET
+	setvar VAR_RUSTBORO_CITY_STATE, 1
+	addvar VAR_PETALBURG_GYM_STATE, 1
+	setvar VAR_0x8008, 1
+	call Common_EventScript_SetGymTrainers
+	call_if_eq VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle
+	goto RustboroCity_Gym_EventScript_GiveRockTomb
 	release
 	end
 
@@ -285,16 +310,47 @@ RustboroCity_Gym_EventScript_Tommy::
 	end
 
 
+RustboroCity_Gym_EventScript_Roxanne_Movement_0:
+	face_left
+	step_end
+
+RustboroCity_Gym_EventScript_Roxanne_Movement_1:
+	jump_in_place_down
+	jump_in_place_down
+	step_end
+
+RustboroCity_Gym_EventScript_Roxanne_Movement_2:
+	face_down
+	step_end
+
 RustboroCity_Gym_EventScript_Roxanne_Text_0:
-	.string "Hello, I am Roxanne, the Rustboro\n"
-	.string "Pokémon Gym Leader.\p"
-	.string "I became a Gym Leader so that I might..\n"
-	.string "blah blah blah, this is getting old.\p"
-	.string "there is no fricking way, someone\n"
-	.string "like you can beat me. Roxanne.\p"
-	.string "well you can try but you can't win!\n"
-	.string "ugh, enough talking lets see what\p"
-	.string "you are made of!$"
+	.string "Roxxane: Hello, I am Roxanne, the\n"
+	.string "Rustboro Pokémon Gym Leader.\p"
+	.string "And this is my partner Nosepass.$"
+
+RustboroCity_Gym_EventScript_Roxanne_Text_1:
+	.string "Nosepass: Pass! Nose!\n$"
+
+RustboroCity_Gym_EventScript_Roxanne_Text_2:
+	.string "Roxanne: I became a GYM LEADER so that\n"
+	.string "I might apply what I learned at the\l"
+	.string "POKéMON TRAINER'S SCHOOL in battle.\p"
+	.string "Would you kindly demonstrate how you\n"
+	.string "battle, and with which POKéMON?$"
+
+RustboroCity_Gym_EventScript_Roxanne_Text_3:
+	.string "So…\n"
+	.string "I lost…\p"
+	.string "It seems that I still have much more\n"
+	.string "to learn…\p"
+	.string "I understand.\p"
+	.string "The POKéMON LEAGUE's rules state\n"
+	.string "that TRAINERS are to be given this\l"
+	.string "if they defeat a GYM LEADER.\p"
+	.string "Please accept the official POKéMON\n"
+	.string "LEAGUE STONE BADGE.\p"
+	.string "{PLAYER} received the {COLOR RED}STONE BADGE\n"
+	.string "from ROXANNE.$"
 
 RustboroCity_Gym_EventScript_Tommy_Text_0:
 	.string "Ever since Roxanne showed me her\n"

@@ -1310,8 +1310,6 @@ script RustboroCity_Trigger_RivalLeaf_MeetsPlayer{
 	applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
 	waitmovement(OBJ_EVENT_ID_PLAYER)
 	playbgm (MUS_RG_ENCOUNTER_RIVAL, TRUE)
-	opendoor(27, 19)
-	waitdooranim
 	addobject(Ritchie)
 	applymovement(Ritchie, moves(emote_exclamation_mark))
 	waitmovement(Ritchie)
@@ -1321,8 +1319,6 @@ script RustboroCity_Trigger_RivalLeaf_MeetsPlayer{
 	waitmovement(OBJ_EVENT_ID_PLAYER)
 	applymovement(Ritchie, moves(walk_down))
 	waitmovement(Ritchie)
-	closedoor(27, 19)
-	waitdooranim
 	applymovement(Ritchie, moves(emote_question_mark))
 	waitmovement(Ritchie)
 	msgbox("Oh... Sorry didn't see you there!\p"

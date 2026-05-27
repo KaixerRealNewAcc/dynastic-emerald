@@ -4855,36 +4855,45 @@ Double Battle: No
 AI: Smart Trainer
 Mugshot: Blue
 
-Hippopotas @ Smooth Rock  
-Ability: Sand Stream  
+Geodude-Alola @ Custap Berry  
+Ability: Sturdy  
 Level: 14  
-Tera Type: Ground  
-Careful Nature  
-- Bulldoze  
-- Ice Fang  
-- Slack Off  
-- Stealth Rock  
-
-Larvitar @ Flame Orb  
-Ability: Guts  
-Level: 15 
 Tera Type: Rock  
 Adamant Nature  
 - Rock Tomb  
-- Bulldoze  
-- Facade  
-- Protect  
+- Spark  
+- Power-Up Punch  
+- Self-Destruct  
 
-Shellos-East @ Berry Juice  
-Ability: Storm Drain  
-Level: 14  
-Tera Type: Water  
-Bold Nature  
-IVs: 0 Atk  
-- Water Pulse  
-- Aurora Beam  
-- Recover  
-- Yawn  
+Growlithe-Hisui @ Passho Berry  
+Ability: Intimidate  
+Level: 13  
+Tera Type: Fire  
+Jolly Nature  
+- Flame Wheel  
+- Rock Tomb  
+- Thunder Fang 
+- Bite  
+
+Nosepass @ Berry Juice  
+Ability: Solid Rock  
+Level: 15  
+Tera Type: Rock  
+Impish Nature  
+- Rock Tomb  
+- Spark  
+- Body Press  
+- Iron Defense  
+
+Archen @ Berry Juice  
+Ability: Defeatist  
+Level: 13  
+Tera Type: Rock  
+Jolly Nature  
+- Pluck  
+- Rock Throw  
+- Facade  
+- Roost   
 
 Anorith @ Muscle Band  
 Ability: Battle Armor  
