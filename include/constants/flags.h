@@ -51,7 +51,7 @@
 #define FLAG_EXP_SHARE       0x25 
 #define FLAG_HIDE_WHITNEY    0x26
 #define FLAG_GYM_GUIDE_HIDE_DEWFORD    0x27
-#define FLAG_UNUSED_0x028    0x28 // Unused Flag
+#define FLAG_MONKE_RECIEVED  0x28
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag

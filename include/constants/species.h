@@ -1692,8 +1692,9 @@
 #define SPECIES_NIDOKING_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 50)
 #define SPECIES_NIDOQUEEN_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 51)
 #define SPECIES_ROTOM_STEREO                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 52)
+#define SPECIES_SMEARGLE_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 53)
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 53)
+#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 54)
 
 #define NUM_SPECIES SPECIES_EGG
 

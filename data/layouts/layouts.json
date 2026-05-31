@@ -114,8 +114,8 @@
     {
       "id": "LAYOUT_DEWFORD_TOWN",
       "name": "DewfordTown_Layout",
-      "width": 20,
-      "height": 20,
+      "width": 62,
+      "height": 36,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/DewfordTown/border.bin",
@@ -225,7 +225,7 @@
       "id": "LAYOUT_ROUTE107",
       "name": "Route107_Layout",
       "width": 60,
-      "height": 20,
+      "height": 33,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Route107/border.bin",
@@ -4450,6 +4450,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/LittlerootNew/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootNew/map.bin"
+    },
+    {
+      "id": "LAYOUT_OLDALETOWN_MONKE_OWNER",
+      "name": "Oldaletown_MonkeOwner_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Oldaletown_MonkeOwner/border.bin",
+      "blockdata_filepath": "data/layouts/Oldaletown_MonkeOwner/map.bin"
     }
   ]
 }

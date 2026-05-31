@@ -17445,8 +17445,8 @@ Level: 1
 Name: Ritchie
 Class: Pkmn Trainer
 Pic: Ritchie
-Gender: Female
-Music: Female
+Gender: Male
+Music: Male
 Double Battle: No
 AI: Smart Trainer
 
@@ -17460,7 +17460,7 @@ Jolly Nature
 - Bite  
 - Cut  
 
-Taillow @ Oran Berry  
+Taillow @ Flame Orb
 Ability: Guts  
 Level: 13  
 Tera Type: Normal  
@@ -17470,7 +17470,7 @@ Jolly Nature
 - Pursuit  
 - Roost  
 
-Charmander @ Oran Berry  
+Charmander @ Charcoal
 Ability: Blaze  
 Level: 12  
 Tera Type: Fire  
@@ -17478,16 +17478,16 @@ Hasty Nature
 - Incinerate  
 - Ancient Power  
 - Brick Break  
-- Quick Attack  
+- Bite 
 
-Pikachu @ Oran Berry  
+Sparky (Pikachu) @ Light Ball  
 Ability: Static  
 Level: 14  
 Tera Type: Electric  
 Naive Nature  
 - Shock Wave  
-- Knock Off  
 - Draining Kiss  
+- Quick Attack 
 - Nuzzle    
 
 === TRAINER_MEGA_GYARADOS ===

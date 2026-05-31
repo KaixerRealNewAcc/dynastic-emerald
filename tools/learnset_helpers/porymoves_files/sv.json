@@ -47005,7 +47005,8 @@
       "MOVE_SCORCHING_SANDS",
       "MOVE_THROAT_CHOP",
       "MOVE_METAL_SOUND",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+      "MOVE_ICE_SPINNER"
     ],
     "EggMoves": [
       "MOVE_METAL_SOUND",

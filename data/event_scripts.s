@@ -1172,3 +1172,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/TestMapForPoryTiles/scripts.inc"
 
 	.include "data/maps/LittlerootNew/scripts.inc"
+
+	.include "data/maps/Oldaletown_MonkeOwner/scripts.inc"

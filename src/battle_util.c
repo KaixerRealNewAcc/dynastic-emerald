@@ -9239,6 +9239,9 @@ static inline u32 CalcMoveBasePower(struct DamageContext *ctx)
     case EFFECT_WEATHER_BALL:
         if (ctx->weather & B_WEATHER_ANY)
             basePower *= 2;
+
+        if (hasAbilityOrInnate(battlerAtk, ABILITY_MEGA_SOL) || hasAbilityOrInnate(battlerAtk, ABILITY_THUNDEROUS_CLOUD))
+            basePower *= 2;
         break;
     case EFFECT_PURSUIT:
         if (gBattleStruct->battlerState[battlerDef].pursuitTarget)
@@ -9742,6 +9745,12 @@ u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
     }
 
+    if(hasAbilityOrInnate(battlerAtk, ABILITY_HYDRATION))
+    {
+        if (moveType == TYPE_WATER)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+    }
+
     // field abilities
     if ((IsAbilityOnField(ABILITY_DARK_AURA) && moveType == TYPE_DARK)
      || (IsAbilityOnField(ABILITY_FAIRY_AURA) && moveType == TYPE_FAIRY))
@@ -9981,7 +9990,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
         }
         break;
     case ABILITY_TORRENT:
@@ -9990,7 +9999,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
         }
         break;
     case ABILITY_BLAZE:
@@ -9999,7 +10008,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
         }
         break;
     case ABILITY_OVERGROW:
@@ -10008,7 +10017,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
         }
         break;
     case ABILITY_FLOCK:
@@ -10017,7 +10026,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
         }
         break;
     case ABILITY_PSYCHIC_MIND:
@@ -10026,7 +10035,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.1));
         }
         break;
     case ABILITY_PLUS:
@@ -10249,9 +10258,9 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         if(moveType == TYPE_WATER)
         {
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.6));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
     if(hasAbilityOrInnate(battlerAtk, ABILITY_HELLBLAZE))
@@ -10259,9 +10268,9 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         if(moveType == TYPE_FIRE)
         {
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.6));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
     if(hasAbilityOrInnate(battlerAtk, ABILITY_FORESTS_RAGE))
@@ -10269,9 +10278,9 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         if(moveType == TYPE_GRASS)
         {
             if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.8));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.6));
             else
-                modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+                modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         }
     }
 
@@ -10299,8 +10308,8 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
         break;
     }
 
-    if(hasAbilityOrInnate(battlerDef, ABILITY_THICK_FAT) ||
-       hasAbilityOrInnate(battlerDef, ABILITY_THICK_SACK))
+    if((hasInnate(battlerDef, ABILITY_THICK_FAT)) ||
+       (hasInnate(battlerDef, ABILITY_THICK_SACK)))
     {
         if (moveType == TYPE_FIRE || moveType == TYPE_ICE)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.5));
@@ -12645,6 +12654,9 @@ bool32 IsBattlerWeatherAffected(u32 battler, u32 weatherFlags)
         if(hasAbilityOrInnate(battler, ABILITY_WEATHER_CONTROL))
             return FALSE;
 
+        if(hasAbilityOrInnate(battler, ABILITY_MEGA_SOL))
+            return (gBattleWeather & B_WEATHER_SUN);
+
         return TRUE;
     }
     return FALSE;
@@ -13545,6 +13557,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     // Check Thunder and Hurricane on sunny weather.
     if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN) && MoveHas50AccuracyInSun(move))
         moveAcc = 50;
+    if ((move == MOVE_THUNDER || move == MOVE_HURRICANE) && (hasAbilityOrInnateFast(battlerAtk, ABILITY_THUNDEROUS_CLOUD, atkAbility)))
+        moveAcc = 100;
     // Check Wonder Skin.
     if (hasAbilityOrInnateFast(battlerAtk, ABILITY_WONDER_SKIN, atkAbility) && IsBattleMoveStatus(move) && moveAcc > 50)
         moveAcc = 50;

@@ -13100,7 +13100,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_ECHO_BLADE,
     },
 
-    [ITEM_TM90] =
+    [ITEM_TM_HURRICANE] =
     {
         .name = ITEM_NAME("TM90"),
         .price = 3000,
@@ -13109,6 +13109,7 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
+        .secondaryId = MOVE_HURRICANE,
     },
 
     [ITEM_TM91] =

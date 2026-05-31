@@ -90,8 +90,6 @@ static u8   Follower_ProcessInput(u8 selection);
 static void Follower_DrawChoices(u8 selection);
 static u8   Autorun_ProcessInput(u8 selection);
 static void Autorun_DrawChoices(u8 selection);
-static u8   ShinyRate_ProcessInput(u8 selection);
-static void ShinyRate_DrawChoices(u8 selection);
 static u8 Sound_ProcessInput(u8 selection);
 static void Sound_DrawChoices(u8 selection);
 static u8 FrameType_ProcessInput(u8 selection);
@@ -205,7 +203,6 @@ static void VBlankCB(void)
      gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
      gTasks[taskId].tFollowers = IsFollowerDisabled();
      gTasks[taskId].tAutorun = gSaveBlock3Ptr->autoRun;
-     gTasks[taskId].tShinyRate = gSaveBlock3Ptr->shinyRate;
  }
  
  static void DrawOptionsPg1(u8 taskId)
@@ -226,7 +223,6 @@ static void VBlankCB(void)
      ReadAllCurrentSettings(taskId);
      Follower_DrawChoices(gTasks[taskId].tFollowers);
      Autorun_DrawChoices(gTasks[taskId].tAutorun);
-     ShinyRate_DrawChoices(gTasks[taskId].tShinyRate);
      HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
      CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
  }
@@ -527,13 +523,6 @@ static void Task_OptionMenuFadeIn_Pg2(u8 taskId)
              if (previousOption != gTasks[taskId].tAutorun)
                  Autorun_DrawChoices(gTasks[taskId].tAutorun);
              break;
-         case MENUITEM_SHINYRATE:
-             previousOption = gTasks[taskId].tShinyRate;
-             gTasks[taskId].tShinyRate = ShinyRate_ProcessInput(gTasks[taskId].tShinyRate);
- 
-             if (previousOption != gTasks[taskId].tShinyRate)
-                 ShinyRate_DrawChoices(gTasks[taskId].tShinyRate);
-             break;
          default:
              return;
          }
@@ -555,7 +544,6 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
     gSaveBlock3Ptr->autoRun = gTasks[taskId].tAutorun;
-    gSaveBlock3Ptr->shinyRate = gTasks[taskId].tShinyRate;
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -629,42 +617,6 @@ static u8 Follower_ProcessInput(u8 selection)
  
      DrawOptionMenuChoice(gText_FollowerOn, 104, YPOS_FOLLOWER, styles[0]);
      DrawOptionMenuChoice(gText_FollowerOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_FollowerOff, 198), YPOS_FOLLOWER, styles[1]);
- }
- 
- 
- 
- static u8 ShinyRate_ProcessInput(u8 selection)
- {
-     if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
-     {
-         selection ^= 1;
-         sArrowPressed = TRUE;
-     }
- 
-     return selection;
- }
-
- //Implement this later.
-
- static const u8 gText_ShinyRateNormal[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}1/4096");
- static const u8 gText_ShinyRateDoubled[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}1/2048");
- 
- static void ShinyRate_DrawChoices(u8 selection)
- {
-     u8 styles[2];
-     styles[0] = 0;
-     styles[1] = 0;
-     styles[selection] = 1;
- 
-     if (selection == 0) 
-     {
-     }
-     else
-     {
-     }
- 
-     DrawOptionMenuChoice(gText_ShinyRateNormal, 104, YPOS_SHINYRATE, styles[0]);
-     DrawOptionMenuChoice(gText_ShinyRateDoubled, GetStringRightAlignXOffset(FONT_NORMAL, gText_ShinyRateDoubled, 198), YPOS_SHINYRATE, styles[1]);
  }
  
  static u8 Autorun_ProcessInput(u8 selection)

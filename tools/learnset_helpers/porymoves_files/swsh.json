@@ -64994,7 +64994,8 @@
       "MOVE_GRASS_KNOT",
       "MOVE_WORK_UP",
       "MOVE_HURRICANE",
-      "MOVE_PLAY_ROUGH"
+      "MOVE_PLAY_ROUGH",
+      "MOVE_WEATHER_BALL"
     ],
     "EggMoves": [
       "MOVE_DRAGON_RUSH",

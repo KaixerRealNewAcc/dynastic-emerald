@@ -26898,6 +26898,66 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
     const u16 gMonShinyPalette_ChandelureMega[] = INCBIN_U16("graphics/pokemon/chandelure/mega/shiny.gbapal");
     const u8 gMonIcon_ChandelureMega[] = INCBIN_U8("graphics/pokemon/chandelure/mega/icon.4bpp");
 
+    /*const u32 gMonFrontPic_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/front.4bpp.smol");
+    const u16 gMonPalette_PyroarMega[] = INCBIN_U16("graphics/pokemon/pyroar/mega/normal.gbapal");
+    const u32 gMonBackPic_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_PyroarMega[] = INCBIN_U16("graphics/pokemon/pyroar/mega/shiny.gbapal");
+    const u8 gMonIcon_PyroarMega[] = INCBIN_U8("graphics/pokemon/pyroar/mega/icon.4bpp");*/
+
+    const u32 gMonFrontPic_ChesnaughtMega[] = INCBIN_U32("graphics/pokemon/chesnaught/mega/front.4bpp.smol");
+    const u16 gMonPalette_ChesnaughtMega[] = INCBIN_U16("graphics/pokemon/chesnaught/mega/normal.gbapal");
+    const u32 gMonBackPic_ChesnaughtMega[] = INCBIN_U32("graphics/pokemon/chesnaught/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_ChesnaughtMega[] = INCBIN_U16("graphics/pokemon/chesnaught/mega/shiny.gbapal");
+    const u8 gMonIcon_ChesnaughtMega[] = INCBIN_U8("graphics/pokemon/chesnaught/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_DelphoxMega[] = INCBIN_U32("graphics/pokemon/delphox/mega/front.4bpp.smol");
+    const u16 gMonPalette_DelphoxMega[] = INCBIN_U16("graphics/pokemon/delphox/mega/normal.gbapal");
+    const u32 gMonBackPic_DelphoxMega[] = INCBIN_U32("graphics/pokemon/delphox/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_DelphoxMega[] = INCBIN_U16("graphics/pokemon/delphox/mega/shiny.gbapal");
+    const u8 gMonIcon_DelphoxMega[] = INCBIN_U8("graphics/pokemon/delphox/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_GreninjaMega[] = INCBIN_U32("graphics/pokemon/greninja/mega/front.4bpp.smol");
+    const u16 gMonPalette_GreninjaMega[] = INCBIN_U16("graphics/pokemon/greninja/mega/normal.gbapal");
+    const u32 gMonBackPic_GreninjaMega[] = INCBIN_U32("graphics/pokemon/greninja/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_GreninjaMega[] = INCBIN_U16("graphics/pokemon/greninja/mega/shiny.gbapal");
+    const u8 gMonIcon_GreninjaMega[] = INCBIN_U8("graphics/pokemon/greninja/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/front.4bpp.smol");
+    const u16 gMonPalette_PyroarMega[] = INCBIN_U16("graphics/pokemon/pyroar/mega/normal.gbapal");
+    const u32 gMonBackPic_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_PyroarMega[] = INCBIN_U16("graphics/pokemon/pyroar/mega/shiny.gbapal");
+    const u8 gMonIcon_PyroarMega[] = INCBIN_U8("graphics/pokemon/pyroar/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_DragalgeMega[] = INCBIN_U32("graphics/pokemon/dragalge/mega/front.4bpp.smol");
+    const u16 gMonPalette_DragalgeMega[] = INCBIN_U16("graphics/pokemon/dragalge/mega/normal.gbapal");
+    const u32 gMonBackPic_DragalgeMega[] = INCBIN_U32("graphics/pokemon/dragalge/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_DragalgeMega[] = INCBIN_U16("graphics/pokemon/dragalge/mega/shiny.gbapal");
+    const u8 gMonIcon_DragalgeMega[] = INCBIN_U8("graphics/pokemon/dragalge/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_BarbaracleMega[] = INCBIN_U32("graphics/pokemon/barbaracle/mega/front.4bpp.smol");
+    const u16 gMonPalette_BarbaracleMega[] = INCBIN_U16("graphics/pokemon/barbaracle/mega/normal.gbapal");
+    const u32 gMonBackPic_BarbaracleMega[] = INCBIN_U32("graphics/pokemon/barbaracle/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_BarbaracleMega[] = INCBIN_U16("graphics/pokemon/barbaracle/mega/shiny.gbapal");
+    const u8 gMonIcon_BarbaracleMega[] = INCBIN_U8("graphics/pokemon/barbaracle/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_DrampaMega[] = INCBIN_U32("graphics/pokemon/drampa/mega/front.4bpp.smol");
+    const u16 gMonPalette_DrampaMega[] = INCBIN_U16("graphics/pokemon/drampa/mega/normal.gbapal");
+    const u32 gMonBackPic_DrampaMega[] = INCBIN_U32("graphics/pokemon/drampa/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_DrampaMega[] = INCBIN_U16("graphics/pokemon/drampa/mega/shiny.gbapal");
+    const u8 gMonIcon_DrampaMega[] = INCBIN_U8("graphics/pokemon/drampa/mega/icon.4bpp");
+
+    const u32 gMonFrontPic_GarchompMegaZ[] = INCBIN_U32("graphics/pokemon/garchomp/megaZ/front.4bpp.smol");
+    const u16 gMonPalette_GarchompMegaZ[] = INCBIN_U16("graphics/pokemon/garchomp/megaZ/normal.gbapal");
+    const u32 gMonBackPic_GarchompMegaZ[] = INCBIN_U32("graphics/pokemon/garchomp/megaZ/back.4bpp.smol");
+    const u16 gMonShinyPalette_GarchompMegaZ[] = INCBIN_U16("graphics/pokemon/garchomp/megaZ/shiny.gbapal");
+    const u8 gMonIcon_GarchompMegaZ[] = INCBIN_U8("graphics/pokemon/garchomp/megaZ/icon.4bpp");
+
+    const u32 gMonFrontPic_SmeargleMega[] = INCBIN_U32("graphics/pokemon/smeargle/mega/front.4bpp.smol");
+    const u16 gMonPalette_SmeargleMega[] = INCBIN_U16("graphics/pokemon/smeargle/mega/normal.gbapal");
+    const u32 gMonBackPic_SmeargleMega[] = INCBIN_U32("graphics/pokemon/smeargle/mega/back.4bpp.smol");
+    const u16 gMonShinyPalette_SmeargleMega[] = INCBIN_U16("graphics/pokemon/smeargle/mega/shiny.gbapal");
+    const u8 gMonIcon_SmeargleMega[] = INCBIN_U8("graphics/pokemon/smeargle/mega/icon.4bpp");
+
     const u32 gMonFrontPic_Egg[] = INCBIN_U32("graphics/pokemon/egg/anim_front.4bpp.smol");
     const u16 gMonPalette_Egg[] = INCBIN_U16("graphics/pokemon/egg/normal.gbapal");
     const u8 gMonIcon_Egg[] = INCBIN_U8("graphics/pokemon/egg/icon.4bpp");

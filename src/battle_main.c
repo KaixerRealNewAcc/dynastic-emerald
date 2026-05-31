@@ -5958,13 +5958,19 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
     case EFFECT_WEATHER_BALL:
         if (state == MON_IN_BATTLE)
         {
+            if (ability == ABILITY_MEGA_SOL)
+                return TYPE_FIRE;
+                
+            if (ability == ABILITY_THUNDEROUS_CLOUD)
+                return TYPE_WATER;
+
             if (HasWeatherEffect())
             {
                 if (gBattleWeather & B_WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
                     return TYPE_WATER;
                 else if (gBattleWeather & B_WEATHER_SANDSTORM)
                     return TYPE_ROCK;
-                else if ((gBattleWeather & B_WEATHER_SUN || hasAbilityOrInnate(battler, ABILITY_MEGA_SOL)) && (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA))
+                else if ((gBattleWeather & B_WEATHER_SUN) && (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA))
                     return TYPE_FIRE;
                 else if (gBattleWeather & (B_WEATHER_SNOW | B_WEATHER_HAIL))
                     return TYPE_ICE;
@@ -5974,6 +5980,7 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
         }
         else
         {
+
             switch (gWeatherPtr->currWeather)
             {
             case WEATHER_DROUGHT: 

@@ -405,6 +405,89 @@ randomGirl:
 	face_right
 	step_end
 
+OldaleTown_EventScript_MonkeyScientist::
+	lock
+	faceplayer
+	goto_if_unset FLAG_MONKE_RECIEVED, OldaleTown_EventScript_MonkeyScientist_1
+	msgbox OldaleTown_EventScript_MonkeyScientist_Text_2, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_EventScript_MonkeyScientist_1:
+	msgbox OldaleTown_EventScript_MonkeyScientist_Text_0, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 1, OldaleTown_EventScript_MonkeyScientist_6
+	case 2, OldaleTown_EventScript_MonkeyScientist_7
+	case 3, OldaleTown_EventScript_MonkeyScientist_8
+	release
+	end
+
+OldaleTown_EventScript_MonkeyScientist_6:
+	givemon SPECIES_PANPOUR, 5, ITEM_MYSTIC_WATER
+	bufferspeciesname STR_VAR_2, SPECIES_PANPOUR
+	playfanfare MUS_OBTAIN_ITEM
+	message OldaleTown_EventScript_MonkeyScientist_Text_1
+	waitmessage
+	waitfanfare
+	bufferspeciesname STR_VAR_1, SPECIES_PANPOUR
+	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+	call Common_EventScript_GetGiftMonPartySlot
+	call Common_EventScript_NameReceivedPartyMon
+	setflag FLAG_MONKE_RECIEVED
+	return
+
+OldaleTown_EventScript_MonkeyScientist_7:
+	givemon SPECIES_PANSAGE, 5, ITEM_MIRACLE_SEED
+	bufferspeciesname STR_VAR_2, SPECIES_PANSAGE
+	playfanfare MUS_OBTAIN_ITEM
+	message OldaleTown_EventScript_MonkeyScientist_Text_1
+	waitmessage
+	waitfanfare
+	bufferspeciesname STR_VAR_1, SPECIES_PANSAGE
+	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+	call Common_EventScript_GetGiftMonPartySlot
+	call Common_EventScript_NameReceivedPartyMon
+	setflag FLAG_MONKE_RECIEVED
+	return
+
+OldaleTown_EventScript_MonkeyScientist_8:
+	givemon SPECIES_PANSEAR, 5, ITEM_CHARCOAL
+	bufferspeciesname STR_VAR_2, SPECIES_PANSEAR
+	playfanfare MUS_OBTAIN_ITEM
+	message OldaleTown_EventScript_MonkeyScientist_Text_1
+	waitmessage
+	waitfanfare
+	bufferspeciesname STR_VAR_1, SPECIES_PANSEAR
+	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+	call Common_EventScript_GetGiftMonPartySlot
+	call Common_EventScript_NameReceivedPartyMon
+	setflag FLAG_MONKE_RECIEVED
+	return
+
+
 OldaleTown_EventScript_Girl_Text_0:
 	.string "You did great machop, we'll get em\n"
 	.string "next time!$"
+
+OldaleTown_EventScript_MonkeyScientist_Text_0:
+	.string "Hello! I'm the MONKEY SCIENTIST, I own\n"
+	.string "the only ELEMENTAL MONKEYS\n"
+	.string "in the region!\p"
+	.string "Aren't they Beautiful?\n"
+	.string "Oh, you're a trainer?\p"
+	.string "Whats that...\n"
+	.string "... ... ...?\p"
+	.string "You own a starter POKéMON\n"
+	.string "and need a good POKéMON that counters\l"
+	.string "your POKéMON weaknesses?\p"
+	.string "Well your in luck cause i am willing\n"
+	.string "to lend you one of my\l"
+	.string "ELEMENTAL MONKEYS! Here you go!$"
+
+OldaleTown_EventScript_MonkeyScientist_Text_1:
+	.string "{PLAYER} received {STR_VAR_2} from\nthe MONKEY SCIENTIST.$"
+
+OldaleTown_EventScript_MonkeyScientist_Text_2:
+	.string "Hey again! I hope that MONKEY is\n"
+	.string "serving you well in your adventure!\p"
+	.string "Good luck out there!$"

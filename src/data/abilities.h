@@ -700,7 +700,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_HYDRATION] =
         {
             .name = _("Hydration"),
-            .description = COMPOUND_STRING("The user heals status conditions when it is raining."),
+            .description = COMPOUND_STRING("The user heals status conditions when it is raining.\nAlso Gains Water-STAB."),
             .aiRating = 4,
         },
 
@@ -2489,21 +2489,21 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_FORESTS_RAGE] =
         {
             .name = _("Forest's Rage"),
-            .description = COMPOUND_STRING("Increases Grass moves by 80% when the user's HP is under 1/3 HP otherwise 30%."),
+            .description = COMPOUND_STRING("Increases Grass moves by 60% when the user's HP is under 1/3 HP otherwise 20%."),
             .aiRating = 5,
         },
 
         [ABILITY_HELLBLAZE] =
         {
             .name = _("Hellblaze"),
-            .description = COMPOUND_STRING("Increases Fire moves by 80% when the user's HP is under 1/3 HP otherwise 30%."),
+            .description = COMPOUND_STRING("Increases Fire moves by 60% when the user's HP is under 1/3 HP otherwise 20%."),
             .aiRating = 5,
         },
 
         [ABILITY_TIDAL_WRATH] =
         {
             .name = _("Tidal Wrath"),
-            .description = COMPOUND_STRING("Increases Water moves by 80% when the user's HP is under 1/3 HP otherwise 30%."),
+            .description = COMPOUND_STRING("Increases Water moves by 60% when the user's HP is under 1/3 HP otherwise 20%."),
             .aiRating = 5,
         },
 
@@ -2552,7 +2552,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_FATAL_PRECISION] =
         {
             .name = _("Fatal Precision"),
-            .description = COMPOUND_STRING("Boosts Super Effective moves accuracy under 60% to 100%."),
+            .description = COMPOUND_STRING("Boosts SE moves by 25%.\nBoosts Accuracy To 100% if SE."),
             .aiRating = 4,
         },
 
@@ -2712,7 +2712,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         [ABILITY_MEGA_SOL] =
         {
             .name = _("Mega Sol"),
-            .description = COMPOUND_STRING(""),
+            .description = COMPOUND_STRING("Acts like its in sun."),
             .aiRating = 8,
         },
 
@@ -2721,6 +2721,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .name = _("Electro Booster"),
             .description = COMPOUND_STRING("Uses Magnet Rise on entry."),
             .aiRating = 7,
+        },
+
+        [ABILITY_THUNDEROUS_CLOUD] =
+        {
+            .name = _("Thunderous Cloud"),
+            .description = COMPOUND_STRING("Acts like its in rain."),
+            .aiRating = 8,
+            .breakable = TRUE,
         },
 
         [NO_INNATE_YET] = 

@@ -254,7 +254,7 @@ struct SaveBlock3
     u8 dexNavChain;
     u8 permanentRepel:1;
     u8 autoRun:1;
-    u8 shinyRate;
+    //u8 shinyRate;
     u8 nuzlockeMode:1; // 0 = off, 1 = on;
 }; /* max size 1624 bytes */
 

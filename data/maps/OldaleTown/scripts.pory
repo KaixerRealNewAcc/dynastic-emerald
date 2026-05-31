@@ -410,3 +410,75 @@ script OldaleTown_EventScript_Girl{
 movement randomGirl {
 	face_right
 }
+
+script OldaleTown_EventScript_MonkeyScientist {
+	lock
+	faceplayer
+	if(!flag(FLAG_MONKE_RECIEVED))
+	{
+		msgbox("Hello! I'm the MONKEY SCIENTIST, I own\n"
+			"the only ELEMENTAL MONKEYS\n"
+			"in the region!\p"
+			"Aren't they Beautiful?\n"
+			"Oh, you're a trainer?\p"
+			"Whats that...\n"
+			"... ... ...?\p"
+			"You own a starter POKéMON\n"
+			"and need a good POKéMON that counters\l"
+			"your POKéMON weaknesses?\p"
+			"Well your in luck cause i am willing\n"
+			"to lend you one of my\l"
+			"ELEMENTAL MONKEYS! Here you go!", MSGBOX_DEFAULT)
+		switch (var(VAR_STARTER_MON)) 
+		{
+		case 1: // Grass starter
+			givemon (SPECIES_PANPOUR, 5, ITEM_MYSTIC_WATER)
+			bufferspeciesname (STR_VAR_2, SPECIES_PANPOUR)
+			playfanfare (MUS_OBTAIN_ITEM)
+			message ("{PLAYER} received {STR_VAR_2} from\nthe MONKEY SCIENTIST.$")
+			waitmessage
+			waitfanfare
+			bufferspeciesname (STR_VAR_1, SPECIES_PANPOUR)
+			msgbox (gText_NicknameThisPokemon, MSGBOX_YESNO)
+			call (Common_EventScript_GetGiftMonPartySlot)
+			call (Common_EventScript_NameReceivedPartyMon)
+			setflag (FLAG_MONKE_RECIEVED)
+			return
+		case 2: // Fire starter
+			givemon (SPECIES_PANSAGE, 5, ITEM_MIRACLE_SEED)
+			bufferspeciesname (STR_VAR_2, SPECIES_PANSAGE)
+			playfanfare (MUS_OBTAIN_ITEM)
+			message ("{PLAYER} received {STR_VAR_2} from\nthe MONKEY SCIENTIST.$")
+			waitmessage
+			waitfanfare
+			bufferspeciesname (STR_VAR_1, SPECIES_PANSAGE)
+			msgbox (gText_NicknameThisPokemon, MSGBOX_YESNO)
+			call (Common_EventScript_GetGiftMonPartySlot)
+			call (Common_EventScript_NameReceivedPartyMon)
+			setflag (FLAG_MONKE_RECIEVED)
+			return
+		case 3: // Water starter
+			givemon (SPECIES_PANSEAR, 5, ITEM_CHARCOAL)
+			bufferspeciesname (STR_VAR_2, SPECIES_PANSEAR)
+			playfanfare (MUS_OBTAIN_ITEM)
+			message ("{PLAYER} received {STR_VAR_2} from\nthe MONKEY SCIENTIST.$")
+			waitmessage
+			waitfanfare
+			bufferspeciesname (STR_VAR_1, SPECIES_PANSEAR)
+			msgbox (gText_NicknameThisPokemon, MSGBOX_YESNO)
+			call (Common_EventScript_GetGiftMonPartySlot)
+			call (Common_EventScript_NameReceivedPartyMon)
+			setflag (FLAG_MONKE_RECIEVED)
+			return
+		}
+		release end
+	}
+	else
+	{
+		msgbox("Hey again! I hope that MONKEY is\n"
+			"serving you well in your adventure!\p"
+			"Good luck out there!", MSGBOX_DEFAULT)
+		release
+		end
+	}
+}
