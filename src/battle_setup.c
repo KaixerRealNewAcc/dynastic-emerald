@@ -63,6 +63,7 @@ enum {
     TRANSITION_TYPE_CAVE,
     TRANSITION_TYPE_FLASH,
     TRANSITION_TYPE_WATER,
+    RANSITION_TYPE_IDKMAN
 };
 
 // this file's functions
