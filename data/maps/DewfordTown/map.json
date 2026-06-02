@@ -81,8 +81,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
-      "x": 47,
-      "y": 4,
+      "x": 46,
+      "y": 8,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -94,8 +94,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
-      "x": 50,
-      "y": 18,
+      "x": 37,
+      "y": 9,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -108,36 +108,36 @@
   ],
   "warp_events": [
     {
-      "x": 45,
-      "y": 3,
+      "x": 43,
+      "y": 16,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN_HALL",
       "dest_warp_id": "0"
     },
     {
       "x": 44,
-      "y": 10,
+      "y": 4,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN_POKEMON_CENTER_1F",
       "dest_warp_id": "0"
     },
     {
-      "x": 50,
-      "y": 17,
+      "x": 37,
+      "y": 8,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN_GYM",
       "dest_warp_id": "0"
     },
     {
       "x": 57,
-      "y": 15,
+      "y": 16,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN_HOUSE1",
       "dest_warp_id": "0"
     },
     {
-      "x": 50,
-      "y": 8,
+      "x": 35,
+      "y": 15,
       "elevation": 0,
       "dest_map": "MAP_DEWFORD_TOWN_HOUSE2",
       "dest_warp_id": "0"
@@ -147,16 +147,16 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 52,
-      "y": 10,
+      "x": 51,
+      "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "DewfordTown_EventScript_TownSign"
     },
     {
       "type": "sign",
-      "x": 53,
-      "y": 16,
+      "x": 40,
+      "y": 8,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "DewfordTown_EventScript_GymSign"
@@ -164,7 +164,7 @@
     {
       "type": "sign",
       "x": 46,
-      "y": 10,
+      "y": 4,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "Common_EventScript_ShowPokemonCenterSign"
@@ -172,15 +172,15 @@
     {
       "type": "sign",
       "x": 45,
-      "y": 10,
+      "y": 4,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "Common_EventScript_ShowPokemonCenterSign"
     },
     {
       "type": "sign",
-      "x": 44,
-      "y": 4,
+      "x": 45,
+      "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "DewfordTown_EventScript_HallSign"
