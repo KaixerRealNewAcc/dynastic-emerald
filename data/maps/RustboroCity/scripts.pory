@@ -1321,17 +1321,7 @@ script RustboroCity_Trigger_RivalLeaf_MeetsPlayer{
 	waitmovement(Ritchie)
 	applymovement(Ritchie, moves(emote_question_mark))
 	waitmovement(Ritchie)
-	msgbox("Oh... Sorry didn't see you there!\p"
-			"I assume you also want to challenge\n"
-			"the gym leader? shes a thuff one.\p"
-			"wait I didn't even introduce myself\n"
-			"yet, the names Richie!\p"
-			"Me and my partner Sparky, got our asses\n"
-			"kicked by Roxanne.\p"
-			"But next time we will be victorious!\p"
-			"oh i know how about a little battle,\n"
-			"you know to help me with my bad mood.\p"
-			"Prepare to lose!", MSGBOX_DEFAULT)
+	msgbox(format("Oh.. Hey {PLAYER}! Please Don't tell my dad, I'm participating in the gym challenges... I just couldn't resist! It is my dream after all! but Roxanne is a bit too Tough for me. Oh! I know let's Battle to train our pokémon!"), MSGBOX_DEFAULT)
 	trainerbattle_no_intro(TRAINER_RITCHIE_RUSTBORO, "I geuss its faith to lose to Roxanne...\nGreat battle tho!")
 	applymovement(Ritchie, moves(walk_left *6, walk_up *6))
 	waitmovement(Ritchie)

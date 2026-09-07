@@ -986,11 +986,6 @@ Route104_EventScript_Mia::
 	release
 	end
 
-Route104_EventScript_Darian::
-	trainerbattle_single TRAINER_DARIAN, Route104_Text_DarianIntro, Route104_Text_DarianDefeat
-	msgbox Route104_Text_DarianPostBattle, MSGBOX_AUTOCLOSE
-	end
-
 Route104_Text_BrineyLivesInSeasideCottage:
 	.string "That seaside cottage is where\n"
 	.string "MR. BRINEY lives.\p"
@@ -1173,6 +1168,33 @@ Route104_EventScript_Girl2::
 	end
 
 
+Route104_Trigger_FishermanBattleLeft::
+	applymovement LOCALID_FISHERMAN_R104, Route104_Trigger_FishermanBattleLeft_Movement_0
+	trainerbattle_single TRAINER_DARIAN, Route104_Trigger_FishermanBattleLeft_Text_0, Route104_Trigger_FishermanBattleLeft_Text_1
+	msgbox Route104_Text_DarianPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+
+Route104_Trigger_FishermanBattleRight::
+	applymovement LOCALID_FISHERMAN_R104, Route104_Trigger_FishermanBattleRight_Movement_0
+	trainerbattle_single TRAINER_DARIAN, Route104_Trigger_FishermanBattleLeft_Text_0, Route104_Trigger_FishermanBattleLeft_Text_1
+	msgbox Route104_Text_DarianPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+
+Route104_Trigger_FishermanBattleLeft_Movement_0:
+	emote_exclamation_mark
+	face_right
+	walk_right
+	step_end
+
+Route104_Trigger_FishermanBattleRight_Movement_0:
+	emote_exclamation_mark
+	face_right
+	walk_right
+	walk_right
+	step_end
+
 Route104_EventScript_RouteSignPetalburgWoods_Text_0:
 	.string "ROUTE 1O4\n"
 	.string "{UP_ARROW} PETALBURG WOODS$"
@@ -1182,3 +1204,9 @@ Route104_EventScript_Girl2_Text_0:
 
 Route104_EventScript_Girl2_Text_1:
 	.string "But i wont lose next time!$"
+
+Route104_Trigger_FishermanBattleLeft_Text_0:
+	.string "I fished up a tough-looking POKéMON!\pIt has this magical quality to it!\nIt surely looks tough, yes it does!$"
+
+Route104_Trigger_FishermanBattleLeft_Text_1:
+	.string "What the…$"

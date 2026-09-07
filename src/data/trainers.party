@@ -17442,53 +17442,66 @@ Level: 1
 - Memento
 
 === TRAINER_RITCHIE_RUSTBORO ===
-Name: Ritchie
+Name: Wally
 Class: Pkmn Trainer
-Pic: Ritchie
+Pic: Wally
 Gender: Male
 Music: Male
 Double Battle: No
 AI: Smart Trainer
 
-Axew @ Oran Berry  
-Ability: Mold Breaker  
-Level: 12  
-Tera Type: Dragon  
-Jolly Nature  
-- Breaking Swipe  
-- Rock Tomb  
-- Bite  
-- Cut  
+Sandygast @ Rindo Berry  
+Ability: Water Compaction  
+Level: 15  
+Tera Type: Ghost  
+Calm Nature  
+IVs: 0 Atk  
+- Stealth Rock  
+- Mud-Slap  
+- Night Shade  
+- Absorb  
 
-Taillow @ Flame Orb
-Ability: Guts  
-Level: 13  
-Tera Type: Normal  
-Jolly Nature  
-- Quick Attack  
-- Wing Attack  
-- Pursuit  
-- Roost  
-
-Charmander @ Charcoal
-Ability: Blaze  
-Level: 12  
+Combusken @ Lum Berry  
+Ability: striker  
+Level: 16  
 Tera Type: Fire  
-Hasty Nature  
-- Incinerate  
-- Ancient Power  
-- Brick Break  
-- Bite 
-
-Sparky (Pikachu) @ Light Ball  
-Ability: Static  
-Level: 14  
-Tera Type: Electric  
 Naive Nature  
-- Shock Wave  
+- Double Kick  
+- Fire Punch  
+- Rock Tomb  
+- Vacuum Wave  
+
+Wooloo @ Leftovers  
+Ability: Fluffy  
+Level: 16  
+Tera Type: Normal  
+Relaxed Nature  
+- Headbutt  
+- Body Press  
+- Wild Charge  
+- Cotton Guard  
+
+Roselia @ Salac Berry  
+Ability: Natural Cure  
+Level: 15  
+Tera Type: Grass  
+Timid Nature  
+IVs: 0 Atk  
+- Absorb  
+- Clear Smog  
+- Ancient Power  
+- Sleep Powder  
+
+Kirlia @ Twisted Spoon  
+Ability: Trace  
+Level: 17  
+Tera Type: Psychic  
+Timid Nature  
+IVs: 0 Atk  
+- Psybeam  
 - Draining Kiss  
-- Quick Attack 
-- Nuzzle    
+- Grass Knot  
+- Hypnosis  
 
 === TRAINER_MEGA_GYARADOS ===
 Name: Cole

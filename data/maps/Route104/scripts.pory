@@ -986,11 +986,6 @@ Route104_EventScript_Mia::
 	release
 	end
 
-Route104_EventScript_Darian::
-	trainerbattle_single TRAINER_DARIAN, Route104_Text_DarianIntro, Route104_Text_DarianDefeat
-	msgbox Route104_Text_DarianPostBattle, MSGBOX_AUTOCLOSE
-	end
-
 Route104_Text_BrineyLivesInSeasideCottage:
 	.string "That seaside cottage is where\n"
 	.string "MR. BRINEY lives.\p"
@@ -1180,3 +1175,16 @@ script Route104_EventScript_Girl2{
 	end
 }
 
+script Route104_Trigger_FishermanBattleLeft {
+	applymovement(LOCALID_FISHERMAN_R104, moves(emote_exclamation_mark, face_right, walk_right))
+	trainerbattle_single (TRAINER_DARIAN, "I fished up a tough-looking POKéMON!\pIt has this magical quality to it!\nIt surely looks tough, yes it does!", format("What the…"))
+	msgbox (Route104_Text_DarianPostBattle, MSGBOX_AUTOCLOSE)
+	end
+}
+
+script Route104_Trigger_FishermanBattleRight {
+	applymovement(LOCALID_FISHERMAN_R104, moves(emote_exclamation_mark, face_right, walk_right *2))
+	trainerbattle_single (TRAINER_DARIAN, "I fished up a tough-looking POKéMON!\pIt has this magical quality to it!\nIt surely looks tough, yes it does!", format("What the…"))
+	msgbox (Route104_Text_DarianPostBattle, MSGBOX_AUTOCLOSE)
+	end
+}

@@ -1444,17 +1444,12 @@ RustboroCity_EventScript_StolenGoodsSceneLoad_Movement_0:
 	step_end
 
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_0:
-	.string "Oh... Sorry didn't see you there!\p"
-	.string "I assume you also want to challenge\n"
-	.string "the gym leader? shes a thuff one.\p"
-	.string "wait I didn't even introduce myself\n"
-	.string "yet, the names Richie!\p"
-	.string "Me and my partner Sparky, got our asses\n"
-	.string "kicked by Roxanne.\p"
-	.string "But next time we will be victorious!\p"
-	.string "oh i know how about a little battle,\n"
-	.string "you know to help me with my bad mood.\p"
-	.string "Prepare to lose!$"
+	.string "Oh.. Hey {PLAYER}! Please Don't tell my\n"
+	.string "dad, I'm participating in the gym\l"
+	.string "challenges... I just couldn't resist! It\l"
+	.string "is my dream after all! but Roxanne is a\l"
+	.string "bit too Tough for me. Oh! I know let's\l"
+	.string "Battle to train our pokémon!$"
 
 RustboroCity_Trigger_RivalLeaf_MeetsPlayer_Text_1:
 	.string "I geuss its faith to lose to Roxanne...\nGreat battle tho!$"
