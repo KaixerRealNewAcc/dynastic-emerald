@@ -1242,6 +1242,14 @@
     {
       "id": "MAPSEC_SLATEPORT_FANCLUB",
       "name": "Slateport Fanclub"
+    },
+    {
+      "id": "MAPSEC_DEWFORD_HILL",
+      "name": "Dewford Hill"
+    },
+    {
+      "id": "MAPSEC_ALTERING_CAVE_2",
+      "name": "Altering Cave"
     }
   ]
 }

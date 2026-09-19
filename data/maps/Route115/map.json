@@ -144,14 +144,14 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 14,
-      "y": 45,
+      "x": 12,
+      "y": 61,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MYSTIC_WATER",
+      "trainer_sight_or_berry_tree_id": "ITEM_WISE_GLASSES",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_ROUTE_115_SUPER_POTION"
     },
@@ -209,7 +209,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BREAKABLE_ROCK",
-      "x": 22,
+      "x": 27,
       "y": 48,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
@@ -283,19 +283,6 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "4",
       "script": "Route115_EventScript_Alix",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_LASS",
-      "x": 28,
-      "y": 62,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "4",
-      "script": "Route115_EventScript_Marlene",
       "flag": "0"
     },
     {

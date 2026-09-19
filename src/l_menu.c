@@ -257,14 +257,14 @@ static void BuildSafariZoneLMenu(void)
     {
         AddLMenuAction(MENU_ACTION_DEXNAV);
         AddLMenuAction(MENU_ACTION_TIME_CHANGER);
-        if(FlagGet(OW_FLAG_NO_ENCOUNTER))
+        /*if(FlagGet(OW_FLAG_NO_ENCOUNTER))
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_ON);
         }
         else
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_OFF);   
-        }
+        }*/
     }
 
         if (gSaveBlock3Ptr->autoRun)
@@ -305,14 +305,14 @@ static void BuildLinkModeLMenu(void)
         
     if (hasDexNav)
     {
-        if(FlagGet(OW_FLAG_NO_ENCOUNTER))
+        /*if(FlagGet(OW_FLAG_NO_ENCOUNTER))
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_ON);
         }
         else
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_OFF);   
-        }
+        }*/
     }
     
         if (gSaveBlock3Ptr->autoRun)
@@ -353,14 +353,14 @@ static void BuildUnionRoomLMenu(void)
         
     if (hasDexNav)
     {
-        if(FlagGet(OW_FLAG_NO_ENCOUNTER))
+        /*if(FlagGet(OW_FLAG_NO_ENCOUNTER))
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_ON);
         }
         else
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_OFF);   
-        }
+        }*/
     }
 
         if (gSaveBlock3Ptr->autoRun)
@@ -379,14 +379,14 @@ static void BuildBattlePikeLMenu(void)
     {
         AddLMenuAction(MENU_ACTION_DEXNAV);
         AddLMenuAction(MENU_ACTION_TIME_CHANGER);
-        if(FlagGet(OW_FLAG_NO_ENCOUNTER))
+        /*if(FlagGet(OW_FLAG_NO_ENCOUNTER))
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_ON);
         }
         else
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_OFF);   
-        }
+        }*/
     }
 
         if (gSaveBlock3Ptr->autoRun)
@@ -405,14 +405,14 @@ static void BuildBattlePyramidLMenu(void)
     {
         AddLMenuAction(MENU_ACTION_DEXNAV);
         AddLMenuAction(MENU_ACTION_TIME_CHANGER);
-        if(FlagGet(OW_FLAG_NO_ENCOUNTER))
+        /*if(FlagGet(OW_FLAG_NO_ENCOUNTER))
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_ON);
         }
         else
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_OFF);   
-        }
+        }*/
     }
 
 
@@ -432,14 +432,14 @@ static void BuildMultiPartnerRoomLMenu(void)
     {
         AddLMenuAction(MENU_ACTION_DEXNAV);
         AddLMenuAction(MENU_ACTION_TIME_CHANGER);
-        if(FlagGet(OW_FLAG_NO_ENCOUNTER))
+        /*if(FlagGet(OW_FLAG_NO_ENCOUNTER))
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_ON);
         }
         else
         {
             AddLMenuAction(MENU_ACTION_INFINITE_REPEL_OFF);   
-        }
+        }*/
     }
 
         if (gSaveBlock3Ptr->autoRun)
@@ -776,7 +776,7 @@ static void HideLMenuWindowInfiniteRepel(void)
     RemoveLMenuTimeWindow();
     ScriptUnfreezeObjectEvents();
     UnlockPlayerFieldControls();
-    if (FlagGet(FLAG_SYS_DEXNAV_GET))
+    /*if (FlagGet(FLAG_SYS_DEXNAV_GET))
     {
         PlaySE(SE_SELECT);
         if (FlagGet(OW_FLAG_NO_ENCOUNTER))
@@ -789,7 +789,7 @@ static void HideLMenuWindowInfiniteRepel(void)
             FlagSet(OW_FLAG_NO_ENCOUNTER);
             ScriptContext_SetupScript(EventScript_EnableInfiniteRepel);
         }
-    }
+    }*/
 }
 
 static bool8 LMenuPokeVialCallback(void)

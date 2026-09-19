@@ -115,7 +115,7 @@
       "id": "LAYOUT_DEWFORD_TOWN",
       "name": "DewfordTown_Layout",
       "width": 62,
-      "height": 36,
+      "height": 23,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/DewfordTown/border.bin",
@@ -4460,6 +4460,26 @@
       "secondary_tileset": "gTileset_GenericBuilding",
       "border_filepath": "data/layouts/Oldaletown_MonkeOwner/border.bin",
       "blockdata_filepath": "data/layouts/Oldaletown_MonkeOwner/map.bin"
+    },
+    {
+      "id": "LAYOUT_DEWFORD_HILL",
+      "name": "DewfordHill_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Dewford",
+      "border_filepath": "data/layouts/DewfordHill/border.bin",
+      "blockdata_filepath": "data/layouts/DewfordHill/map.bin"
+    },
+    {
+      "id": "LAYOUT_ALTERING_CAVE2",
+      "name": "AlteringCave2_Layout",
+      "width": 32,
+      "height": 24,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/AlteringCave2/border.bin",
+      "blockdata_filepath": "data/layouts/AlteringCave2/map.bin"
     }
   ]
 }

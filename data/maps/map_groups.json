@@ -97,7 +97,8 @@
     "PetalburgWoodsNoibatCave",
     "PetalburgWoodsExtended",
     "TestMapForPoryTiles",
-    "LittlerootNew"
+    "LittlerootNew",
+    "DewfordHill"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
@@ -434,7 +435,8 @@
     "TerraCave_Entrance",
     "TerraCave_End",
     "AlteringCave",
-    "MeteorFalls_StevensCave"
+    "MeteorFalls_StevensCave",
+    "AlteringCave2"
   ],
   "gMapGroup_IndoorDynamic": [
     "SecretBase_RedCave1",

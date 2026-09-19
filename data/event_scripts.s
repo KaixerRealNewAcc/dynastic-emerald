@@ -1174,3 +1174,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/LittlerootNew/scripts.inc"
 
 	.include "data/maps/Oldaletown_MonkeOwner/scripts.inc"
+
+	.include "data/maps/DewfordHill/scripts.inc"
+
+	.include "data/maps/AlteringCave2/scripts.inc"
