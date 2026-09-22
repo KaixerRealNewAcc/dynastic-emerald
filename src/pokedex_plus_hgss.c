@@ -5074,7 +5074,6 @@ static u16 AddTMTutorMoves(u16 species, u16 movesTotal, u8 *numTMHMMoves, u8 *nu
             if (move != MOVE_NONE && CanLearnTeachableMove(species, move))
             {
                 isTMMove[move] = TRUE;
-                sStatsMovesTMHM_ID[*numTMHMMoves] = GetTMHMItemId(i + 1);
                 (*numTMHMMoves)++;
                 sStatsMoves[movesTotal] = move;
                 movesTotal++;
@@ -5091,7 +5090,6 @@ static u16 AddTMTutorMoves(u16 species, u16 movesTotal, u8 *numTMHMMoves, u8 *nu
                 if (GetTMHMMoveId(j + 1) == move)
                 {
                     isTMMove[move] = TRUE;
-                    sStatsMovesTMHM_ID[*numTMHMMoves] = GetTMHMItemId(j + 1);
                     (*numTMHMMoves)++;
                     sStatsMoves[movesTotal] = move;
                     movesTotal++;

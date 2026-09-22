@@ -79300,8 +79300,7 @@
       "MOVE_POLTERGEIST",
       "MOVE_PSYCH_UP",
       "MOVE_THROAT_CHOP",
-      "MOVE_CURSE",
-      "MOVE_ECHO_BLADE"
+      "MOVE_CURSE"
     ],
     "EggMoves": [
       "MOVE_DESTINY_BOND",

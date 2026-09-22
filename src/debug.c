@@ -3169,7 +3169,7 @@ static void DebugAction_PCBag_Fill_PocketTMHM(u8 taskId)
 
     for (index = 0; index < NUM_ALL_MACHINES; index++)
     {
-        itemId = GetTMHMItemId(index + 1);
+        itemId = GetTMHMMoveId(index + 1);
         if (CheckBagHasSpace(itemId, 1) && ItemIdToBattleMoveId(itemId) != MOVE_NONE)
             AddBagItem(itemId, 1);
     }

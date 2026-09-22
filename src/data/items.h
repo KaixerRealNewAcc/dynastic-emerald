@@ -11789,7 +11789,6 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_FALSE_SWIPE,
     },
 
     [ITEM_TM_DRAGON_CLAW] =
@@ -12632,7 +12631,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_FIRE_PUNCH,
     },
 
-    [ITEM_TM58] = //Ice Spinner
+    [ITEM_TM_ICE_SPINNER] =
     {
         .name = ITEM_NAME("TM58"),
         .price = 3000,
@@ -13088,7 +13087,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_TAILWIND,
     },
 
-    [ITEM_TM_ECHO_BLADE] =
+    [ITEM_TM_HURRICANE] =
     {
         .name = ITEM_NAME("TM89"),
         .price = 3000,
@@ -13097,10 +13096,10 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_ECHO_BLADE,
+        .secondaryId = MOVE_HURRICANE,
     },
 
-    [ITEM_TM_HURRICANE] =
+    [ITEM_TM_ECHO_BLADE] =
     {
         .name = ITEM_NAME("TM90"),
         .price = 3000,
@@ -13109,7 +13108,6 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_HURRICANE,
     },
 
     [ITEM_TM91] =

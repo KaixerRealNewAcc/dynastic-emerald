@@ -12,7 +12,6 @@ InsideOfTruck_OnLoad:
 	end
 
 InsideOfTruck_OnFrame:
-	map_script_2 VAR_REGION_CHECK, 0, InsideOfTruck_EventScript_StartSettingsMenu @MinimalGrindingAsk
 	.2byte 0
 
 InsideOfTruck_OnResume:
