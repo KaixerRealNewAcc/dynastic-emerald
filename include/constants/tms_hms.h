@@ -91,7 +91,6 @@
     F(POWER_GEM) \
     F(TAILWIND)\
     F(HURRICANE)\
-    F(ECHO_BLADE)\
 
 #define FOREACH_HM(F) \
     F(CUT) \

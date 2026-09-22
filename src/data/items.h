@@ -13099,7 +13099,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_HURRICANE,
     },
 
-    [ITEM_TM_ECHO_BLADE] =
+    [ITEM_TM90] =
     {
         .name = ITEM_NAME("TM90"),
         .price = 3000,
