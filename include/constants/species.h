@@ -1638,63 +1638,63 @@
 #define SPECIES_MIMIKYU_BUSTED_TOTEM                    1523
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
 
-#define SPECIES_CLEFABLE_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 1)
-#define SPECIES_VICTREEBEL_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 2)
-#define SPECIES_STARMIE_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 3)
-#define SPECIES_DRAGONITE_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 4)
-#define SPECIES_MEGANIUM_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 5)
-#define SPECIES_FERALIGATR_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 6)
-#define SPECIES_SKARMORY_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 7)
-#define SPECIES_FROSLASS_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 8)
-#define SPECIES_EMBOAR_MEGA                             (SPECIES_MIMIKYU_BUSTED_TOTEM + 9)
-#define SPECIES_EXCADRILL_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 10)
-#define SPECIES_SCOLIPEDE_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 11)
-#define SPECIES_SCRAFTY_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 12)
-#define SPECIES_EELEKTROSS_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 13)
-#define SPECIES_CHANDELURE_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 14)
-#define SPECIES_CHESNAUGHT_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 15)
-#define SPECIES_DELPHOX_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 16)
-#define SPECIES_GRENINJA_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 17)
-#define SPECIES_PYROAR_MEGA                             (SPECIES_MIMIKYU_BUSTED_TOTEM + 18)
-#define SPECIES_MALAMAR_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 19)
-#define SPECIES_DRAGALGE_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 20)
-#define SPECIES_HAWLUCHA_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 21)
-#define SPECIES_FLOETTE_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 22)
-#define SPECIES_BARBARACLE_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 23)
-#define SPECIES_ZYGARDE_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 24)
-#define SPECIES_DRAMPA_MEGA                             (SPECIES_MIMIKYU_BUSTED_TOTEM + 25)
-#define SPECIES_FALINKS_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 26)
+#define SPECIES_CLEFABLE_MEGA                           1524
+#define SPECIES_VICTREEBEL_MEGA                         1525
+#define SPECIES_STARMIE_MEGA                            1526
+#define SPECIES_DRAGONITE_MEGA                          1527
+#define SPECIES_MEGANIUM_MEGA                           1528
+#define SPECIES_FERALIGATR_MEGA                         1529
+#define SPECIES_SKARMORY_MEGA                           1530    
+#define SPECIES_FROSLASS_MEGA                           1531
+#define SPECIES_EMBOAR_MEGA                             1532
+#define SPECIES_EXCADRILL_MEGA                          1533
+#define SPECIES_SCOLIPEDE_MEGA                          1534
+#define SPECIES_SCRAFTY_MEGA                            1535
+#define SPECIES_EELEKTROSS_MEGA                         1536    
+#define SPECIES_CHANDELURE_MEGA                         1537
+#define SPECIES_CHESNAUGHT_MEGA                         1538
+#define SPECIES_DELPHOX_MEGA                            1539
+#define SPECIES_GRENINJA_MEGA                           1540
+#define SPECIES_PYROAR_MEGA                             1541
+#define SPECIES_MALAMAR_MEGA                            1542
+#define SPECIES_DRAGALGE_MEGA                           1543    
+#define SPECIES_HAWLUCHA_MEGA                           1544
+#define SPECIES_FLOETTE_MEGA                            1545
+#define SPECIES_BARBARACLE_MEGA                         1546
+#define SPECIES_ZYGARDE_MEGA                            1547
+#define SPECIES_DRAMPA_MEGA                             1548
+#define SPECIES_FALINKS_MEGA                            1549
 
 //DLC
-#define SPECIES_HEATRAN_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 27)
-#define SPECIES_DARKRAI_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 28)
-#define SPECIES_ZERAORA_MEGA                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 29)
-#define SPECIES_RAICHU_MEGA_X                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 30)
-#define SPECIES_RAICHU_MEGA_Y                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 31)
-#define SPECIES_CHIMECHO_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 32)
-#define SPECIES_ABSOL_MEGA_Z                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 33)
-#define SPECIES_STARAPTOR_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 34)
-#define SPECIES_GARCHOMP_MEGA_Z                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 35)
-#define SPECIES_LUCARIO_MEGA_Z                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 36)
-#define SPECIES_GOLURK_MEGA                             (SPECIES_MIMIKYU_BUSTED_TOTEM + 37)
-#define SPECIES_MEOWSTIC_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 38)
-#define SPECIES_CRABOMINABLE_MEGA                       (SPECIES_MIMIKYU_BUSTED_TOTEM + 39)
-#define SPECIES_GOLISOPOD_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 40)
-#define SPECIES_MAGEARNA_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 41)
-#define SPECIES_MAGEARNA_ORIGINAL_MEGA                  (SPECIES_MIMIKYU_BUSTED_TOTEM + 42)
-#define SPECIES_SCOVILLAIN_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 43)
-#define SPECIES_BAXCALIBUR_MEGA                         (SPECIES_MIMIKYU_BUSTED_TOTEM + 44)
-#define SPECIES_TATSUGIRI_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 45)
-#define SPECIES_GLIMMORA_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 46)   
-#define SPECIES_COALOSSAL_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 47)
-#define SPECIES_ARCEUS_SOUND                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 48)
-#define SPECIES_SILVALLY_SOUND                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 49)
-#define SPECIES_NIDOKING_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 50)
-#define SPECIES_NIDOQUEEN_MEGA                          (SPECIES_MIMIKYU_BUSTED_TOTEM + 51)
-#define SPECIES_ROTOM_STEREO                            (SPECIES_MIMIKYU_BUSTED_TOTEM + 52)
-#define SPECIES_SMEARGLE_MEGA                           (SPECIES_MIMIKYU_BUSTED_TOTEM + 53)
+#define SPECIES_HEATRAN_MEGA                            1550
+#define SPECIES_DARKRAI_MEGA                            1551
+#define SPECIES_ZERAORA_MEGA                            1552
+#define SPECIES_RAICHU_MEGA_X                           1553
+#define SPECIES_RAICHU_MEGA_Y                           1554
+#define SPECIES_CHIMECHO_MEGA                           1555
+#define SPECIES_ABSOL_MEGA_Z                            1556
+#define SPECIES_STARAPTOR_MEGA                          1557
+#define SPECIES_GARCHOMP_MEGA_Z                         1558
+#define SPECIES_LUCARIO_MEGA_Z                          1559
+#define SPECIES_GOLURK_MEGA                             1560
+#define SPECIES_MEOWSTIC_MEGA                           1561    
+#define SPECIES_CRABOMINABLE_MEGA                       1562
+#define SPECIES_GOLISOPOD_MEGA                          1563
+#define SPECIES_MAGEARNA_MEGA                           1564
+#define SPECIES_MAGEARNA_ORIGINAL_MEGA                  1565
+#define SPECIES_SCOVILLAIN_MEGA                         1566
+#define SPECIES_BAXCALIBUR_MEGA                         1567
+#define SPECIES_TATSUGIRI_MEGA                          1568
+#define SPECIES_GLIMMORA_MEGA                           1569   
+#define SPECIES_COALOSSAL_MEGA                          1570
+#define SPECIES_ARCEUS_SOUND                            1571    
+#define SPECIES_SILVALLY_SOUND                          1572
+#define SPECIES_NIDOKING_MEGA                           1573
+#define SPECIES_NIDOQUEEN_MEGA                          1574
+#define SPECIES_ROTOM_STEREO                            1575
+#define SPECIES_SMEARGLE_MEGA                           1576
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 54)
+#define SPECIES_EGG                                     (SPECIES_SMEARGLE_MEGA + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 

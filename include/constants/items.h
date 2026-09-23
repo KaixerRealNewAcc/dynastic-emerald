@@ -1135,7 +1135,7 @@
 // Enigma Berry dummy constant
 #define EFFECT_ITEM_ENIGMA_BERRY_EREADER    1
 
-/*//Defines for Porydex.
+//Defines for Porydex.
 // TMs/HMs
 #define ITEM_TM_FALSE_SWIPE ITEM_TM01
 #define ITEM_TM_DRAGON_CLAW ITEM_TM02
@@ -1234,6 +1234,6 @@
 #define ITEM_HM_FLASH ITEM_HM05
 #define ITEM_HM_ROCK_SMASH ITEM_HM06
 #define ITEM_HM_WATERFALL ITEM_HM07
-#define ITEM_HM_DIVE ITEM_HM08*/
+#define ITEM_HM_DIVE ITEM_HM08
 
 #endif  // GUARD_CONSTANTS_ITEMS_H

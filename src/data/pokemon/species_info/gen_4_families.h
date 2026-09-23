@@ -1099,7 +1099,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .baseSpeed     = 25,
         .baseSpAttack  = 25,
         .baseSpDefense = 41,
-        .types = MON_TYPES(TYPE_BUG, TYPE_SOUND),
+        .types = MON_TYPES(TYPE_BUG),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 39 : 54,
         .evYield_Defense = 1,
@@ -1196,7 +1196,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .baseSpeed     = 75,
         .baseSpAttack  = 55,
         .baseSpDefense = 51,
-        .types = MON_TYPES(TYPE_BUG, TYPE_SOUND),
+        .types = MON_TYPES(TYPE_BUG),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 134 : 159,
         .evYield_Attack = 2,
@@ -6161,7 +6161,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .baseSpeed     = 86,
         .baseSpAttack  = 105,
         .baseSpDefense = 107,
-        .types = MON_TYPES(TYPE_ELECTRIC, TYPE_SOUND),
+        .types = MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = ROTOM_APPLIANCE_EXP_YIELD,
         .evYield_Speed = 1,
@@ -7674,7 +7674,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
     [SPECIES_ARCEUS_DRAGON]   = ARCEUS_SPECIES_INFO(TYPE_DRAGON,   Dragon,   0),
     [SPECIES_ARCEUS_DARK]     = ARCEUS_SPECIES_INFO(TYPE_DARK,     Dark,     0),
     [SPECIES_ARCEUS_FAIRY]    = ARCEUS_SPECIES_INFO(TYPE_FAIRY,    Fairy,    0),
-    [SPECIES_ARCEUS_SOUND]    = ARCEUS_SPECIES_INFO(TYPE_SOUND,    Flying,   1),
 #endif //P_FAMILY_ARCEUS
 
 #ifdef __INTELLISENSE__

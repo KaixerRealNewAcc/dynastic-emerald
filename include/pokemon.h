@@ -368,7 +368,7 @@ struct BattlePokemon
     /*0x16*/ u32 spAttackIV:5;
     /*0x17*/ u32 spDefenseIV:5;
     /*0x17*/ u32 abilityNum:2;
-    /*0x17*/ u32 innateAbility;
+    /*0x17*/ //u32 innateAbility;
     /*0x18*/ s8 statStages[NUM_BATTLE_STATS];
     /*0x20*/ u16 ability;
     /*0x22*/ u8 types[3];
@@ -433,7 +433,7 @@ struct SpeciesInfo /*0xC4*/
     u8 growthRate;
     u8 eggGroups[2];
     u16 abilities[NUM_ABILITY_SLOTS]; // 3 abilities, no longer u8 because we have over 255 abilities now.
-    u16 innateAbility; // The ability that is always active, even if the Pokémon has a different ability.
+    //u16 innateAbility; // The ability that is always active, even if the Pokémon has a different ability.
     u8 safariZoneFleeRate;
 
     // Pokédex data
