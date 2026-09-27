@@ -233,62 +233,6 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .teachableLearnset = sClefableTeachableLearnset,
     },
 
-    [SPECIES_VICTREEBEL_MEGA] =
-    {
-        .baseHP        = 80,
-        .baseAttack    = 105,
-        .baseDefense   = 95,
-        .baseSpeed     = 70,
-        .baseSpAttack  = 135,
-        .baseSpDefense = 105,
-        .types = MON_TYPES(TYPE_GRASS, TYPE_POISON),
-        .catchRate = 45,
-        .expYield = 245,
-        .evYield_Attack = 3,
-        .genderRatio = PERCENT_FEMALE(50),
-        .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
-        .abilities = { ABILITY_CHLOROPHYLL, ABILITY_NONE, ABILITY_GLUTTONY },
-        .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = TRUE,
-        .speciesName = _("Victreebel"),
-    #if P_MODIFIED_MEGA_CRIES
-        .cryId = CRY_VICTREEBEL_MEGA,
-    #else
-        .cryId = CRY_VICTREEBEL,
-    #endif // P_MODIFIED_MEGA_CRIES
-        .natDexNum = NATIONAL_DEX_VICTREEBEL,
-        .categoryName = _("Flycatcher"),
-        .height = 45,
-        .weight = 1255,
-        .description = COMPOUND_STRING(
-            "The volume of this Pokémon's acid\n"
-            "has increased due to Mega Evolution,\n"
-            "filling its mouth. If not careful,\n"
-            "the acid will overflow and spill out."),
-        .frontPic = gMonFrontPic_VictreebelMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_VictreebelMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 1,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_VictreebelMega,
-        .shinyPalette = gMonShinyPalette_VictreebelMega,
-        .iconSprite = gMonIcon_VictreebelMega,
-        .iconPalIndex = 1,
-        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        FOOTPRINT(Victreebel)
-        SHADOW(-2, 13, SHADOW_SIZE_L)
-        .isMegaEvolution = TRUE,
-        .levelUpLearnset = sVictreebelLevelUpLearnset,
-        .teachableLearnset = sVictreebelTeachableLearnset,
-    },
-
     [SPECIES_STARMIE_MEGA] =
     {
         .baseHP        = 60,

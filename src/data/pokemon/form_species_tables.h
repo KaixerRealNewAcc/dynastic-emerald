@@ -2183,3 +2183,9 @@ static const u16 sBarbaracleFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
+static const u16 sVictreebelFormSpeciesIdTable[] = {
+    SPECIES_VICTREEBEL,
+    SPECIES_VICTREEBEL_MEGA,
+    FORM_SPECIES_END,
+};
+
