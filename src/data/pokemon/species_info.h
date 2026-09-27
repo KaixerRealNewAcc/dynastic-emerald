@@ -879,6 +879,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sScraftyLevelUpLearnset,
         .teachableLearnset = sScraftyTeachableLearnset,
+        .formSpeciesIdTable = sScraftyFormSpeciesIdTable,
+        .formChangeTable = sScraftyFormChangeTable,
     },
 
     [SPECIES_EELEKTROSS_MEGA] =
@@ -1061,12 +1063,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_RAICHU_MEGA_Y] =
     {
         .baseHP        = 60,
-        .baseAttack    = 135,
-        .baseDefense   = 90,
-        .baseSpeed     = 115,
-        .baseSpAttack  = 95,
-        .baseSpDefense = 90,
-        .types = MON_TYPES(TYPE_ELECTRIC, TYPE_FIGHTING),
+        .baseAttack    = 100,
+        .baseDefense   = 55,
+        .baseSpeed     = 130,
+        .baseSpAttack  = 160,
+        .baseSpDefense = 80,
+        .types = MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = RAICHU_EXP_YIELD,
         .evYield_Speed = 3,
@@ -1075,48 +1077,40 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
-        .abilities = { ABILITY_ELECTRO_BOOSTER, ABILITY_ELECTRO_BOOSTER, ABILITY_ELECTRO_BOOSTER },
+        .abilities = { ABILITY_NO_GUARD, ABILITY_NO_GUARD, ABILITY_NO_GUARD },
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Raichu"),
+    #if P_MODIFIED_MEGA_CRIES
+        .cryId = CRY_RAICHU_MEGA_Y,
+    #else
         .cryId = CRY_RAICHU,
+    #endif // P_MODIFIED_MEGA_CRIES
         .natDexNum = NATIONAL_DEX_RAICHU,
         .categoryName = _("Mouse"),
-        .height = 8,
-        .weight = 300,
+        .height = 10,
+        .weight = 260,
         .description = COMPOUND_STRING(
-            "If it stores too much electricity, its\n"
-            "behavior turns aggressive. To avoid this,\n"
-            "it occasionally discharges excess energy\n"
-            "and calms itself down."),
-        .pokemonScale = 426,
-        .pokemonOffset = 13,
-        .trainerScale = 256,
-        .trainerOffset = 0,
+            "It fires bolts of electricity from the\n"
+            "tip of its tail and from the spiky tufts\n"
+            "of fur growing out of its temples. This\n"
+            "electricity forms the letter Y."),
         .frontPic = gMonFrontPic_RaichuMegaY,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
+        .frontPicYOffset = 4,
         .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_RaichuMegaY,
         .backPicSize = MON_COORDS_SIZE(64, 64),
         .backPicYOffset = 2,
-        //.backAnimId = BACK_ANIM_SHAKE_FLASH_YELLOW,
+        //.backAnimId = BACK_ANIM_NONE,
         .palette = gMonPalette_RaichuMegaY,
         .shinyPalette = gMonShinyPalette_RaichuMegaY,
         .iconSprite = gMonIcon_RaichuMegaY,
         .iconPalIndex = 0,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        SHADOW(2, 10, SHADOW_SIZE_M)
         FOOTPRINT(Raichu)
-        OVERWORLD(
-            sPicTable_Raichu,
-            SIZE_32x32,
-            SHADOW_SIZE_M,
-            TRACKS_FOOT,
-            sAnimTable_Following,
-            gOverworldPalette_Raichu,
-            gShinyOverworldPalette_Raichu
-        )
+        SHADOW(-3, 10, SHADOW_SIZE_S)
+        .isMegaEvolution = TRUE,
         .levelUpLearnset = sRaichuLevelUpLearnset,
         .teachableLearnset = sRaichuTeachableLearnset,
         .formSpeciesIdTable = sRaichuFormSpeciesIdTable,
@@ -1174,6 +1168,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sChesnaughtLevelUpLearnset,
         .teachableLearnset = sChesnaughtTeachableLearnset,
+        .formSpeciesIdTable = sChesnaughtFormSpeciesIdTable,
     },
 
     [SPECIES_DELPHOX_MEGA] =
@@ -1287,6 +1282,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGreninjaLevelUpLearnset,
         .teachableLearnset = sGreninjaTeachableLearnset,
+        .formSpeciesIdTable = sGreninjaFormSpeciesIdTable,
+        .formChangeTable = sGreninjaFormChangeTable,
     },
 
     [SPECIES_PYROAR_MEGA] =
@@ -1397,6 +1394,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sDragalgeLevelUpLearnset,
         .teachableLearnset = sDragalgeTeachableLearnset,
+        .formSpeciesIdTable = sDragalgeFormSpeciesIdTable,
+        .formChangeTable = sDragalgeFormChangeTable,
     },
 
     [SPECIES_BARBARACLE_MEGA] =
@@ -1452,6 +1451,8 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sBarbaracleLevelUpLearnset,
         .teachableLearnset = sBarbaracleTeachableLearnset,
+        .formSpeciesIdTable = sBarbaracleFormSpeciesIdTable,
+        .formChangeTable = sBarbaracleFormChangeTable,      
     },
 
     [SPECIES_DRAMPA_MEGA] =

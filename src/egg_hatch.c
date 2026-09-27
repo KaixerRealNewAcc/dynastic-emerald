@@ -932,19 +932,10 @@ u8 GetEggCyclesToSubtract(void)
     for (count = CalculatePlayerPartyCount(), i = 0; i < count; i++)
     {
         u16 ability = GetMonAbility(&gPlayerParty[i]);
-        if ((!IsMinimalGrindingMode() 
-         && (ability == ABILITY_MAGMA_ARMOR
+        if (ability == ABILITY_MAGMA_ARMOR
          || ability == ABILITY_FLAME_BODY
-         || ability == ABILITY_STEAM_ENGINE)))
+         || ability == ABILITY_STEAM_ENGINE)
             return 4;
-        
-        if (IsMinimalGrindingMode())
-            return 5;
-        else if ((IsMinimalGrindingMode()
-              && (ability == ABILITY_MAGMA_ARMOR
-              || ability == ABILITY_FLAME_BODY
-              || ability == ABILITY_STEAM_ENGINE)))
-            return 6;
     }
     return 3;
 }

@@ -93,7 +93,6 @@
 // - MOVE_POWER_GEM                                    //
 // - MOVE_TAILWIND                                     //
 // - MOVE_HURRICANE                                    //
-// - MOVE_ECHO_BLADE                                   //
 // - MOVE_CUT                                          //
 // - MOVE_FLY                                          //
 // - MOVE_SURF                                         //

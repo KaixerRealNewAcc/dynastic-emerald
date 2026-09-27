@@ -1250,6 +1250,10 @@
     {
       "id": "MAPSEC_ALTERING_CAVE_2",
       "name": "Altering Cave"
+    },
+    {
+      "id": "MAPSEC_STARFALL_CAVE",
+      "name": "Starfall Cave"
     }
   ]
 }

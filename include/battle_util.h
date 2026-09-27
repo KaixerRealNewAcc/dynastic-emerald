@@ -91,13 +91,10 @@ enum {
     BATTLER_INNATE,   
 }; 
 
-#define hasAbilityOrInnateFast(battler, ability, battlerAbility) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)))
-#define hasAbilityOrInnate(battler, ability) ((GetBattlerAbility(battler) == ability || BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler))
-#define hasAbilityOrInnateAI(battler, ability) ((gAiLogicData->abilities[battler] == ability || BattlerHasInnate(battler, ability)))
-#define hasAbilityOrInnateAISwitchIn(battler, ability) ((gAiLogicData->switchinCandidate.battleMon.ability || BattlerHasInnate(battler, ability)))
-#define hasAbilityOrInnateAI2(battler, ability) ((aiData->abilities[battler] == ability || BattlerHasInnate(battler, ability)))
-#define hasInnate(battler, ability)    (BattlerHasInnate(battler, ability)) && IsBattlerAlive(battler)
-#define hasInnateFast(battler, ability, battlerAbility)    (BattlerHasInnate(battler, ability))
+#define hasAbilityOrInnateFast(battler, ability, battlerAbility) (GetBattlerAbility(battler) == ability)
+#define hasAbilityOrInnate(battler, ability) ((GetBattlerAbility(battler) == ability) && IsBattlerAlive(battler))
+#define hasAbilityOrInnateAI(battler, ability) ((gAiLogicData->abilities[battler] == ability))
+#define hasInnate(battler, ability)    (GetBattlerAbility(battler) == ability && IsBattlerAlive(battler))
 #define SPECIES_INNATE(species, ability) (GetInnateBySpecies(species, ability))
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
@@ -265,12 +262,9 @@ bool32 TryPrimalReversion(u32 battler);
 bool32 IsNeutralizingGasOnField(void);
 bool32 IsMoldBreakerTypeAbility(u32 battler, u32 ability);
 u32 GetBattlerAbilityIgnoreMoldBreaker(u32 battler);
-u32 GetBattlerInnateIgnoreMoldBreaker(u32 battler, u32 ability);
 u32 GetBattlerAbilityNoAbilityShield(u32 battler);
 u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityShield);
 u32 GetBattlerAbility(u32 battler);
-bool32 BattlerHasInnate(u32 battler, u32 ability);
-bool32 BattlerHasInnateInternal(u32 battler, u32 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield);
 u32 IsAbilityOnSide(u32 battler, u32 ability);
 u32 IsAbilityOnOpposingSide(u32 battler, u32 ability);
 u32 IsAbilityOnField(u32 ability);

@@ -787,11 +787,7 @@ u8 CalculateEnemyPartyCountInSide(u32 battler);
 u8 GetMonsStateToDoubles(void);
 u8 GetMonsStateToDoubles_2(void);
 u16 GetAbilityBySpecies(u16 species, u8 abilityNum);
-bool32 GetInnateBySpecies(u32 species, u32 ability);
-u16 GetInnateBySpeciesUnused(u16 species, u16 ability);
-u16 GetInnateBySpeciesSummaryScreen(u16 species, u16 innateAbility);
 u16 GetMonAbility(struct Pokemon *mon);
-u16 GetMonInnate(struct Pokemon *mon);
 void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord);
 u8 GetSecretBaseTrainerPicIndex(void);
 enum TrainerClassID GetSecretBaseTrainerClass(void);
@@ -929,6 +925,6 @@ u8 *GetSavedPlayerPartyCount(void);
 void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
 u32 IsSpeciesOfType(u32 species, u32 type);
 
-#define monAbilityOrInnate(mon, ability) (GetMonAbility(mon) == ability || GetMonInnate(mon) == ability)
+#define monAbilityOrInnate(mon, ability) (GetMonAbility(mon) == ability)
 
 #endif // GUARD_POKEMON_H

@@ -695,14 +695,6 @@ u32 GetPartyMonAbility(struct Pokemon *mon)
     return ability;
 }
 
-u32 GetPartyMonInnate(struct Pokemon *mon)
-{
-    //  Doesn't have any special handling yet
-    u32 species = GetMonData(mon, MON_DATA_SPECIES);
-    u32 ability = GetInnateBySpecies(species, GetMonData(mon, MON_DATA_ABILITY_NUM));
-    return ability;
-}
-
 static u32 PpStallReduction(u32 move, u32 battlerAtk)
 {
     if (move == MOVE_NONE)
@@ -721,11 +713,9 @@ static u32 PpStallReduction(u32 move, u32 battlerAtk)
         u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES);
         u32 abilityAtk = ABILITY_NONE;
         u32 abilityDef = GetPartyMonAbility(&gPlayerParty[partyIndex]);
-        u32 innateDef = GetPartyMonInnate(&gPlayerParty[partyIndex]);
         u32 moveType = GetBattleMoveType(move); //  Probably doesn't handle dynamic types right now
         if (CanAbilityAbsorbMove(battlerAtk, tempBattleMonIndex, abilityDef, move, moveType, CHECK_TRIGGER)
          || CanAbilityBlockMove(battlerAtk, tempBattleMonIndex, abilityAtk, abilityDef, move, CHECK_TRIGGER)
-         || CanAbilityBlockMove(battlerAtk, tempBattleMonIndex, abilityAtk, innateDef, move, CHECK_TRIGGER)
          || (CalcPartyMonTypeEffectivenessMultiplier(move, species, abilityDef) == 0))
         {
             totalStallValue += currentStallValue;

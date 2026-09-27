@@ -1978,28 +1978,10 @@ void CalculateMonStats(struct Pokemon *mon)
 {
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
     s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
-    s32 hpEV = GetMonData(mon, MON_DATA_HP_EV, NULL);
-    s32 attackEV = GetMonData(mon, MON_DATA_ATK_EV, NULL);
-    s32 defenseEV = GetMonData(mon, MON_DATA_DEF_EV, NULL);
-    s32 speedEV = GetMonData(mon, MON_DATA_SPEED_EV, NULL);
-    s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
-    s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
     u8 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
     s32 level = GetLevelFromMonExp(mon);
     s32 newMaxHP;
-    s32 zero = 0;
-
-    if(IsMinimalGrindingMode())
-    {
-        //Evs are Disabled, this is mostly used for Trainers.
-        hpEV 		= zero;
-		attackEV 	= zero;
-		defenseEV 	= zero;
-		spAttackEV 	= zero;
-		spDefenseEV = zero;
-		speedEV 	= zero;
-    }
 
 
     u8 nature = GetMonData(mon, MON_DATA_HIDDEN_NATURE, NULL);
@@ -3755,40 +3737,6 @@ u16 GetMonAbility(struct Pokemon *mon)
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
     u8 abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
     return GetAbilityBySpecies(species, abilityNum);
-}
-
-bool32 GetInnateBySpecies(u32 species, u32 ability)
-{
-    u16 innate = gSpeciesInfo[species].innateAbility;
-    
-    if(innate == ability)
-        return TRUE;
-	else
-	    return FALSE;
-}
-
-u16 GetInnateBySpeciesUnused(u16 species, u16 ability)
-{
-    if (gSpeciesInfo[species].innateAbility == ability)
-        gLastUsedAbility = gSpeciesInfo[species].innateAbility;
-    else
-        gLastUsedAbility = ABILITY_NONE;
-
-    return gLastUsedAbility;
-}
-
-u16 GetInnateBySpeciesSummaryScreen(u16 species, u16 innateAbility)
-{
-    u16 speciesAndInnate = species + innateAbility;
-    
-    return gSpeciesInfo[speciesAndInnate].innateAbility;
-}
-
-u16 GetMonInnate(struct Pokemon *mon)
-{
-    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
-    u8 ability = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
-    return GetInnateBySpecies(species, ability);
 }
 
 void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord)

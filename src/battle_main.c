@@ -4329,7 +4329,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !IsEasyMode())
+                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionItemsCantBeUsed;

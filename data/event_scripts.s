@@ -1178,3 +1178,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/DewfordHill/scripts.inc"
 
 	.include "data/maps/AlteringCave2/scripts.inc"
+
+	.include "data/maps/StarfallCave/scripts.inc"

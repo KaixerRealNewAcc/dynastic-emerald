@@ -4665,7 +4665,7 @@ static void Cmd_getexp(void)
             {
                 gBattleScripting.getexpState = 5;
                 gBattleStruct->battlerExpReward = 0;
-                if (!IsMinimalGrindingMode() || (B_MAX_LEVEL_EV_GAINS >= GEN_5)) //Minimal Grinding is off
+                if (B_MAX_LEVEL_EV_GAINS >= GEN_5) //Minimal Grinding is off
                     MonGainEVs(&gPlayerParty[*expMonId], gBattleMons[gBattlerFainted].species);
             }
             else
@@ -4752,9 +4752,6 @@ static void Cmd_getexp(void)
                         PrepareStringBattle(STRINGID_TEAMGAINEDEXP, gBattleStruct->expGetterBattlerId);
                         gBattleStruct->teamGotExpMsgPrinted = TRUE;
                     }
-
-                    if(!IsMinimalGrindingMode())
-                        MonGainEVs(&gPlayerParty[*expMonId], gBattleMons[gBattlerFainted].species);
                 }
                 gBattleScripting.getexpState++;
             }
@@ -7323,7 +7320,6 @@ static void Cmd_switchindataupdate(void)
     gBattleMons[battler].types[1] = GetSpeciesType(gBattleMons[battler].species, 1);
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
     gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
-    gBattleMons[battler].innateAbility = GetInnateBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
     #if TESTING
     if (gTestRunnerEnabled)
     {

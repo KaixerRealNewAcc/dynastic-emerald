@@ -4480,6 +4480,16 @@
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/AlteringCave2/border.bin",
       "blockdata_filepath": "data/layouts/AlteringCave2/map.bin"
+    },
+    {
+      "id": "LAYOUT_STARFALL_CAVE",
+      "name": "StarfallCave_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_MeteorFalls",
+      "border_filepath": "data/layouts/StarfallCave/border.bin",
+      "blockdata_filepath": "data/layouts/StarfallCave/map.bin"
     }
   ]
 }

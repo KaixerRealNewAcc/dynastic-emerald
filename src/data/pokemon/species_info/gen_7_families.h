@@ -7645,68 +7645,6 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .formSpeciesIdTable = sMelmetalFormSpeciesIdTable,
         .formChangeTable = sMelmetalFormChangeTable,
     },
-
-#if P_GIGANTAMAX_FORMS
-    [SPECIES_MELMETAL_GMAX] =
-    {
-        .baseHP        = 135,
-        .baseAttack    = 143,
-        .baseDefense   = 143,
-        .baseSpeed     = 34,
-        .baseSpAttack  = 80,
-        .baseSpDefense = 65,
-        .types = MON_TYPES(TYPE_STEEL),
-        .catchRate = 3,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 300 : 270,
-        .evYield_Attack = 3,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 120,
-        .friendship = 0,
-        .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
-        .abilities = { ABILITY_IRON_FIST, ABILITY_NONE, ABILITY_NONE },
-        .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Melmetal"),
-        .cryId = CRY_MELMETAL,
-        .natDexNum = NATIONAL_DEX_MELMETAL,
-        .categoryName = _("Hex Nut"),
-        .height = 250,
-        .weight = 0,
-        .description = COMPOUND_STRING(
-            "In a distant land, there are\n"
-            "legends about a cyclopean giant. In fact,\n"
-            "the giant was a Melmetal that was\n"
-            "flooded with Gigantamax energy."),
-        .pokemonScale = 257,
-        .pokemonOffset = 10,
-        .trainerScale = 423,
-        .trainerOffset = 8,
-        .frontPic = gMonFrontPic_MelmetalGmax,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_MelmetalGmax,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 14,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_MelmetalGmax,
-        .shinyPalette = gMonShinyPalette_MelmetalGmax,
-        .iconSprite = gMonIcon_MelmetalGmax,
-        .iconPalIndex = 0,
-        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        SHADOW(2, 13, SHADOW_SIZE_XL_BATTLE_ONLY)
-        FOOTPRINT(Melmetal)
-        .isMythical = TRUE,
-        .isGigantamax = TRUE,
-        .isFrontierBanned = TRUE,
-        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
-        .levelUpLearnset = sMelmetalLevelUpLearnset,
-        .teachableLearnset = sMelmetalTeachableLearnset,
-        .formSpeciesIdTable = sMelmetalFormSpeciesIdTable,
-        .formChangeTable = sMelmetalFormChangeTable,
-    },
-#endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_MELTAN
 
 #ifdef __INTELLISENSE__

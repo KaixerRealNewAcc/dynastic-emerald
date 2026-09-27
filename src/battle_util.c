@@ -4072,6 +4072,17 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
+        case ABILITY_ILLUMINATE:
+            if (!gSpecialStatuses[battler].switchInAbilityDone && !IsOpposingSideEmpty(battler))
+            {
+                SaveBattlerAttacker(gBattlerAttacker);
+                gBattlerAttacker = battler;
+                gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                SET_STATCHANGER(STAT_SPATK, 1, TRUE);
+                BattleScriptPushCursorAndCallback(BattleScript_IntimidateActivates);
+                effect++;
+            }
+            break;
         case ABILITY_SUPERSWEET_SYRUP:
             if (!gSpecialStatuses[battler].switchInAbilityDone
              && !GetBattlerPartyState(battler)->supersweetSyrup
@@ -4387,20 +4398,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     SET_BATTLER_TYPE(battler, TYPE_ELECTRIC);
                     PREPARE_TYPE_BUFFER(gBattleTextBuff1, TYPE_ELECTRIC);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAddedTheType);
-                    effect++;
-                }
-            }
-
-            //Normal Abilities.
-            if(hasInnate(battler, ABILITY_INTIMIDATE))
-            {
-                if (!gSpecialStatuses[battler].switchInAbilityDone)
-                {
-                    gBattlerAttacker = battler;
-                    gBattleScripting.abilityPopupOverwrite = gLastUsedAbility = ABILITY_INTIMIDATE;
-                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                    SET_STATCHANGER(STAT_ATK, 1, TRUE);
-                    BattleScriptPushCursorAndCallback(BattleScript_IntimidateActivates);
                     effect++;
                 }
             }
@@ -6572,58 +6569,11 @@ u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityS
     return gBattleMons[battler].ability;
 }
 
-bool32 BattlerHasInnate(u32 battler, u32 ability)
-{
-    return BattlerHasInnateInternal(battler, ability, FALSE, FALSE);
-}
-
-u32 GetBattlerInnateIgnoreMoldBreaker(u32 battler, u32 ability)
-{
-    return BattlerHasInnateInternal(battler, ability, TRUE, FALSE);
-}
-
-bool32 BattlerHasInnateInternal(u32 battler, u32 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield)
-{
-    bool32 hasAbilityShield = !noAbilityShield && GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
-    bool32 innateCantBeSuppressed = gAbilitiesInfo[ability].cantBeSuppressed;
-
-    if (innateCantBeSuppressed)
-    {
-        // Edge case: pokemon under the effect of gastro acid transforms into a pokemon with Comatose (Todo: verify how other unsuppressable abilities behave)
-        if (gBattleMons[battler].volatiles.transformed
-            && gBattleMons[battler].volatiles.gastroAcid
-            && ability == ABILITY_COMATOSE)
-                return ABILITY_NONE;
-
-        if (CanBreakThroughAbility(gBattlerAttacker, battler, ability, hasAbilityShield, ignoreMoldBreaker))
-            return FALSE;
-
-        return GetInnateBySpecies(gBattleMons[battler].species, ability);
-    }
-
-    if (gBattleMons[battler].volatiles.gastroAcid)
-        return ABILITY_NONE;
-
-    if (!hasAbilityShield
-     && IsNeutralizingGasOnField()
-     && ability != ABILITY_NEUTRALIZING_GAS)
-        return FALSE;
-    
-    if (CanBreakThroughAbility(gBattlerAttacker, battler, ability, hasAbilityShield, ignoreMoldBreaker))
-        return ABILITY_NONE;
-
-    return GetInnateBySpecies(gBattleMons[battler].species, ability);
-}
-
 u32 IsAbilityOnSide(u32 battler, u32 ability)
 {
     if (IsBattlerAlive(battler) && GetBattlerAbility(battler) == ability)
         return battler + 1;
-    else if (IsBattlerAlive(battler) && BattlerHasInnate(battler, ability))
-        return battler + 1;
     else if (IsBattlerAlive(BATTLE_PARTNER(battler)) && GetBattlerAbility(BATTLE_PARTNER(battler)) == ability)
-        return BATTLE_PARTNER(battler) + 1;
-    else if (IsBattlerAlive(BATTLE_PARTNER(battler)) && BattlerHasInnate(BATTLE_PARTNER(battler), ability))
         return BATTLE_PARTNER(battler) + 1;
     else
         return 0;
@@ -6640,7 +6590,7 @@ u32 IsAbilityOnField(u32 ability)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (IsBattlerAlive(i) && (GetBattlerAbility(i) == ability || BattlerHasInnate(i, ability)))
+        if (IsBattlerAlive(i) && (GetBattlerAbility(i) == ability))
             return i + 1;
     }
 
@@ -6653,7 +6603,7 @@ u32 IsAbilityOnFieldExcept(u32 battler, u32 ability)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (i != battler && IsBattlerAlive(i) && (GetBattlerAbility(i) == ability || BattlerHasInnate(i, ability)))
+        if (i != battler && IsBattlerAlive(i) && (GetBattlerAbility(i) == ability))
             return i + 1;
     }
 

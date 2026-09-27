@@ -2078,8 +2078,6 @@ static bool32 CanAbilityTrapOpponent(u16 ability, u32 opponent)
         return FALSE;
 }
 
-#define opposingInnate(opposingBattler, ability) (GetBattlerInnateIgnoreMoldBreaker(opposingBattler, ability))
-
 static inline bool32 IsFreeSwitch(enum SwitchType switchType, u32 battlerSwitchingOut, u32 opposingBattler)
 {
     bool32 movedSecond = GetBattlerTurnOrderNum(battlerSwitchingOut) > GetBattlerTurnOrderNum(opposingBattler) ? TRUE : FALSE;
@@ -2095,8 +2093,7 @@ static inline bool32 IsFreeSwitch(enum SwitchType switchType, u32 battlerSwitchi
         {
             u32 opposingAbility = GetBattlerAbilityIgnoreMoldBreaker(opposingBattler);
             // If faster, not a free switch; likely lowered own stats
-            if ((!movedSecond && (opposingAbility != ABILITY_INTIMIDATE && opposingAbility != ABILITY_SUPERSWEET_SYRUP)) 
-            || (!opposingInnate(opposingBattler, ABILITY_INTIMIDATE && !opposingInnate(opposingBattler, ABILITY_SUPERSWEET_SYRUP)))) // Intimidate triggers switches before turn starts
+            if ((!movedSecond && (opposingAbility != ABILITY_INTIMIDATE && opposingAbility != ABILITY_SUPERSWEET_SYRUP))) // Intimidate triggers switches before turn starts
                 return FALSE;
             // Otherwise, free switch
             return TRUE;

@@ -1621,13 +1621,9 @@ bool32 AI_IsAbilityOnSide(u32 battlerId, u32 ability)
 {
     if (IsBattlerAlive(battlerId) && hasAbilityOrInnateAI(battlerId, ability))
         return TRUE;
-    else if (IsBattlerAlive(BATTLE_PARTNER(battlerId)) && hasAbilityOrInnateAI(BATTLE_PARTNER(battlerId), ability))
-        return TRUE;
     else
         return FALSE;
 }
-
-#define knownInnate(battlerId, ability) (GetBattlerInnateIgnoreMoldBreaker(battlerId, ability))
 
 // does NOT include ability suppression checks
 s32 AI_DecideKnownAbilityForTurn(u32 battlerId)
@@ -1645,8 +1641,6 @@ s32 AI_DecideKnownAbilityForTurn(u32 battlerId)
     // The AI knows its own ability, and omniscience handling
     if (IsAiBattlerAware(battlerId) || (IsAiBattlerAssumingStab() && ASSUME_STAB_SEES_ABILITY))
         return knownAbility;
-    if (IsAiBattlerAware(battlerId) || (IsAiBattlerAssumingStab() && ASSUME_STAB_SEES_ABILITY))
-        return knownInnate(battlerId, knownAbility);
 
     // Check neutralizing gas, gastro acid
     if (knownAbility == ABILITY_NONE)
@@ -1658,8 +1652,6 @@ s32 AI_DecideKnownAbilityForTurn(u32 battlerId)
     // Abilities that prevent fleeing - treat as always known
     if (knownAbility == ABILITY_SHADOW_TAG || knownAbility == ABILITY_MAGNET_PULL || knownAbility == ABILITY_ARENA_TRAP)
         return knownAbility;
-    if (knownInnate(battlerId, ABILITY_SHADOW_TAG) || knownInnate(battlerId, ABILITY_MAGNET_PULL) || knownInnate(battlerId, ABILITY_ARENA_TRAP))
-        return knownInnate(battlerId, knownAbility);
 
     for (i = 0; i < NUM_ABILITY_SLOTS; i++)
     {

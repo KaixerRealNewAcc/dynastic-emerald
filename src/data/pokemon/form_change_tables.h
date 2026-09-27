@@ -827,8 +827,14 @@ static const struct FormChange sGenesectFormChangeTable[] = {
 };
 #endif //P_FAMILY_GENESECT
 
+static const struct FormChange sChesnaughtFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_CHESNAUGHT_MEGA, ITEM_CHESNAUGHTITE},
+    {FORM_CHANGE_TERMINATOR},
+};
+
 #if P_FAMILY_FROAKIE
-static const struct FormChange sGreninjaBattleBondFormChangeTable[] = {
+static const struct FormChange sGreninjaFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_GRENINJA_MEGA, ITEM_GRENINJITE},
     {FORM_CHANGE_FAINT,         SPECIES_GRENINJA_BATTLE_BOND},
     {FORM_CHANGE_END_BATTLE,    SPECIES_GRENINJA_BATTLE_BOND},
     {FORM_CHANGE_TERMINATOR},
@@ -1361,6 +1367,29 @@ static const struct FormChange sTerapagosFormChangeTable[] = {
     {FORM_CHANGE_TERMINATOR},
 };
 #endif //P_FAMILY_TERAPAGOS
+
+#if P_FAMILY_HAWLUCHA
+static const struct FormChange sHawluchaFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_HAWLUCHA_MEGA, ITEM_HAWLUCHANITE},
+    {FORM_CHANGE_TERMINATOR},
+};
+#endif //P_FAMILY_HAWLUCHA
+
+static const struct FormChange sScraftyFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_SCRAFTY_MEGA, ITEM_SCRAFTINITE},
+    {FORM_CHANGE_TERMINATOR},
+};
+
+static const struct FormChange sDragalgeFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_DRAGALGE_MEGA, ITEM_DRAGALGITE},
+    {FORM_CHANGE_TERMINATOR},
+};
+
+static const struct FormChange sBarbaracleFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_BARBARACLE_MEGA, ITEM_BARBARACITE},
+    {FORM_CHANGE_TERMINATOR},
+};
+
 
 #undef WHEN_LEARNED
 #undef WHEN_FORGOTTEN

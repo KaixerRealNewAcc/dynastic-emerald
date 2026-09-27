@@ -5662,6 +5662,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sScraftyLevelUpLearnset,
         .teachableLearnset = sScraftyTeachableLearnset,
+        .formSpeciesIdTable = sScraftyFormSpeciesIdTable,
+        .formChangeTable = sScraftyFormChangeTable,
     },
 #endif //P_FAMILY_SCRAGGY
 
@@ -6461,68 +6463,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formSpeciesIdTable = sGarbodorFormSpeciesIdTable,
         .formChangeTable = sGarbodorFormChangeTable,
     },
-
-#if P_GIGANTAMAX_FORMS
-    [SPECIES_GARBODOR_GMAX] =
-    {
-        .baseHP        = 80,
-        .baseAttack    = 95,
-        .baseDefense   = 82,
-        .baseSpeed     = 75,
-        .baseSpAttack  = 60,
-        .baseSpDefense = 82,
-        .types = MON_TYPES(TYPE_POISON),
-        .catchRate = 60,
-        .expYield = 166,
-        .evYield_Attack = 2,
-        .itemCommon = ITEM_SILK_SCARF,
-        .itemRare = ITEM_BLACK_SLUDGE,
-        .genderRatio = PERCENT_FEMALE(50),
-        .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_STENCH, ABILITY_WEAK_ARMOR, ABILITY_AFTERMATH },
-        .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = TRUE,
-        .speciesName = _("Garbodor"),
-        .cryId = CRY_GARBODOR,
-        .natDexNum = NATIONAL_DEX_GARBODOR,
-        .categoryName = _("Trash Heap"),
-        .height = 210,
-        .weight = 0,
-        .description = COMPOUND_STRING(
-            "It sprays toxic gas from its mouth\n"
-            "and fingers. If the gas engulfs you,\n"
-            "the toxins will seep in all the way\n"
-            "down to your bones."),
-        .pokemonScale = 256,
-        .pokemonOffset = 1,
-        .trainerScale = 326,
-        .trainerOffset = 4,
-        .frontPic = gMonFrontPic_GarbodorGmax,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_GarbodorGmax,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 2,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_GarbodorGmax,
-        .shinyPalette = gMonShinyPalette_GarbodorGmax,
-        .iconSprite = gMonIcon_GarbodorGmax,
-        .iconPalIndex = 0,
-        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        NO_SHADOW
-        FOOTPRINT(Garbodor)
-        .isGigantamax = TRUE,
-        .levelUpLearnset = sGarbodorLevelUpLearnset,
-        .teachableLearnset = sGarbodorTeachableLearnset,
-        .formSpeciesIdTable = sGarbodorFormSpeciesIdTable,
-        .formChangeTable = sGarbodorFormChangeTable,
-    },
-#endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_TRUBBISH
 
 #if P_FAMILY_ZORUA

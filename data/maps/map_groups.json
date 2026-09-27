@@ -436,7 +436,8 @@
     "TerraCave_End",
     "AlteringCave",
     "MeteorFalls_StevensCave",
-    "AlteringCave2"
+    "AlteringCave2",
+    "StarfallCave"
   ],
   "gMapGroup_IndoorDynamic": [
     "SecretBase_RedCave1",

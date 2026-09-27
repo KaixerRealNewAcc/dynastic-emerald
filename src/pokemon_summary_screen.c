@@ -2180,65 +2180,6 @@ static void Task_HandleInput(u8 taskId)
                 BeginCloseSummaryScreen(taskId);
             }
         }
-        else if (JOY_NEW(R_BUTTON) && sMonSummaryScreen->currPageIndex == PSS_PAGE_INFO)
-        {
-            if(!ModifyMode)
-            {
-                u8 windowId = AddWindowFromTemplateList(sPageInfoTemplate, PSS_DATA_WINDOW_INFO_ABILITY);
-                u16 innateAbility = GetInnateBySpeciesSummaryScreen(sMonSummaryScreen->summary.species, sMonSummaryScreen->summary.innateAbility);
-                u8 desc[MAX_ABILITY_DESCRIPTION_LENGTH];
-
-                innateAbilityIsShown = TRUE;
-
-                int stringXPos = GetStringRightAlignXOffset(FONT_NORMAL, gTextInfoPageInnateAbility, 62);
-                int iconXPos = stringXPos - 8;
-                if (iconXPos < 0)
-                    iconXPos = 0;
-                FillWindowPixelBuffer(PSS_LABEL_WINDOW_PROMPT_UTILITY, PIXEL_FILL(0));
-                PrintTextOnWindow_SmallNarrow(PSS_LABEL_WINDOW_PROMPT_UTILITY, gTextInfoPageInnateAbility, stringXPos, 1, 0, 0);
-            
-                FillWindowPixelBuffer(sMonSummaryScreen->windowIds[PSS_DATA_WINDOW_INFO_ABILITY], 0);
-                if(P_SUMMARY_SCREEN_ABILITY_COLOR)
-                    PrintTextOnWindow(windowId, gAbilitiesInfo[innateAbility].name, 6, 16, 2, 7);
-                FormatTextByWidth(desc, MAX_ABILITY_DESCRIPTION_WIDTH, FONT_SHORT_NARROW, gAbilitiesInfo[innateAbility].description, 0);
-                PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 29, 2, 0);
-            }
-            else
-            {
-                ModifyMode = FALSE;
-            }
-        }
-        else if (JOY_NEW(L_BUTTON) && sMonSummaryScreen->currPageIndex == PSS_PAGE_INFO)
-        {
-            if(!ModifyMode)
-            {
-                u8 windowId = AddWindowFromTemplateList(sPageInfoTemplate, PSS_DATA_WINDOW_INFO_ABILITY);
-                u16 ability = GetAbilityBySpecies(sMonSummaryScreen->summary.species, sMonSummaryScreen->summary.abilityNum);
-                u8 desc[MAX_ABILITY_DESCRIPTION_LENGTH];
-                u16 isHiddenAbility = sMonSummaryScreen->summary.abilityNum == 2;
-
-                innateAbilityIsShown = FALSE;
-
-                int stringXPos = GetStringRightAlignXOffset(FONT_NORMAL, gTextInfoPageAbility, 62);
-                int iconXPos = stringXPos - 16;
-                if (iconXPos < 0)
-                    iconXPos = 0;
-                FillWindowPixelBuffer(PSS_LABEL_WINDOW_PROMPT_UTILITY, PIXEL_FILL(0));
-                PrintTextOnWindow_SmallNarrow(PSS_LABEL_WINDOW_PROMPT_UTILITY, gTextInfoPageAbility, stringXPos, 1, 0, 0);
-
-                FillWindowPixelBuffer(sMonSummaryScreen->windowIds[PSS_DATA_WINDOW_INFO_ABILITY], 0);
-                if(P_SUMMARY_SCREEN_ABILITY_COLOR && isHiddenAbility)
-                    PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 16, 2, ABILITY_COLOR_VALUE);
-                else
-                    PrintTextOnWindow(windowId, gAbilitiesInfo[ability].name, 6, 16, 2, 1);
-                FormatTextByWidth(desc, MAX_ABILITY_DESCRIPTION_WIDTH, FONT_SHORT_NARROW, gAbilitiesInfo[ability].description, 0);
-                PrintTextOnWindow_SmallNarrow(windowId, desc, 6, 29, 2, 0);
-            }
-            else
-            {
-                ModifyMode = FALSE;
-            }
-        }
         else if (DEBUG_POKEMON_SPRITE_VISUALIZER && JOY_NEW(SELECT_BUTTON) && !gMain.inBattle)
         {
             sMonSummaryScreen->callback = CB2_Pokemon_Sprite_Visualizer;
@@ -2254,7 +2195,7 @@ static u8 IncrementSkillsStatsMode(u8 mode)
     switch (mode)
     {
     case SUMMARY_SKILLS_MODE_STATS:
-        if (P_SUMMARY_SCREEN_EV_ONLY || IsMinimalGrindingMode())
+        if (P_SUMMARY_SCREEN_EV_ONLY)
         {
             sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_EVS;
             return SUMMARY_SKILLS_MODE_EVS;
@@ -2266,7 +2207,7 @@ static u8 IncrementSkillsStatsMode(u8 mode)
         }
 
     case SUMMARY_SKILLS_MODE_IVS:
-        if (P_SUMMARY_SCREEN_IV_ONLY || IsMinimalGrindingMode())
+        if (P_SUMMARY_SCREEN_IV_ONLY)
         {
             sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_STATS;
             return SUMMARY_SKILLS_MODE_STATS;
@@ -5373,9 +5314,6 @@ static inline bool32 ShouldShowIvEvPrompt(void)
     }
     else if (!P_SUMMARY_SCREEN_IV_EV_BOX_ONLY)
     {
-        if(IsMinimalGrindingMode())
-            return FALSE; //(P_SUMMARY_SCREEN_IV_EV_INFO || FlagGet(P_FLAG_SUMMARY_SCREEN_IV_EV_INFO));
-        else
             return TRUE;
     }
     return FALSE;
