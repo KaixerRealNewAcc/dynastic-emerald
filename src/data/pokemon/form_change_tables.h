@@ -1395,6 +1395,11 @@ static const struct FormChange sVictreebelFormChangeTable[] = {
     {FORM_CHANGE_TERMINATOR},
 };
 
+static const struct FormChange sEmboarFormChangeTable[] = {
+    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM, SPECIES_EMBOAR_MEGA, ITEM_EMBOARITE},
+    {FORM_CHANGE_TERMINATOR},
+};
+
 
 #undef WHEN_LEARNED
 #undef WHEN_FORGOTTEN

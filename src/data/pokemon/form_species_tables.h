@@ -2189,3 +2189,9 @@ static const u16 sVictreebelFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
+static const u16 sEmboarFormSpeciesIdTable[] = {
+    SPECIES_EMBOAR,
+    SPECIES_EMBOAR_MEGA,
+    FORM_SPECIES_END,
+};
+

@@ -79,10 +79,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
     [SPECIES_SNIVY] =
     {
         .baseHP        = 45,
-        .baseAttack    = 45,
+        .baseAttack    = 35,
         .baseDefense   = 55,
         .baseSpeed     = 63,
-        .baseSpAttack  = 45,
+        .baseSpAttack  = 60,
         .baseSpDefense = 55,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
@@ -93,7 +93,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
-        .abilities = { ABILITY_SHED_SKIN, ABILITY_NONE, ABILITY_CONTRARY },
+        .abilities = { ABILITY_OVERGROW, ABILITY_LEAF_GUARD, ABILITY_CONTRARY },
         //.innateAbility = ABILITY_OVERGROW,
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Snivy"),
@@ -143,18 +143,18 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sSnivyLevelUpLearnset,
         .teachableLearnset = sSnivyTeachableLearnset,
         .eggMoveLearnset = sSnivyEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 17, SPECIES_SERVINE}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_SERVINE}),
     },
 
     [SPECIES_SERVINE] =
     {
         .baseHP        = 60,
-        .baseAttack    = 60,
+        .baseAttack    = 50,
         .baseDefense   = 75,
         .baseSpeed     = 83,
-        .baseSpAttack  = 60,
+        .baseSpAttack  = 75,
         .baseSpDefense = 75,
-        .types = MON_TYPES(TYPE_GRASS),
+        .types = MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 145,
         .evYield_Speed = 2,
@@ -163,7 +163,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
-        .abilities = { ABILITY_SHED_SKIN, ABILITY_NONE, ABILITY_CONTRARY },
+        .abilities = { ABILITY_OVERGROW, ABILITY_LEAF_GUARD, ABILITY_CONTRARY },
         //.innateAbility = ABILITY_OVERGROW,
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Servine"),
@@ -222,12 +222,12 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
     [SPECIES_SERPERIOR] =
     {
         .baseHP        = 75,
-        .baseAttack    = 75,
+        .baseAttack    = 87,
         .baseDefense   = 95,
         .baseSpeed     = 113,
-        .baseSpAttack  = 75,
+        .baseSpAttack  = 87,
         .baseSpDefense = 95,
-        .types = MON_TYPES(TYPE_GRASS),
+        .types = MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 264 : 238,
         .evYield_Speed = 3,
@@ -236,7 +236,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
-        .abilities = { ABILITY_SHED_SKIN, ABILITY_NONE, ABILITY_CONTRARY },
+        .abilities = { ABILITY_OVERGROW, ABILITY_LEAF_GUARD, ABILITY_CONTRARY },
         //.innateAbility = ABILITY_OVERGROW,
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Serperior"),
@@ -296,8 +296,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseHP        = 65,
         .baseAttack    = 63,
         .baseDefense   = 45,
-        .baseSpeed     = 45,
-        .baseSpAttack  = 45,
+        .baseSpeed     = 35,
+        .baseSpAttack  = 55,
         .baseSpDefense = 45,
         .types = MON_TYPES(TYPE_FIRE),
         .catchRate = 45,
@@ -308,7 +308,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_GLUTTONY, ABILITY_NONE, ABILITY_THICK_FAT },
+        .abilities = { ABILITY_MAGMA_ARMOR, ABILITY_BLAZE, ABILITY_THICK_FAT },
         //.innateAbility = ABILITY_BLAZE,
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Tepig"),
@@ -360,7 +360,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sTepigLevelUpLearnset,
         .teachableLearnset = sTepigTeachableLearnset,
         .eggMoveLearnset = sTepigEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 17, SPECIES_PIGNITE}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_PIGNITE}),
     },
 
     [SPECIES_PIGNITE] =
@@ -368,10 +368,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseHP        = 90,
         .baseAttack    = 93,
         .baseDefense   = 55,
-        .baseSpeed     = 55,
-        .baseSpAttack  = 70,
+        .baseSpeed     = 45,
+        .baseSpAttack  = 80,
         .baseSpDefense = 55,
-        .types = MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
+        .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 146,
         .evYield_Attack = 2,
@@ -380,7 +380,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_GLUTTONY, ABILITY_NONE, ABILITY_THICK_FAT },
+        .abilities = { ABILITY_MAGMA_ARMOR, ABILITY_BLAZE, ABILITY_THICK_FAT },
         //.innateAbility = ABILITY_BLAZE,
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Pignite"),
@@ -436,11 +436,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
     {
         .baseHP        = 110,
         .baseAttack    = 123,
-        .baseDefense   = 65,
-        .baseSpeed     = 65,
-        .baseSpAttack  = 100,
-        .baseSpDefense = 65,
-        .types = MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
+        .baseDefense   = 75,
+        .baseSpeed     = 59,
+        .baseSpAttack  = 110,
+        .baseSpDefense = 75,
+        .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 264 : 238,
         .evYield_Attack = 3,
@@ -449,7 +449,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_THICK_FAT, ABILITY_NONE, ABILITY_RECKLESS },
+        .abilities = { ABILITY_MAGMA_ARMOR, ABILITY_ROCK_HEAD, ABILITY_RECKLESS },
         //.innateAbility = ABILITY_BLAZE,
         .bodyColor = BODY_COLOR_RED,
         .noFlip = TRUE,
@@ -518,7 +518,70 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sEmboarLevelUpLearnset,
         .teachableLearnset = sEmboarTeachableLearnset,
+        .formChangeTable = sEmboarFormChangeTable,
+        .formSpeciesIdTable = sEmboarFormSpeciesIdTable,
+        .isLegendary = TRUE,
     },
+
+    [SPECIES_EMBOAR_MEGA] =
+    {
+        .baseHP        = 110,
+        .baseAttack    = 148,
+        .baseDefense   = 85,
+        .baseSpeed     = 75,
+        .baseSpAttack  = 100,
+        .baseSpDefense = 110,
+        .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
+        .catchRate = 45,
+        .expYield = 264,
+        .evYield_Attack = 3,
+        .genderRatio = PERCENT_FEMALE(12.5),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_SUPREME_OVERLORD, ABILITY_SUPREME_OVERLORD, ABILITY_SUPREME_OVERLORD },
+        .bodyColor = BODY_COLOR_RED,
+        .noFlip = TRUE,
+        .speciesName = _("Emboar"),
+    #if P_MODIFIED_MEGA_CRIES
+        .cryId = CRY_EMBOAR_MEGA,
+    #else
+        .cryId = CRY_EMBOAR,
+    #endif // P_MODIFIED_MEGA_CRIES
+        .natDexNum = NATIONAL_DEX_EMBOAR,
+        .categoryName = _("Fire Pig"),
+        .height = 18,
+        .weight = 1803,
+        .description = COMPOUND_STRING(
+            "Brandishing a blazing flame\n"
+            "shaped like a serpentine spear,\n"
+            "it rushes in to save its\n"
+            "imperiled allies."),
+        .frontPic = gMonFrontPic_EmboarMega,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_EmboarMega,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 1,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_EmboarMega,
+        .shinyPalette = gMonShinyPalette_EmboarMega,
+        .iconSprite = gMonIcon_EmboarMega,
+        .iconPalIndex = 5,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(Emboar)
+        SHADOW(-2, 14, SHADOW_SIZE_L)
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sEmboarLevelUpLearnset,
+        .teachableLearnset = sEmboarTeachableLearnset,
+        .formChangeTable = sEmboarFormChangeTable,
+        .formSpeciesIdTable = sEmboarFormSpeciesIdTable,
+        .isLegendary = TRUE,
+    },
+
 #endif //P_FAMILY_TEPIG
 
 #if P_FAMILY_OSHAWOTT
@@ -539,7 +602,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_NONE, ABILITY_SWIFT_SWIM },
+        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_TORRENT, ABILITY_SWIFT_SWIM },
         //.innateAbility = ABILITY_TORRENT,
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Oshawott"),
@@ -593,7 +656,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sOshawottLevelUpLearnset,
         .teachableLearnset = sOshawottTeachableLearnset,
         .eggMoveLearnset = sOshawottEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 17, SPECIES_DEWOTT}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_DEWOTT}),
     },
 
     [SPECIES_DEWOTT] =
@@ -604,7 +667,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseSpeed     = 60,
         .baseSpAttack  = 83,
         .baseSpDefense = 60,
-        .types = MON_TYPES(TYPE_WATER),
+        .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 45,
         .expYield = 145,
         .evYield_SpAttack = 2,
@@ -613,7 +676,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_NONE, ABILITY_SWIFT_SWIM },
+        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_TORRENT, ABILITY_SWIFT_SWIM },
         //.innateAbility = ABILITY_TORRENT,
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Dewott"),
@@ -664,9 +727,76 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sDewottLevelUpLearnset,
         .teachableLearnset = sDewottTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SAMUROTT},
-                                {EVO_NONE, 0, SPECIES_SAMUROTT_HISUI}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SAMUROTT_HISUI}),
     },
+
+#if P_HISUIAN_FORMS
+    [SPECIES_SAMUROTT_HISUI] =
+    {
+        .baseHP        = 91,
+        .baseAttack    = 121,
+        .baseDefense   = 80,
+        .baseSpeed     = 97,
+        .baseSpAttack  = 92 - 5, //To Lazy to Calc what the stat point would be LMAO.
+        .baseSpDefense = 77,
+        .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
+        .catchRate = 45,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 264 : 238,
+        .evYield_Attack = 3,
+        .genderRatio = PERCENT_FEMALE(12.5),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_SWIFT_SWIM, ABILITY_SHARPNESS },
+        //.innateAbility = ABILITY_TORRENT,
+        .bodyColor = BODY_COLOR_BLUE,
+        .speciesName = _("Samurott"),
+        .cryId = CRY_SAMUROTT,
+        .natDexNum = NATIONAL_DEX_SAMUROTT,
+        .categoryName = _("Formidable"),
+        .height = 15,
+        .weight = 582,
+        .description = COMPOUND_STRING(
+            "Hard of heart and deft of blade,\n"
+            "this rare form of Samurott is a\n"
+            "product of the Pokémon's evolution in the\n"
+            "region of Hisui."),
+        .pokemonScale = 268,
+        .pokemonOffset = 2,
+        .trainerScale = 271,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_SamurottHisui,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_SamurottHisui,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 8,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_SamurottHisui,
+        .shinyPalette = gMonShinyPalette_SamurottHisui,
+        .iconSprite = gMonIcon_SamurottHisui,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        SHADOW(-2, 13, SHADOW_SIZE_L)
+        FOOTPRINT(Samurott)
+        OVERWORLD(
+            sPicTable_SamurottHisui,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SamurottHisui,
+            gShinyOverworldPalette_SamurottHisui
+        )
+        .isHisuianForm = TRUE,
+        .levelUpLearnset = sSamurottHisuiLevelUpLearnset,
+        .teachableLearnset = sSamurottHisuiTeachableLearnset,
+        .formSpeciesIdTable = sSamurottFormSpeciesIdTable,
+    },
+#endif //P_HISUIAN_FORMS
 
     [SPECIES_SAMUROTT] =
     {
@@ -735,74 +865,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sSamurottTeachableLearnset,
         .formSpeciesIdTable = sSamurottFormSpeciesIdTable,
     },
-
-#if P_HISUIAN_FORMS
-    [SPECIES_SAMUROTT_HISUI] =
-    {
-        .baseHP        = 90,
-        .baseAttack    = 128,
-        .baseDefense   = 80,
-        .baseSpeed     = 95,
-        .baseSpAttack  = 78,
-        .baseSpDefense = 65,
-        .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
-        .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 264 : 238,
-        .evYield_Attack = 3,
-        .genderRatio = PERCENT_FEMALE(12.5),
-        .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_NONE, ABILITY_SHARPNESS },
-        //.innateAbility = ABILITY_TORRENT,
-        .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Samurott"),
-        .cryId = CRY_SAMUROTT,
-        .natDexNum = NATIONAL_DEX_SAMUROTT,
-        .categoryName = _("Formidable"),
-        .height = 15,
-        .weight = 582,
-        .description = COMPOUND_STRING(
-            "Hard of heart and deft of blade,\n"
-            "this rare form of Samurott is a\n"
-            "product of the Pokémon's evolution in the\n"
-            "region of Hisui."),
-        .pokemonScale = 268,
-        .pokemonOffset = 2,
-        .trainerScale = 271,
-        .trainerOffset = 0,
-        .frontPic = gMonFrontPic_SamurottHisui,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_SamurottHisui,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 8,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_SamurottHisui,
-        .shinyPalette = gMonShinyPalette_SamurottHisui,
-        .iconSprite = gMonIcon_SamurottHisui,
-        .iconPalIndex = 0,
-        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        SHADOW(-2, 13, SHADOW_SIZE_L)
-        FOOTPRINT(Samurott)
-        OVERWORLD(
-            sPicTable_SamurottHisui,
-            SIZE_32x32,
-            SHADOW_SIZE_M,
-            TRACKS_FOOT,
-            sAnimTable_Following,
-            gOverworldPalette_SamurottHisui,
-            gShinyOverworldPalette_SamurottHisui
-        )
-        .isHisuianForm = TRUE,
-        .levelUpLearnset = sSamurottHisuiLevelUpLearnset,
-        .teachableLearnset = sSamurottHisuiTeachableLearnset,
-        .formSpeciesIdTable = sSamurottFormSpeciesIdTable,
-    },
-#endif //P_HISUIAN_FORMS
 #endif //P_FAMILY_OSHAWOTT
 
 #if P_FAMILY_PATRAT

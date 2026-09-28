@@ -600,63 +600,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .levelUpLearnset = sFroslassLevelUpLearnset,
         .teachableLearnset = sFroslassTeachableLearnset,
     },
-
-    [SPECIES_EMBOAR_MEGA] =
-    {
-        .baseHP        = 110,
-        .baseAttack    = 148,
-        .baseDefense   = 85,
-        .baseSpeed     = 75,
-        .baseSpAttack  = 100,
-        .baseSpDefense = 110,
-        .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
-        .catchRate = 45,
-        .expYield = 264,
-        .evYield_Attack = 3,
-        .genderRatio = PERCENT_FEMALE(12.5),
-        .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_SUPREME_OVERLORD, ABILITY_SUPREME_OVERLORD, ABILITY_SUPREME_OVERLORD },
-        .bodyColor = BODY_COLOR_RED,
-        .noFlip = TRUE,
-        .speciesName = _("Emboar"),
-    #if P_MODIFIED_MEGA_CRIES
-        .cryId = CRY_EMBOAR_MEGA,
-    #else
-        .cryId = CRY_EMBOAR,
-    #endif // P_MODIFIED_MEGA_CRIES
-        .natDexNum = NATIONAL_DEX_EMBOAR,
-        .categoryName = _("Fire Pig"),
-        .height = 18,
-        .weight = 1803,
-        .description = COMPOUND_STRING(
-            "Brandishing a blazing flame\n"
-            "shaped like a serpentine spear,\n"
-            "it rushes in to save its\n"
-            "imperiled allies."),
-        .frontPic = gMonFrontPic_EmboarMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_EmboarMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 1,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_EmboarMega,
-        .shinyPalette = gMonShinyPalette_EmboarMega,
-        .iconSprite = gMonIcon_EmboarMega,
-        .iconPalIndex = 5,
-        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        FOOTPRINT(Emboar)
-        SHADOW(-2, 14, SHADOW_SIZE_L)
-        .isMegaEvolution = TRUE,
-        .levelUpLearnset = sEmboarLevelUpLearnset,
-        .teachableLearnset = sEmboarTeachableLearnset,
-    },
-
+    
     [SPECIES_EXCADRILL_MEGA] =
     {
         .baseHP        = 110,

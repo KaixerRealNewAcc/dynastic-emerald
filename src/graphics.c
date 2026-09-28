@@ -1709,6 +1709,7 @@ const u16 gSummaryMoveSelect_Pal[] = INCBIN_U16("graphics/summary_screen/move_se
 
 const u32 gSummaryScreen_Gfx[]                = INCBIN_U32("graphics/summary_screen/iv_ev_tiles.4bpp.smol");
 const u32 gSummaryScreen_Pal[]                = INCBIN_U32("graphics/summary_screen/tiles.gbapal");
+const u32 gSummaryScreen_PurplePal[]          = INCBIN_U32("graphics/summary_screen/tiles_purple.gbapal");
 #if P_SUMMARY_SCREEN_EXPAND_ABILITY_DESCRIPTION
 const u32 gSummaryPage_Info_Tilemap[]         = INCBIN_U32("graphics/summary_screen/page_info_expanded.bin.smolTM");
 #else

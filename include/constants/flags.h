@@ -52,8 +52,8 @@
 #define FLAG_HIDE_WHITNEY    0x26
 #define FLAG_GYM_GUIDE_HIDE_DEWFORD    0x27
 #define FLAG_MONKE_RECIEVED  0x28
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
-#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
+#define FLAG_PURPLE_SC       0x29 // If set, the summary screen will use the purple palette.
+#define FLAG_GOLD_SC         0x2A // If set, the summary screen will use the gold palette.
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
 #define FLAG_UNUSED_0x02D    0x2D // Unused Flag

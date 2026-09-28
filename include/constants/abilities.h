@@ -388,6 +388,7 @@
 #define ABILITY_DRAGON_CANNON       (ABILITIES_COUNT_GEN9 + 48) //Innate for Regidraco.
 #define ABILITY_ELECTRO_BOOSTER     (ABILITIES_COUNT_GEN9 + 49) //Ability for Mega Raichu X.
 #define ABILITY_THUNDEROUS_CLOUD    (ABILITIES_COUNT_GEN9 + 50) //Ability for Mega Drampa.
+#define ABILITY_BLAZING_SOUL        (ABILITIES_COUNT_GEN9 + 51)
 
 #define NO_INNATE_YET               (ABILITIES_COUNT_GEN9 + 79) //Put in here but its actually not an ability.
 

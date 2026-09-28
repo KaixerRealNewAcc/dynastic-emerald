@@ -26,6 +26,7 @@ struct PlayerInfo
     u32 trainerId;
     u8 name[PLAYER_NAME_LENGTH + 1];
     u8 gender;
+    u8 gender;
     u16 battler;
     u16 language;
 };

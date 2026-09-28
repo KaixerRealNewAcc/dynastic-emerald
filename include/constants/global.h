@@ -190,6 +190,16 @@
 #define NUZLOCKE_SEEN    1
 #define NUZLOCKE_DUPES   2
 
+//Character Defines.
+#define RED 0
+#define LEAF 1
+#define GOLD 2
+#define KRIS 3
+#define BRENDAN 4
+#define MAY 5
+#define ETHAN 6
+#define CHARACTER_COUNT 7
+
 
 #if TESTING
 #include "config/test.h"

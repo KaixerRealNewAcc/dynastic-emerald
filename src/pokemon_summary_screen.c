@@ -1723,6 +1723,8 @@ static void InitBGs(void)
     ShowBg(3);
 }
 
+static const u32 gSummaryScreen_YellowPal[] = INCBIN_U32("graphics/summary_screen/tiles_yellow.gbapal");
+
 static bool8 DecompressGraphics(void)
 {
     switch (sMonSummaryScreen->switchCounter)
@@ -1756,7 +1758,12 @@ static bool8 DecompressGraphics(void)
         sMonSummaryScreen->switchCounter++;
         break;
     case 6:
-        LoadPalette(gSummaryScreen_Pal, BG_PLTT_ID(0), 8 * PLTT_SIZE_4BPP);
+        if (FlagGet(P_SUMMARY_SCREEN_USE_PURPLE_PALETTE))
+            LoadPalette(gSummaryScreen_YellowPal, BG_PLTT_ID(0), 8 * PLTT_SIZE_4BPP);
+        else if (FlagGet(P_SUMMARY_SCREEN_USE_GOLD_PALETTE))
+            LoadPalette(gSummaryScreen_YellowPal, BG_PLTT_ID(0), 8 * PLTT_SIZE_4BPP);
+        else
+            LoadPalette(gSummaryScreen_Pal, BG_PLTT_ID(0), 8 * PLTT_SIZE_4BPP);
         LoadPalette(&gPPTextPalette, BG_PLTT_ID(8) + 1, PLTT_SIZEOF(16 - 1));
         sMonSummaryScreen->switchCounter++;
         break;

@@ -621,27 +621,61 @@ static u8 Follower_ProcessInput(u8 selection)
  
  static u8 Autorun_ProcessInput(u8 selection)
  {
-     if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
-     {
-         selection ^= 1;
-         sArrowPressed = TRUE;
-     }
- 
-     return selection;
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection <= 2)
+            selection++;
+        else
+            selection = 0;
+
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection != 0)
+            selection--;
+        else
+            selection = 3;
+
+        sArrowPressed = TRUE;
+    }
+    return selection;
  }
 
-static const u8 gText_AutorunOff[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
-static const u8 gText_AutorunOn[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
+static const u8 gText_BaseScreen[] = _("Base");
+static const u8 gText_PurpleScreen[] = _("Purple");
+static const u8 gText_GoldScreen[] = _("Gold");
  
- static void Autorun_DrawChoices(u8 selection)
- {
-     u8 styles[2];
+static void Autorun_DrawChoices(u8 selection)
+{
+     u8 styles[3];
+     s32 widthBase, widthPurple, widthGold, xMid, gap;
+
      styles[0] = 0;
      styles[1] = 0;
+     styles[2] = 0;
      styles[selection] = 1;
-     DrawOptionMenuChoice(gText_AutorunOff, 104, YPOS_AUTORUN, styles[0]);
-     DrawOptionMenuChoice(gText_AutorunOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_AutorunOn, 198), YPOS_AUTORUN, styles[1]);
- }
+
+    DrawOptionMenuChoice(gText_BaseScreen, 104, YPOS_AUTORUN, styles[0]);
+
+    widthBase = GetStringWidth(FONT_NORMAL, gText_BaseScreen, 0);
+    widthPurple = GetStringWidth(FONT_NORMAL, gText_PurpleScreen, 0);
+    widthGold = GetStringWidth(FONT_NORMAL, gText_GoldScreen, 0);
+
+    gap = ((198 - 104 - widthBase - widthPurple - widthGold) / 2) + 1;
+    xMid = 104 + widthBase + gap;
+    DrawOptionMenuChoice(gText_PurpleScreen, xMid, YPOS_AUTORUN, styles[1]);
+    DrawOptionMenuChoice(gText_GoldScreen, 198 - widthGold, YPOS_AUTORUN, styles[2]);
+
+    if (selection == 1)
+         FlagSet(FLAG_PURPLE_SC);
+    else if(selection == 2)
+         FlagSet(FLAG_GOLD_SC);
+    else {
+         FlagClear(FLAG_PURPLE_SC);
+         FlagClear(FLAG_GOLD_SC);
+    }
+}
 
 static u8 TextSpeed_ProcessInput(u8 selection)
 {

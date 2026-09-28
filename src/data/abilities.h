@@ -2731,6 +2731,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
             .breakable = TRUE,
         },
 
+        [ABILITY_BLAZING_SOUL] =
+        {
+            .name = _("Blazing Soul"),
+            .description = COMPOUND_STRING("Fire-Type moves get +1 Priority at Full Health."),
+            .aiRating = 6,
+        },
+
         [NO_INNATE_YET] = 
         {
             .name = _("No Innate Yet"),
